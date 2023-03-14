@@ -9,16 +9,24 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites - Required software
 * NodeJs (18.14.0 or higher)
 
-### Installing
+### Installation
 
-Clone this repository to your local machine using:
+- Clone this repository to your local machine using:
 
-```shell
-git clone https://github.com/Team-Alexander/frontend.git
+```bash
+  git clone https://github.com/Team-Alexander/frontend.git
 ```
-Install all dependencies, listed in `package.json` by:
-```shell
-npm init
+
+- Go to the project directory:
+
+```bash
+  cd frontend
+```
+
+- Install all dependencies, listed in `package.json` by:
+
+```bash
+  npm install
 ```
 
 In the project directory, you can run:
