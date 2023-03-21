@@ -65,6 +65,43 @@
     line-height: 24px;
 }
 
+.name-button button:hover {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FFFFFF;
+    right: 10%;
+    top:49px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 196px;
+    height: 42px;
+    color: var(--primary);
+    border: 1px solid #9CDAED;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.menu-item p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    padding-left: 15px;
+}
+
 .guestButtons {
     position: absolute;
     right: 5%;
@@ -96,6 +133,3 @@
     color: #fff;
     outline: 1px solid #000;
 }
-
-
-
