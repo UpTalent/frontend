@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Chathura&display=swap');
+
+.header {
+    background-color: #fff;
+    height: 60px;
+    border-bottom: 1px solid var(--primary);
+    position: relative;
+    display:flex;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.logo{
+    font-family: 'Chathura';
+    font-style: normal;
+    color: var(--dark);
+    width: 228px;
+    margin-left: 18px;
+    font-size: 70px;
+    text-align: center;
+    font-weight: 400;
+    line-height: 60px;
+    text-decoration: none;
+    display:block;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 15%;
+}
+
+.navbar a {
+    display: block;
+    text-decoration: none;
+    color: #000000;
+    font-family: 'Chathura';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    padding: 0 20px;
+}
+
+.name-button {
+    position: absolute;
+    right: 10%;
+    top: 8px;
+}
+
+.name-button a {
+    text-decoration: none;
+}
+
+.name-button button {
+    background-color: var(--primary);
+    color: #fff;
+    border-bottom: 1px solid var(--primary);
+    border-radius: 10px;
+    width: 199px;
+    height: 41px;
+    font-style: normal;
+    font-weight: 300px;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.guestButtons {
+    position: absolute;
+    right: 5%;
+    top: 8px;
+    width: 255px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.guestButtons button {
+    text-transform: none;
+    width: 45%;
+    font-style: normal;
+    font-weight: 300px;
+    font-size: 20px;
+    line-height: 24px;
+    border-radius: 10px;
+}
+
+.guestButtons .login {
+    background-color: #000000;
+    color: #fff;
+}
+
+.guestButtons .login:hover {
+    border: none;
+    background-color: #000000;
+    color: #fff;
+    outline: 1px solid #000;
+}
+
+
+
