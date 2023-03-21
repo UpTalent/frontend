@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material'
 import App from './App'
 
@@ -22,16 +22,11 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontFamily: "'Rubik', sans-serif",
-          fontWeight:"300",
+          fontWeight: "300",
           borderRadius: "100px",
-          '&:hover': {
-            backgroundColor: "#fff",
-            outline: "1px solid #48BDE2" , 
-            color: "#48BDE2",
-            boxShadow: "none"
-          }
+          fontSize: "10px"
         },
-        
+
       }
     }
   }
@@ -41,7 +36,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
-       <App />
+      <App />
     </ThemeProvider>
   </BrowserRouter>
 )
