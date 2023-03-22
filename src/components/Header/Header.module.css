@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Chathura&display=swap");
+
+.header {
+  height: 60px;
+  border-bottom: 1px solid var(--primary);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+  padding: 0 18px;
+}
+
+.header a {
+  text-decoration: none;
+}
+.logo {
+  font-family: "Chathura";
+  color: var(--dark);
+  width: 228px;
+  font-size: 70px;
+  text-align: center;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar a {
+  display: block;
+  color: #000000;
+  font-family: "Chathura";
+  font-weight: 400;
+  font-size: 40px;
+  padding: 0 20px;
+}
+
+.nameButton button {
+  background-color: var(--primary);
+  color: #fff;
+  border-bottom: 1px solid var(--primary);
+  border-radius: 10px;
+  width: 199px;
+  height: 41px;
+  font-style: normal;
+  font-weight: 300px;
+  font-size: 20px;
+}
+
+.nameButton button:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.buttonGroup {
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 196px;
+  height: 42px;
+  color: var(--primary);
+  border: 1px solid #9cdaed;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.menuItem p {
+  font-weight: 400;
+  font-size: 14px;
+  padding-left: 15px;
+}
+
+.guestButtons {
+  width: 255px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.guestButtons button {
+  text-transform: none;
+  width: 45%;
+  font-weight: 300px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.guestButtons .login {
+  background-color: #000000;
+  color: #fff;
+}
+
+.guestButtons .login:hover {
+  border: none;
+  background-color: #000000;
+  color: #fff;
+  outline: 1px solid #000;
+}
