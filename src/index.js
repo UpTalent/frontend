@@ -23,13 +23,7 @@ const theme = createTheme({
 				root: {
 					fontFamily: "'Rubik', sans-serif",
 					fontWeight: '300',
-					borderRadius: '100px',
-					'&:hover': {
-						backgroundColor: '#fff',
-						outline: '1px solid #48BDE2',
-						color: '#48BDE2',
-						boxShadow: 'none',
-					},
+					borderRadius: '100px'
 				},
 			},
 		},
