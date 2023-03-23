@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Banner } from '../../components/shared/Banner';
 import { TalentAvatar } from '../../components/shared/TalentAvatar';
 import { ProfileInfo } from './components/ProfileInfo';

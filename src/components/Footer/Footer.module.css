@@ -1,11 +1,11 @@
 .footer{
     font-family: 'Rubik', sans-serif;
     color: #fff;
-   background: #292A2D;
-   display: flex;
-   flex-direction: column;
-   height: 260px;
-   width: 100%;
+    background: #292A2D;
+    display: flex;
+    flex-direction: column;
+    height: 260px;
+    width: 100%;
 }
 
 .footer__header{
@@ -17,9 +17,8 @@
 .bigflex{
     padding: 0 100px;
     gap:30px;
-  display: flex;
-  justify-content: space-between; 
-  
+    display: flex;
+    justify-content: space-between; 
 }
 
 .smallflex
@@ -39,6 +38,6 @@
 .smallflex__item:hover {
     text-decoration: underline !important;
     cursor: pointer;
-  }
+}
   
  
