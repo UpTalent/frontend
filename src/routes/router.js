@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import Home from './Home/Home';
-import { NotFound } from './NotFound';
+import { NotFound } from './NotFound/NotFound';
+
 
 
 export const router = createBrowserRouter([
@@ -19,7 +20,7 @@ export const router = createBrowserRouter([
 				element: <div>Talents grid</div>
 			},
 			{
-				path: "talent/:talentId",
+				path: 'talent/:talentId',
 				element: <div>Talent's page</div>
 			}
 		]
