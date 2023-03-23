@@ -67,6 +67,8 @@
   flex-direction: column;
   align-items: center;
   background: #ffffff;
+  border-radius: 10px;
+  z-index: 1000;
 }
 
 .menuItem {
@@ -77,8 +79,8 @@
   height: 42px;
   color: var(--primary);
   border: 1px solid #9cdaed;
-  border-radius: 10px;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .menuItem p {

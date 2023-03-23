@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import styles from './Header.module.css';
 
 export const Header = () => {
-	const [isUserAccount] = useState(false);
+	const [isUserAccount] = useState(true);
 	const [menuVisibility, setVisibility] = useState(false);
 	return (
 		<header className={styles.header}>
@@ -18,12 +18,17 @@ export const Header = () => {
 			{isUserAccount ? (
 				<div className={styles.buttonGroup}>
 					<div className={styles.nameButton}>
-						<Button component={Link} onClick={() => setVisibility(prev => !prev)}>Name</Button>
+						<Button
+							component={Link}
+							onClick={() => setVisibility(prev => !prev)}
+						>
+							Name
+						</Button>
 					</div>
 					{menuVisibility && (
 						<div className={styles.menu}>
 							<div className={styles.menuItem}>
-								<p>Talent's profile</p>{' '}
+								<p>Talent's profile</p>
 							</div>
 							<div className={styles.menuItem}>
 								<p>Log out</p>
