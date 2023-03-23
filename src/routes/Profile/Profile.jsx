@@ -27,6 +27,32 @@ const testUser = {
 export const Profile = () => {
 	const [talent] = useState(testUser);
 	const [isTalent] = useState(true);
+	const infoAboutUser = [
+		{
+			icon: <LocationOnOutlinedIcon />,
+			header: 'Location',
+			info: talent.location,
+			unvisiableForGuest: true,
+		},
+		{
+			icon: <CakeOutlinedIcon />,
+			header: 'Birthday',
+			info: talent.birthday,
+			unvisiableForGuest: isTalent,
+		},
+		{
+			icon: <AutoAwesomeIcon />,
+			header: 'Skills',
+			info: talent.skills.join(', '),
+			unvisiableForGuest: true,
+		},
+		{
+			icon: <AlternateEmailOutlinedIcon />,
+			header: 'Email',
+			info: talent.email,
+			unvisiableForGuest: isTalent,
+		},
+	];
 	return (
 		<div className={styles.profile}>
 			<Banner banner={talent.banner} additionalStyle={styles.profileBanner} />
@@ -40,29 +66,15 @@ export const Profile = () => {
 				>{`${talent.firstname} ${talent.lastname}`}</p>
 			</div>
 			<div className={styles.info}>
-				<ProfileInfo
-					element={<LocationOnOutlinedIcon />}
-					header={'Location'}
-					info={talent.location}
-				/>
-				{isTalent && (
-					<ProfileInfo
-						element={<CakeOutlinedIcon />}
-						header={'Birthday'}
-						info={talent.birthday}
-					/>
-				)}
-				<ProfileInfo
-					element={<AutoAwesomeIcon />}
-					header={'Skills'}
-					info={talent.skills.join(', ')}
-				/>
-				{isTalent && (
-					<ProfileInfo
-						element={<AlternateEmailOutlinedIcon />}
-						header={'Email'}
-						info={talent.email}
-					/>
+				{infoAboutUser.map(
+					el =>
+						el.unvisiableForGuest && (
+							<ProfileInfo
+								element={el.icon}
+								header={el.header}
+								info={el.info}
+							/>
+						),
 				)}
 			</div>
 			<div className={styles.about}>
