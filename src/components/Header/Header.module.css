@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Chathura&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap');
 .header {
   height: 60px;
@@ -7,12 +6,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 18px;
+  padding: 5px 18px;
 }
-
+/* 
 .header a {
   text-decoration: none;
-}
+} */
 .logo {
   font-family: "Sarabun";
   color: var(--dark);
@@ -22,6 +21,7 @@
   text-align: center;
   font-weight: 200;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .navbar {
@@ -106,8 +106,6 @@
 }
 
 .guestButtons .login:hover {
-  border: none;
   background-color: #000000;
   color: #fff;
-  outline: 1px solid #000;
 }

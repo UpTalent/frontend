@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { Skill } from '../../../../components/shared/Skill';
 import { TalentAvatar } from '../../../../components/shared/TalentAvatar/TalentAvatar';
 import { Banner } from '../../../../components/shared/Banner/Banner';
+import { Link } from 'react-router-dom';
 
 export const GeneralTalent = ({ talent, isTalent }) => {
 	const skills = talent.skills
@@ -18,6 +19,8 @@ export const GeneralTalent = ({ talent, isTalent }) => {
 				<div className={styles.skillBox}>{skills}</div>
 				{isTalent && (
 					<Button
+						component={Link}
+						to={`/talent/${talent.id}`}
 						color="dark"
 						variant="contained"
 						sx={{

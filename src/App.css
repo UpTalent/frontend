@@ -9,6 +9,10 @@
     --dark: #292A2D;
 }
 
+a{
+    text-decoration: none;
+}
+
 .appContainer{
     flex: 1;
 }
