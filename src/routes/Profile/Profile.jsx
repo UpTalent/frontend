@@ -70,7 +70,7 @@ export const Profile = () => {
 				<p>About me</p>
 				<b>{talent['about me']}</b>
 			</div>
-			<CreateOutlinedIcon className={styles.pencil} />
+			{isTalent && <CreateOutlinedIcon className={styles.pencil} />}
 		</div>
 	);
 };

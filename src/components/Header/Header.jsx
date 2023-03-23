@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import styles from './Header.module.css';
 
 export const Header = () => {
-	const [isUserAccount] = useState(true);
+	const [isUserAccount] = useState(false);
 	const [menuVisibility, setVisibility] = useState(false);
 	return (
 		<header className={styles.header}>
