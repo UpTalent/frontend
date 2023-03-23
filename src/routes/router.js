@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import Home from './Home/Home';
 import { NotFound } from './NotFound';
+import { Profile } from './Profile';
 
 export const router = createBrowserRouter([
 	{
@@ -19,7 +20,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'talent/:talentId',
-				element: <div>Talent's page</div>,
+				element: <Profile/>,
 			},
 		],
 	},

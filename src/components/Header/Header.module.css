@@ -6,7 +6,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 18px;
+  padding: 5px 0px;
+  width: 100%;
 }
 /* 
 .header a {
@@ -38,7 +39,7 @@
   padding: 0 20px;
 }
 
-.nameButton button {
+.nameButton a {
   background-color: var(--primary);
   color: #fff;
   border-bottom: 1px solid var(--primary);
@@ -50,13 +51,14 @@
   font-size: 20px;
 }
 
-.nameButton button:hover {
+.nameButton a:hover {
   background-color: var(--primary);
   color: #fff;
 }
 
 .buttonGroup {
   position: relative;
+  margin-right: 18px;
 }
 
 .menu {
@@ -90,6 +92,7 @@
   height: 40px;
   display: flex;
   justify-content: space-between;
+  margin-right: 18px;
 }
 
 .guestButtons button {
