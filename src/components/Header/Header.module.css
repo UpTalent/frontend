@@ -1,19 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Chathura&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap');
+
 .header {
   height: 60px;
   border-bottom: 1px solid var(--primary);
   position: relative;
   display: flex;
   justify-content: space-between;
-  /* margin-bottom: 20px; */
   align-items: center;
-  padding: 0 18px;
+  padding: 5px 0px;
+  width: 100%;
 }
 
-.header a {
-  text-decoration: none;
-}
 .logo {
   font-family: "Sarabun";
   color: var(--dark);
@@ -23,6 +20,7 @@
   text-align: center;
   font-weight: 200;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .navbar {
@@ -39,7 +37,7 @@
   padding: 0 20px;
 }
 
-.nameButton button {
+.nameButton a {
   background-color: var(--primary);
   color: #fff;
   border-bottom: 1px solid var(--primary);
@@ -51,13 +49,14 @@
   font-size: 20px;
 }
 
-.nameButton button:hover {
+.nameButton a:hover {
   background-color: var(--primary);
   color: #fff;
 }
 
 .buttonGroup {
   position: relative;
+  margin-right: 18px;
 }
 
 .menu {
@@ -66,6 +65,8 @@
   flex-direction: column;
   align-items: center;
   background: #ffffff;
+  border-radius: 10px;
+  z-index: 1000;
 }
 
 .menuItem {
@@ -76,8 +77,8 @@
   height: 42px;
   color: var(--primary);
   border: 1px solid #9cdaed;
-  border-radius: 10px;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .menuItem p {
@@ -91,6 +92,7 @@
   height: 40px;
   display: flex;
   justify-content: space-between;
+  margin-right: 18px;
 }
 
 .guestButtons button {
@@ -107,8 +109,6 @@
 }
 
 .guestButtons .login:hover {
-  border: none;
   background-color: #000000;
   color: #fff;
-  outline: 1px solid #000;
 }

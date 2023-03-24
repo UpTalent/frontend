@@ -4,6 +4,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Link } from 'react-router-dom';
+
 export const Footer = () => {
 	return (
 		<footer className={styles.footer}>

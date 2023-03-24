@@ -18,14 +18,17 @@ export const Header = () => {
 			{isUserAccount ? (
 				<div className={styles.buttonGroup}>
 					<div className={styles.nameButton}>
-						<Link>
-							<Button onClick={() => setVisibility(prev => !prev)}>Name</Button>
-						</Link>
+						<Button
+							component={Link}
+							onClick={() => setVisibility(prev => !prev)}
+						>
+							Name
+						</Button>
 					</div>
 					{menuVisibility && (
 						<div className={styles.menu}>
 							<div className={styles.menuItem}>
-								<p>Talent's profile</p>{' '}
+								<p>Talent's profile</p>
 							</div>
 							<div className={styles.menuItem}>
 								<p>Log out</p>

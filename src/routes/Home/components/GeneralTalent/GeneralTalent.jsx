@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './GeneralTalent.module.css';
 import Button from '@mui/material/Button';
 import { Skill } from '../../../../components/shared/Skill';
-import { TalentAvatar } from '../../../../components/shared/TalentAvatar/TalentAvatar';
-import { Banner } from '../../../../components/shared/Banner/Banner';
+import { TalentAvatar } from '../../../../components/shared/TalentAvatar';
+import { Banner } from '../../../../components/shared/Banner';
 import { Link } from 'react-router-dom';
 
 export const GeneralTalent = ({ talent, isTalent }) => {
