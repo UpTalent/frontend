@@ -24,16 +24,16 @@ export const TalentPageContainer = () => {
 
 	return (
 		<>
-			{/* {isLoading ? ( */}
+			{isLoading ? (
 				<div className='loaderContainer'>
 					<CircularProgress />
 				</div>
-			{/* ) : (
+			) : (
 				<TalentsPage
 					{...talentList}
 					requestTalent={getTalents}
 				/>
-			)} */}
+			)}
       
 		</>
 	);
