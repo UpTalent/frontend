@@ -5,6 +5,7 @@ import { talentsAPI } from '../../api/talentsAPI';
 import { TalentsPage } from './TalentsPage';
 
 export const TalentPageContainer = () => {
+
 	const [talentsList, setTalents] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -32,6 +33,7 @@ export const TalentPageContainer = () => {
 					requestTalent={getTalents}
 				/>
 			)}
+      
 		</>
 	);
 };
