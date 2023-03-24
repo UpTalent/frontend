@@ -101,14 +101,18 @@ export const TalentPageContainer = () => {
 		page_size: 9,
 		total_pages: 3,
 	};
-    const [talentsList, setTalents] = useState(testResponse);
-    const requestTalent = async (page) => {
-        const talents = await talentsAPI.getTalents(page);
-        setTalents(talents.data);
-    }
+	const [talentsList, setTalents] = useState(testResponse);
+	const requestTalent = async page => {
+		const { data } = await talentsAPI.getTalents(page);
+		setTalents(data);
+	};
 	return (
 		<>
-			<TalentsPage {...talentsList} isTalent={true} requestTalent={requestTalent} />
+			<TalentsPage
+				{...talentsList}
+				isTalent={true}
+				requestTalent={requestTalent}
+			/>
 		</>
 	);
 };
