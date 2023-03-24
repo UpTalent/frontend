@@ -25,6 +25,7 @@ export const GeneralTalent = ({ talent }) => {
 					<Button
 						component={Link}
 						to={`/talent/${talent.id}`}
+						onClick={() => setIsTalentProfile(false)}
 						color='dark'
 						variant='contained'
 						sx={{
