@@ -8,11 +8,11 @@ export const Header = () => {
 	const [menuVisibility, setVisibility] = useState(false);
 	return (
 		<header className={styles.header}>
-			<Link to="" className={styles.logo}>
+			<Link to='' className={styles.logo}>
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<Link to>Talents</Link>
+				<Link to='talents'>Talents</Link>
 			</div>
 
 			{isUserAccount ? (
