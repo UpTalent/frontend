@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { Context } from '../../../../context';
 
 export const GeneralTalent = ({ talent }) => {
-	const {isTalent} = useContext(Context);
+	const { isTalent } = useContext(Context);
 
 	const skills = talent.skills
 		.slice(0, 3)
@@ -25,7 +25,6 @@ export const GeneralTalent = ({ talent }) => {
 					<Button
 						component={Link}
 						to={`/talent/${talent.id}`}
-						onClick={() => setIsTalentProfile(false)}
 						color='dark'
 						variant='contained'
 						sx={{

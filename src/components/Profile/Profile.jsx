@@ -9,9 +9,13 @@ import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlin
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Context } from '../../context';
+import { useParams } from 'react-router-dom';
 
 export const Profile = () => {
-	const { talent, isTalentProfile } = useContext(Context);
+	const { talent, isTalentProfile, setIsTalentProfile } = useContext(Context);
+	const { talentId } = useParams();
+
+	setIsTalentProfile(Number(talentId) === talent.id);
 
 	const infoAboutUser = [
 		{
@@ -53,9 +57,10 @@ export const Profile = () => {
 			</div>
 			<div className={styles.info}>
 				{infoAboutUser.map(
-					el =>
+					(el, i) =>
 						el.visiableForGuest && (
 							<ProfileInfo
+								key={i}
 								element={el.icon}
 								header={el.header}
 								info={el.info}
