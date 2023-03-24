@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './GeneralTalent.module.css';
 import Button from '@mui/material/Button';
 import { Skill } from '../../../shared/Skill';
 import { TalentAvatar } from '../../../shared/TalentAvatar';
 import { Banner } from '../../../shared/Banner';
 import { Link } from 'react-router-dom';
+import { Context } from '../../../../context';
 
-export const GeneralTalent = ({ talent, isTalent }) => {
+export const GeneralTalent = ({ talent }) => {
+	const {isTalent} = useContext(Context);
+
 	const skills = talent.skills
 		.slice(0, 3)
 		.map((skill, index) => <Skill key={index} skill={skill} />);
-		
+
 	return (
 		<div className={styles.GeneralTalent}>
 			<Banner banner={talent.banner} />

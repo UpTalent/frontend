@@ -1,18 +1,20 @@
 import { CircularProgress } from '@mui/material';
 import React, { useEffect } from 'react';
+import { useContext } from 'react';
 import { useState } from 'react';
 import { talentsAPI } from '../../api/talentsAPI';
+import { Context } from '../../context';
 import { TalentsPage } from './TalentsPage';
 
 export const TalentPageContainer = () => {
 
-	const [talentsList, setTalents] = useState([]);
+	const {talentList, setTalentList} = useContext(Context);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const getTalents = async page => {
 		setIsLoading(true);
 		const { data } = await talentsAPI.getTalents(page);
-		setTalents(data);
+		setTalentList(data);
 		setIsLoading(false);
 	};
 
@@ -28,8 +30,7 @@ export const TalentPageContainer = () => {
 				</div>
 			) : (
 				<TalentsPage
-					{...talentsList}
-					isTalent={true}
+					{...talentList}
 					requestTalent={getTalents}
 				/>
 			)}

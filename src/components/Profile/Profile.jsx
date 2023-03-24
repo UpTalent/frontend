@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Banner } from '../shared/Banner';
 import { TalentAvatar } from '../shared/TalentAvatar';
 import { ProfileInfo } from './components/ProfileInfo';
@@ -8,49 +8,35 @@ import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-
-const testUser = {
-	id: 1,
-	banner: null,
-	photo: null,
-	firstname: 'Alice',
-	lastname: 'Smith',
-	email: 'alice.smith@gmail.com',
-	skills: ['Java', 'JS', 'Time management'],
-	birthday: '1997-10-31',
-	location: 'Ukraine, Kharkiv',
-	aboutMe:
-		'Highly-motivated Java Developer, with one year of experience practicing and learning Java, and connected technologies seeking a full-time position where I can apply my skills. I have an economic academic education and business processing background and some experience with it. All my experience will be useful in teamwork in software development. I often worked in a team, as a friendly, inquisitive but result-target person. That last thing helps me to deep learn English up to the Intermediate level, Java Core, Java 8, MySQL, JDBC, Hibernate, and Spring and take real pleasure from it, and I am inquisitive I can feel it in my future job.',
-	password: 'somePassword12343',
-};
+import { Context } from '../../context';
 
 export const Profile = () => {
-	const [talent] = useState(testUser);
-	const [isTalent] = useState(true);
+	const { talent, isTalentProfile } = useContext(Context);
+
 	const infoAboutUser = [
 		{
 			icon: <LocationOnOutlinedIcon />,
 			header: 'Location',
 			info: talent.location,
-			unvisiableForGuest: true,
+			visiableForGuest: true,
 		},
 		{
 			icon: <CakeOutlinedIcon />,
 			header: 'Birthday',
 			info: talent.birthday,
-			unvisiableForGuest: isTalent,
+			visiableForGuest: isTalentProfile,
 		},
 		{
 			icon: <AutoAwesomeIcon />,
 			header: 'Skills',
 			info: talent.skills.join(', '),
-			unvisiableForGuest: true,
+			visiableForGuest: true,
 		},
 		{
 			icon: <AlternateEmailOutlinedIcon />,
 			header: 'Email',
 			info: talent.email,
-			unvisiableForGuest: isTalent,
+			visiableForGuest: isTalentProfile,
 		},
 	];
 	return (
@@ -63,12 +49,12 @@ export const Profile = () => {
 				/>
 				<p
 					className={styles.profileName}
-				>{`${talent.firstname} ${talent.lastname}`}</p>
+				>{`${talent.firstName} ${talent.lastname}`}</p>
 			</div>
 			<div className={styles.info}>
 				{infoAboutUser.map(
 					el =>
-						el.unvisiableForGuest && (
+						el.visiableForGuest && (
 							<ProfileInfo
 								element={el.icon}
 								header={el.header}
@@ -81,7 +67,7 @@ export const Profile = () => {
 				<p>About me</p>
 				<b>{talent.aboutMe}</b>
 			</div>
-			{isTalent && <CreateOutlinedIcon className={styles.pencil} />}
+			{isTalentProfile && <CreateOutlinedIcon className={styles.pencil} />}
 		</div>
 	);
 };
