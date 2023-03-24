@@ -1,21 +1,20 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import "./App.css"
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import './App.css';
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
 
-import Home from './routes/Home/Home'
-
-import AppLayout from './components/AppLayout/AppLayout'
-import { NotFound } from './routes/NotFound'
 
 const App = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<AppLayout />}>
-        <Route index element={<Home />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
-  )
-}
+	return (
+		<>
+			<Header />
+			<div className='appContainer'>
+				<Outlet />
+			</div>
+			<Footer />
+		</>
+	);
+};
 
-export default App
+export default App;
