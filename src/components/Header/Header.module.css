@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Chathura&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap');
 .header {
   height: 60px;
   border-bottom: 1px solid var(--primary);
   position: relative;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   align-items: center;
   padding: 0 18px;
 }
@@ -15,12 +15,13 @@
   text-decoration: none;
 }
 .logo {
-  font-family: "Chathura";
+  font-family: "Sarabun";
   color: var(--dark);
   width: 228px;
-  font-size: 70px;
+  font-size: 40px;
+  line-height: 80%;
   text-align: center;
-  font-weight: 400;
+  font-weight: 200;
   text-decoration: none;
 }
 
@@ -32,9 +33,9 @@
 .navbar a {
   display: block;
   color: #000000;
-  font-family: "Chathura";
-  font-weight: 400;
-  font-size: 40px;
+  font-family: "Sarabun";
+  font-weight: 200;
+  font-size: 25px;
   padding: 0 20px;
 }
 
