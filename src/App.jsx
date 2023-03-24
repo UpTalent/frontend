@@ -3,8 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 import "./App.css"
 
 import Home from './routes/Home/Home'
-import NotFound from './routes/NotFound'
+
 import AppLayout from './components/AppLayout/AppLayout'
+import { NotFound } from './routes/NotFound'
 
 const App = () => {
   return (
