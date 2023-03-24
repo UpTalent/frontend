@@ -1,5 +1,6 @@
 import React from 'react';
-import { talensAPI } from '../../api/talentsAPI';
+import { useState } from 'react';
+import { talentsAPI } from '../../api/talentsAPI';
 import { TalentsPage } from './TalentsPage';
 
 export const TalentPageContainer = () => {
@@ -100,10 +101,14 @@ export const TalentPageContainer = () => {
 		page_size: 9,
 		total_pages: 3,
 	};
-	// const talents =  talensAPI.getTalents();
+    const [talentsList, setTalents] = useState(testResponse);
+    const requestTalent = async (page) => {
+        const talents = await talentsAPI.getTalents(page);
+        setTalents(talents.data);
+    }
 	return (
 		<>
-			<TalentsPage {...testResponse} isTalent={true} />
+			<TalentsPage {...talentsList} isTalent={true} requestTalent={requestTalent} />
 		</>
 	);
 };

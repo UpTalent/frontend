@@ -1,6 +1,6 @@
 import axios from './index';
 
-export const talensAPI = {
+export const talentsAPI = {
 	async getTalents(currentPage = 0, pageSize = 9) {
 		try {
 			return await axios.get(`talents?page=${currentPage}&size=${pageSize}`);

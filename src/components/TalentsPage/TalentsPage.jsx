@@ -2,18 +2,18 @@ import { Grid, Pagination } from '@mui/material';
 import React, { useState } from 'react';
 import styles from './TalentsPage.module.css';
 import { GeneralTalent } from './components/GeneralTalent';
-import { talensAPI } from '../../api/talentsAPI';
 
 export const TalentsPage = ({
 	content,
 	page_number,
 	total_pages,
 	isTalent,
+    requestTalent
 }) => {
 	const [currentPage, setPage] = useState(page_number + 1);
 	const changePage = (e, page) => {
 		setPage(page);
-		talensAPI.getTalents(page - 1);
+		requestTalent(page - 1);
 	};
 
 	let talentsList = content.map(talent => (
