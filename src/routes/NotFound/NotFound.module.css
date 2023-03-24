@@ -1,0 +1,27 @@
+.container {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.infoBlock {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 20px;
+	font-weight: 300;
+}
+
+.infoBlock h1 {
+	font-size: 120px;
+	font-weight: 300;
+}
+
+.image {
+	position: absolute;
+    left: 0;
+}
+
