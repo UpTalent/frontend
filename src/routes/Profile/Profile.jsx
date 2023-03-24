@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Banner } from '../shared/Banner';
-import { TalentAvatar } from '../shared/TalentAvatar';
+import { Banner } from '../../components/shared/Banner';
+import { TalentAvatar } from '../../components/shared/TalentAvatar';
 import { ProfileInfo } from './components/ProfileInfo';
 import styles from './Profile.module.css';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';

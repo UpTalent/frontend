@@ -23,7 +23,8 @@ const theme = createTheme({
 				root: {
 					fontFamily: "'Rubik', sans-serif",
 					fontWeight: '300',
-					borderRadius: '100px'
+					borderRadius: '100px',
+					fontSize: '10px'
 				},
 			},
 		},

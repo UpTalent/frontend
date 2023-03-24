@@ -1,17 +1,13 @@
 .Skill {
 	border-radius: 100px;
 	width: min-content;
-	padding: 5px 15px;
-	display: flex;
-	align-items: center;
-	white-space: nowrap;
-	height: 15px;
+	padding: 5px 10px;
 }
 
 .Skill p {
 	text-align: center;
-	font-size: 10px;
+	font-size: 7px;
 	color: white;
 	text-transform: uppercase;
-	font-weight: 400;	
+	font-weight: 400;
 }
