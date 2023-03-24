@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap');
+
 .header {
   height: 60px;
   border-bottom: 1px solid var(--primary);
@@ -9,10 +10,7 @@
   padding: 5px 0px;
   width: 100%;
 }
-/* 
-.header a {
-  text-decoration: none;
-} */
+
 .logo {
   font-family: "Sarabun";
   color: var(--dark);
