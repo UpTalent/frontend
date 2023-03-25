@@ -13,43 +13,41 @@ export const Header = () => {
 		setDropdownMenu(event.currentTarget);
 	};
 
-	const handleClose = () => {
-		setDropdownMenu(null);
-	};
-
 	const navigate = useNavigate();
 	return (
 		<header className={styles.header}>
-			<Link to='' className={styles.logo}>
+			<Link to="" className={styles.logo}>
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<Link to='talents'>Talents</Link>
+				<Link to="talents">Talents</Link>
 			</div>
 
 			{isTalent ? (
 				<div className={styles.buttonGroup}>
-					<div className={styles.nameButton}>
-						<Button component={Link} onClick={handleClick}>
-							{talent.firstName}
-						</Button>
+					<div className={styles.nameButton} onClick={handleClick}>
+						<Button component={Link}>{talent.firstName}</Button>
 					</div>
 					{dropdownMenu && (
 						<Popover
 							open={Boolean(dropdownMenu)}
-							onClose={handleClose}
+							onClose={() => setDropdownMenu(null)}
 							anchorEl={dropdownMenu}
 							anchorOrigin={{
 								vertical: 'bottom',
+								horizontal: 1,
 							}}
 							PaperProps={{
-								style: { boxShadow: 'none' },
+								style: { boxShadow: 'none', background: 'transparent' },
 							}}
 						>
 							<Link
 								to={`talent/${talent.id}`}
 								className={styles.menuItem}
-								onClick={() => setIsTalentProfile(true)}
+								onClick={() => {
+									setDropdownMenu(null);
+									setIsTalentProfile(true);
+								}}
 							>
 								<p>Talent's profile</p>
 							</Link>
@@ -57,10 +55,11 @@ export const Header = () => {
 								className={styles.menuItem}
 								onClick={() => {
 									setIsTalent(false);
+									setDropdownMenu(null);
 									navigate('/');
 								}}
 							>
-								<p onClick={handleClose}>Log out</p>
+								<p>Log out</p>
 							</div>
 						</Popover>
 					)}
@@ -70,7 +69,7 @@ export const Header = () => {
 					<Button className={styles.login} onClick={() => setIsTalent(true)}>
 						Login
 					</Button>
-					<Button variant='outlined'>SignUp</Button>
+					<Button variant="outlined">SignUp</Button>
 				</div>
 			)}
 		</header>
