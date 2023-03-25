@@ -1,0 +1,25 @@
+.slider {
+	width: 100%;
+	padding-top: 80px;
+	padding-bottom: 40px;
+	background-color: #cee6f1;
+}
+
+.swiper {
+	width: 80%;
+}
+
+.swiperButton {
+	position: absolute;
+	top: 50%;
+	z-index: 10;
+	cursor: pointer;
+}
+
+.swiperButtonPrev {
+	left: 30px;
+}
+
+.swiperButtonNext {
+	right: 30px;
+}
