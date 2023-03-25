@@ -7,9 +7,9 @@ import { Context } from '../../context';
 import { TalentsPage } from './TalentsPage';
 
 export const TalentPageContainer = () => {
-
-	const {talentList, setTalentList} = useContext(Context);
+	const { talentList, setTalentList } = useContext(Context);
 	const [isLoading, setIsLoading] = useState(true);
+	const [currentPage, setCurrentPage] = useState(1);
 
 	const getTalents = async page => {
 		setIsLoading(true);
@@ -24,17 +24,18 @@ export const TalentPageContainer = () => {
 
 	return (
 		<>
-			{isLoading ? (
-				<div className='loaderContainer'>
-					<CircularProgress />
-				</div>
-			) : (
+			{!isLoading && talentList ? (
 				<TalentsPage
 					{...talentList}
 					requestTalent={getTalents}
+					currentPage={currentPage}
+					setCurrentPage={setCurrentPage}
 				/>
+			) : (
+				<div className='loaderContainer'>
+					<CircularProgress />
+				</div>
 			)}
-      
 		</>
 	);
 };
