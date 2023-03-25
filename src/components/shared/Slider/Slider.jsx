@@ -33,8 +33,8 @@ export const Slider = ({ testUsers }) => {
 			<div className='swiperButton swiperButtonNext'>
 				<ArrowForward fontSize='large' />
 			</div>
-			<Link to=''>
-				<Button variant='outlined'>View all</Button>
+			<Link to='/talents'>
+				<Button variant='outlined' size='large' sx={{backgroundColor:'#fff'}} >View all</Button>
 			</Link>
 		</div>
 	);
