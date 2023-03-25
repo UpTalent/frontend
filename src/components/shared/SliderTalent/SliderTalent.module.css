@@ -4,7 +4,7 @@
 	align-items: center;
 	border-radius: 30px;
 	position: relative;
-	max-width: 320px;
+	width: 60%;
 	height: 430px;
 	background-color: #fff;
 }

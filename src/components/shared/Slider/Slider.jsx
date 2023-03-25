@@ -17,12 +17,12 @@ export const Slider = ({ testUsers }) => {
 					prevEl: '.swiperButtonPrev',
 					nextEl: '.swiperButtonNext',
 				}}
-				spaceBetween={50}
+				// spaceBetween={60}
 				slidesPerView={3}
 				modules={[Navigation]}
 			>
 				{testUsers?.map(user => (
-					<SwiperSlide key={user.id}>
+					<SwiperSlide key={user.id} style={{display:'flex', justifyContent:'center' }}>
 						<SliderTalent talent={user} />
 					</SwiperSlide>
 				))}
@@ -34,7 +34,7 @@ export const Slider = ({ testUsers }) => {
 				<ArrowForward fontSize='large' />
 			</div>
 			<Link to='/talents'>
-				<Button variant='outlined' size='large' sx={{backgroundColor:'#fff'}} >View all</Button>
+				<Button variant='outlined' sx={{backgroundColor:'#fff', width:'150px'}} >View all</Button>
 			</Link>
 		</div>
 	);
