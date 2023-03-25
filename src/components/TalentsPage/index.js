@@ -1,0 +1,1 @@
+export { TalentsPage } from './TalentsPage';
