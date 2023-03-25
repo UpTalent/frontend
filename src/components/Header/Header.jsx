@@ -1,13 +1,21 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Popover } from '@mui/material';
 import styles from './Header.module.css';
 import { Context } from '../../context';
 
 export const Header = () => {
 	const { isTalent, setIsTalent, talent, setIsTalentProfile } =
 		useContext(Context);
-	const [menuVisibility, setVisibility] = useState(false);
+	const [dropdownMenu, setDropdownMenu] = useState(null);
+
+	const handleClick = event => {
+		setDropdownMenu(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setDropdownMenu(null);
+	};
 
 	const navigate = useNavigate();
 	return (
@@ -22,15 +30,22 @@ export const Header = () => {
 			{isTalent ? (
 				<div className={styles.buttonGroup}>
 					<div className={styles.nameButton}>
-						<Button
-							component={Link}
-							onClick={() => setVisibility(prev => !prev)}
-						>
+						<Button component={Link} onClick={handleClick}>
 							{talent.firstName}
 						</Button>
 					</div>
-					{menuVisibility && (
-						<div className={styles.menu}>
+					{dropdownMenu && (
+						<Popover
+							open={Boolean(dropdownMenu)}
+							onClose={handleClose}
+							anchorEl={dropdownMenu}
+							anchorOrigin={{
+								vertical: 'bottom',
+							}}
+							PaperProps={{
+								style: { boxShadow: 'none' },
+							}}
+						>
 							<Link
 								to={`talent/${talent.id}`}
 								className={styles.menuItem}
@@ -45,9 +60,9 @@ export const Header = () => {
 									navigate('/');
 								}}
 							>
-								<p>Log out</p>
+								<p onClick={handleClose}>Log out</p>
 							</div>
-						</div>
+						</Popover>
 					)}
 				</div>
 			) : (

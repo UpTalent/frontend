@@ -59,20 +59,9 @@
   margin-right: 18px;
 }
 
-.menu {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #ffffff;
-  border-radius: 10px;
-  z-index: 1000;
-}
-
 .menuItem {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   width: 196px;
   height: 42px;
   color: var(--primary);
