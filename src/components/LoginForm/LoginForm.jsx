@@ -4,15 +4,16 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Formik, Form } from 'formik';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Context } from '../../context';
+//import { Context } from '../../context';
 import styles from './LoginForm.module.css';
 import { validationSchema } from './validation';
-import { FormField } from '../shared/FormField/FormField';
+import { FormField } from '../shared/FormField';
+import { talentsAPI } from '../../api/talentsAPI';
 
 export const LoginForm = () => {
-	const { talent, setIsTalent } = useContext(Context);
+	//const { talent, setIsTalent } = useContext(Context);
 	const [open, setOpen] = useState(true);
 
 	const navigate = useNavigate();
@@ -22,7 +23,20 @@ export const LoginForm = () => {
 	const handleClose = () => {
         setOpen(false);
         navigate('/');
-	};
+    };
+
+    const tryToLogin = async (e) => {
+        console.log(e);
+        const { data }  = await talentsAPI.login(e);
+        console.log(data);
+    }
+
+    // const getTalents = async page => {
+	// 		setIsLoading(true);
+	// 		const { data } = await talentsAPI.getTalents(page);
+	// 		setTalentList(data);
+	// 		setIsLoading(false);
+	// 	};
 
 	return (
 		<>
@@ -33,10 +47,11 @@ export const LoginForm = () => {
 					validateOnChange={true}
 					validateOnBlur={true}
 					validateOnMount={true}
-                    onSubmit={values => {
-                        setIsTalent(true);
-                        navigate(`/talent/${talent.id}`);
-                    }}
+                    // onSubmit={values => {
+                    //     setIsTalent(true);
+                    //     navigate(`/talent/${talent.id}`);
+                    // }}
+                    onSubmit={tryToLogin}
 				>
 					{({ isValid }) => (
 						<Form className={styles.registrationForm}>
@@ -62,7 +77,7 @@ export const LoginForm = () => {
 								type='submit'
 								variant='contained'
 								disabled={!isValid}
-								className={styles.logInButton}
+                                className={styles.logInButton}
 							>
 								LOG IN
 							</Button>
