@@ -8,14 +8,14 @@ export const Home = () => {
 		<>
 		<div className={styles.container}>
 			<div className={styles.water}>
-				<div className={styles.water__leftside}>
-					<h1 className={styles.water__header}>Develop anything your business needs.</h1>
-					<p className={styles.water__paragraph}>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+				<div className={styles.waterLeftside}>
+					<h1 className={styles.waterHeader}>Develop your rising talent with us!</h1>
+					<p className={styles.waterParagraph}>On this platform, talents would be able to create profiles showcasing their professional experience, education, and skills. They could also connect with other professionals in their industry, join groups.</p>
 					<Button className={styles.getstarted} variant="contained">Get started</Button>
 				</div>
 
-				<div className={styles.water__rightside}>
-					<img src={rightside_image } alt="Water image" className={styles.rightside__image} />
+				<div className={styles.waterRightside}>
+					<img src={rightside_image } alt="Water" className={styles.rightsideImage} />
 				</div>
 			</div>
 		</div>
