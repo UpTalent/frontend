@@ -22,7 +22,7 @@ export const ContextHOC = () => {
 	const [isTalent, setIsTalent] = useState(false);
 	const [isTalentProfile, setIsTalentProfile] = useState(false);
 	const [talent, setTalent] = useState(testUser);
-	const [talentList, setTalentList] = useState({});
+	const [talentList, setTalentList] = useState([]);
 
 	const state = {
 		isTalent,
