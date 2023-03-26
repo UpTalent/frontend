@@ -5,7 +5,7 @@
 	border-radius: 30px;
 	position: relative;
 	width: 60%;
-	height: 430px;
+	height: 470px;
 	background-color: #fff;
 }
 
@@ -53,6 +53,6 @@
 	margin-bottom: 10px;
 }
 
-.default{
-	display: none;	
+.default {
+	display: none;
 }

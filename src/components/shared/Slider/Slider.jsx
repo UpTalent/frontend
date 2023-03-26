@@ -71,7 +71,7 @@ export const Slider = () => {
 					<Link to='/talents'>
 						<Button
 							variant='outlined'
-							sx={{ backgroundColor: '#fff', width: '150px' }}
+							sx={{ backgroundColor: '#fff', fontSize: '30px', width: '300px' }}
 						>
 							View all
 						</Button>

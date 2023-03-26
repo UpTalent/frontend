@@ -14,6 +14,9 @@ export const SliderTalent = ({ talent }) => {
 					src={talent.avatar}
 					alt={`${talent.firstname} ${talent.lastname}`}
 					className={styles[photoClass]}
+					onError={event => {
+						event.currentTarget.className = styles.default;
+					}}
 				/>
 			</div>
 

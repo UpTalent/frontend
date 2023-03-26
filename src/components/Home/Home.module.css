@@ -1,0 +1,66 @@
+.container {
+	margin: 0 auto;
+	max-width: 1300px;
+    height: 100vh;
+}
+
+.water {
+	margin-top: 100px;
+	display: flex;
+    gap: 50px;
+    height: 65%;
+}
+
+.waterHeader {
+	margin-bottom: 20px;
+	text-align: left;
+	color: rgba(41, 42, 45, 0.72);
+	font-family: 'Rubik';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 60px;
+	line-height: 71px;
+}
+
+.waterParagraph {
+	font-family: 'Rubik';
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 24px;
+	margin-bottom: 80px;
+}
+
+.waterLeftside {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 50%;
+	background-image: url('../../assets/Blueblick.jpg');
+	background-size: cover;
+}
+
+.getstarted {
+	width: 300px;
+	height: 60px;
+	text-transform: none !important;
+	color: #fff !important;
+	background: #000 !important;
+	font-family: 'Rubik' !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+	font-size: 20px !important;
+	line-height: 24px !important;
+}
+
+.waterRightside {
+	width: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.rightsideImage {
+	width: 600px;
+	height: 450px;
+    object-fit: cover;
+}

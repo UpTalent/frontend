@@ -3,32 +3,34 @@
 * {
 	margin: 0;
 	padding: 0;
-    font-family: 'Rubik', sans-serif;
-    --primary: #48BDE2;
-    --secondary: #FFBF5B;
-    --dark: #292A2D;
+	font-family: 'Rubik', sans-serif;
+	--primary: #48bde2;
+	--secondary: #ffbf5b;
+	--dark: #292a2d;
 }
 
-a{
-    text-decoration: none;
+a {
+	text-decoration: none;
 }
 
-.appContainer{
-    flex: 1;
-    display: flex;
-    justify-content: center;
+.appContainer {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
 
-#root{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+#root {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
-.loaderContainer{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.loaderContainer {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
