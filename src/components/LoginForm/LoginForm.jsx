@@ -31,13 +31,6 @@ export const LoginForm = () => {
         console.log(data);
     }
 
-    // const getTalents = async page => {
-	// 		setIsLoading(true);
-	// 		const { data } = await talentsAPI.getTalents(page);
-	// 		setTalentList(data);
-	// 		setIsLoading(false);
-	// 	};
-
 	return (
 		<>
 			<Dialog open={open} onClose={handleClose} className={styles.dialogWindow}>
