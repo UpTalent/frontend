@@ -15,6 +15,7 @@
 	position: relative;
 	overflow: hidden;
 	border-radius: 30px;
+	background: linear-gradient(87.27deg, #9cdaed 3.18%, #0093c1 63.05%);
 }
 
 .talentInfo {
@@ -47,5 +48,11 @@
 .skillBox {
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
 	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.default{
+	display: none;	
 }

@@ -5,8 +5,8 @@ const testUsers = [
 	{
 		id: 1,
 		skills: ['Dancing', 'Dancing', 'Dancing'],
-		photo:
-			'https://i.pinimg.com/564x/5d/7a/7c/5d7a7c3d2c83914c68bfb548c14cc73a.jpg',
+		avatar:
+			null,
 		lastname: 'Lake',
 		firstname: 'Shaky',
 		description:
@@ -15,7 +15,7 @@ const testUsers = [
 	{
 		id: 2,
 		skills: ['Dancing'],
-		photo:
+		avatar:
 			'https://i.pinimg.com/564x/5d/7a/7c/5d7a7c3d2c83914c68bfb548c14cc73a.jpg',
 		lastname: 'Lake',
 		firstname: 'Shaky',
@@ -25,7 +25,7 @@ const testUsers = [
 	{
 		id: 3,
 		skills: ['Dancing', 'Dancing'],
-		photo:
+		avatar:
 			'https://i.pinimg.com/564x/5d/7a/7c/5d7a7c3d2c83914c68bfb548c14cc73a.jpg',
 		lastname: 'Lake',
 		firstname: 'Shaky',
@@ -35,7 +35,7 @@ const testUsers = [
 	{
 		id: 4,
 		skills: ['Dancing'],
-		photo:
+		avatar:
 			'https://i.pinimg.com/564x/5d/7a/7c/5d7a7c3d2c83914c68bfb548c14cc73a.jpg',
 		lastname: 'Lake',
 		firstname: 'Shaky',
@@ -45,7 +45,7 @@ const testUsers = [
 	{
 		id: 5,
 		skills: ['Dancing'],
-		photo:
+		avatar:
 			'https://i.pinimg.com/564x/5d/7a/7c/5d7a7c3d2c83914c68bfb548c14cc73a.jpg',
 		lastname: 'Lake',
 		firstname: 'Shaky',
@@ -55,7 +55,7 @@ const testUsers = [
 	{
 		id: 6,
 		skills: ['Dancing', 'Dancing', 'Dancing', 'Dancing', 'Dancing', 'Dancing'],
-		photo:
+		avatar:
 			'https://i.pinimg.com/564x/5d/7a/7c/5d7a7c3d2c83914c68bfb548c14cc73a.jpg',
 		lastname: 'Lake',
 		firstname: 'Shaky',
@@ -65,7 +65,7 @@ const testUsers = [
 	{
 		id: 7,
 		skills: ['Dancing'],
-		photo:
+		avatar:
 			'https://i.pinimg.com/564x/5d/7a/7c/5d7a7c3d2c83914c68bfb548c14cc73a.jpg',
 		lastname: 'Lake',
 		firstname: 'Shaky',
@@ -75,7 +75,7 @@ const testUsers = [
 	{
 		id: 8,
 		skills: ['Dancing'],
-		photo:
+		avatar:
 			'https://i.pinimg.com/564x/5d/7a/7c/5d7a7c3d2c83914c68bfb548c14cc73a.jpg',
 		lastname: 'Lake',
 		firstname: 'Shaky',
@@ -85,7 +85,7 @@ const testUsers = [
 	{
 		id: 9,
 		skills: ['Dancing'],
-		photo:
+		avatar:
 			'https://i.pinimg.com/564x/5d/7a/7c/5d7a7c3d2c83914c68bfb548c14cc73a.jpg',
 		lastname: 'Lake',
 		firstname: 'Shaky',
