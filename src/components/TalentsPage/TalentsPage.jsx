@@ -1,18 +1,18 @@
 import { Grid, Pagination } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './TalentsPage.module.css';
 import { GeneralTalent } from './components/GeneralTalent';
 
 export const TalentsPage = ({
 	content,
-	page_number,
 	total_pages,
 	isTalent,
-    requestTalent
+	requestTalent,
+	setCurrentPage,
+	currentPage,
 }) => {
-	const [currentPage, setPage] = useState(page_number + 1);
 	const changePage = (e, page) => {
-		setPage(page);
+		setCurrentPage(page);
 		requestTalent(page - 1);
 	};
 
@@ -21,9 +21,10 @@ export const TalentsPage = ({
 			<GeneralTalent talent={talent} isTalent={isTalent} />
 		</Grid>
 	));
+
 	return (
 		<div className={styles.TalentsPage}>
-			<Grid container rowSpacing={3} align='center'>
+			<Grid container rowSpacing={4} align='center'>
 				{talentsList}
 			</Grid>
 			<Pagination
