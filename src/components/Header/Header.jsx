@@ -16,11 +16,11 @@ export const Header = () => {
 	const navigate = useNavigate();
 	return (
 		<header className={styles.header}>
-			<Link to="" className={styles.logo}>
+			<Link to='' className={styles.logo}>
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<Link to="talents">Talents</Link>
+				<Link to='talents'>Talents</Link>
 			</div>
 
 			{isTalent ? (
@@ -66,10 +66,12 @@ export const Header = () => {
 				</div>
 			) : (
 				<div className={styles.guestButtons}>
-					<Button className={styles.login} onClick={() => setIsTalent(true)}>
+						<Button className={styles.login} onClick={() => {
+							navigate('/login');
+						}}>
 						Login
 					</Button>
-					<Button variant="outlined">SignUp</Button>
+					<Button variant='outlined'>SignUp</Button>
 				</div>
 			)}
 		</header>
