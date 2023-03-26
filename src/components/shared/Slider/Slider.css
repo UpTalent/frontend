@@ -1,0 +1,30 @@
+.slider {
+	width: 100%;
+	height: 100vh;
+	background-color: #cee6f1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 70px;
+	position: relative;
+}
+
+.swiper {
+	width: 80%;
+}
+
+.swiperButton {
+	position: absolute;
+	top: 45%;
+	z-index: 10;
+	cursor: pointer;
+}
+
+.swiperButtonPrev {
+	left: 30px;
+}
+
+.swiperButtonNext {
+	right: 30px;
+}
