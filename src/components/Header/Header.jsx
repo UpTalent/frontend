@@ -66,7 +66,13 @@ export const Header = () => {
 				</div>
 			) : (
 				<div className={styles.guestButtons}>
-					<Button className={styles.login} onClick={() => setIsTalent(true)}>
+					<Button
+						className={styles.login}
+						onClick={() => {
+							navigate('/login');
+						}}
+						// state={{ background: location }}
+					>
 						Login
 					</Button>
 					<Button variant="outlined">SignUp</Button>
