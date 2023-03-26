@@ -1,12 +1,14 @@
 .container {
 	margin: 0 auto;
 	max-width: 1300px;
+    height: 100vh;
 }
 
 .water {
 	margin-top: 100px;
 	display: flex;
     gap: 50px;
+    height: 65%;
 }
 
 .waterHeader {
