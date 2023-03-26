@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { Home } from '../components/Home';
-import { LoginForm } from '../components/LoginForm';
 import { NotFound } from '../components/NotFound';
 import { Profile } from '../components/Profile';
 import { TalentPageContainer } from '../components/TalentsPage/TalentPageContainer';
@@ -23,10 +22,6 @@ export const router = createBrowserRouter([
 			{
 				path: 'talent/:talentId',
 				element: <Profile />,
-			},
-			{
-				path: '/login',
-				element: <LoginForm/>,
 			},
 		],
 	},
