@@ -1,4 +1,4 @@
-import axiosInstance from './index';
+import { axiosInstance } from './index';
 
 export const talentsAPI = {
 	async getTalents(currentPage = 0, pageSize = 9) {
@@ -17,26 +17,16 @@ export const talentsAPI = {
 
 	async login(data) {
 		try {
-			console.log(data);
-			return await axiosInstance.post('/talents/login', data, {
-				headers: {
-					'Content-Type': 'application/json',
-					'Access-Control-Allow-Origin': '*',
-				},
-			});
-			//return await axiosInstance.post('talents/login', data);
+			return await axiosInstance.post('/talents/login', data);
 		} catch (error) {
-			return error.message;
+			throw new Error(error.response.data.message);
 		}
 	},
-
 	async registrate(data) {
 		try {
-			return await axiosInstance.post('talents', data, {
-				headers: { 'Content-Type': 'application/json' },
-			});
+			return await axiosInstance.post('talents', data);
 		} catch (error) {
-			return error.message;
+			throw new Error(error.response.data.message);
 		}
 	},
 };
