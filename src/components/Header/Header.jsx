@@ -1,32 +1,43 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button, Popover } from '@mui/material';
 import styles from './Header.module.css';
 import { Context } from '../../context';
 
 export const Header = () => {
-	const { isTalent, setIsTalent, talent, setIsTalentProfile } =
-		useContext(Context);
+	const {
+		isTalent,
+		setIsTalent,
+		authTalent
+	} = useContext(Context);
 	const [dropdownMenu, setDropdownMenu] = useState(null);
+
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const modalPathname = path => {
+		navigate(`${location.pathname}/${path}`, {
+			state: { from: location.pathname },
+		});
+	};
 
 	const handleClick = event => {
 		setDropdownMenu(event.currentTarget);
 	};
 
-	const navigate = useNavigate();
 	return (
 		<header className={styles.header}>
-			<Link to="" className={styles.logo}>
+			<Link to='/home' className={styles.logo}>
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<Link to="talents">Talents</Link>
+				<Link to='talents'>Talents</Link>
 			</div>
 
 			{isTalent ? (
 				<div className={styles.buttonGroup}>
 					<div className={styles.nameButton} onClick={handleClick}>
-						<Button component={Link}>{talent.firstName}</Button>
+						<Button component={Link}>{authTalent.firstname}</Button>
 					</div>
 					{dropdownMenu && (
 						<Popover
@@ -42,11 +53,10 @@ export const Header = () => {
 							}}
 						>
 							<Link
-								to={`talent/${talent.id}`}
+								to={`talent/${authTalent.id}`}
 								className={styles.menuItem}
 								onClick={() => {
 									setDropdownMenu(null);
-									setIsTalentProfile(true);
 								}}
 							>
 								<p>Talent's profile</p>
@@ -56,7 +66,7 @@ export const Header = () => {
 								onClick={() => {
 									setIsTalent(false);
 									setDropdownMenu(null);
-									navigate('/');
+									navigate('/home');
 								}}
 							>
 								<p>Log out</p>
@@ -69,13 +79,19 @@ export const Header = () => {
 					<Button
 						className={styles.login}
 						onClick={() => {
-							navigate('/login');
+							modalPathname('login');
 						}}
-						// state={{ background: location }}
 					>
 						Login
 					</Button>
-					<Button variant="outlined">SignUp</Button>
+					<Button
+						variant='outlined'
+						onClick={() => {
+							modalPathname('registrate');
+						}}
+					>
+						SignUp
+					</Button>
 				</div>
 			)}
 		</header>
