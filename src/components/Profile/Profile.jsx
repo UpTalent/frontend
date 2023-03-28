@@ -13,13 +13,8 @@ import { useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
 
 export const Profile = () => {
-	const {
-		authTalent,
-		isTalentProfile,
-		setIsTalentProfile,
-		talent,
-		setTalent
-	} = useContext(Context);
+	const { authTalent, isTalentProfile, setIsTalentProfile, talent, setTalent } =
+		useContext(Context);
 	const { talentId } = useParams();
 
 	const getTalentProfile = async () => {
@@ -29,8 +24,7 @@ export const Profile = () => {
 
 	useEffect(() => {
 		getTalentProfile();
-		setIsTalentProfile(Number(talentId) === authTalent.id);
-	}, [talentId]);
+	}, []);
 
 	useEffect(() => {
 		setIsTalentProfile(Number(talentId) === authTalent.id);
@@ -63,7 +57,6 @@ export const Profile = () => {
 		},
 	];
 	return (
-
 		<div className={styles.profile}>
 			<Banner banner={talent.banner} additionalStyle={styles.profileBanner} />
 			<div className={styles.photoName}>
@@ -75,9 +68,10 @@ export const Profile = () => {
 					className={styles.profileName}
 				>{`${talent.firstname} ${talent.lastname}`}</p>
 				{isTalentProfile && (
-					<CreateOutlinedIcon
-						className={`${styles.pencil} ${styles.toPhoto}`}
-					/>
+					<div className={`${styles.pencil} ${styles.toPhoto}`}>
+						<CreateOutlinedIcon />
+						<input type='file' onChange={''} />
+					</div>
 				)}
 			</div>
 			{isTalentProfile && (

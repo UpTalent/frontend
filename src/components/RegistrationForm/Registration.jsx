@@ -125,6 +125,7 @@ export const RegistrationForm = () => {
 										key={i}
 										{...params}
 										name='skill'
+										label='Tell us what you can...'
 										variant='standard'
 									/>
 								)}
