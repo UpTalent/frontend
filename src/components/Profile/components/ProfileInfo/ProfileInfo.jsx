@@ -7,7 +7,7 @@ export const ProfileInfo = ({element, header, info}) => {
             {element}
 			<div className={styles.itemText}>
 				<p>{header}</p>
-				<b>{info}</b>
+				{info ? <b>{info}</b> : <b>No data provided</b>}
 			</div>
 		</div>
 	);
