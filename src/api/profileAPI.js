@@ -1,7 +1,7 @@
 import { axiosInstance } from './index'
 
 export const profileAPI = {
-    
+
     async getTalent(id) {
         try {
             return await axiosInstance.get(`talents/${id}`);
@@ -11,10 +11,15 @@ export const profileAPI = {
     },
 
     async uplaodPhoto(id, photo, option) {
+
         try {
             return await axiosInstance.post(`/talents/${id}/image/upload`, {
                 image: photo,
                 option: option
+            }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             });
         } catch (error) {
             throw new Error(error.response.data.message);

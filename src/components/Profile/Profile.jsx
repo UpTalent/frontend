@@ -10,7 +10,7 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Context } from '../../context';
 import { useParams } from 'react-router-dom';
-import { talentsAPI } from '../../api/talentsAPI';
+import { profileAPI } from '../../api/profileAPI';
 
 export const Profile = () => {
 	const {
@@ -23,17 +23,18 @@ export const Profile = () => {
 	const { talentId } = useParams();
 
 	const getTalentProfile = async () => {
-		const { data } = await talentsAPI.getTalent(talentId);
+		const { data } = await profileAPI.getTalent(talentId);
 		setTalent(data);
 	};
 
 	useEffect(() => {
 		getTalentProfile();
-	}, []);
+		setIsTalentProfile(Number(talentId) === authTalent.id);
+	}, [talentId]);
 
 	useEffect(() => {
 		setIsTalentProfile(Number(talentId) === authTalent.id);
-	}, [authTalent, talentId]);
+	}, [authTalent]);
 
 	const infoAboutUser = [
 		{
