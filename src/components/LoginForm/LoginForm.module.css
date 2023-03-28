@@ -48,3 +48,17 @@
     right: 10px;
     cursor: pointer;
 }
+
+.talentName{
+    display: flex;
+    gap: 20px;
+}
+
+.registrationForm label {
+    color: gray;
+    font-weight: 200;
+}
+
+.registrationForm span {
+   margin-left: 10px;
+}

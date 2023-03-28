@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Banner } from '../shared/Banner';
 import { TalentAvatar } from '../shared/TalentAvatar';
 import { ProfileInfo } from './components/ProfileInfo';
@@ -10,12 +10,30 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Context } from '../../context';
 import { useParams } from 'react-router-dom';
+import { talentsAPI } from '../../api/talentsAPI';
 
 export const Profile = () => {
-	const { talent, isTalentProfile, setIsTalentProfile } = useContext(Context);
+	const {
+		authTalent,
+		isTalentProfile,
+		setIsTalentProfile,
+		talent,
+		setTalent
+	} = useContext(Context);
 	const { talentId } = useParams();
 
-	setIsTalentProfile(Number(talentId) === talent.id);
+	const getTalentProfile = async () => {
+		const { data } = await talentsAPI.getTalent(talentId);
+		await setTalent(data);
+	};
+
+	useEffect(() => {
+		getTalentProfile();
+	}, []);
+
+	useEffect(() => {
+		setIsTalentProfile(Number(talentId) === authTalent.id);
+	}, [authTalent]);
 
 	const infoAboutUser = [
 		{
@@ -44,6 +62,7 @@ export const Profile = () => {
 		},
 	];
 	return (
+
 		<div className={styles.profile}>
 			<Banner banner={talent.banner} additionalStyle={styles.profileBanner} />
 			<div className={styles.photoName}>
@@ -53,7 +72,7 @@ export const Profile = () => {
 				/>
 				<p
 					className={styles.profileName}
-				>{`${talent.firstName} ${talent.lastname}`}</p>
+				>{`${talent.firstname} ${talent.lastname}`}</p>
 			</div>
 			<div className={styles.info}>
 				{infoAboutUser.map(
