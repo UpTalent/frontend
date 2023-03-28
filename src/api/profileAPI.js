@@ -10,19 +10,19 @@ export const profileAPI = {
         }
     },
 
-    async uplaodPhoto(id, photo, option) {
-
+    async uplaodPhoto(id, photo, operation) {
         try {
-            return await axiosInstance.post(`/talents/${id}/image/upload`, {
-                image: photo,
-                option: option
-            }, {
+            const formData = new FormData();
+            formData.append('image', photo);
+            formData.append('operation', operation);
+
+            return await axiosInstance.post(`/talents/${id}/image/upload`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
                 }
             });
         } catch (error) {
             throw new Error(error.response.data.message);
         }
-    },
+    }
 }

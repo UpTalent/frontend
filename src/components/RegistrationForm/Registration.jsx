@@ -56,21 +56,27 @@ export const RegistrationForm = () => {
 			const { data } = await authAPI.registrate(registerData);
 
 			setAuthToken(data.jwt_token);
-			
+
 			const talentProfile = await profileAPI.getTalent(data.talent_id);
 
 			setAuthTalent(talentProfile.data);
 			setIsTalent(true);
 
 			navigate(`/talent/${data.talent_id}`);
-
 		} catch (err) {
 			setError(err.message);
 			console.log(err.message);
 		}
 	};
 
-	const skills = ['Dancing', 'Cooking', 'Camping', 'Swimming', 'Programming', 'Running in the morning'];
+	const skills = [
+		'Dancing',
+		'Cooking',
+		'Camping',
+		'Swimming',
+		'Programming',
+		'Running in the morning',
+	];
 
 	return (
 		<>
