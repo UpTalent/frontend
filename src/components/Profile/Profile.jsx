@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Banner } from '../shared/Banner';
 import { TalentAvatar } from '../shared/TalentAvatar';
 import { ProfileInfo } from './components/ProfileInfo';
@@ -12,20 +12,21 @@ import { Context } from '../../context';
 import { useParams } from 'react-router-dom';
 import { talentsAPI } from '../../api/talentsAPI';
 
+// modal
+import { EditProfile } from '../EditProfile';
+
 export const Profile = () => {
-	const {
-		authTalent,
-		isTalentProfile,
-		setIsTalentProfile,
-		talent,
-		setTalent
-	} = useContext(Context);
+	const { authTalent, isTalentProfile, setIsTalentProfile, talent, setTalent } =
+		useContext(Context);
 	const { talentId } = useParams();
 
 	const getTalentProfile = async () => {
 		const { data } = await talentsAPI.getTalent(talentId);
 		await setTalent(data);
 	};
+
+	// make route modal
+	const [showEdit, setShowEdit] = useState(false);
 
 	useEffect(() => {
 		getTalentProfile();
@@ -62,7 +63,6 @@ export const Profile = () => {
 		},
 	];
 	return (
-
 		<div className={styles.profile}>
 			<Banner banner={talent.banner} additionalStyle={styles.profileBanner} />
 			<div className={styles.photoName}>
@@ -107,8 +107,15 @@ export const Profile = () => {
 				)}
 			</div>
 			{isTalentProfile && (
-				<CreateOutlinedIcon className={`${styles.pencil} ${styles.toEdit}`} />
+				<CreateOutlinedIcon
+					className={`${styles.pencil} ${styles.toEdit}`}
+					onClick={() => {
+						setShowEdit(true);
+					}}
+				/>
 			)}
+
+			<EditProfile modal={showEdit} setModal={setShowEdit} />
 		</div>
 	);
 };

@@ -29,4 +29,11 @@ export const talentsAPI = {
 			throw new Error(error.response.data.message);
 		}
 	},
+	async edit(id, data) {
+		try {
+			return await axiosInstance.patch(`talents/${id}`, data);
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	},
 };
