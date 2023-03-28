@@ -72,6 +72,16 @@
 
 .pencil {
     position: absolute;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.pencil:hover{
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .toEdit {
@@ -81,7 +91,7 @@
 
 .photoName .toPhoto {
     bottom: 0px;
-    left: 30px;
+    left: 20px;
     width: 35px;
     height: 35px;
 }
@@ -100,8 +110,9 @@
 
 .toBanner p {
     font-weight: 400;
-    font-size: 8px;
+    font-size: 10px;
     line-height: 28px;
+    margin-left: 5px;
 }
 
 .toBanner svg {
@@ -109,6 +120,6 @@
     height: 15px;
 }
 
-.toBanner input{
+.profile input{
     display: none;
 }

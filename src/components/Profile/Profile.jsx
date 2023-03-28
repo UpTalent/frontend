@@ -10,30 +10,38 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Context } from '../../context';
 import { useParams } from 'react-router-dom';
-import { talentsAPI } from '../../api/talentsAPI';
 import { profileAPI } from '../../api/profileAPI';
 
 export const Profile = () => {
-	const { authTalent, isTalentProfile, setIsTalentProfile, talent, setTalent } =
-		useContext(Context);
+	const {
+		authTalent,
+		isTalentProfile,
+		setIsTalentProfile,
+		talent,
+		setTalent,
+		setAuthTalent,
+	} = useContext(Context);
+  
 	const { talentId } = useParams();
 
 	const getTalentProfile = async () => {
-		const { data } = await talentsAPI.getTalent(talentId);
-		await setTalent(data);
+		const { data } = await profileAPI.getTalent(talentId);
+		setTalent(data);
+		setIsTalentProfile(Number(talentId) === authTalent.id);
 	};
 
-	const getFileFromUser = e => {
+	const getFileFromUser = async (photo, operation) => {
 		try {
-			if (e.target.files.length) {
-				profileAPI.uplaodPhoto(talentId, e.target.files[0], 'UPLOAD_BANNER');
-				// const updateAuthTalent = async () => {
-				// 	const { data } = await talentsAPI.getTalent(talentId);
-				// 	await setAuthTalent(data);
-				// }
-				// updateAuthTalent();
-				getTalentProfile();
-				//потрібен юзефект на таланта, щоб профіль перерендерився
+			if (photo.target.files.length) {
+				const { status } = await profileAPI.uplaodPhoto(
+					talentId,
+					photo.target.files[0],
+					operation,
+				);
+				if (status === 201) {
+					const { data } = await profileAPI.getTalent(talentId);
+					setAuthTalent(data);
+				}
 			}
 		} catch (err) {
 			console.log(err.message);
@@ -42,10 +50,6 @@ export const Profile = () => {
 
 	useEffect(() => {
 		getTalentProfile();
-	}, []);
-
-	useEffect(() => {
-		setIsTalentProfile(Number(talentId) === authTalent.id);
 	}, [authTalent, talentId]);
 
 	const infoAboutUser = [
@@ -79,21 +83,33 @@ export const Profile = () => {
 			<Banner banner={talent.banner} additionalStyle={styles.profileBanner} />
 			<div className={styles.photoName}>
 				<TalentAvatar
-					photo={talent.photo}
+					photo={talent.avatar}
 					additionalStyle={styles.profilePhoto}
 				/>
 				<p
 					className={styles.profileName}
 				>{`${talent.firstname} ${talent.lastname}`}</p>
 				{isTalentProfile && (
-					<CreateOutlinedIcon
+					<label
+						htmlFor='avatar'
 						className={`${styles.pencil} ${styles.toPhoto}`}
-					/>
+					>
+						<input
+							id='avatar'
+							type={'file'}
+							onChange={file => getFileFromUser(file, 'UPLOAD_AVATAR')}
+						/>
+						<CreateOutlinedIcon />
+					</label>
 				)}
 			</div>
 			{isTalentProfile && (
 				<label htmlFor='banner' className={styles.toBanner}>
-					<input id='banner' type={'file'} onChange={getFileFromUser} />
+					<input
+						id='banner'
+						type={'file'}
+						onChange={file => getFileFromUser(file, 'UPLOAD_BANNER')}
+					/>
 					<CreateOutlinedIcon />
 					<p>EDIT BANNER</p>
 				</label>
@@ -113,8 +129,8 @@ export const Profile = () => {
 			</div>
 			<div className={styles.about}>
 				<p>About me</p>
-				{talent.aboutMe ? (
-					<b>{talent.aboutMe}</b>
+				{talent.about_me ? (
+					<b>{talent.about_me}</b>
 				) : (
 					<b className={styles.noData}>No data provided</b>
 				)}

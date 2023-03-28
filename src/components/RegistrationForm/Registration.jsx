@@ -16,9 +16,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { talentsAPI } from '../../api/talentsAPI';
 import { Context } from '../../context';
 import { setAuthToken } from '../../api';
+import { profileAPI } from '../../api/profileAPI';
+import { authAPI } from '../../api/authAPI';
 
 export const RegistrationForm = () => {
 	const [modal, setModal] = useState(true);
@@ -52,24 +53,30 @@ export const RegistrationForm = () => {
 		delete registerData.confirmPassword;
 
 		try {
-			const { data } = await talentsAPI.registrate(registerData);
+			const { data } = await authAPI.registrate(registerData);
 
 			setAuthToken(data.jwt_token);
-			
-			const talentProfile = await talentsAPI.getTalent(data.talent_id);
 
-			await setAuthTalent(talentProfile.data);
-			await setIsTalent(true);
+			const talentProfile = await profileAPI.getTalent(data.talent_id);
+
+			setAuthTalent(talentProfile.data);
+			setIsTalent(true);
 
 			navigate(`/talent/${data.talent_id}`);
-
 		} catch (err) {
 			setError(err.message);
 			console.log(err.message);
 		}
 	};
 
-	const skills = ['Java', 'JavaScript', 'CSS', 'Python', 'HTML', 'Jira'];
+	const skills = [
+		'Dancing',
+		'Cooking',
+		'Camping',
+		'Swimming',
+		'Programming',
+		'Running in the morning',
+	];
 
 	return (
 		<>
@@ -124,6 +131,7 @@ export const RegistrationForm = () => {
 										key={i}
 										{...params}
 										name='skill'
+										label='Tell us what you can...'
 										variant='standard'
 									/>
 								)}

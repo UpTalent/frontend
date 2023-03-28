@@ -10,8 +10,9 @@ import { Context } from '../../context';
 import styles from './LoginForm.module.css';
 import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
-import { talentsAPI } from '../../api/talentsAPI';
 import { setAuthToken } from '../../api';
+import { authAPI } from '../../api/authAPI';
+import { profileAPI } from '../../api/profileAPI';
 
 export const LoginForm = () => {
 	const { setIsTalent, setAuthTalent } = useContext(Context);
@@ -30,13 +31,13 @@ export const LoginForm = () => {
 
 	const tryToLogin = async formData => {
 		try {
-			const { data } = await talentsAPI.login(formData);
+			const { data } = await authAPI.login(formData);
 			setAuthToken(data.jwt_token);
 
-			const talentProfile = await talentsAPI.getTalent(data.talent_id);
+			const talentProfile = await profileAPI.getTalent(data.talent_id);
 
-			await setAuthTalent(talentProfile.data);
-			await setIsTalent(true);
+			setAuthTalent(talentProfile.data);
+			setIsTalent(true);
 
 			navigate(`/talent/${data.talent_id}`);
 		} catch (err) {
