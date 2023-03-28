@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Slider } from '../shared/Slider';
 import styles from './Home.module.css';
 import rightside_image from '../../assets/5876834.jpg';
 import { Button } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Context } from '../../context';
 
 export const Home = () => {
+	const { isTalent, authTalent } = useContext(Context);
+	const navigate = useNavigate();
+	const location = useLocation();
+	const modalPathname = path => {
+		navigate(`${location.pathname}/${path}`, {
+			state: { from: location.pathname },
+		});
+	};
 	return (
 		<>
 			<div className={styles.container}>
@@ -19,7 +29,15 @@ export const Home = () => {
 							They could also connect with other professionals in their
 							industry, join groups.
 						</p>
-						<Button className={styles.getstarted} variant='contained'>
+						<Button
+							className={styles.getstarted}
+							variant='contained'
+							onClick={() => {
+								isTalent
+									? navigate(`/talents/${authTalent.api}`)
+									: modalPathname('registrate');
+							}}
+						>
 							Get started
 						</Button>
 					</div>

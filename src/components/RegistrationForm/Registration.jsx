@@ -7,7 +7,7 @@ import {
 	Typography,
 } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FormField } from '../shared/FormField';
 import { validationSchema } from './validation';
@@ -29,10 +29,6 @@ export const RegistrationForm = () => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-
-	useEffect(() => {
-		setModal(true);
-	}, []);
 
 	let initialRegistartionData = {
 		email: '',
@@ -57,6 +53,7 @@ export const RegistrationForm = () => {
 
 			setAuthToken(data.jwt_token);
 
+			//remove and instead parse jwt
 			const talentProfile = await profileAPI.getTalent(data.talent_id);
 
 			setAuthTalent(talentProfile.data);
@@ -70,12 +67,26 @@ export const RegistrationForm = () => {
 	};
 
 	const skills = [
-		'Dancing',
-		'Cooking',
-		'Camping',
-		'Swimming',
-		'Programming',
-		'Running in the morning',
+		'Adaptability',
+		'Collaboration',
+		'Communication',
+		'Creativity',
+		'Critical thinking',
+		'Empathy',
+		'Flexibility',
+		'Leadership',
+		'Problem solving',
+		'Time management',
+		'Teamwork',
+		'Active listening',
+		'Conflict resolution',
+		'Decision making',
+		'Interpersonal skills',
+		'Negotiation',
+		'Patience',
+		'Stress management',
+		'Work ethic',
+		'Attention to detail',
 	];
 
 	return (
@@ -89,7 +100,14 @@ export const RegistrationForm = () => {
 					validateOnMount={true}
 					onSubmit={register}
 				>
-					{({ isValid, setFieldValue }) => (
+					{({
+						isValid,
+						setFieldValue,
+						setFieldTouched,
+						errors,
+						setFieldError,
+						touched,
+					}) => (
 						<Form className={styles.registrationForm}>
 							<Typography className={styles.formTitle}>
 								Join our team!
@@ -143,10 +161,18 @@ export const RegistrationForm = () => {
 								}}
 								multiple
 								limitTags={3}
-								freeSolo
 								fullWidth
-								onChange={(e, value) => setFieldValue('skills', value)}
+								onChange={(e, value) => {
+									setFieldValue('skills', value);
+									setFieldTouched('skills', true, false);
+								}}
+								onClick={() => {
+									setFieldError('skills');
+								}}
 							/>
+							{touched.skills && errors.skills ? (
+								<div className={styles.skilsError}>{errors.skills}</div>
+							) : null}
 							<Button
 								type='submit'
 								variant='contained'
