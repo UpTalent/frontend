@@ -1,4 +1,6 @@
-# UpTalent
+# [UpTalent](18.156.56.85:8083)
+#### Open hours - 11AM - 11PM every day without weekends 
+
 Frontend team repository for UpTalent project
 The UpTalent app that is a professional networking platform that also allows content creators to monetize their content.
 
