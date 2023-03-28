@@ -24,7 +24,7 @@ export const Profile = () => {
 
 	const getTalentProfile = async () => {
 		const { data } = await talentsAPI.getTalent(talentId);
-		await setTalent(data);
+		setTalent(data);
 	};
 
 	useEffect(() => {
@@ -33,7 +33,7 @@ export const Profile = () => {
 
 	useEffect(() => {
 		setIsTalentProfile(Number(talentId) === authTalent.id);
-	}, [authTalent]);
+	}, [authTalent, talentId]);
 
 	const infoAboutUser = [
 		{

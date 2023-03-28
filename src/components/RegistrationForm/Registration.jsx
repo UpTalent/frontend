@@ -16,9 +16,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { talentsAPI } from '../../api/talentsAPI';
 import { Context } from '../../context';
 import { setAuthToken } from '../../api';
+import { profileAPI } from '../../api/profileAPI';
+import { authAPI } from '../../api/authAPI';
 
 export const RegistrationForm = () => {
 	const [modal, setModal] = useState(true);
@@ -52,12 +53,14 @@ export const RegistrationForm = () => {
 		delete registerData.confirmPassword;
 
 		try {
-			const { data } = await talentsAPI.registrate(registerData);
+			const { data } = await authAPI.registrate(registerData);
 
 			setAuthToken(data.jwt_token);
 
-			await setAuthTalent(data);
-			await setIsTalent(true);
+			const talentProfile = await profileAPI.getTalent(data.talent_id);
+
+			setAuthTalent(talentProfile.data);
+			setIsTalent(true);
 
 			navigate(`/talent/${data.talent_id}`);
 
@@ -67,7 +70,7 @@ export const RegistrationForm = () => {
 		}
 	};
 
-	const skills = ['Java', 'JavaScript', 'CSS', 'Python', 'HTML', 'Jira'];
+	const skills = ['Dancing', 'Cooking', 'Camping', 'Swimming', 'Programming', 'Running in the morning'];
 
 	return (
 		<>
