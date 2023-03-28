@@ -56,7 +56,7 @@ export const RegistrationForm = () => {
 			const { data } = await authAPI.registrate(registerData);
 
 			setAuthToken(data.jwt_token);
-
+			
 			const talentProfile = await profileAPI.getTalent(data.talent_id);
 
 			setAuthTalent(talentProfile.data);

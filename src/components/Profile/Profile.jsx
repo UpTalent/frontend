@@ -50,7 +50,7 @@ export const Profile = () => {
 		},
 		{
 			icon: <AutoAwesomeIcon />,
-			header: 'Skills',
+			header: 'I can...',
 			info: talent.skills.join(', '),
 			visiableForGuest: true,
 		},
@@ -73,7 +73,18 @@ export const Profile = () => {
 				<p
 					className={styles.profileName}
 				>{`${talent.firstname} ${talent.lastname}`}</p>
+				{isTalentProfile && (
+					<CreateOutlinedIcon
+						className={`${styles.pencil} ${styles.toPhoto}`}
+					/>
+				)}
 			</div>
+			{isTalentProfile && (
+				<div className={styles.toBanner}>
+					<CreateOutlinedIcon />
+					<p>EDIT BANNER</p>
+				</div>
+			)}
 			<div className={styles.info}>
 				{infoAboutUser.map(
 					(el, i) =>
@@ -89,9 +100,15 @@ export const Profile = () => {
 			</div>
 			<div className={styles.about}>
 				<p>About me</p>
-				<b>{talent.aboutMe}</b>
+				{talent.aboutMe ? (
+					<b>{talent.aboutMe}</b>
+				) : (
+					<b className={styles.noData}>No data provided</b>
+				)}
 			</div>
-			{isTalentProfile && <CreateOutlinedIcon className={styles.pencil} />}
+			{isTalentProfile && (
+				<CreateOutlinedIcon className={`${styles.pencil} ${styles.toEdit}`} />
+			)}
 		</div>
 	);
 };
