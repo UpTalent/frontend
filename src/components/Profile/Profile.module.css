@@ -64,6 +64,12 @@
     line-height: 28px;
 }
 
+.noData {
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 24px;
+}
+
 .pencil {
     position: absolute;
     right: 25px;

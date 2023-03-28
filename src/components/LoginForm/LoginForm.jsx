@@ -39,7 +39,6 @@ export const LoginForm = () => {
 			await setIsTalent(true);
 
 			navigate(`/talent/${data.talent_id}`);
-
 		} catch (err) {
 			setError(err.message);
 			console.log(err.message);

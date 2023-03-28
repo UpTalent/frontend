@@ -50,7 +50,7 @@ export const Profile = () => {
 		},
 		{
 			icon: <AutoAwesomeIcon />,
-			header: 'Skills',
+			header: 'I can...',
 			info: talent.skills.join(', '),
 			visiableForGuest: true,
 		},
@@ -62,7 +62,6 @@ export const Profile = () => {
 		},
 	];
 	return (
-
 		<div className={styles.profile}>
 			<Banner banner={talent.banner} additionalStyle={styles.profileBanner} />
 			<div className={styles.photoName}>
@@ -89,7 +88,7 @@ export const Profile = () => {
 			</div>
 			<div className={styles.about}>
 				<p>About me</p>
-				<b>{talent.aboutMe}</b>
+				{talent.aboutMe ? <b>{talent.aboutMe}</b> : <b className={styles.noData}>No data provided</b>}
 			</div>
 			{isTalentProfile && <CreateOutlinedIcon className={styles.pencil} />}
 		</div>
