@@ -11,20 +11,33 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Context } from '../../context';
 import { useParams } from 'react-router-dom';
 import { talentsAPI } from '../../api/talentsAPI';
+import { profileAPI } from '../../api/profileAPI';
 
 export const Profile = () => {
-	const {
-		authTalent,
-		isTalentProfile,
-		setIsTalentProfile,
-		talent,
-		setTalent
-	} = useContext(Context);
+	const { authTalent, isTalentProfile, setIsTalentProfile, talent, setTalent } =
+		useContext(Context);
 	const { talentId } = useParams();
 
 	const getTalentProfile = async () => {
 		const { data } = await talentsAPI.getTalent(talentId);
 		await setTalent(data);
+	};
+
+	const getFileFromUser = e => {
+		try {
+			if (e.target.files.length) {
+				profileAPI.uplaodPhoto(talentId, e.target.files[0], 'UPLOAD_BANNER');
+				// const updateAuthTalent = async () => {
+				// 	const { data } = await talentsAPI.getTalent(talentId);
+				// 	await setAuthTalent(data);
+				// }
+				// updateAuthTalent();
+				getTalentProfile();
+				//потрібен юзефект на таланта, щоб профіль перерендерився
+			}
+		} catch (err) {
+			console.log(err.message);
+		}
 	};
 
 	useEffect(() => {
@@ -33,7 +46,7 @@ export const Profile = () => {
 
 	useEffect(() => {
 		setIsTalentProfile(Number(talentId) === authTalent.id);
-	}, [authTalent]);
+	}, [authTalent, talentId]);
 
 	const infoAboutUser = [
 		{
@@ -62,7 +75,6 @@ export const Profile = () => {
 		},
 	];
 	return (
-
 		<div className={styles.profile}>
 			<Banner banner={talent.banner} additionalStyle={styles.profileBanner} />
 			<div className={styles.photoName}>
@@ -80,10 +92,11 @@ export const Profile = () => {
 				)}
 			</div>
 			{isTalentProfile && (
-				<div className={styles.toBanner}>
+				<label htmlFor='banner' className={styles.toBanner}>
+					<input id='banner' type={'file'} onChange={getFileFromUser} />
 					<CreateOutlinedIcon />
 					<p>EDIT BANNER</p>
-				</div>
+				</label>
 			)}
 			<div className={styles.info}>
 				{infoAboutUser.map(
