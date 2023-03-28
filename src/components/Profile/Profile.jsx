@@ -21,6 +21,7 @@ export const Profile = () => {
 		setTalent,
 		setAuthTalent,
 	} = useContext(Context);
+  
 	const { talentId } = useParams();
 
 	const getTalentProfile = async () => {
