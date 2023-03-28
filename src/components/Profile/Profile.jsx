@@ -13,13 +13,8 @@ import { useParams } from 'react-router-dom';
 import { talentsAPI } from '../../api/talentsAPI';
 
 export const Profile = () => {
-	const {
-		authTalent,
-		isTalentProfile,
-		setIsTalentProfile,
-		talent,
-		setTalent
-	} = useContext(Context);
+	const { authTalent, isTalentProfile, setIsTalentProfile, talent, setTalent } =
+		useContext(Context);
 	const { talentId } = useParams();
 
 	const getTalentProfile = async () => {
@@ -72,7 +67,18 @@ export const Profile = () => {
 				<p
 					className={styles.profileName}
 				>{`${talent.firstname} ${talent.lastname}`}</p>
+				{isTalentProfile && (
+					<CreateOutlinedIcon
+						className={`${styles.pencil} ${styles.toPhoto}`}
+					/>
+				)}
 			</div>
+			{isTalentProfile && (
+				<div className={styles.toBanner}>
+					<CreateOutlinedIcon />
+					<p>EDIT BANNER</p>
+				</div>
+			)}
 			<div className={styles.info}>
 				{infoAboutUser.map(
 					(el, i) =>
@@ -88,9 +94,15 @@ export const Profile = () => {
 			</div>
 			<div className={styles.about}>
 				<p>About me</p>
-				{talent.aboutMe ? <b>{talent.aboutMe}</b> : <b className={styles.noData}>No data provided</b>}
+				{talent.aboutMe ? (
+					<b>{talent.aboutMe}</b>
+				) : (
+					<b className={styles.noData}>No data provided</b>
+				)}
 			</div>
-			{isTalentProfile && <CreateOutlinedIcon className={styles.pencil} />}
+			{isTalentProfile && (
+				<CreateOutlinedIcon className={`${styles.pencil} ${styles.toEdit}`} />
+			)}
 		</div>
 	);
 };
