@@ -13,8 +13,13 @@ import { useParams } from 'react-router-dom';
 import { talentsAPI } from '../../api/talentsAPI';
 
 export const Profile = () => {
-	const { authTalent, isTalentProfile, setIsTalentProfile, talent, setTalent } =
-		useContext(Context);
+	const {
+		authTalent,
+		isTalentProfile,
+		setIsTalentProfile,
+		talent,
+		setTalent
+	} = useContext(Context);
 	const { talentId } = useParams();
 
 	const getTalentProfile = async () => {
@@ -57,6 +62,7 @@ export const Profile = () => {
 		},
 	];
 	return (
+
 		<div className={styles.profile}>
 			<Banner banner={talent.banner} additionalStyle={styles.profileBanner} />
 			<div className={styles.photoName}>
