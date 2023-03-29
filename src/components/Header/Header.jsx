@@ -28,7 +28,7 @@ export const Header = () => {
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<Link to='talents'>Talents</Link>
+				<Link to='/talents'>Talents</Link>
 			</div>
 
 			{isTalent ? (

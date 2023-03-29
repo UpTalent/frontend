@@ -9,12 +9,12 @@ export const axiosInstance = axios.create({
 });
 
 export const setAuthToken = token => {
-  if (token) {
-    localStorage.setItem('jwt_token', token);
-    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  } else {
-    localStorage.clear();
-  }
+	if (token) {
+		localStorage.setItem('jwt_token', token);
+		axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+	} else {
+		localStorage.clear();
+	}
 };
 
 export function parseJwt (token) {

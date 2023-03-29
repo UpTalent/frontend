@@ -10,9 +10,10 @@ import { Context } from '../../context';
 import styles from './LoginForm.module.css';
 import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
-import { setAuthToken } from '../../api';
+import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
 import { parseJwt } from '../../api/index';
+
 
 export const LoginForm = () => {
 	const { setIsTalent, setAuthTalent } = useContext(Context);
