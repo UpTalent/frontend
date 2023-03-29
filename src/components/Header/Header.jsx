@@ -50,7 +50,7 @@ export const Header = () => {
 							}}
 						>
 							<Link
-								to={`talent/${authTalent.id}`}
+								to={`talent/${authTalent.talent_id}`}
 								className={styles.menuItem}
 								onClick={() => {
 									setDropdownMenu(null);
@@ -80,7 +80,7 @@ export const Header = () => {
 							modalPathname('login');
 						}}
 					>
-						Login
+						LogIn
 					</Button>
 					<Button
 						variant='outlined'

@@ -9,21 +9,32 @@ import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlin
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Context } from '../../context';
-import { useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
+import { EditProfile } from '../EditProfile/EditProfile';
+import { Alert, Snackbar } from '@mui/material';
 
 export const Profile = () => {
 	const { authTalent, setAuthTalent } = useContext(Context);
 
 	const [isTalentProfile, setIsTalentProfile] = useState(false);
 	const [talent, setTalent] = useState({});
-
+	const [succesfullChange, setSuccesfullChange] = useState(false);
 	const { talentId } = useParams();
+
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	const modalPathname = path => {
+		navigate(`${location.pathname}/${path}`, {
+			state: { from: location.pathname },
+		});
+	};
 
 	const getTalentProfile = async () => {
 		const { data } = await profileAPI.getTalent(talentId);
 		setTalent(data);
-		setIsTalentProfile(Number(talentId) === authTalent.id);
+		setIsTalentProfile(Number(talentId) === authTalent.talent_id);
 	};
 
 	const getFileFromUser = async (photo, operation) => {
@@ -132,7 +143,31 @@ export const Profile = () => {
 				)}
 			</div>
 			{isTalentProfile && (
-				<CreateOutlinedIcon className={`${styles.pencil} ${styles.toEdit}`} />
+				<CreateOutlinedIcon
+					className={`${styles.pencil} ${styles.toEdit}`}
+					onClick={() => {
+						modalPathname('edit');
+					}}
+				/>
+			)}
+			{succesfullChange && (
+				<Snackbar
+					open={succesfullChange}
+					autoHideDuration={3000}
+					message='Your profile updated succesfully!'
+				>
+					<Alert severity='success' sx={{ width: '100%' }}>
+						Your profile was updated successfully!
+					</Alert>
+				</Snackbar>
+			)}
+			<Outlet />
+			{location.pathname.endsWith('/edit') && (
+				<EditProfile
+					talent={talent}
+					setTalent={setTalent}
+					setSuccess={setSuccesfullChange}
+				/>
 			)}
 		</div>
 	);
