@@ -62,3 +62,10 @@
 .registrationForm span {
    margin-left: 10px;
 }
+
+.skilsError{
+    align-self: flex-start;
+    font-size: 15px;
+    font-weight: 200;
+    color: rgb(187, 52, 52);
+}

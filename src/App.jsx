@@ -8,7 +8,6 @@ import { LoginForm } from './components/LoginForm';
 
 const App = () => {
 	const location = useLocation();
-debugger;
 	return (
 		<>
 			<Header />
