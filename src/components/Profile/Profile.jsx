@@ -9,11 +9,9 @@ import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlin
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Context } from '../../context';
-import { useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
-
-// modal
-import { EditProfile } from '../EditProfile';
+import { EditProfile } from '../EditProfile/EditProfile';
 
 export const Profile = () => {
 	const { authTalent, setAuthTalent } = useContext(Context);
@@ -22,10 +20,19 @@ export const Profile = () => {
 	const [talent, setTalent] = useState({});
 	const { talentId } = useParams();
 
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	const modalPathname = path => {
+		navigate(`${location.pathname}/${path}`, {
+			state: { from: location.pathname },
+		});
+	};
+
 	const getTalentProfile = async () => {
 		const { data } = await profileAPI.getTalent(talentId);
 		setTalent(data);
-		setIsTalentProfile(Number(talentId) === authTalent.id);
+		setIsTalentProfile(Number(talentId) === authTalent.talent_id);
 	};
 
 	const getFileFromUser = async (photo, operation) => {
@@ -45,9 +52,6 @@ export const Profile = () => {
 			console.log(err.message);
 		}
 	};
-
-	// make route modal
-	const [showEdit, setShowEdit] = useState(false);
 
 	useEffect(() => {
 		getTalentProfile();
@@ -140,12 +144,12 @@ export const Profile = () => {
 				<CreateOutlinedIcon
 					className={`${styles.pencil} ${styles.toEdit}`}
 					onClick={() => {
-						setShowEdit(true);
+						modalPathname('edit');
 					}}
 				/>
 			)}
-
-			<EditProfile modal={showEdit} setModal={setShowEdit} />
+			<Outlet />
+			{location.pathname.endsWith('/edit') && <EditProfile talent={talent} setTalent={setTalent} />}
 		</div>
 	);
 };

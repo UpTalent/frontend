@@ -1,85 +1,96 @@
-import {
-	Alert,
-	Autocomplete,
-	Button,
-	Dialog,
-	formHelperTextClasses,
-	TextField,
-} from '@mui/material';
+import { Alert, Autocomplete, Button, Dialog, TextField } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
-import React, { useState, useEffect, useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FormField } from '../shared/FormField';
 import { validationSchema } from './validation';
 import styles from '../LoginForm/LoginForm.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { talentsAPI } from '../../api/talentsAPI';
-import { Context } from '../../context';
-import { useParams } from 'react-router-dom';
 
-export const EditProfile = ({ modal, setModal }) => {
+export const EditProfile = ({ talent, setTalent }) => {
 	const navigate = useNavigate();
-	const location = useLocation();
-	const { talentId } = useParams();
+	const [open, setOpen] = useState(true);
 	const [error, setError] = useState(null);
-	const { setAuthTalent, setIsTalent, authTalent, setTalent } =
-		useContext(Context);
 
 	let initialEditData = {
-		lastname: authTalent.lastname,
-		firstname: authTalent.firstname,
-		location: (authTalent.location = ''),
-		birthday: (authTalent.birthday = ''),
-		skills: [authTalent.skills.join(', ')],
-		about_me: (authTalent.about_me = ''),
+		lastname: talent.lastname,
+		firstname: talent.firstname,
+		location: talent.location,
+		birthday: talent.birthday,
+		skills: talent.skills,
+		about_me: talent.about_me,
 	};
-	const skills = ['Java', 'JavaScript', 'CSS', 'Python', 'HTML', 'Jira'];
+
+	const skills = [
+		'Adaptability',
+		'Collaboration',
+		'Communication',
+		'Creativity',
+		'Critical thinking',
+		'Empathy',
+		'Flexibility',
+		'Leadership',
+		'Problem solving',
+		'Time management',
+		'Teamwork',
+		'Active listening',
+		'Conflict resolution',
+		'Decision making',
+		'Interpersonal skills',
+		'Negotiation',
+		'Patience',
+		'Stress management',
+		'Work ethic',
+		'Attention to detail',
+	];
 
 	const handleClose = () => {
-		setModal(false);
-		navigate(location.state?.from ? location.state.from : '/home');
+		setOpen(false);
+		navigate(`/talent/${talent.id}`);
 	};
 
 	const edit = async formData => {
 		const editData = { ...formData };
-
 		try {
-			const { data } = await talentsAPI.edit(authTalent.id, editData);
-			console.log(data);
+			const { data } = await talentsAPI.edit(talent.id, editData);
+			setTalent(data);
+			navigate(`/talent/${talent.id}`);
 		} catch (err) {
 			setError(err.message);
 			console.log(err.message);
 		}
 	};
 
-	const getTalentProfile = async () => {
-		const { data } = await talentsAPI.getTalent(talentId);
-		await setTalent(data);
-	};
-
-	useEffect(() => {
-		getTalentProfile();
-	}, []);
+	console.log(talent);
 
 	return (
-		<Dialog open={modal} onClose={handleClose}>
+		<Dialog open={open} onClose={handleClose}>
 			<Formik
 				initialValues={initialEditData}
-				// validationSchema={validationSchema}
-				// validateOnChange={true}
-				// validateOnBlur={true}
-				// validateOnMount={true}
+				validationSchema={validationSchema}
+				validateOnChange={true}
+				validateOnBlur={true}
+				validateOnMount={true}
 				onSubmit={edit}
 			>
-				{({ isValid, setFieldValue }) => (
+				{({
+					isValid,
+					setFieldValue,
+					values,
+					setFieldTouched,
+					errors,
+					setFieldError,
+					touched,
+				}) => (
 					<Form className={styles.registrationForm}>
-						<label>Personal information</label>
+						<div className={styles.formTitle}>Personal information</div>
 						<div className={styles.talentName}>
 							<FormField label='Firstname' name='firstname' />
 							<FormField label='Lastname' name='lastname' />
 						</div>
 						<FormField label='Location' name='location' type='text' />
-						<FormField label='Birthday' name='birthday' type='text' />
+						<FormField label='Birthday' name='birthday' type='date' />
 						<Field
 							name='skills'
 							label='Tell us what you can do'
@@ -104,8 +115,18 @@ export const EditProfile = ({ modal, setModal }) => {
 							limitTags={3}
 							freeSolo
 							fullWidth
-							onChange={(e, value) => setFieldValue('skills', value)}
+							onChange={(e, value) => {
+								setFieldValue('skills', value);
+								setFieldTouched('skills', true, false);
+							}}
+							value={values.skills}
+							onClick={() => {
+								setFieldError('skills');
+							}}
 						/>
+						{touched.skills && errors.skills ? (
+							<div className={styles.skilsError}>{errors.skills}</div>
+						) : null}
 						<FormField label='About me' name='about_me' type='text' />
 
 						<Button
