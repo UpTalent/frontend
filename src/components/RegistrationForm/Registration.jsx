@@ -17,8 +17,7 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Context } from '../../context';
-import { setAuthToken } from '../../api';
-import { profileAPI } from '../../api/profileAPI';
+import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
 
 export const RegistrationForm = () => {
@@ -50,16 +49,14 @@ export const RegistrationForm = () => {
 
 		try {
 			const { data } = await authAPI.registrate(registerData);
-
 			setAuthToken(data.jwt_token);
+			
+			const { firstname, talent_id } = parseJwt(data.jwt_token);
 
-			//remove and instead parse jwt
-			const talentProfile = await profileAPI.getTalent(data.talent_id);
-
-			setAuthTalent(talentProfile.data);
+			setAuthTalent({ talent_id, firstname });
 			setIsTalent(true);
 
-			navigate(`/talent/${data.talent_id}`);
+			navigate(`/talent/${talent_id}`);
 		} catch (err) {
 			setError(err.message);
 			console.log(err.message);
