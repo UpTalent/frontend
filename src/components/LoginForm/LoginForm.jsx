@@ -4,7 +4,7 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Formik, Form } from 'formik';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Context } from '../../context';
 import styles from './LoginForm.module.css';
@@ -21,8 +21,6 @@ export const LoginForm = () => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-
-	useEffect(() => setOpen(true), []);
 
 	const handleClose = () => {
 		setOpen(false);

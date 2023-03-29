@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Banner } from '../shared/Banner';
 import { TalentAvatar } from '../shared/TalentAvatar';
 import { ProfileInfo } from './components/ProfileInfo';
@@ -13,15 +13,11 @@ import { useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
 
 export const Profile = () => {
-	const {
-		authTalent,
-		isTalentProfile,
-		setIsTalentProfile,
-		talent,
-		setTalent,
-		setAuthTalent,
-	} = useContext(Context);
-  
+	const { authTalent, setAuthTalent } = useContext(Context);
+
+	const [isTalentProfile, setIsTalentProfile] = useState(false);
+	const [talent, setTalent] = useState({});
+
 	const { talentId } = useParams();
 
 	const getTalentProfile = async () => {
@@ -68,7 +64,7 @@ export const Profile = () => {
 		{
 			icon: <AutoAwesomeIcon />,
 			header: 'I can...',
-			info: talent.skills.join(', '),
+			info: talent.skills?.join(', '),
 			visiableForGuest: true,
 		},
 		{
