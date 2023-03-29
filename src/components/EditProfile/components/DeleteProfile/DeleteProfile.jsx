@@ -39,7 +39,7 @@ export const DeleteProfile = ({ talent_id }) => {
 				aria-labelledby='alert-dialog-title'
 			>
 				<DialogTitle id='alert-dialog-title'>
-					Are you sure you want to delete your profile <b>(It's permanent!)</b>
+					Are you sure you want to delete your profile (It's permanent!)
 				</DialogTitle>
 				<DialogActions >
 					<Button variant='outlined' onClick={closeModal}>Cancel</Button>
