@@ -35,7 +35,7 @@ export const Home = () => {
 							variant='contained'
 							onClick={() => {
 								isTalent
-									? navigate(`/talents/${authTalent.api}`)
+									? navigate(`/talent/${authTalent.talent_id}`)
 									: modalPathname('registrate');
 							}}
 						>
