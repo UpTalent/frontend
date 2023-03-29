@@ -20,19 +20,19 @@ export const ContextHOC = () => {
 
 	useEffect(() => {
 		const jwt = localStorage.getItem('jwt_token');
-		if (jwt) {
-			const { exp, firstname, talent_id } = parseJwt(jwt);
-			const currentTime = new Date();
-			const expire = new Date(exp * 1000);
+		if (!jwt) return;
+		
+		const { exp, firstname, talent_id } = parseJwt(jwt);
+		const currentTime = new Date();
+		const expire = new Date(exp * 1000);
 
-			if (currentTime <= expire) {
-				setAuthToken(jwt);
-				setIsTalent(true);
-				setAuthTalent({ firstname, talent_id });
-			} else {
-				setAuthToken();
-				setIsTalent(false);
-			}
+		if (currentTime <= expire) {
+			setAuthToken(jwt);
+			setIsTalent(true);
+			setAuthTalent({ firstname, talent_id });
+		} else {
+			setAuthToken();
+			setIsTalent(false);
 		}
 	}, []);
 
