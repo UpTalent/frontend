@@ -5,7 +5,6 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { RegistrationForm } from './components/RegistrationForm';
 import { LoginForm } from './components/LoginForm';
-import { EditProfile } from './components/EditProfile/EditProfile';
 
 const App = () => {
 	const location = useLocation();

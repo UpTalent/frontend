@@ -12,7 +12,6 @@ import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
 import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
-import { parseJwt } from '../../api/index';
 
 
 export const LoginForm = () => {
@@ -32,8 +31,7 @@ export const LoginForm = () => {
 		try {
 			const { data } = await authAPI.login(formData);
 			setAuthToken(data.jwt_token);
-			console.log(parseToken(data.jwt_token));
-
+			
 			const { firstname, talent_id } = parseJwt(data.jwt_token);
 
 			setAuthTalent({ talent_id, firstname });
