@@ -28,7 +28,7 @@ export const Header = () => {
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<Link to='talents'>Talents</Link>
+				<Link to='/talents'>Talents</Link>
 			</div>
 
 			{isTalent ? (
@@ -50,7 +50,7 @@ export const Header = () => {
 							}}
 						>
 							<Link
-								to={`talent/${authTalent.id}`}
+								to={`talent/${authTalent.talent_id}`}
 								className={styles.menuItem}
 								onClick={() => {
 									setDropdownMenu(null);

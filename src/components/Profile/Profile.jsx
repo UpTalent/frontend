@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
 
 export const Profile = () => {
-	const { authTalent, setAuthTalent } = useContext(Context);
+	const { authTalent } = useContext(Context);
 
 	const [isTalentProfile, setIsTalentProfile] = useState(false);
 	const [talent, setTalent] = useState({});
@@ -23,7 +23,7 @@ export const Profile = () => {
 	const getTalentProfile = async () => {
 		const { data } = await profileAPI.getTalent(talentId);
 		setTalent(data);
-		setIsTalentProfile(Number(talentId) === authTalent.id);
+		setIsTalentProfile(Number(talentId) === authTalent.talent_id);
 	};
 
 	const getFileFromUser = async (photo, operation) => {
@@ -36,7 +36,7 @@ export const Profile = () => {
 				);
 				if (status === 201) {
 					const { data } = await profileAPI.getTalent(talentId);
-					setAuthTalent(data);
+					setTalent(data);
 				}
 			}
 		} catch (err) {

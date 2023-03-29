@@ -10,9 +10,8 @@ import { Context } from '../../context';
 import styles from './LoginForm.module.css';
 import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
-import { setAuthToken } from '../../api';
+import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
-import { profileAPI } from '../../api/profileAPI';
 
 export const LoginForm = () => {
 	const { setIsTalent, setAuthTalent } = useContext(Context);
@@ -32,12 +31,12 @@ export const LoginForm = () => {
 			const { data } = await authAPI.login(formData);
 			setAuthToken(data.jwt_token);
 
-			const talentProfile = await profileAPI.getTalent(data.talent_id);
+			const { firstname, talent_id } = parseJwt(data.jwt_token);
 
-			setAuthTalent(talentProfile.data);
+			setAuthTalent({ talent_id, firstname });
 			setIsTalent(true);
 
-			navigate(`/talent/${data.talent_id}`);
+			navigate(`/talent/${talent_id}`);
 		} catch (err) {
 			setError(err.message);
 			console.log(err.message);
