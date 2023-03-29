@@ -5,13 +5,31 @@ export const axiosInstance = axios.create({
 	headers: {
 		'Content-Type': 'application/json',
 		'Access-Control-Allow-Origin': '*',
+		Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
 	},
 });
 
-export const setAuthToken = (token) => {
+export const setAuthToken = token => {
 	if (token) {
-		axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+		localStorage.setItem('jwt_token', token);
+		console.log(localStorage);
 	} else {
-		delete axiosInstance.defaults.headers.common['Authorization'];
+		localStorage.clear();
 	}
+};
+
+export const parseToken = token => {
+	var base64Url = token.split('.')[1];
+	var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+	var jsonPayload = decodeURIComponent(
+		window
+			.atob(base64)
+			.split('')
+			.map(function (c) {
+				return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+			})
+			.join(''),
+	);
+
+	return JSON.parse(jsonPayload);
 };
