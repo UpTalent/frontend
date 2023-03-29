@@ -7,7 +7,7 @@ import {
 	Typography,
 } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FormField } from '../shared/FormField';
 import { validationSchema } from './validation';
@@ -16,9 +16,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { talentsAPI } from '../../api/talentsAPI';
 import { Context } from '../../context';
 import { setAuthToken } from '../../api';
+import { profileAPI } from '../../api/profileAPI';
+import { authAPI } from '../../api/authAPI';
 
 export const RegistrationForm = () => {
 	const [modal, setModal] = useState(true);
@@ -28,10 +29,6 @@ export const RegistrationForm = () => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-
-	useEffect(() => {
-		setModal(true);
-	}, []);
 
 	let initialRegistartionData = {
 		email: '',
@@ -52,24 +49,45 @@ export const RegistrationForm = () => {
 		delete registerData.confirmPassword;
 
 		try {
-			const { data } = await talentsAPI.registrate(registerData);
+			const { data } = await authAPI.registrate(registerData);
 
 			setAuthToken(data.jwt_token);
-			
-			const talentProfile = await talentsAPI.getTalent(data.talent_id);
 
-			await setAuthTalent(talentProfile.data);
-			await setIsTalent(true);
+			//remove and instead parse jwt
+			const talentProfile = await profileAPI.getTalent(data.talent_id);
+
+			setAuthTalent(talentProfile.data);
+			setIsTalent(true);
 
 			navigate(`/talent/${data.talent_id}`);
-
 		} catch (err) {
 			setError(err.message);
 			console.log(err.message);
 		}
 	};
 
-	const skills = ['Java', 'JavaScript', 'CSS', 'Python', 'HTML', 'Jira'];
+	const skills = [
+		'Adaptability',
+		'Collaboration',
+		'Communication',
+		'Creativity',
+		'Critical thinking',
+		'Empathy',
+		'Flexibility',
+		'Leadership',
+		'Problem solving',
+		'Time management',
+		'Teamwork',
+		'Active listening',
+		'Conflict resolution',
+		'Decision making',
+		'Interpersonal skills',
+		'Negotiation',
+		'Patience',
+		'Stress management',
+		'Work ethic',
+		'Attention to detail',
+	];
 
 	return (
 		<>
@@ -82,7 +100,14 @@ export const RegistrationForm = () => {
 					validateOnMount={true}
 					onSubmit={register}
 				>
-					{({ isValid, setFieldValue }) => (
+					{({
+						isValid,
+						setFieldValue,
+						setFieldTouched,
+						errors,
+						setFieldError,
+						touched,
+					}) => (
 						<Form className={styles.registrationForm}>
 							<Typography className={styles.formTitle}>
 								Join our team!
@@ -124,6 +149,7 @@ export const RegistrationForm = () => {
 										key={i}
 										{...params}
 										name='skill'
+										label='Tell us what you can...'
 										variant='standard'
 									/>
 								)}
@@ -135,10 +161,18 @@ export const RegistrationForm = () => {
 								}}
 								multiple
 								limitTags={3}
-								freeSolo
 								fullWidth
-								onChange={(e, value) => setFieldValue('skills', value)}
+								onChange={(e, value) => {
+									setFieldValue('skills', value);
+									setFieldTouched('skills', true, false);
+								}}
+								onClick={() => {
+									setFieldError('skills');
+								}}
 							/>
+							{touched.skills && errors.skills ? (
+								<div className={styles.skilsError}>{errors.skills}</div>
+							) : null}
 							<Button
 								type='submit'
 								variant='contained'

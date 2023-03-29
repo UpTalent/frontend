@@ -3,13 +3,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button, Popover } from '@mui/material';
 import styles from './Header.module.css';
 import { Context } from '../../context';
+import { setAuthToken } from '../../api/index';
 
 export const Header = () => {
-	const {
-		isTalent,
-		setIsTalent,
-		authTalent
-	} = useContext(Context);
+	const { isTalent, setIsTalent, authTalent } = useContext(Context);
 	const [dropdownMenu, setDropdownMenu] = useState(null);
 
 	const location = useLocation();
@@ -66,6 +63,7 @@ export const Header = () => {
 								onClick={() => {
 									setIsTalent(false);
 									setDropdownMenu(null);
+									setAuthToken();
 									navigate('/home');
 								}}
 							>

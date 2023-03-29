@@ -4,14 +4,15 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Formik, Form } from 'formik';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Context } from '../../context';
 import styles from './LoginForm.module.css';
 import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
-import { talentsAPI } from '../../api/talentsAPI';
 import { setAuthToken } from '../../api';
+import { authAPI } from '../../api/authAPI';
+import { profileAPI } from '../../api/profileAPI';
 
 export const LoginForm = () => {
 	const { setIsTalent, setAuthTalent } = useContext(Context);
@@ -21,8 +22,6 @@ export const LoginForm = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	useEffect(() => setOpen(true), []);
-
 	const handleClose = () => {
 		setOpen(false);
 		navigate(location.state?.from ? location.state.from : '/home');
@@ -30,13 +29,13 @@ export const LoginForm = () => {
 
 	const tryToLogin = async formData => {
 		try {
-			const { data } = await talentsAPI.login(formData);
+			const { data } = await authAPI.login(formData);
 			setAuthToken(data.jwt_token);
 
-			const talentProfile = await talentsAPI.getTalent(data.talent_id);
+			const talentProfile = await profileAPI.getTalent(data.talent_id);
 
-			await setAuthTalent(talentProfile.data);
-			await setIsTalent(true);
+			setAuthTalent(talentProfile.data);
+			setIsTalent(true);
 
 			navigate(`/talent/${data.talent_id}`);
 		} catch (err) {

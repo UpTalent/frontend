@@ -28,7 +28,7 @@ export const Footer = () => {
 					<Link to="" className={styles.smallflex__item}>USA HQ – AUSTIN</Link>
 					<Link to="" className={styles.smallflex__item}>201 W 5th StreetSuite 1550Austin, TX 78701</Link>
 					<Link to="" className={styles.smallflex__item}>+1-512-516-8880</Link>
-					<Link to="" className={styles.smallflex__item}>someemail@gmail.com</Link>
+					<Link to="" className={styles.smallflex__item}>uptalentqa@gmail.com</Link>
 				</div>
 				
 				<div className={`${styles.bigflex__smallflex} ${styles.smallflex}`}>
