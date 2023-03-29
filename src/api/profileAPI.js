@@ -24,6 +24,14 @@ export const profileAPI = {
         } catch (error) {
             throw new Error(error.response.data.message);
         }
+    },
+
+    async deleteProfile(id) {
+        try {
+            return await axiosInstance.delete(`talents/${id}`);
+        } catch (error) {
+            throw new Error(error.response.data.message);
+        }
     }
 }
 
