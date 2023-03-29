@@ -80,7 +80,7 @@ export const Header = () => {
 							modalPathname('login');
 						}}
 					>
-						Login
+						LogIn
 					</Button>
 					<Button
 						variant='outlined'

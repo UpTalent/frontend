@@ -12,6 +12,8 @@ import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
 import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
+import { parseJwt } from '../../api/index';
+
 
 export const LoginForm = () => {
 	const { setIsTalent, setAuthTalent } = useContext(Context);
