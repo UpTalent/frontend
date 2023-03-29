@@ -8,7 +8,7 @@ import styles from '../LoginForm/LoginForm.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { talentsAPI } from '../../api/talentsAPI';
 
-export const EditProfile = ({ talent, setTalent }) => {
+export const EditProfile = ({ talent, setTalent, setSuccess }) => {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(true);
 	const [error, setError] = useState(null);
@@ -55,14 +55,13 @@ export const EditProfile = ({ talent, setTalent }) => {
 		try {
 			const { data } = await talentsAPI.edit(talent.id, editData);
 			setTalent(data);
+			setSuccess(true);
 			navigate(`/talent/${talent.id}`);
 		} catch (err) {
 			setError(err.message);
 			console.log(err.message);
 		}
 	};
-
-	console.log(talent);
 
 	return (
 		<Dialog open={open} onClose={handleClose}>
@@ -93,12 +92,12 @@ export const EditProfile = ({ talent, setTalent }) => {
 						<FormField label='Birthday' name='birthday' type='date' />
 						<Field
 							name='skills'
-							label='Tell us what you can do'
 							component={Autocomplete}
 							options={skills}
 							getOptionLabel={option => option}
 							renderInput={(params, i) => (
 								<TextField
+									label='Tell us what you can...'
 									key={i}
 									{...params}
 									name='skill'
@@ -137,7 +136,11 @@ export const EditProfile = ({ talent, setTalent }) => {
 						>
 							SAVE
 						</Button>
-						<Button variant='contained' className={styles.logInButton}>
+						<Button
+							variant='contained'
+							className={styles.logInButton}
+							color='error'
+						>
 							DELETE PROFILE
 						</Button>
 					</Form>

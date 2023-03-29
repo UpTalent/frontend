@@ -10,13 +10,10 @@
     display: flex;
     flex-direction: column;
     margin-left: 20px;
-    
+    word-break: break-all;
 }
 
-.itemText b {
-word-wrap: break-word;
-overflow-wrap: break-word;
-}
+
 
 
 .infoItem svg {
