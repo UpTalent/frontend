@@ -5,14 +5,16 @@ export const authAPI = {
         try {
             return await axiosInstance.post('/talents/login', data);
         } catch (error) {
-            throw new Error(error.response.data.message);
+            const field = Object.keys(error.response.data)[0];
+            throw new Error(`${error.response.data[field]}`);
         }
     },
     async registrate(data) {
         try {
             return await axiosInstance.post('talents', data);
         } catch (error) {
-            throw new Error(error.response.data.message);
+            const field = Object.keys(error.response.data)[0];
+            throw new Error(`${error.response.data[field]}`);
         }
     },
 }

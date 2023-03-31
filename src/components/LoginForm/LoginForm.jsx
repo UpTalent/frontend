@@ -13,7 +13,6 @@ import { FormField } from '../shared/FormField';
 import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
 
-
 export const LoginForm = () => {
 	const { setIsTalent, setAuthTalent } = useContext(Context);
 	const [open, setOpen] = useState(true);
@@ -31,7 +30,7 @@ export const LoginForm = () => {
 		try {
 			const { data } = await authAPI.login(formData);
 			setAuthToken(data.jwt_token);
-			
+
 			const { firstname, talent_id } = parseJwt(data.jwt_token);
 
 			setAuthTalent({ talent_id, firstname });
