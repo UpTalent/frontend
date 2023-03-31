@@ -90,6 +90,7 @@ export const EditProfile = ({ talent, setTalent }) => {
 									backgroundColor: '#48bde2',
 									color: '#fff',
 								},
+								maxWidth: '500px',
 							}}
 							multiple
 							limitTags={3}

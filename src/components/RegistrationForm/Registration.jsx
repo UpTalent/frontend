@@ -132,6 +132,7 @@ export const RegistrationForm = () => {
 										backgroundColor: '#48bde2',
 										color: '#fff',
 									},
+									maxWidth: '470px'
 								}}
 								multiple
 								limitTags={3}
