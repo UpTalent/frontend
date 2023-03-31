@@ -50,7 +50,7 @@ export const RegistrationForm = () => {
 		try {
 			const { data } = await authAPI.registrate(registerData);
 			setAuthToken(data.jwt_token);
-			
+
 			const { firstname, talent_id } = parseJwt(data.jwt_token);
 
 			setAuthTalent({ talent_id, firstname });
@@ -132,6 +132,7 @@ export const RegistrationForm = () => {
 										backgroundColor: '#48bde2',
 										color: '#fff',
 									},
+									maxWidth: '470px'
 								}}
 								multiple
 								limitTags={3}

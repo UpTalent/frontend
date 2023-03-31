@@ -5,6 +5,7 @@
     position: relative;
     align-items: center;
     padding: 35px;
+    overflow: hidden;
 }
 
 .registrationForm .formTitle{

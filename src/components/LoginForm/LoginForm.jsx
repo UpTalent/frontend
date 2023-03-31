@@ -13,7 +13,6 @@ import { FormField } from '../shared/FormField';
 import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
 
-
 export const LoginForm = () => {
 	const { setIsTalent, setAuthTalent } = useContext(Context);
 	const [open, setOpen] = useState(true);
