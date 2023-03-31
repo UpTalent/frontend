@@ -30,7 +30,7 @@ export const LoginForm = () => {
 		try {
 			const { data } = await authAPI.login(formData);
 			setAuthToken(data.jwt_token);
-
+			
 			const { firstname, talent_id } = parseJwt(data.jwt_token);
 
 			setAuthTalent({ talent_id, firstname });
