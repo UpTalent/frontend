@@ -7,11 +7,15 @@ import { validationSchema } from './validation';
 import styles from '../LoginForm/LoginForm.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { talentsAPI } from '../../api/talentsAPI';
+import { useContext } from 'react';
+import { Context } from '../../context';
+import { DeleteProfile } from './components/DeleteProfile';
 
-export const EditProfile = ({ talent, setTalent, setSuccess }) => {
+export const EditProfile = ({ talent, setTalent }) => {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(true);
 	const [error, setError] = useState(null);
+	const { skills, setMessageForUser } = useContext(Context);
 
 	let initialEditData = {
 		lastname: talent.lastname,
@@ -21,29 +25,6 @@ export const EditProfile = ({ talent, setTalent, setSuccess }) => {
 		skills: talent.skills,
 		about_me: talent.about_me,
 	};
-
-	const skills = [
-		'Adaptability',
-		'Collaboration',
-		'Communication',
-		'Creativity',
-		'Critical thinking',
-		'Empathy',
-		'Flexibility',
-		'Leadership',
-		'Problem solving',
-		'Time management',
-		'Teamwork',
-		'Active listening',
-		'Conflict resolution',
-		'Decision making',
-		'Interpersonal skills',
-		'Negotiation',
-		'Patience',
-		'Stress management',
-		'Work ethic',
-		'Attention to detail',
-	];
 
 	const handleClose = () => {
 		setOpen(false);
@@ -55,7 +36,7 @@ export const EditProfile = ({ talent, setTalent, setSuccess }) => {
 		try {
 			const { data } = await talentsAPI.edit(talent.id, editData);
 			setTalent(data);
-			setSuccess(true);
+			setMessageForUser(true);
 			navigate(`/talent/${talent.id}`);
 		} catch (err) {
 			setError(err.message);
@@ -109,6 +90,7 @@ export const EditProfile = ({ talent, setTalent, setSuccess }) => {
 									backgroundColor: '#48bde2',
 									color: '#fff',
 								},
+								maxWidth: '500px',
 							}}
 							multiple
 							limitTags={3}
@@ -136,13 +118,7 @@ export const EditProfile = ({ talent, setTalent, setSuccess }) => {
 						>
 							SAVE
 						</Button>
-						<Button
-							variant='contained'
-							className={styles.logInButton}
-							color='error'
-						>
-							DELETE PROFILE
-						</Button>
+						<DeleteProfile talent_id={talent.id} />
 					</Form>
 				)}
 			</Formik>

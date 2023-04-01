@@ -5,6 +5,7 @@ import rightside_image from '../../assets/5876834.jpg';
 import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Context } from '../../context';
+import { PopUpMessage } from '../shared/PopUpMessage/PopUpMessage';
 
 export const Home = () => {
 	const { isTalent, authTalent } = useContext(Context);
@@ -34,7 +35,7 @@ export const Home = () => {
 							variant='contained'
 							onClick={() => {
 								isTalent
-									? navigate(`/talents/${authTalent.api}`)
+									? navigate(`/talent/${authTalent.talent_id}`)
 									: modalPathname('registrate');
 							}}
 						>
@@ -51,6 +52,7 @@ export const Home = () => {
 					</div>
 				</div>
 			</div>
+			<PopUpMessage message='Your profile was deleted' status='success' />
 			<Slider />
 		</>
 	);

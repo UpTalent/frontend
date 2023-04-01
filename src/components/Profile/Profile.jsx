@@ -12,14 +12,13 @@ import { Context } from '../../context';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
 import { EditProfile } from '../EditProfile/EditProfile';
-import { Alert, Snackbar } from '@mui/material';
+import { PopUpMessage } from '../shared/PopUpMessage/PopUpMessage';
 
 export const Profile = () => {
 	const { authTalent } = useContext(Context);
 
 	const [isTalentProfile, setIsTalentProfile] = useState(false);
 	const [talent, setTalent] = useState({});
-	const [succesfullChange, setSuccesfullChange] = useState(false);
 	const { talentId } = useParams();
 
 	const navigate = useNavigate();
@@ -150,23 +149,15 @@ export const Profile = () => {
 					}}
 				/>
 			)}
-			{succesfullChange && (
-				<Snackbar
-					open={succesfullChange}
-					autoHideDuration={3000}
-					message='Your profile updated succesfully!'
-				>
-					<Alert severity='success' sx={{ width: '100%' }}>
-						Your profile was updated successfully!
-					</Alert>
-				</Snackbar>
-			)}
+			<PopUpMessage
+				message='Your profile was updated successfully!'
+				status='success'
+			/>
 			<Outlet />
 			{location.pathname.endsWith('/edit') && (
 				<EditProfile
 					talent={talent}
 					setTalent={setTalent}
-					setSuccess={setSuccesfullChange}
 				/>
 			)}
 		</div>

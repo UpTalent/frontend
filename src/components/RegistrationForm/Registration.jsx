@@ -24,7 +24,7 @@ export const RegistrationForm = () => {
 	const [modal, setModal] = useState(true);
 	const [error, setError] = useState(null);
 
-	const { setAuthTalent, setIsTalent } = useContext(Context);
+	const { setAuthTalent, setIsTalent, skills } = useContext(Context);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -50,7 +50,7 @@ export const RegistrationForm = () => {
 		try {
 			const { data } = await authAPI.registrate(registerData);
 			setAuthToken(data.jwt_token);
-			
+
 			const { firstname, talent_id } = parseJwt(data.jwt_token);
 
 			setAuthTalent({ talent_id, firstname });
@@ -62,29 +62,6 @@ export const RegistrationForm = () => {
 			console.log(err.message);
 		}
 	};
-
-	const skills = [
-		'Adaptability',
-		'Collaboration',
-		'Communication',
-		'Creativity',
-		'Critical thinking',
-		'Empathy',
-		'Flexibility',
-		'Leadership',
-		'Problem solving',
-		'Time management',
-		'Teamwork',
-		'Active listening',
-		'Conflict resolution',
-		'Decision making',
-		'Interpersonal skills',
-		'Negotiation',
-		'Patience',
-		'Stress management',
-		'Work ethic',
-		'Attention to detail',
-	];
 
 	return (
 		<>
@@ -155,6 +132,7 @@ export const RegistrationForm = () => {
 										backgroundColor: '#48bde2',
 										color: '#fff',
 									},
+									maxWidth: '470px'
 								}}
 								multiple
 								limitTags={3}

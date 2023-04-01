@@ -48,6 +48,7 @@
 .about{
     width: 75%;
     margin-bottom: 70px;
+    word-break: break-word;
 }
 
 .about p {
