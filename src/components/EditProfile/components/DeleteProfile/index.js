@@ -1,0 +1,1 @@
+export { DeleteProfile } from './DeleteProfile';

@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap');
+
+.header {
+  height: 60px;
+  border-bottom: 1px solid var(--primary);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0px;
+  width: 100%;
+}
+
+.logo {
+  font-family: "Sarabun";
+  color: var(--dark);
+  width: 228px;
+  font-size: 40px;
+  line-height: 80%;
+  text-align: center;
+  font-weight: 200;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar a {
+  display: block;
+  color: #000000;
+  font-family: "Sarabun";
+  font-weight: 200;
+  font-size: 25px;
+  padding: 0 20px;
+}
+
+.nameButton a {
+  background-color: var(--primary);
+  color: #fff;
+  border-bottom: 1px solid var(--primary);
+  border-radius: 10px;
+  width: 199px;
+  height: 41px;
+  font-style: normal;
+  font-weight: 300px;
+  font-size: 20px;
+}
+
+.nameButton a:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.buttonGroup {
+  position: relative;
+  margin-right: 18px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  width: 196px;
+  height: 42px;
+  color: var(--primary);
+  border: 1px solid #9cdaed;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.menuItem p {
+  font-weight: 400;
+  font-size: 14px;
+  padding-left: 15px;
+}
+
+.guestButtons {
+  width: 255px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 18px;
+}
+
+.guestButtons button {
+  text-transform: none;
+  width: 45%;
+  font-weight: 300px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.guestButtons .login {
+  background-color: #000000;
+  color: #fff;
+}
+
+.guestButtons .login:hover {
+  background-color: #000000;
+  color: #fff;
+}

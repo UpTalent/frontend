@@ -1,0 +1,17 @@
+.Skill {
+	border-radius: 100px;
+	width: min-content;
+	padding: 5px 15px;
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+	height: 15px;
+}
+
+.Skill p {
+	text-align: center;
+	font-size: 10px;
+	color: white;
+	text-transform: uppercase;
+	font-weight: 400;	
+}

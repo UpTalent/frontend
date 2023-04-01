@@ -1,0 +1,1 @@
+export { GeneralTalent } from "./GeneralTalent"
