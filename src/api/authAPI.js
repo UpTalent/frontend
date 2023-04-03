@@ -9,7 +9,7 @@ export const authAPI = {
             throw new Error(`${error.response.data[field]}`);
         }
     },
-    async registrate(data) {
+    async register(data) {
         try {
             return await axiosInstance.post('talents', data);
         } catch (error) {

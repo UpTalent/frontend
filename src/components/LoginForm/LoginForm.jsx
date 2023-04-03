@@ -91,7 +91,7 @@ export const LoginForm = () => {
 									className={styles.signInElement}
 									onClick={() =>
 										navigate({
-											pathname: `${location.pathname.slice(0, -5)}registrate`,
+											pathname: `${location.pathname.slice(0, -5)}register`,
 											search: location.search,
 										})
 									}

@@ -41,7 +41,7 @@ export const RegistrationForm = () => {
 	const handleClose = () => {
 		setModal(false);
 		navigate({
-			pathname: location.pathname.slice(0, -11),
+			pathname: location.pathname.slice(0, -9),
 			search: location.search,
 		});
 	};
@@ -51,7 +51,7 @@ export const RegistrationForm = () => {
 		delete registerData.confirmPassword;
 
 		try {
-			const { data } = await authAPI.registrate(registerData);
+			const { data } = await authAPI.register(registerData);
 			setAuthToken(data.jwt_token);
 
 			const { firstname, talent_id } = parseJwt(data.jwt_token);
@@ -165,7 +165,7 @@ export const RegistrationForm = () => {
 									className={styles.signInElement}
 									onClick={() => {
 										navigate({
-											pathname: `${location.pathname.slice(0, -10)}login`,
+											pathname: `${location.pathname.slice(0, -8)}login`,
 											search: location.search,
 										});
 									}}

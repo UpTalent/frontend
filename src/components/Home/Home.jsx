@@ -36,7 +36,7 @@ export const Home = () => {
 							onClick={() => {
 								isTalent
 									? navigate(`/talent/${authTalent.talent_id}`)
-									: modalPathname('registrate');
+									: modalPathname('register');
 							}}
 						>
 							Get started

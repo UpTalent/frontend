@@ -86,7 +86,7 @@ export const Header = () => {
 					<Button
 						variant='outlined'
 						onClick={() => {
-							modalPathname('registrate');
+							modalPathname('register');
 						}}
 					>
 						Register
