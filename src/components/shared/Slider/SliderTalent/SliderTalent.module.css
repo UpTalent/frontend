@@ -25,16 +25,6 @@
 	text-align: center;
 }
 
-.talentPhoto img {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	min-width: 100%;
-	min-height: 100%;
-	object-fit: cover;
-}
-
 .talentName {
 	text-transform: uppercase;
 	color: #000000;
@@ -55,4 +45,14 @@
 
 .default {
 	display: none;
+}
+
+.avatar {
+position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	min-width: 83%;
+	min-height: 65%;
+	object-fit: cover;
 }
