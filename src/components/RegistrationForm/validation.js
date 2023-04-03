@@ -19,6 +19,9 @@ export const validationSchema = Yup.object({
 	lastname: Yup.string()
 		.required('Lastname is required')
 		.max(15, 'Must be 15 characters or less')
-		.matches(/^[a-zA-Z-]+$/, 'Only English letters allowed'),
+		.matches(
+			/^[a-zA-Z]+(-[a-zA-Z]+)?$/,
+			'Only English letters and one "-" character allowed',
+		),
 	skills: Yup.array().min(1, 'This filed is required'),
 });
