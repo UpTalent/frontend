@@ -40,7 +40,10 @@ export const RegistrationForm = () => {
 
 	const handleClose = () => {
 		setModal(false);
-		navigate(location.state?.from ? location.state.from : '/home');
+		navigate({
+			pathname: location.pathname.slice(0, -11),
+			search: location.search,
+		});
 	};
 
 	const register = async formData => {
@@ -132,7 +135,7 @@ export const RegistrationForm = () => {
 										backgroundColor: '#48bde2',
 										color: '#fff',
 									},
-									maxWidth: '470px'
+									maxWidth: '470px',
 								}}
 								multiple
 								limitTags={3}
@@ -154,14 +157,17 @@ export const RegistrationForm = () => {
 								disabled={!isValid}
 								className={styles.logInButton}
 							>
-								SIGN UP
+								REGISTER
 							</Button>
 							<Typography>
 								Are you a talent already?
 								<span
 									className={styles.signInElement}
 									onClick={() => {
-										navigate(`${location.pathname.slice(0, -10)}login`);
+										navigate({
+											pathname: `${location.pathname.slice(0, -10)}login`,
+											search: location.search,
+										});
 									}}
 								>
 									LOG IN

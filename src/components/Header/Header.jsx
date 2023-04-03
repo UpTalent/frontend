@@ -13,8 +13,9 @@ export const Header = () => {
 	const navigate = useNavigate();
 
 	const modalPathname = path => {
-		navigate(`${location.pathname}/${path}`, {
-			state: { from: location.pathname },
+		navigate({
+			pathname: `${location.pathname}/${path}`,
+			search: location.search,
 		});
 	};
 
@@ -80,7 +81,7 @@ export const Header = () => {
 							modalPathname('login');
 						}}
 					>
-						LogIn
+						Log In
 					</Button>
 					<Button
 						variant='outlined'
@@ -88,7 +89,7 @@ export const Header = () => {
 							modalPathname('registrate');
 						}}
 					>
-						SignUp
+						Register
 					</Button>
 				</div>
 			)}
