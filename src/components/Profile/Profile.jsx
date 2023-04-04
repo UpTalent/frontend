@@ -1,18 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Banner } from '../shared/Banner';
 import { TalentAvatar } from '../shared/TalentAvatar';
-import { ProfileInfo } from './components/ProfileInfo';
 import styles from './Profile.module.css';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
-import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Context } from '../../context';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
-import { EditProfile } from '../EditProfile/EditProfile';
-import { PopUpMessage } from '../shared/PopUpMessage/PopUpMessage';
+import { EditProfile } from '../EditProfile';
+import { PopUpMessage } from '../shared/PopUpMessage';
+import { UserInfo } from './components/UserInfo';
+import { MainInfo } from './components/MainInfo';
 
 export const Profile = () => {
 	const { authTalent } = useContext(Context);
@@ -58,32 +55,6 @@ export const Profile = () => {
 		getTalentProfile();
 	}, [authTalent, talentId]);
 
-	const infoAboutUser = [
-		{
-			icon: <LocationOnOutlinedIcon />,
-			header: 'Location',
-			info: talent.location,
-			visiableForGuest: true,
-		},
-		{
-			icon: <CakeOutlinedIcon />,
-			header: 'Birthday',
-			info: talent.birthday,
-			visiableForGuest: isTalentProfile,
-		},
-		{
-			icon: <AutoAwesomeIcon />,
-			header: 'I can...',
-			info: talent.skills?.join(', '),
-			visiableForGuest: true,
-		},
-		{
-			icon: <AlternateEmailOutlinedIcon />,
-			header: 'Email',
-			info: talent.email,
-			visiableForGuest: isTalentProfile,
-		},
-	];
 	return (
 		<div className={styles.profile}>
 			<Banner banner={talent.banner} additionalStyle={styles.profileBanner} />
@@ -120,26 +91,9 @@ export const Profile = () => {
 					<p>EDIT BANNER</p>
 				</label>
 			)}
-			<div className={styles.info}>
-				{infoAboutUser.map(
-					(el, i) =>
-						el.visiableForGuest && (
-							<ProfileInfo
-								key={i}
-								element={el.icon}
-								header={el.header}
-								info={el.info}
-							/>
-						),
-				)}
-			</div>
-			<div className={styles.about}>
-				<p>About me</p>
-				{talent.about_me ? (
-					<b>{talent.about_me}</b>
-				) : (
-					<b className={styles.noData}>No data provided</b>
-				)}
+			<div className={styles.allInfoAbouUser}>
+				<UserInfo talent={talent} isTalentProfile={isTalentProfile} />
+				<MainInfo aboutMe={talent.about_me} />
 			</div>
 			{isTalentProfile && (
 				<CreateOutlinedIcon
@@ -155,10 +109,7 @@ export const Profile = () => {
 			/>
 			<Outlet />
 			{location.pathname.endsWith('/edit') && (
-				<EditProfile
-					talent={talent}
-					setTalent={setTalent}
-				/>
+				<EditProfile talent={talent} setTalent={setTalent} />
 			)}
 		</div>
 	);
