@@ -7,7 +7,7 @@ import { CircularProgress } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import './Slider.css';
-import { SliderTalent } from '../SliderTalent';
+import { SliderTalent } from './SliderTalent';
 import { talentsAPI } from '../../../api/talentsAPI';
 
 export const Slider = () => {
