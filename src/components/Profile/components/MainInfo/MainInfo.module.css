@@ -1,0 +1,8 @@
+.mainInfo {
+    flex-wrap: wrap;
+    flex-basis: 60%;
+}
+
+.mainInfo button {
+    font-size: 20px;
+}

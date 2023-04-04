@@ -37,38 +37,10 @@
     text-transform: uppercase;
 }
 
-.info {
+.allInfoAbouUser {
     display: flex;
-    width: 80%;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-top: 60px;
-}
-
-.about{
-    width: 75%;
-    margin-bottom: 70px;
-    word-break: break-word;
-}
-
-.about p {
-    font-family: 'Roboto';
-    font-weight: 300;
-    font-size: 16px;
-    margin: 25px 0px;
-}
-
-.about b{
-    font-family: 'Roboto';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 28px;
-}
-
-.noData {
-    font-family: 'Roboto';
-    font-weight: 700;
-    font-size: 24px;
+    width: 90%;
+    margin: 50px auto;
 }
 
 .pencil {
