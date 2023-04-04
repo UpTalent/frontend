@@ -4,7 +4,6 @@ import { NotFound } from '../components/NotFound';
 import { Profile } from '../components/Profile';
 import { TalentPageContainer } from '../components/TalentsPage/TalentPageContainer';
 import { ContextHOC } from '../context';
-
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -13,7 +12,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <Navigate to="/home" replace={true} />,
+				element: <Navigate to='/home' replace={true} />,
 			},
 			{
 				path: 'home/*',
@@ -26,7 +25,7 @@ export const router = createBrowserRouter([
 			{
 				path: 'talent/:talentId/*',
 				element: <Profile />,
-			}
-		]
+			},
+		],
 	},
 ]);

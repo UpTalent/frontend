@@ -23,8 +23,7 @@ export const LoginForm = () => {
 
 	const handleClose = () => {
 		setOpen(false);
-		navigate({
-			pathname: location.pathname.slice(0, -6),
+		navigate(-1, {
 			search: location.search,
 		});
 	};

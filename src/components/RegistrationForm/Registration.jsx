@@ -40,8 +40,7 @@ export const RegistrationForm = () => {
 
 	const handleClose = () => {
 		setModal(false);
-		navigate({
-			pathname: location.pathname.slice(0, -9),
+		navigate(-1, {
 			search: location.search,
 		});
 	};
