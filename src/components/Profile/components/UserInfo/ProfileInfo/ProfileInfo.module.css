@@ -21,13 +21,11 @@
 }
 
 .infoItem p {
-    font-family: 'Roboto';
     font-weight: 300;
     font-size: 16px;
 }
 
 .infoItem b {
-    font-family: 'Roboto';
     font-weight: 700;
     font-size: 24px;
 }
