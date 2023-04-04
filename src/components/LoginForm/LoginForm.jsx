@@ -23,14 +23,17 @@ export const LoginForm = () => {
 
 	const handleClose = () => {
 		setOpen(false);
-		navigate(location.state?.from ? location.state.from : '/home');
+		navigate({
+			pathname: location.pathname.slice(0, -6),
+			search: location.search,
+		});
 	};
 
 	const tryToLogin = async formData => {
 		try {
 			const { data } = await authAPI.login(formData);
 			setAuthToken(data.jwt_token);
-			
+
 			const { firstname, talent_id } = parseJwt(data.jwt_token);
 
 			setAuthTalent({ talent_id, firstname });
@@ -87,10 +90,13 @@ export const LoginForm = () => {
 								<span
 									className={styles.signInElement}
 									onClick={() =>
-										navigate(`${location.pathname.slice(0, -5)}registrate`)
+										navigate({
+											pathname: `${location.pathname.slice(0, -5)}register`,
+											search: location.search,
+										})
 									}
 								>
-									SIGN UP
+									REGISTER NOW
 								</span>
 							</Typography>
 						</Form>

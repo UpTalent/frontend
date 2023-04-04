@@ -1,19 +1,23 @@
 import { Grid, Pagination } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './TalentsPage.module.css';
 import { GeneralTalent } from './components/GeneralTalent';
+import { useSearchParams } from 'react-router-dom';
 
 export const TalentsPage = ({
 	content,
 	total_pages,
 	isTalent,
-	requestTalent,
-	setCurrentPage,
-	currentPage,
 }) => {
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const page = Number(searchParams.get('page')) || 1;
+
+	const [currentPage, setCurrentPage] = useState(page);
+
 	const changePage = (e, page) => {
+		setSearchParams({ page });
 		setCurrentPage(page);
-		requestTalent(page - 1);
 	};
 
 	let talentsList = content.map(talent => (

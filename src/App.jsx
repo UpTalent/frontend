@@ -13,7 +13,7 @@ const App = () => {
 			<Header />
 			<div className='appContainer'>
 				<Outlet />
-				{location.pathname.endsWith('/registrate') && <RegistrationForm />}
+				{location.pathname.endsWith('/register') && <RegistrationForm />}
 				{location.pathname.endsWith('/login') && <LoginForm />}
 			</div>
 			<Footer />

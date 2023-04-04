@@ -27,7 +27,7 @@ export const talentsAPI = {
 			throw new Error(error.response.data.message);
 		}
 	},
-	async registrate(data) {
+	async register(data) {
 		try {
 			return await axiosInstance.post('talents', data);
 		} catch (error) {
