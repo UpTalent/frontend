@@ -5,31 +5,29 @@ import { useSearchParams } from 'react-router-dom';
 import { TalentsPage } from './TalentsPage';
 import { useStoreDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
-import { getTalentsList } from '../../redux/reducers/talents';
+import { getTalentList, getTalentsList, getTotalePages } from '../../redux/reducers/talents';
 
 export const TalentPageContainer = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const dispatch = useStoreDispatch();
-	const talentList = useSelector(state => state.talents.talentsList);
-	const total_pages = useSelector(state => state.talents.total_pages);
+	const talentList = useSelector(getTalentList);
+	const total_pages = useSelector(getTotalePages);
+	const urlPage =
+		searchParams.get('page') > 0 ? searchParams.get('page') - 1 : 0;
+		
+	useEffect(() => {
+		setIsLoading(true);
+		dispatch(getTalentsList(urlPage));
+		setIsLoading(false);
+	}, [searchParams]);
 
 	useEffect(() => {
-		const urlPage =
-			searchParams.get('page') > 0 ? searchParams.get('page') - 1 : 0;
-
-		const getTalents = async page => {
-			setIsLoading(true);
-			dispatch(getTalentsList(page));
-			if (page > total_pages || page <= 0) {
-				setSearchParams({ page: '1' });
-			}
-			setIsLoading(false);
-		};
-
-		getTalents(urlPage);
-	}, [searchParams]);
+		if (urlPage > total_pages || urlPage <= 0) {
+			setSearchParams({ page: '1' });
+		}
+	}, [total_pages]);
 
 	return (
 		<>

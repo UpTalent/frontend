@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styles from './GeneralTalent.module.css';
 import Button from '@mui/material/Button';
 import { Skill } from '../../../shared/Skill';
 import { TalentAvatar } from '../../../shared/TalentAvatar';
 import { Banner } from '../../../shared/Banner';
 import { Link } from 'react-router-dom';
-import { Context } from '../../../../context';
+import { useSelector } from 'react-redux';
+import { getIsAuth } from '../../../../redux/reducers/authentification';
 
 export const GeneralTalent = ({ talent }) => {
-	const { isTalent } = useContext(Context);
+	const isTalent = useSelector(getIsAuth);
 
 	const skills = talent.skills
 		.slice(0, 3)

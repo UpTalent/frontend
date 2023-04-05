@@ -25,4 +25,7 @@ const talentsSlice = createSlice({
 	},
 });
 
+export const getTalentList = state => state.talents.talentsList;
+export const getTotalePages = state => state.talents.total_pages;
+
 export default talentsSlice.reducer;

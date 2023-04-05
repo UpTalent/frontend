@@ -6,8 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 
 export const TalentsPage = ({
 	talentList,
-	total_pages,
-	isTalent,
+	total_pages
 }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
@@ -23,10 +22,9 @@ export const TalentsPage = ({
 
 	let talentsList = talentList.map(talent => (
 		<Grid item md={6} sm={12} lg={4} key={talent.id}>
-			<GeneralTalent talent={talent} isTalent={isTalent} />
+			<GeneralTalent talent={talent} />
 		</Grid>
 	));
-
 	return (
 		<div className={styles.TalentsPage}>
 			<Grid container rowSpacing={4} align='center'>

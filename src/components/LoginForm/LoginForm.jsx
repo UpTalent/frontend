@@ -4,19 +4,23 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Formik, Form } from 'formik';
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import { Context } from '../../context';
 import styles from './LoginForm.module.css';
 import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
-import { parseJwt, setAuthToken } from '../../api';
-import { authAPI } from '../../api/authAPI';
+import { authentificateTalent, clearError, getAuthTalentId, getErrors } from '../../redux/reducers/authentification';
+import { useSelector } from 'react-redux';
+import { useStoreDispatch } from '../../redux/store';
 
 export const LoginForm = () => {
-	const { setIsTalent, setAuthTalent } = useContext(Context);
 	const [open, setOpen] = useState(true);
 	const [error, setError] = useState(null);
+
+	const dispatch = useStoreDispatch();
+	const talent_id = useSelector(getAuthTalentId);
+	const authError = useSelector(getErrors);
+
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -28,22 +32,24 @@ export const LoginForm = () => {
 			search: location.search,
 		});
 	};
+	
+	useEffect(() => {
+		if (talent_id) {
+			navigate(`/talent/${talent_id}`);
+		}
+
+		if (authError) {
+			dispatch(clearError());
+		}
+	}, [talent_id]);
+
+	useEffect(() => {
+		setError(authError);
+	}, [authError]);
 
 	const tryToLogin = async formData => {
-		try {
-			const { data } = await authAPI.login(formData);
-			setAuthToken(data.jwt_token);
-
-			const { firstname, talent_id } = parseJwt(data.jwt_token);
-
-			setAuthTalent({ talent_id, firstname });
-			setIsTalent(true);
-
-			navigate(`/talent/${talent_id}`);
-		} catch (err) {
-			setError(err.message);
-			console.log(err.message);
-		}
+		const data = { method: 'login', talentInfo: formData };
+		dispatch(authentificateTalent(data));
 	};
 
 	return (

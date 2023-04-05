@@ -1,23 +1,20 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setAuthToken } from '../../../../api';
 import { profileAPI } from '../../../../api/profileAPI';
-import { Context } from '../../../../context';
 import styles from '../../../LoginForm/LoginForm.module.css';
 import { useDispatch } from 'react-redux';
 import { setSystemMessage } from '../../../../redux/reducers/systemMessages';
+import { logOut } from '../../../../redux/reducers/authentification';
 
 export const DeleteProfile = ({ talent_id }) => {
 	const navigate = useNavigate();
-	const { setIsTalent } = useContext(Context);
 	const dispatch = useDispatch();
 	const [modal, toggleModal] = useState(false);
 
 	const deleteProfile = async () => {
 		await profileAPI.deleteProfile(talent_id);
-		setAuthToken();
-		setIsTalent(false);
+		dispatch(logOut());
 		dispatch(setSystemMessage(true, 'Your profile was deleted'));
 		navigate('/home');
 	};
