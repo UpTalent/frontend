@@ -19,12 +19,17 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Context } from '../../context';
 import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
+import { skills } from '../../assets/static/skills';
+import { useStoreDispatch } from '../../redux/store';
+import { authentificateTalent } from '../../redux/reducers/authentification';
+import { useSelector } from 'react-redux';
 
 export const RegistrationForm = () => {
 	const [modal, setModal] = useState(true);
 	const [error, setError] = useState(null);
 
-	const { setAuthTalent, setIsTalent, skills } = useContext(Context);
+	const dispatch = useStoreDispatch();
+	const talent_id = useSelector(state => state.authentification.talent_id);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -49,16 +54,9 @@ export const RegistrationForm = () => {
 	const register = async formData => {
 		const registerData = { ...formData };
 		delete registerData.confirmPassword;
-
+		const data = { method: 'register', talentInfo: registerData };
 		try {
-			const { data } = await authAPI.register(registerData);
-			setAuthToken(data.jwt_token);
-
-			const { firstname, talent_id } = parseJwt(data.jwt_token);
-
-			setAuthTalent({ talent_id, firstname });
-			setIsTalent(true);
-
+			dispatch(authentificateTalent(data));
 			navigate(`/talent/${talent_id}`);
 		} catch (err) {
 			setError(err.message);

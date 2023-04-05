@@ -5,7 +5,7 @@ import { GeneralTalent } from './components/GeneralTalent';
 import { useSearchParams } from 'react-router-dom';
 
 export const TalentsPage = ({
-	content,
+	talentList,
 	total_pages,
 	isTalent,
 }) => {
@@ -18,9 +18,10 @@ export const TalentsPage = ({
 	const changePage = (e, page) => {
 		setSearchParams({ page });
 		setCurrentPage(page);
+		window.scrollTo(0, 0);
 	};
 
-	let talentsList = content.map(talent => (
+	let talentsList = talentList.map(talent => (
 		<Grid item md={6} sm={12} lg={4} key={talent.id}>
 			<GeneralTalent talent={talent} isTalent={isTalent} />
 		</Grid>

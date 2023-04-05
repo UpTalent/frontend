@@ -6,11 +6,15 @@ import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Context } from '../../context';
 import { PopUpMessage } from '../shared/PopUpMessage/PopUpMessage';
+import { useSelector } from 'react-redux';
 
 export const Home = () => {
 	const { isTalent, authTalent } = useContext(Context);
+	const systemMessage = useSelector(state => state.systemMessage.messageText);
+
 	const navigate = useNavigate();
 	const location = useLocation();
+
 	const modalPathname = path => {
 		navigate(`${location.pathname}/${path}`, {
 			state: { from: location.pathname },
@@ -52,7 +56,7 @@ export const Home = () => {
 					</div>
 				</div>
 			</div>
-			<PopUpMessage message='Your profile was deleted' status='success' />
+			<PopUpMessage message={systemMessage} status='success' />
 			<Slider />
 		</>
 	);

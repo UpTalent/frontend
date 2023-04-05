@@ -1,47 +1,23 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { parseJwt, setAuthToken } from './api';
 import App from './App';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 export const Context = createContext();
 
 export const ContextHOC = () => {
-	const skills = [
-		'Adaptability',
-		'Collaboration',
-		'Communication',
-		'Creativity',
-		'Critical thinking',
-		'Empathy',
-		'Flexibility',
-		'Leadership',
-		'Problem solving',
-		'Time management',
-		'Teamwork',
-		'Active listening',
-		'Conflict resolution',
-		'Decision making',
-		'Interpersonal skills',
-		'Negotiation',
-		'Patience',
-		'Stress management',
-		'Work ethic',
-		'Attention to detail',
-	];
+
 	const [isTalent, setIsTalent] = useState(false);
-	const [talentList, setTalentList] = useState({});
 	const [authTalent, setAuthTalent] = useState({});
-	const [messageForUser, setMessageForUser] = useState(false);
 
 	const state = {
 		isTalent,
 		setIsTalent,
-		talentList,
-		setTalentList,
+		
 		authTalent,
 		setAuthTalent,
-		skills,
-		messageForUser,
-		setMessageForUser,
+	
 	};
 
 	useEffect(() => {
@@ -64,7 +40,9 @@ export const ContextHOC = () => {
 
 	return (
 		<Context.Provider value={state}>
-			<App />
+			<Provider store={store}>
+				<App />
+			</Provider>
 		</Context.Provider>
 	);
 };

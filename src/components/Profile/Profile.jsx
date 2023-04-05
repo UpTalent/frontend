@@ -10,17 +10,20 @@ import { EditProfile } from '../EditProfile';
 import { PopUpMessage } from '../shared/PopUpMessage';
 import { UserInfo } from './components/UserInfo';
 import { MainInfo } from './components/MainInfo';
+import { useSelector } from 'react-redux';
 
 export const Profile = () => {
 	const { authTalent } = useContext(Context);
 
+	
 	const [isTalentProfile, setIsTalentProfile] = useState(false);
 	const [talent, setTalent] = useState({});
 	const { talentId } = useParams();
-
+	
 	const navigate = useNavigate();
 	const location = useLocation();
-
+	
+	const systemMessage = useSelector(state => state.systemMessage.messageText);
 	const modalPathname = path => {
 		navigate(`${location.pathname}/${path}`, {
 			state: { from: location.pathname },
@@ -103,10 +106,7 @@ export const Profile = () => {
 					}}
 				/>
 			)}
-			<PopUpMessage
-				message='Your profile was updated successfully!'
-				status='success'
-			/>
+			<PopUpMessage message={systemMessage} status='success' />
 			<Outlet />
 			{location.pathname.endsWith('/edit') && (
 				<EditProfile talent={talent} setTalent={setTalent} />
