@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { Slider } from '../shared/Slider';
 import styles from './Home.module.css';
 import rightside_image from '../../assets/5876834.jpg';
 import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Context } from '../../context';
 import { PopUpMessage } from '../shared/PopUpMessage/PopUpMessage';
+import { TalentsSlider } from './components/TalentsSlider';
+import { ProofSlider } from './components/ProofSlider/ProofSlider';
 
 export const Home = () => {
 	const { isTalent, authTalent } = useContext(Context);
@@ -53,7 +54,8 @@ export const Home = () => {
 				</div>
 			</div>
 			<PopUpMessage message='Your profile was deleted' status='success' />
-			<Slider />
+			<TalentsSlider />
+			<ProofSlider />
 		</>
 	);
 };

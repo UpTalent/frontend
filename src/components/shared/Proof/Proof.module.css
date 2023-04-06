@@ -1,23 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
+.Proof{
+	margin: 10px 0;
+}
+
 .General {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	max-width: 350px;
 	height: 400px;
+	gap: 20px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	overflow: hidden;
 }
 
 .ProofTitle {
 	background-color: var(--primary);
 	border-radius: 10px 10px 0 0;
-    height: 40%;
-	padding: 10px;
+	height: 40%;
+	padding: 9px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 }
 
 .title {
 	display: flex;
-	gap: 20px;
+	gap: 10px;
 	align-items: center;
+	justify-content: space-evenly;
+	flex: 1;
 }
 
 .title p {
@@ -27,28 +40,49 @@
 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .title img {
-	max-width: 100px;
-	max-height: 100px;
-	object-fit: cover;
+	margin: 0 7px;
 }
 
-.annotation{
-    padding: 30px;
+.summary {
+	padding: 20px;
 	font-size: 24px;
+	width: 100%;
 }
 
-.timeStamp{
+.timeStamp {
 	display: flex;
 	gap: 5px;
 	align-items: center;
 }
 
-.controls{
+.controls {
 	display: flex;
 	justify-content: space-between;
+	color: rgba(0, 0, 0, 0.54);
+	font-size: 15px;
 }
 
-.controls1 {
+.talentsControls {
 	display: flex;
-	gap: 15px;
+	gap: 10px;
+}
+
+.status {
+	text-transform: lowercase;
+	align-self: end;
+	border-radius: 30px;
+	padding: 5px 10px;
+	color: rgba(97, 97, 97, 1);
+}
+
+.HIDDEN {
+	background-color: rgba(203, 203, 203, 0.87);
+}
+
+.DRAFT {
+	background-color: rgba(255, 191, 91, 0.87);
+}
+
+.PUBLISHED {
+	background-color: rgba(185, 255, 196, 0.87);
 }
