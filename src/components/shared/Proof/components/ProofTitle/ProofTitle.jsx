@@ -12,14 +12,18 @@ export const ProofTitle = ({
 	icon_number,
 	status,
 	showControlls,
-  openContent
+	openContent,
 }) => {
 	return (
 		<div className={styles.ProofTitle}>
 			<div className={styles.controls}>
 				<div className={styles.timeStamp}>
-					<AccessTimeIcon color='action' />
-					{published}
+					{published && (
+						<>
+							<AccessTimeIcon color='action' />
+							{published}
+						</>
+					)}
 				</div>
 				{showControlls && (
 					<div className={styles.talentsControls}>

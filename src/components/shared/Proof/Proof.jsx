@@ -15,7 +15,7 @@ export const Proof = ({ proof, withContent, showControlls }) => {
 			{withContent ? (
 				<Accordion expanded={isAccordionOpen}>
 					<AccordionSummary
-						onClick={(e)=> e.stopPropagation()}
+						onClick={e => e.stopPropagation()}
 						sx={{
 							display: 'flex',
 							flexDirection: 'column',
