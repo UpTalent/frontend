@@ -53,7 +53,7 @@ export const Proofs = () => {
 			</div>
 			<Outlet />
 			{location.pathname.endsWith('/createProof') && (
-				// <CreateProof proof={proof} />
+				//<CreateProof proof={proof} />
         		<CreateProof/>
 			)}
 		</>

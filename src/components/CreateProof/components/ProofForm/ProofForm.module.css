@@ -1,0 +1,45 @@
+.registrationForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    align-items: center;
+    padding: 35px;
+    overflow: hidden;
+    width: 500px;
+}
+
+.iconTitle{
+    display:flex;
+    width: 70%;
+    height: 100px;
+    margin-left: auto;
+}
+
+.addIcon {
+    position: absolute;
+    top: 15px;
+    left: 30px;
+}
+
+.addIcon button {
+    width: 90px;
+    height: 90px;
+    background-color: var(--primary);
+}
+
+.buttonGroup{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly
+}
+
+.publishButton {
+    color: white !important;
+    background: var(--primary) !important;
+}
+
+.saveButton {
+    color: white !important;
+    background: var(--secondary) !important;
+}

@@ -40,7 +40,7 @@ export const ProofTitle = ({
 				)}
 			</div>
 			<div className={styles.title} onClick={openContent}>
-				<img src={ProofIcons[icon_number].icon} alt={`${icon_number}`} />
+				<img src={icon_number ? ProofIcons[icon_number].icon : ProofIcons[0].icon} alt={`${icon_number}`} />
 				<p>{title}</p>
 			</div>
 			{showControlls && (
