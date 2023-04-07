@@ -1,12 +1,21 @@
+<<<<<<< HEAD
 import React from 'react';
 import { Slider } from '../shared/Slider';
+=======
+import React, { useContext } from 'react';
+>>>>>>> dev
 import styles from './Home.module.css';
 import rightside_image from '../../assets/5876834.jpg';
 import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PopUpMessage } from '../shared/PopUpMessage/PopUpMessage';
+<<<<<<< HEAD
 import { useSelector } from 'react-redux';
 import { getAuthTalentId, getIsAuth } from '../../redux/reducers/authentification';
+=======
+import { TalentsSlider } from './components/TalentsSlider';
+import { ProofSlider } from './components/ProofSlider/ProofSlider';
+>>>>>>> dev
 
 export const Home = () => {
 	const isTalent = useSelector(getIsAuth);
@@ -57,8 +66,14 @@ export const Home = () => {
 					</div>
 				</div>
 			</div>
+<<<<<<< HEAD
 			<PopUpMessage message={systemMessage} status='success' />
 			<Slider />
+=======
+			<PopUpMessage message='Your profile was deleted' status='success' />
+			<TalentsSlider />
+			<ProofSlider />
+>>>>>>> dev
 		</>
 	);
 };

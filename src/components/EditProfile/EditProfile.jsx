@@ -29,7 +29,7 @@ export const EditProfile = ({ talent, setTalent }) => {
 
 	const handleClose = () => {
 		setOpen(false);
-		navigate(`/talent/${talent.id}`);
+		navigate(-1);
 	};
 
 	const edit = async formData => {

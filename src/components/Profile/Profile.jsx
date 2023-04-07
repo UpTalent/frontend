@@ -24,9 +24,7 @@ export const Profile = () => {
 	
 	const systemMessage = useSelector(state => state.systemMessage.messageText);
 	const modalPathname = path => {
-		navigate(`${location.pathname}/${path}`, {
-			state: { from: location.pathname },
-		});
+		navigate(`${location.pathname}/${path}`);
 	};
 
 	const getTalentProfile = async () => {
