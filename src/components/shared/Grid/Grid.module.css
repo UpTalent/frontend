@@ -1,0 +1,9 @@
+.Grid{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}

@@ -1,7 +1,7 @@
 .Skill {
 	border-radius: 100px;
 	width: min-content;
-	padding: 5px 15px;
+	padding: 12px;
 	display: flex;
 	align-items: center;
 	white-space: nowrap;

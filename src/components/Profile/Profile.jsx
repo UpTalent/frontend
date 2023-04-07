@@ -22,9 +22,7 @@ export const Profile = () => {
 	const location = useLocation();
 
 	const modalPathname = path => {
-		navigate(`${location.pathname}/${path}`, {
-			state: { from: location.pathname },
-		});
+		navigate(`${location.pathname}/${path}`);
 	};
 
 	const getTalentProfile = async () => {
