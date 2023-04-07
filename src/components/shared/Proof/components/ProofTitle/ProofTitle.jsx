@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from '../../Proof.module.css';
-import { ProofIcons } from '../../../../../assets/ProofIcons';
 import { IconButton, Tooltip } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ControllButton } from './components/ControllButton';
+import { ProofIcons } from '../../../../../assets/static/ProofIcons';
 
 export const ProofTitle = ({
 	title,

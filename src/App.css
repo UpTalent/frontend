@@ -8,6 +8,7 @@
 	--primary: #48bde2;
 	--secondary: #ffbf5b;
 	--dark: #292a2d;
+	scroll-behavior: smooth;
 }
 
 a {

@@ -7,7 +7,7 @@ import {
 	Typography,
 } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FormField } from '../shared/FormField';
 import { validationSchema } from './validation';
@@ -16,15 +16,23 @@ import CloseIcon from '@mui/icons-material/Close';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Context } from '../../context';
-import { parseJwt, setAuthToken } from '../../api';
-import { authAPI } from '../../api/authAPI';
+import { skills } from '../../assets/static/skills';
+import { useStoreDispatch } from '../../redux/store';
+import {
+	authentificateTalent,
+	clearError,
+	getAuthTalentId,
+	getErrors,
+} from '../../redux/reducers/authentification';
+import { useSelector } from 'react-redux';
 
 export const RegistrationForm = () => {
 	const [modal, setModal] = useState(true);
 	const [error, setError] = useState(null);
 
-	const { setAuthTalent, setIsTalent, skills } = useContext(Context);
+	const dispatch = useStoreDispatch();
+	const talent_id = useSelector(getAuthTalentId);
+	const authError = useSelector(getErrors);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -45,25 +53,29 @@ export const RegistrationForm = () => {
 		});
 	};
 
+	useEffect(() => {
+		if (talent_id) {
+			navigate(`/talent/${talent_id}`);
+		}
+
+		if (authError) {
+			dispatch(clearError());
+		}
+	}, [talent_id]);
+
+	useEffect(() => {
+		setError(authError);
+	}, [authError]);
+
 	const register = async formData => {
 		const registerData = { ...formData };
 		delete registerData.confirmPassword;
 
-		try {
-			const { data } = await authAPI.register(registerData);
-			setAuthToken(data.jwt_token);
+		const data = { method: 'register', talentInfo: registerData };
 
-			const { firstname, talent_id } = parseJwt(data.jwt_token);
-
-			setAuthTalent({ talent_id, firstname });
-			setIsTalent(true);
-
-			navigate(`/talent/${talent_id}`);
-		} catch (err) {
-			setError(err.message);
-			console.log(err.message);
-		}
+		dispatch(authentificateTalent(data));
 	};
+	console.log('registration');
 
 	return (
 		<>
