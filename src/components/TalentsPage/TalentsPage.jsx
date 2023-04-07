@@ -1,6 +1,5 @@
 import { CircularProgress, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
-import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { GeneralTalent } from './components/GeneralTalent';
 import { PagesGrid } from '../shared/Grid';
