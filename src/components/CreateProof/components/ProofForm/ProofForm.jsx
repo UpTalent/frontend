@@ -3,12 +3,12 @@ import {
 	SpeedDial,
 	SpeedDialAction,
 	SpeedDialIcon,
+	TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
 import styles from './ProofForm.module.css';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { validationSchema } from './validation';
-import { FormField } from '../../../shared/FormField';
 import { ProofIcons } from '../../../../assets/static/ProofIcons';
 
 export const ProofForm = ({ proof, saveProof }) => {
@@ -25,11 +25,18 @@ export const ProofForm = ({ proof, saveProof }) => {
 
 	const handleActionClick = icon => {
 		setIcon(icon);
+		saveProof(prev => ({ ...prev, icon_number: icon.props.alt }));
 	};
 
-	const changeHandler = value => {
-		saveProof({ ...value, icon_number: icon.props.alt });
-		console.log('work');
+	// save values not correct
+	const handleChange = event => {
+		const { name, value } = event.target;
+		saveProof(prevValues => ({ ...prevValues, [name]: value }));
+		// console.log(proof);
+	};
+
+	const submitHandler = values => {
+		saveProof({ ...values, icon_number: icon.props.alt });
 	};
 
 	return (
@@ -40,10 +47,9 @@ export const ProofForm = ({ proof, saveProof }) => {
 				validateOnChange={true}
 				validateOnBlur={true}
 				validateOnMount={true}
-				onChange={changeHandler} // doesn't work
-				onSubmit={changeHandler}
+				onSubmit={submitHandler}
 			>
-				{({ isValid }) => (
+				{({ isValid, touched, errors, values }) => (
 					<Form className={styles.registrationForm}>
 						<div className={styles.iconTitle}>
 							<SpeedDial
@@ -55,7 +61,6 @@ export const ProofForm = ({ proof, saveProof }) => {
 								className={styles.addIcon}
 								direction='down'
 								icon={icon}
-								onChange={changeHandler}
 							>
 								{ProofIcons.map(el => (
 									// need scroll
@@ -68,19 +73,42 @@ export const ProofForm = ({ proof, saveProof }) => {
 									/>
 								))}
 							</SpeedDial>
-							<FormField
+							<Field
 								label='Title of proof'
 								name='title'
-								type='text'
+								as={TextField}
 								className={styles.title}
+								value={values.title}
+								onChange={handleChange}
+								error={touched.title && Boolean(errors.title)}
+								helperText={touched.title && errors.title}
+								sx={{ width: '100%' }}
 							/>
 						</div>
-						<FormField
+						<Field
 							label='Add some annotation, what your proof is about?'
 							name='summary'
-							type='text'
+							multiline
+							rows={4}
+							as={TextField}
+							value={values.summary}
+							//onChange={handleChange}
+							error={touched.summary && Boolean(errors.summary)}
+							helperText={touched.summary && errors.summary}
+							sx={{ width: '100%' }}
 						/>
-						<FormField label='Content of proof' name='content' type='text' />
+						<Field
+							label='Content of proof'
+							name='content'
+							multiline
+							rows={4}
+							as={TextField}
+							value={values.content}
+							//onChange={handleChange}
+							error={touched.content && Boolean(errors.content)}
+							helperText={touched.content && errors.content}
+							sx={{ width: '100%' }}
+						/>
 						<div className={styles.buttonGroup}>
 							<Button
 								type='submit'

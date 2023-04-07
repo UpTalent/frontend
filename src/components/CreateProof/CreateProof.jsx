@@ -34,14 +34,22 @@ export const CreateProof = ({proof}) => {
 
 	const tabLabels = ['WRITE', 'PREVIEW'];
 	const tabContent = [
-		<ProofForm proof={proofForForm} saveProof={ setProofForForm } />,
-		<Proof proof={proofForForm} withContent={true} showControlls={false} />,
+		<ProofForm proof={proofForForm} saveProof={setProofForForm} />,
+		<div style={{width: 500}}>
+			<Proof proof={proofForForm} withContent={true} showControlls={false} />
+		</div>,
 	];
 
 	return (
 		<>
-			<Dialog open={open} onClose={handleClose}>
-				<Tabs value={value} onChange={handleChange} centered textColor='secondary' indicatorColor='secondary' >
+			<Dialog open={open} onClose={handleClose} scroll='paper'>
+				<Tabs
+					value={value}
+					onChange={handleChange}
+					centered
+					textColor='secondary'
+					indicatorColor='secondary'
+				>
 					{tabLabels.map((label, index) => (
 						<Tab key={index} label={label} color='secondary' />
 					))}
