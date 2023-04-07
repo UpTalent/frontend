@@ -1,0 +1,1 @@
+export { TalentsSlider } from './TalentsSlider';
