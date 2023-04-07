@@ -1,1 +1,1 @@
-export { CreateProofForm } from './CreateProofForm';
+export { CreateProof } from './CreateProof';

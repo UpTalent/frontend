@@ -5,7 +5,7 @@ import { proofAPI } from '../../../../../../api/proofAPI';
 import { Fab, LinearProgress } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { CreateProofForm } from '../../../../../CreateProof/CreateProofForm';
+import { CreateProof } from '../../../../../CreateProof';
 
 export const Proofs = () => {
   const [proof, setProof] = useState(null);
@@ -53,7 +53,8 @@ export const Proofs = () => {
 			</div>
 			<Outlet />
 			{location.pathname.endsWith('/createProof') && (
-				<CreateProofForm/>
+				// <CreateProof proof={proof} />
+        		<CreateProof/>
 			)}
 		</>
 	);
