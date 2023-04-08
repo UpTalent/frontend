@@ -22,20 +22,17 @@ export const CreateProof = ({proof}) => {
 	};
 
 	const [proofForForm, setProofForForm] = useState(initialproof);
-	
-	const handleChange = (event, newValue) => {
-		setValue(newValue);
-	};
 
 	const handleClose = () => {
 		setOpen(false);
 		navigate(-1);
 	};
 
+	console.log("create proof");
 	const tabLabels = ['WRITE', 'PREVIEW'];
 	const tabContent = [
 		<ProofForm proof={proofForForm} saveProof={setProofForForm} />,
-		<div style={{width: 500}}>
+		<div style={{width: 500, height: 500}}>
 			<Proof proof={proofForForm} withContent={true} showControlls={false} />
 		</div>,
 	];
@@ -45,7 +42,7 @@ export const CreateProof = ({proof}) => {
 			<Dialog open={open} onClose={handleClose} scroll='paper'>
 				<Tabs
 					value={value}
-					onChange={handleChange}
+					onChange={(event, newValue) => setValue(newValue)}
 					centered
 					textColor='secondary'
 					indicatorColor='secondary'

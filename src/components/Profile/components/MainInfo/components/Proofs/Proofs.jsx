@@ -25,9 +25,9 @@ export const Proofs = () => {
 		}
   };
 
-	useEffect(() => {
-		getProof();
-	}, []);
+	// useEffect(() => {
+	// 	getProof();
+	// }, []);
 
 	return (
 		<>
@@ -41,7 +41,7 @@ export const Proofs = () => {
 				>
 					<AddIcon />
 				</Fab>
-				{proof ? (
+				{/* {proof ? (
 					<>
 						<Proof proof={proof} withContent={false} showControlls={false} />
 						<Proof proof={proof} withContent={true} showControlls={true} />
@@ -49,7 +49,7 @@ export const Proofs = () => {
 					</>
 				) : (
 					<LinearProgress />
-				)}
+				)} */}
 			</div>
 			<Outlet />
 			{location.pathname.endsWith('/createProof') && (
