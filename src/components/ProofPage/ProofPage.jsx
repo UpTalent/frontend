@@ -29,14 +29,14 @@ export const ProofPage = () => {
 		}
 	});
 
-	let proofsList = proofList?.content?.map(proof => (
+	let proofsList = proofList.map(proof => (
 		<Grid item md={6} sm={12} lg={4} key={proof.id}>
 			<Proof proof={proof} withContent={false} />
 		</Grid>
 	));
 	return (
 		<>
-			{!proofList ? (
+			{!proofList.length ? (
 				<div className='loaderContainer'>
 					<CircularProgress />
 				</div>

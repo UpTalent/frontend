@@ -3,6 +3,6 @@ import { Slider } from '../../../shared/Slider/Slider'
 
 export const ProofSlider = () => {
   return (
-    <Slider />
+    <Slider viewAll={'proofs'}/>
   )
 }
