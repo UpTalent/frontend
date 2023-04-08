@@ -1,10 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PagesGrid } from '../shared/Grid';
+import { CircularProgress, Grid } from '@mui/material';
+import { Proof } from '../shared/Proof';
+import { useSearchParams } from 'react-router-dom';
+import { proofAPI } from '../../api/proofAPI';
 
 export const ProofPage = () => {
+	const [proofList, setProofList] = useState([]);
+	const [total_pages, setTotalPages] = useState(0);
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const urlPage = Number(searchParams.get('page')) || 1;
+
+	const getProofs = async page => {
+		const { data } = await proofAPI.getAllProofs(page);
+		console.log(data);
+		setProofList(data.content);
+		setTotalPages(data.total_pages);
+	};
+
+	useEffect(() => {
+		getProofs(urlPage - 1);
+	}, [urlPage]);
+
+	useEffect(() => {
+		if (urlPage < 0 || (total_pages < urlPage && total_pages !== 0)) {
+			setSearchParams({ page: '1' });
+		}
+	});
+
+	let proofsList = proofList?.content?.map(proof => (
+		<Grid item md={6} sm={12} lg={4} key={proof.id}>
+			<Proof proof={proof} withContent={false} />
+		</Grid>
+	));
 	return (
-		<div>
-			<PagesGrid />
-		</div>
+		<>
+			{!proofList ? (
+				<div className='loaderContainer'>
+					<CircularProgress />
+				</div>
+			) : (
+				<PagesGrid gridItems={proofsList} total_pages={total_pages} />
+			)}
+		</>
 	);
 };
