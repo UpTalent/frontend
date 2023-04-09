@@ -1,21 +1,33 @@
 import { Button, TextField } from '@mui/material';
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
 
-export const FormInsideFormik = ({ icon, handleActionClick, saveProof }) => {
+export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 
+	const handleChangesInFields = event => {
+		const { name, value } = event.target;
+		setFieldValue(name, value);
+	};
+
 	useEffect(() => {
-		return saveProof({ ...values, icon_number: icon.props.alt });
+		return () => {
+			saveProof({ ...values });
+		};
 	}, [values]);
 
 	return (
 		<Form className={styles.registrationForm}>
 			<div className={styles.iconTitle}>
-				<IconList handleActionClick={handleActionClick} icon={icon} />
+				<IconList
+					proof={proof}
+					setFieldValue={setFieldValue}
+					error={errors.icon_number}
+					touched={touched.icon_number}
+				/>
 				<Field
 					label='Title of proof'
 					name='title'
@@ -23,11 +35,7 @@ export const FormInsideFormik = ({ icon, handleActionClick, saveProof }) => {
 					className={styles.title}
 					error={touched.title && Boolean(errors.title)}
 					helperText={touched.title && errors.title}
-					sx={{ width: '78%' }}
-					onChange={e => {
-						setFieldValue('title', e.target.value);
-						console.log(values);
-					}}
+					onChange={handleChangesInFields}
 				/>
 			</div>
 
@@ -39,11 +47,7 @@ export const FormInsideFormik = ({ icon, handleActionClick, saveProof }) => {
 				as={TextField}
 				error={touched.summary && Boolean(errors.summary)}
 				helperText={touched.summary && errors.summary}
-				sx={{ width: '100%' }}
-				onChange={e => {
-					setFieldValue('summary', e.target.value);
-					console.log(values);
-				}}
+				onChange={handleChangesInFields}
 			/>
 			<Field
 				label='Content of proof'
@@ -53,11 +57,7 @@ export const FormInsideFormik = ({ icon, handleActionClick, saveProof }) => {
 				as={TextField}
 				error={touched.content && Boolean(errors.content)}
 				helperText={touched.content && errors.content}
-				sx={{ width: '100%' }}
-				onChange={e => {
-					setFieldValue('content', e.target.value);
-					console.log(values);
-				}}
+				onChange={handleChangesInFields}
 			/>
 			<div className={styles.buttonGroup}>
 				<Button
@@ -66,15 +66,17 @@ export const FormInsideFormik = ({ icon, handleActionClick, saveProof }) => {
 					className={`${isValid && styles.saveButton}`}
 					disabled={!isValid}
 				>
-					SAVE CHANGES
+					{mode === 'create' ? 'SAVE AS DRAFT' : 'SAVE CHANGES'}
 				</Button>
-				<Button
-					variant='contained'
-					className={`${isValid && styles.publishButton}`}
-					disabled={!isValid}
-				>
-					Publish
-				</Button>
+				{mode === 'edit' && (
+					<Button
+						variant='contained'
+						className={`${isValid && styles.publishButton}`}
+						disabled={!isValid}
+					>
+						Publish
+					</Button>
+				)}
 			</div>
 		</Form>
 	);

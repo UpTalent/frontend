@@ -10,5 +10,5 @@ export const validationSchema = Yup.object({
 	content: Yup.string()
 		.required('Content is required')
 		.max(5000, 'Must be 15 characters or less'),
-	// validation if there is an icon
+	icon_number: Yup.number().typeError('Choose icon'),
 });

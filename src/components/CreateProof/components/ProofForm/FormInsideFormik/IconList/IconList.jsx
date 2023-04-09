@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { Menu, MenuItem, SpeedDialIcon } from '@mui/material';
 import { ProofIcons } from '../../../../../../assets/static/ProofIcons';
-import styles from '../FormInsideFormik.module.css';
+import styles from './IconList.module.css';
 
-export const IconList = ({handleActionClick, icon}) => {
+export const IconList = ({ proof, setFieldValue, error, touched }) => {
+	const [icon, setIcon] = useState(
+		proof.icon_number ? (
+			<img
+				src={ProofIcons[proof.icon_number].icon}
+				alt={ProofIcons[proof.icon_number].id}
+			/>
+		) : (
+			<SpeedDialIcon />
+		),
+	);
 	const [anchorEl, setAnchorEl] = useState(null);
 
 	const handleClick = event => {
@@ -15,23 +25,15 @@ export const IconList = ({handleActionClick, icon}) => {
 	};
 
 	const handleClickIcon = icon => {
-		handleActionClick(icon);
+		setIcon(icon);
+		setFieldValue('icon_number', icon.props.alt);
 		handleClose();
 	};
+
 	return (
-		<div>
-			<div
-				style={{
-					backgroundColor: 'var(--primary)',
-					borderRadius: '50%',
-				}}
-			>
-				<SpeedDialIcon
-					aria-label='start-icon'
-					onClick={handleClick}
-					icon={icon}
-					className={styles.addIcon}
-				/>
+		<div className={styles.wrapper}>
+			<div className={styles.addIcon} onClick={handleClick}>
+				{icon}
 			</div>
 			<Menu
 				anchorEl={anchorEl}
@@ -43,15 +45,17 @@ export const IconList = ({handleActionClick, icon}) => {
 						boxShadow: 'none',
 					},
 				}}
+				MenuListProps={{
+					style: {
+						maxHeight: '400px',
+						overflowY: 'scroll',
+					},
+				}}
 			>
 				{ProofIcons.map(icon => (
 					<MenuItem key={icon.id}>
 						<div
-							style={{
-								backgroundColor: 'var(--primary)',
-								borderRadius: '50%',
-								width: '80px',
-							}}
+							className={styles.menuItem}
 							onClick={() =>
 								handleClickIcon(<img src={icon.icon} alt={icon.id} />)
 							}
@@ -61,6 +65,7 @@ export const IconList = ({handleActionClick, icon}) => {
 					</MenuItem>
 				))}
 			</Menu>
+			{Boolean(error) && touched && <div className={styles.error}>{error}</div>}
 		</div>
 	);
 };

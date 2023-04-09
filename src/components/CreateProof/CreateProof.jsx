@@ -8,10 +8,12 @@ import { useNavigate } from 'react-router-dom';
 import { ProofForm } from './components/ProofForm';
 import { Proof } from '../shared/Proof';
 
-export const CreateProof = ({proof}) => {
+export const CreateProof = ({ proof }) => {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(true);
 	const [value, setValue] = useState(0);
+
+	const mode = proof ? 'edit' : 'create';
 
 	let initialproof = {
 		icon_number:
@@ -19,6 +21,7 @@ export const CreateProof = ({proof}) => {
 		title: proof && proof.title !== undefined ? proof.title : '',
 		summary: proof && proof.summary !== undefined ? proof.summary : '',
 		content: proof && proof.content !== undefined ? proof.content : '',
+		id: proof ? proof.id : null,
 	};
 
 	const [proofForForm, setProofForForm] = useState(initialproof);
@@ -28,13 +31,10 @@ export const CreateProof = ({proof}) => {
 		navigate(-1);
 	};
 
-	console.log("create proof");
 	const tabLabels = ['WRITE', 'PREVIEW'];
 	const tabContent = [
-		<ProofForm proof={proofForForm} saveProof={setProofForForm} />,
-		<div style={{width: 500, height: 500}}>
-			<Proof proof={proofForForm} withContent={true} showControlls={false} />
-		</div>,
+		<ProofForm proof={proofForForm} saveProof={setProofForForm} mode={mode} />,
+		<Proof proof={proofForForm} withContent={true} showControlls={false} />,
 	];
 
 	return (
@@ -51,7 +51,7 @@ export const CreateProof = ({proof}) => {
 						<Tab key={index} label={label} color='secondary' />
 					))}
 				</Tabs>
-				{tabContent[value]}
+				<div className={styles.tabContent}>{tabContent[value]}</div>
 				<CloseIcon className={styles.closeIcon} onClick={handleClose} />
 			</Dialog>
 		</>

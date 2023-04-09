@@ -1,3 +1,8 @@
+.tabContent {
+    width: 500px;
+    height: 500px;
+}
+
 .closeIcon {
     position: absolute;
     top: 10px;

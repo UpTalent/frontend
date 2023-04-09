@@ -1,29 +1,38 @@
-import { SpeedDialIcon } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik } from 'formik';
 import { validationSchema } from './validation';
-import { ProofIcons } from '../../../../assets/static/ProofIcons';
 import { FormInsideFormik } from './FormInsideFormik/FormInsideFormik';
+import { proofAPI } from '../../../../api/proofAPI';
+import { useParams } from 'react-router-dom';
 
-export const ProofForm = ({ proof, saveProof }) => {
-	const [icon, setIcon] = useState(
-		proof.icon_number ? (
-			<img
-				src={ProofIcons[proof.icon_number].icon}
-				alt={ProofIcons[proof.icon_number].id}
-			/>
-		) : (
-			<SpeedDialIcon />
-		),
-	);
+export const ProofForm = ({ proof, saveProof, mode }) => {
+	const { talentId } = useParams();
 
-	const handleActionClick = icon => {
-		setIcon(icon);
-		saveProof(prev => ({ ...prev, icon_number: icon.props.alt }));
+	const createProof = async (data) => {
+		try {
+			const response = await proofAPI.createProof(talentId, data);
+			return response;
+		} catch (err) {
+			console.log(err.message);
+		}
 	};
 
+	// const editProof = async data => {
+	// 	try {
+	// 		const response = await proofAPI.editProof(talentId, data);
+	// 		return response;
+	// 	} catch (err) {
+	// 		console.log(err.message);
+	// 	}
+	// };
+
 	const submitHandler = values => {
-		saveProof({ ...values, icon_number: icon.props.alt });
+		saveProof({ ...values });
+		if (mode === 'create') {
+			createProof({ ...proof, status: 'DRAFT' });
+		} else {
+			//editProof();
+		}
 	};
 
 	return (
@@ -36,9 +45,9 @@ export const ProofForm = ({ proof, saveProof }) => {
 				onSubmit={submitHandler}
 			>
 				<FormInsideFormik
-					icon={icon}
-					handleActionClick={handleActionClick}
+					proof={proof}
 					saveProof={saveProof}
+					mode={mode}
 				/>
 			</Formik>
 		</>

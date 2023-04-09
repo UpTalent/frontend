@@ -8,26 +8,26 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { CreateProof } from '../../../../../CreateProof';
 
 export const Proofs = () => {
-  const [proof, setProof] = useState(null);
-  const navigate = useNavigate();
+	const [proof, setProof] = useState(null);
+	const navigate = useNavigate();
 	const location = useLocation();
-	
-  const modalPathname = path => {
+
+	const modalPathname = path => {
 		navigate(`${location.pathname}/${path}`);
 	};
 
 	const getProof = async () => {
 		try {
-			const { data } = await proofAPI.getProof(1, 1);
+			const { data } = await proofAPI.getProof(1, 15);
 			setProof(data);
 		} catch (err) {
 			console.log(err);
 		}
-  };
+	};
 
-	// useEffect(() => {
-	// 	getProof();
-	// }, []);
+	useEffect(() => {
+		getProof();
+	}, []);
 
 	return (
 		<>
@@ -41,7 +41,7 @@ export const Proofs = () => {
 				>
 					<AddIcon />
 				</Fab>
-				{/* {proof ? (
+				{proof ? (
 					<>
 						<Proof proof={proof} withContent={false} showControlls={false} />
 						<Proof proof={proof} withContent={true} showControlls={true} />
@@ -49,13 +49,10 @@ export const Proofs = () => {
 					</>
 				) : (
 					<LinearProgress />
-				)} */}
+				)}
 			</div>
 			<Outlet />
-			{location.pathname.endsWith('/createProof') && (
-				//<CreateProof proof={proof} />
-        		<CreateProof/>
-			)}
+			{location.pathname.endsWith('/createProof') && <CreateProof />}
 		</>
 	);
 };
