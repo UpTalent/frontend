@@ -4,52 +4,80 @@ import styles from '../../MainInfo.module.css';
 import { proofAPI } from '../../../../../../api/proofAPI';
 import { Fab, LinearProgress } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { CreateProof } from '../../../../../CreateProof';
 
-export const Proofs = () => {
-	const [proof, setProof] = useState(null);
+export const Proofs = ({ isTalentProfile }) => {
+	const [proofs, setProofs] = useState(null);
 	const navigate = useNavigate();
 	const location = useLocation();
+	const { talentId } = useParams();
 
 	const modalPathname = path => {
 		navigate(`${location.pathname}/${path}`);
 	};
 
-	const getProof = async () => {
+	// const [proof, setProof] = useState();
+
+	// const getTalentProof = async () => {
+	// 	try {
+	// 		const { data } = await proofAPI.getProof(talentId, 48);
+
+	// 		setProof(data)
+	// 		console.log(data);
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 	}
+	// };
+
+	const getTalentsProofs = async page => {
 		try {
-			const { data } = await proofAPI.getProof(1, 15);
-			setProof(data);
+			const {data} = await proofAPI.getTalentProofs(talentId, page);
+			setProofs(data.content);
+			console.log(data);
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
 	useEffect(() => {
-		getProof();
-	}, []);
+		getTalentsProofs();
+		//getTalentProof();
+	}, [location]);
 
 	return (
 		<>
 			<div className={styles.proofContainer}>
-				<Fab
-					color='secondary'
-					aria-label='add'
-					onClick={() => {
-						modalPathname('createProof');
-					}}
-				>
-					<AddIcon />
-				</Fab>
-				{proof ? (
+				{isTalentProfile && (
+					<Fab
+						color='secondary'
+						aria-label='add'
+						onClick={() => {
+							modalPathname('createProof');
+						}}
+					>
+						<AddIcon />
+					</Fab>
+				)}
+				{proofs ? (
 					<>
-						<Proof proof={proof} withContent={false} showControlls={false} />
-						<Proof proof={proof} withContent={true} showControlls={true} />
-						<Proof proof={proof} withContent={true} showControlls={false} />
+						{proofs.map(el => (
+							<Proof
+								key={el.id}
+								proof={el}
+								withContent={true}
+								showControlls={isTalentProfile}
+							/>
+						))}
 					</>
 				) : (
 					<LinearProgress />
 				)}
+				{/* <Proof
+					proof={proof}
+					withContent={true}
+					showControlls={isTalentProfile}
+				/> */}
 			</div>
 			<Outlet />
 			{location.pathname.endsWith('/createProof') && <CreateProof />}

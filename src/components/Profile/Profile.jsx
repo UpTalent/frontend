@@ -93,7 +93,7 @@ export const Profile = () => {
 			)}
 			<div className={styles.allInfoAbouUser}>
 				<UserInfo talent={talent} isTalentProfile={isTalentProfile} />
-				<MainInfo aboutMe={talent.about_me} />
+				<MainInfo aboutMe={talent.about_me} isTalentProfile={isTalentProfile} />
 			</div>
 			{isTalentProfile && (
 				<CreateOutlinedIcon

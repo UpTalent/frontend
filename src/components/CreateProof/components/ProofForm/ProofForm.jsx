@@ -11,6 +11,7 @@ export const ProofForm = ({ proof, saveProof, mode }) => {
 	const createProof = async (data) => {
 		try {
 			const response = await proofAPI.createProof(talentId, data);
+			console.log(response);
 			return response;
 		} catch (err) {
 			console.log(err.message);
@@ -28,6 +29,7 @@ export const ProofForm = ({ proof, saveProof, mode }) => {
 
 	const submitHandler = values => {
 		saveProof({ ...values });
+		console.log(proof);
 		if (mode === 'create') {
 			createProof({ ...proof, status: 'DRAFT' });
 		} else {

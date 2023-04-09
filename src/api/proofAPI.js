@@ -7,7 +7,7 @@ export const proofAPI = {
 		} catch (error) {
 			throw new Error(error.response.data.message);
 		}
-    },
+	},
 
 	async createProof(talent_Id, data) {
 		try {
@@ -23,6 +23,19 @@ export const proofAPI = {
 				`talents/${talent_Id}/proofs${proof_Id}`,
 				data,
 			);
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	},
+
+	async getTalentProofs(talent_Id, currentPage = 0, pageSize = 3) {
+		try {
+			return await axiosInstance.get(`talents/${talent_Id}/proofs`, {
+				params: {
+					page: currentPage,
+                    size: pageSize,
+				},
+			});
 		} catch (error) {
 			throw new Error(error.response.data.message);
 		}

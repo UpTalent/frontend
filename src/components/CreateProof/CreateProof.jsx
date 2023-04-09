@@ -21,7 +21,6 @@ export const CreateProof = ({ proof }) => {
 		title: proof && proof.title !== undefined ? proof.title : '',
 		summary: proof && proof.summary !== undefined ? proof.summary : '',
 		content: proof && proof.content !== undefined ? proof.content : '',
-		id: proof ? proof.id : null,
 	};
 
 	const [proofForForm, setProofForForm] = useState(initialproof);
