@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from '../../Proof.module.css';
 import { IconButton, Tooltip } from '@mui/material';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ControllButton } from './components/ControllButton';
 import { ProofIcons } from '../../../../../assets/static/ProofIcons';
+import { TimeStapm } from './components/TimeStamp';
 
 export const ProofTitle = ({
 	title,
@@ -17,14 +17,7 @@ export const ProofTitle = ({
 	return (
 		<div className={styles.ProofTitle}>
 			<div className={styles.controls}>
-				<div className={styles.timeStamp}>
-					{published && (
-						<>
-							<AccessTimeIcon color='action' />
-							{published}
-						</>
-					)}
-				</div>
+				<TimeStapm published={published} />
 				{showControlls && (
 					<div className={styles.talentsControls}>
 						<ControllButton
