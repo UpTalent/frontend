@@ -11,6 +11,7 @@ import { DeleteProfile } from './components/DeleteProfile';
 import { useDispatch } from 'react-redux';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import { skills } from '../../assets/static/skills';
+import { updateFirstName } from '../../redux/reducers/authentification';
 
 export const EditProfile = ({ talent, setTalent }) => {
 	const navigate = useNavigate();
@@ -37,6 +38,7 @@ export const EditProfile = ({ talent, setTalent }) => {
 		try {
 			const { data } = await talentsAPI.edit(talent.id, editData);
 			setTalent(data);
+			dispatch(updateFirstName(data.firstname))
 			dispatch(setSystemMessage(true, 'Your profile was updated successfully!'));
 			navigate(`/talent/${talent.id}`);
 		} catch (err) {

@@ -41,6 +41,9 @@ const authSlice = createSlice({
 				state.isAuth = false;
 			}
 		},
+		updateFirstName: (state, action) => {
+			state.firstName = action.payload;
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -77,6 +80,6 @@ export const getAuthTalentId = state => state.authentification.talent_id;
 export const getFirstName = state => state.authentification.firstName;
 export const getIsAuth = state => state.authentification.isAuth;
 
-export const { logOut, clearError, authApp } = authSlice.actions;
+export const { logOut, clearError, authApp, updateFirstName } = authSlice.actions;
 
 export default authSlice.reducer;

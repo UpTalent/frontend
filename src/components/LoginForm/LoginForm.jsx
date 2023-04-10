@@ -9,7 +9,12 @@ import { useLocation, useNavigate } from 'react-router';
 import styles from './LoginForm.module.css';
 import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
-import { authentificateTalent, clearError, getAuthTalentId, getErrors } from '../../redux/reducers/authentification';
+import {
+	authentificateTalent,
+	clearError,
+	getAuthTalentId,
+	getErrors,
+} from '../../redux/reducers/authentification';
 import { useSelector } from 'react-redux';
 import { useStoreDispatch } from '../../redux/store';
 
@@ -21,17 +26,16 @@ export const LoginForm = () => {
 	const talent_id = useSelector(getAuthTalentId);
 	const authError = useSelector(getErrors);
 
-
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const handleClose = () => {
 		setOpen(false);
-		navigate(-1, {
+		navigate(location.pathname.slice(0, -6), {
 			search: location.search,
 		});
 	};
-	
+
 	useEffect(() => {
 		if (talent_id) {
 			navigate(`/talent/${talent_id}`);
