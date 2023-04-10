@@ -10,6 +10,7 @@ import {
 	getIsAuth,
 	logOut,
 } from '../../redux/reducers/authentification';
+import logo from '../../assets/upTalent.png'
 
 export const Header = () => {
 	const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export const Header = () => {
 	return (
 		<header className={styles.header}>
 			<Link to='/home' className={styles.logo}>
+				<img src={logo} alt='UpTalent Logo'/>
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>

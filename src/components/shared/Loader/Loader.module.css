@@ -9,9 +9,20 @@
 }
 
 .loaderContainer h1 {
+	font-size: 5rem;
+	font-weight: 300;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 30px;
 	animation: fade 2s;
-    font-size: 5rem;
-    font-weight: 300;
+}
+
+.logo img {
+	max-width: 100px;
+	max-height: 200px;
 }
 
 .loader {
