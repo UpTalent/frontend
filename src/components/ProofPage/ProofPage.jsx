@@ -9,14 +9,16 @@ export const ProofPage = () => {
 	const [proofList, setProofList] = useState([]);
 	const [total_pages, setTotalPages] = useState(0);
 	const [searchParams, setSearchParams] = useSearchParams();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const urlPage = Number(searchParams.get('page')) || 1;
 
 	const getProofs = async page => {
+		setIsLoading(true);
 		const { data } = await proofAPI.getAllProofs(page);
-		console.log(data);
 		setProofList(data.content);
 		setTotalPages(data.total_pages);
+		setIsLoading(false);
 	};
 
 	useEffect(() => {
@@ -36,7 +38,7 @@ export const ProofPage = () => {
 	));
 	return (
 		<>
-			{!proofList.length ? (
+			{isLoading ? (
 				<div className='loaderContainer'>
 					<CircularProgress />
 				</div>
