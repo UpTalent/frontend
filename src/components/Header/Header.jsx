@@ -40,6 +40,7 @@ export const Header = () => {
 			</Link>
 			<div className={styles.navbar}>
 				<Link to='/talents'>Talents</Link>
+				<Link to='/proofs'>Proofs</Link>
 			</div>
 
 			{isTalent ? (

@@ -44,7 +44,6 @@ export const TalentsPage = () => {
 				<PagesGrid
 					gridItems={talentsList}
 					total_pages={total_pages}
-					page={urlPage}
 				/>
 			) : (
 				<div className='loaderContainer'>
