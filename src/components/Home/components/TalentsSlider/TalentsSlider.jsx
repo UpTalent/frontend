@@ -9,7 +9,6 @@ export const TalentsSlider = () => {
 	const [sliderTalentsList, setSliderTalentsList] = useState([]);
 
 	const getSliderTalents = async () => {
-		setIsLoading(true);
 		const { data } = await talentsAPI.getTalents();
 		setSliderTalentsList(data.content);
 		setIsLoading(false);
@@ -28,5 +27,5 @@ export const TalentsSlider = () => {
 		getSliderTalents();
 	}, []);
     
-	return <Slider sliderElements={sliderElements} viewAll={'talents'} isLoading={isLoading}/>;
+	return <Slider sliderElements={sliderElements} viewAll={'talents'} isLoading={isLoading} item={'talent'}/>;
 };

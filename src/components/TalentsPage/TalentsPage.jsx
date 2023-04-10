@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import {
 	getTalentList,
 	getTalentsList,
-	getTotalePages,
+	getTalentsTotalPages,
 	pendingStatus,
 } from '../../redux/reducers/talents';
 
@@ -18,7 +18,7 @@ export const TalentsPage = () => {
 	const dispatch = useStoreDispatch();
 
 	const talentList = useSelector(getTalentList);
-	const total_pages = useSelector(getTotalePages);
+	const total_pages = useSelector(getTalentsTotalPages);
 	const isLoading = useSelector(pendingStatus);
 
 	const urlPage = Number(searchParams.get('page')) || 1;

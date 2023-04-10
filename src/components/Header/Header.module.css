@@ -37,6 +37,11 @@
   padding: 0 20px;
 }
 
+.active {
+  color: var(--primary) !important;
+  font-weight: bold !important;
+}
+
 .nameButton a {
   background-color: var(--primary);
   color: #fff;
@@ -102,3 +107,4 @@
   background-color: #000000;
   color: #fff;
 }
+

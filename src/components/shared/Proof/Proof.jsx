@@ -5,13 +5,13 @@ import { ProofTitle } from './components/ProofTitle';
 import { ProofSummary } from './components/ProofSummary/ProofSummary';
 import { ProofBody } from './components/ProofBody/ProofBody';
 
-export const Proof = ({ proof, withContent, showControlls }) => {
+export const Proof = ({ proof, withContent, showControlls, className }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 	const handleAccordionClick = () => {
 		setIsAccordionOpen(!isAccordionOpen);
 	};
 	return (
-		<div className={styles.Proof}>
+		<div className={`${styles.Proof} ${className}`}>
 			{withContent ? (
 				<Accordion expanded={isAccordionOpen}>
 					<AccordionSummary
