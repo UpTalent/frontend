@@ -29,7 +29,7 @@ const talentsSlice = createSlice({
 });
 
 export const getTalentList = state => state.talents.talentsList;
-export const getTotalePages = state => state.talents.total_pages;
+export const getTalentsTotalPages = state => state.talents.total_pages;
 export const pendingStatus = state => state.talents.isFetching;
 
 export default talentsSlice.reducer;
