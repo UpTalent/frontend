@@ -5,6 +5,7 @@
 	border-radius: 10px;
 	position: relative;
 	width: 60%;
+	max-width: 250px;
 	background-color: #fff;
 }
 

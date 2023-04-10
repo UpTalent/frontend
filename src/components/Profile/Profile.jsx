@@ -11,7 +11,7 @@ import { UserInfo } from './components/UserInfo';
 import { MainInfo } from './components/MainInfo';
 import { useSelector } from 'react-redux';
 import { getAuthTalentId } from '../../redux/reducers/authentification';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Tooltip } from '@mui/material';
 
 export const Profile = () => {
 	const authTalent = useSelector(getAuthTalentId);
@@ -77,17 +77,19 @@ export const Profile = () => {
 							className={styles.profileName}
 						>{`${talent.firstname} ${talent.lastname}`}</p>
 						{isTalentProfile && (
-							<label
-								htmlFor='avatar'
-								className={`${styles.pencil} ${styles.toPhoto}`}
-							>
-								<input
-									id='avatar'
-									type={'file'}
-									onChange={file => getFileFromUser(file, 'UPLOAD_AVATAR')}
-								/>
-								<CreateOutlinedIcon />
-							</label>
+							<Tooltip title='Change photo'>
+								<label
+									htmlFor='avatar'
+									className={`${styles.pencil} ${styles.toPhoto}`}
+								>
+									<input
+										id='avatar'
+										type={'file'}
+										onChange={file => getFileFromUser(file, 'UPLOAD_AVATAR')}
+									/>
+									<CreateOutlinedIcon />
+								</label>
+							</Tooltip>
 						)}
 					</div>
 					{isTalentProfile && (
@@ -109,12 +111,14 @@ export const Profile = () => {
 						/>
 					</div>
 					{isTalentProfile && (
-						<CreateOutlinedIcon
-							className={`${styles.pencil} ${styles.toEdit}`}
-							onClick={() => {
-								modalPathname('edit');
-							}}
-						/>
+						<Tooltip title='Edit profile'>
+							<CreateOutlinedIcon
+								className={`${styles.pencil} ${styles.toEdit}`}
+								onClick={() => {
+									modalPathname('edit');
+								}}
+							/>
+						</Tooltip>
 					)}
 					<PopUpMessage message={systemMessage} status='success' />
 					<Outlet />

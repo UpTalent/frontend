@@ -48,7 +48,7 @@ export const RegistrationForm = () => {
 
 	const handleClose = () => {
 		setModal(false);
-		navigate(-1, {
+		navigate(location.pathname.slice(0, -9), {
 			search: location.search,
 		});
 	};
@@ -71,7 +71,7 @@ export const RegistrationForm = () => {
 		const registerData = { ...formData };
 		delete registerData.confirmPassword;
 
-		const data = { method: 'register', talentInfo: registerData };
+		const data = { talentInfo: registerData };
 
 		dispatch(authentificateTalent(data));
 	};
