@@ -3,14 +3,16 @@ import { useDispatch } from 'react-redux';
 import talents from './reducers/talents';
 import authentification from './reducers/authentification';
 import systemMessage from './reducers/systemMessages';
-import talentsProof from './reducers/talentsProof';
+import talentsProofs from './reducers/talentsProof';
+import proof from './reducers/proof';
 
 export const store = configureStore({
 	reducer: {
 		talents,
 		authentification,
 		systemMessage,
-		talentsProof,
+		talentsProofs,
+		proof,
 	},
 	devTools: true,
 });

@@ -5,7 +5,10 @@ import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PopUpMessage } from '../shared/PopUpMessage/PopUpMessage';
 import { useSelector } from 'react-redux';
-import { getAuthTalentId, getIsAuth } from '../../redux/reducers/authentification';
+import {
+	getAuthTalentId,
+	getIsAuth,
+} from '../../redux/reducers/authentification';
 import { TalentsSlider } from './components/TalentsSlider';
 import { ProofSlider } from './components/ProofSlider/ProofSlider';
 
@@ -59,6 +62,7 @@ export const Home = () => {
 				</div>
 			</div>
 			<PopUpMessage message={systemMessage} status='success' />
+
 			<TalentsSlider />
 			<ProofSlider />
 		</>

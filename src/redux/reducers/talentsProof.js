@@ -1,4 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { proofAPI } from '../../api/proofAPI';
 
 const initialState = {
 	proofsList: [],
@@ -7,7 +8,7 @@ const initialState = {
 	error: null,
 };
 
-const getTalentsProofs = createAsyncThunk(
+export const getTalentsProofs = createAsyncThunk(
 	'getTalentsProofs',
 	async (params, thunkAPI) => {
 		try {
@@ -33,11 +34,16 @@ const proofsSlice = createSlice({
 			})
 			.addCase(getTalentsProofs.pending, state => {
 				state.isFetching = true;
+			})
+			.addCase(getTalentsProofs.rejected, (state, action) => {
+				state.error = action.payload;
 			});
 	},
 });
 
 export const getProofList = state => state.talentsProofs.proofsList;
-export const getTotalPages = state => state.talentsProofs.total_pages;
+export const getProofsTotalPages = state => state.talentsProofs.total_pages;
+export const proofsPendingStatus = state => state.talentsProofs.isFetching;
+export const getProofError = state => state.talentsProofs.error;
 
 export default proofsSlice.reducer;

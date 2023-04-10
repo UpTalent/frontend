@@ -75,7 +75,6 @@ export const RegistrationForm = () => {
 
 		dispatch(authentificateTalent(data));
 	};
-	console.log('registration');
 
 	return (
 		<>

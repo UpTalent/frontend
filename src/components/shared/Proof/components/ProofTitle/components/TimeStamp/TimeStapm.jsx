@@ -27,7 +27,7 @@ export const TimeStapm = ({ published }) => {
 		<div className={styles.timeStamp}>
 			{published && (
 				<>
-					<AccessTimeIcon color='action' />
+					<AccessTimeIcon color='action' sx={{ fontSize: 'inherit' }} />
 					{formatedDate}
 				</>
 			)}

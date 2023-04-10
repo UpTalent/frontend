@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { Button, Popover } from '@mui/material';
 import styles from './Header.module.css';
 import { setAuthToken } from '../../api/index';
@@ -39,8 +39,8 @@ export const Header = () => {
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<Link to='/talents'>Talents</Link>
-				<Link to='/proofs'>Proofs</Link>
+				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/talents'>Talents</NavLink>
+				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/proofs'>Proofs</NavLink>
 			</div>
 
 			{isTalent ? (
