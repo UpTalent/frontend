@@ -26,7 +26,10 @@ const authSlice = createSlice({
 		},
 		authApp: state => {
 			const jwt = localStorage.getItem('jwt_token');
-			if (!jwt) return state;
+			if (!jwt) {
+				state.isPending = false;
+				return state;
+			}
 
 			const { exp, firstname, talent_id } = parseJwt(jwt);
 			const currentTime = new Date();
