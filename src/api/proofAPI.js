@@ -28,12 +28,26 @@ export const proofAPI = {
 		}
 	},
 
-	async getTalentProofs(talent_Id, currentPage = 0, pageSize = 3) {
+	async getTalentProofs(talent_Id, currentPage = 0, status, pageSize = 3) {
 		try {
 			return await axiosInstance.get(`talents/${talent_Id}/proofs`, {
 				params: {
 					page: currentPage,
-                    size: pageSize,
+					size: pageSize,
+					status: status,
+				},
+			});
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	},
+	
+	async getAllProofs(currentPage = 0, pageSize = 9) {
+		try {
+			return await axiosInstance.get(`proofs`, {
+				params: {
+					page: currentPage,
+					size: pageSize,
 				},
 			});
 		} catch (error) {

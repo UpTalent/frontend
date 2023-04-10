@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Proof } from '../../../../../shared/Proof';
 import styles from '../../MainInfo.module.css';
-import { proofAPI } from '../../../../../../api/proofAPI';
 import { Fab, LinearProgress } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { CreateProof } from '../../../../../CreateProof';
+import { FilterStatus } from './components';
+import { useSelector } from 'react-redux';
+import {
+	getProofList,
+	getTalentsProofs,
+	proofsPendingStatus,
+} from '../../../../../../redux/reducers/talentsProof';
+import { useStoreDispatch } from '../../../../../../redux/store';
 
 export const Proofs = ({ isTalentProfile }) => {
-	const [proofs, setProofs] = useState(null);
+	const proofs = useSelector(getProofList);
+	const isFetching = useSelector(proofsPendingStatus);
+	const dispatch = useStoreDispatch();
+
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { talentId } = useParams();
@@ -17,49 +27,33 @@ export const Proofs = ({ isTalentProfile }) => {
 		navigate(`${location.pathname}/${path}`);
 	};
 
-	// const [proof, setProof] = useState();
-
-	// const getTalentProof = async () => {
-	// 	try {
-	// 		const { data } = await proofAPI.getProof(talentId, 48);
-
-	// 		setProof(data)
-	// 		console.log(data);
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// };
-
-	const getTalentsProofs = async page => {
-		try {
-			const {data} = await proofAPI.getTalentProofs(talentId, page);
-			setProofs(data.content);
-			console.log(data);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	const getProofs = (status) => {
+		const fetchData = { talentId, status };
+		dispatch(getTalentsProofs(fetchData));
+	}
 
 	useEffect(() => {
-		getTalentsProofs();
-		//getTalentProof();
-	}, [location]);
+		getProofs()
+	}, []);
 
 	return (
 		<>
 			<div className={styles.proofContainer}>
 				{isTalentProfile && (
-					<Fab
-						color='secondary'
-						aria-label='add'
-						onClick={() => {
-							modalPathname('createProof');
-						}}
-					>
-						<AddIcon />
-					</Fab>
+					<div className={styles.proofContolls}>
+						<Fab
+							color='secondary'
+							aria-label='add'
+							onClick={() => {
+								modalPathname('createProof');
+							}}
+						>
+							<AddIcon />
+						</Fab>
+						<FilterStatus handleChange={getProofs}/>
+					</div>
 				)}
-				{proofs ? (
+				{!isFetching ? (
 					<>
 						{proofs.map(el => (
 							<Proof
@@ -73,11 +67,6 @@ export const Proofs = ({ isTalentProfile }) => {
 				) : (
 					<LinearProgress />
 				)}
-				{/* <Proof
-					proof={proof}
-					withContent={true}
-					showControlls={isTalentProfile}
-				/> */}
 			</div>
 			<Outlet />
 			{location.pathname.endsWith('/createProof') && <CreateProof />}

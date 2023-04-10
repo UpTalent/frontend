@@ -21,6 +21,16 @@
   font-weight: 200;
   text-decoration: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.logo img {
+  width: 60px;
+  height: 50px;
+  object-fit: cover;
 }
 
 .navbar {
@@ -35,6 +45,11 @@
   font-weight: 200;
   font-size: 25px;
   padding: 0 20px;
+}
+
+.active {
+  color: var(--primary) !important;
+  font-weight: bold !important;
 }
 
 .nameButton a {
@@ -102,3 +117,4 @@
   background-color: #000000;
   color: #fff;
 }
+

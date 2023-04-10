@@ -8,8 +8,7 @@ import { Swiper } from 'swiper/react';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import './Slider.css';
 
-
-export const Slider = ({sliderElements, viewAll, isLoading}) => {
+export const Slider = ({ sliderElements, viewAll, isLoading, item }) => {
 	return (
 		<div className='slider'>
 			{isLoading ? (
@@ -21,8 +20,8 @@ export const Slider = ({sliderElements, viewAll, isLoading}) => {
 					<Swiper
 						loop={true}
 						navigation={{
-							prevEl: '.swiperButtonPrev',
-							nextEl: '.swiperButtonNext',
+							prevEl: `.${item}`,
+							nextEl: `.${item}`,
 						}}
 						slidesPerView={3}
 						modules={[Navigation]}
@@ -40,10 +39,10 @@ export const Slider = ({sliderElements, viewAll, isLoading}) => {
 					>
 						{sliderElements}
 					</Swiper>
-					<div className='swiperButton swiperButtonPrev'>
+					<div className={`swiperButton swiperButtonPrev ${item}`}>
 						<ArrowBack fontSize='large' />
 					</div>
-					<div className='swiperButton swiperButtonNext'>
+					<div className={`swiperButton swiperButtonNext ${item}`}>
 						<ArrowForward fontSize='large' />
 					</div>
 					<Link to={`/${viewAll}`}>

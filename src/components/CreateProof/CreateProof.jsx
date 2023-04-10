@@ -16,11 +16,10 @@ export const CreateProof = ({ proof }) => {
 	const mode = proof ? 'edit' : 'create';
 
 	let initialproof = {
-		icon_number:
-			proof && proof.icon_number !== undefined ? proof.icon_number : null,
-		title: proof && proof.title !== undefined ? proof.title : '',
-		summary: proof && proof.summary !== undefined ? proof.summary : '',
-		content: proof && proof.content !== undefined ? proof.content : '',
+		icon_number: proof && proof.icon_number ? proof.icon_number : null,
+		title: proof && proof.title ? proof.title : '',
+		summary: proof && proof.summary ? proof.summary : '',
+		content: proof && proof.content ? proof.content : '',
 	};
 
 	const [proofForForm, setProofForForm] = useState(initialproof);
@@ -38,7 +37,12 @@ export const CreateProof = ({ proof }) => {
 
 	return (
 		<>
-			<Dialog open={open} onClose={handleClose} scroll='paper'>
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				scroll='paper'
+				sx={{ '& .MuiDialog-paper': { padding: '20px' } }}
+			>
 				<Tabs
 					value={value}
 					onChange={(event, newValue) => setValue(newValue)}
