@@ -38,7 +38,12 @@ export const CreateProof = ({ proof }) => {
 
 	return (
 		<>
-			<Dialog open={open} onClose={handleClose} scroll='paper'>
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				scroll='paper'
+				sx={{ '& .MuiDialog-paper': { padding: '20px' } }}
+			>
 				<Tabs
 					value={value}
 					onChange={(event, newValue) => setValue(newValue)}

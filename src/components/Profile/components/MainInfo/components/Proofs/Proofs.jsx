@@ -6,6 +6,7 @@ import { Fab, LinearProgress } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { CreateProof } from '../../../../../CreateProof';
+import { FilterStatus } from './components';
 
 export const Proofs = ({ isTalentProfile }) => {
 	const [proofs, setProofs] = useState(null);
@@ -32,7 +33,7 @@ export const Proofs = ({ isTalentProfile }) => {
 
 	const getTalentsProofs = async page => {
 		try {
-			const {data} = await proofAPI.getTalentProofs(talentId, page);
+			const { data } = await proofAPI.getTalentProofs(talentId, page, 'DRAFT');
 			setProofs(data.content);
 			console.log(data);
 		} catch (err) {
@@ -49,15 +50,18 @@ export const Proofs = ({ isTalentProfile }) => {
 		<>
 			<div className={styles.proofContainer}>
 				{isTalentProfile && (
-					<Fab
-						color='secondary'
-						aria-label='add'
-						onClick={() => {
-							modalPathname('createProof');
-						}}
-					>
-						<AddIcon />
-					</Fab>
+					<div className={styles.proofContolls}>
+						<Fab
+							color='secondary'
+							aria-label='add'
+							onClick={() => {
+								modalPathname('createProof');
+							}}
+						>
+							<AddIcon />
+						</Fab>
+						<FilterStatus/>
+					</div>
 				)}
 				{proofs ? (
 					<>
