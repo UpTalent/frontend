@@ -27,10 +27,14 @@ export const Proofs = ({ isTalentProfile }) => {
 		navigate(`${location.pathname}/${path}`);
 	};
 
-	useEffect(() => {
-		const fetchData = { talentId };
+	const getProofs = (status) => {
+		const fetchData = { talentId, status };
 		dispatch(getTalentsProofs(fetchData));
-	}, [location.pathname]);
+	}
+
+	useEffect(() => {
+		getProofs()
+	}, []);
 
 	return (
 		<>
@@ -46,7 +50,7 @@ export const Proofs = ({ isTalentProfile }) => {
 						>
 							<AddIcon />
 						</Fab>
-						<FilterStatus talentId={talentId} />
+						<FilterStatus handleChange={getProofs}/>
 					</div>
 				)}
 				{!isFetching ? (

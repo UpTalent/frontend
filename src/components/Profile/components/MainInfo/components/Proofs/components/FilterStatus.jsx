@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useStoreDispatch } from '../../../../../../../redux/store';
-import { getTalentsProofs } from '../../../../../../../redux/reducers/talentsProof';
 import { Badge } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-export const FilterStatus = ({ talentId }) => {
-	const dispatch = useStoreDispatch();
+export const FilterStatus = ({ handleChange }) => {
 
 	const [badge, setBadge] = useState('published');
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -20,7 +17,7 @@ export const FilterStatus = ({ talentId }) => {
 		setAnchorEl(event.currentTarget);
 	};
 	const changeStatus = status => {
-		dispatch(getTalentsProofs({ talentId, status }));
+		handleChange(status);
 		let badgeStatus = status.toLowerCase();
 		setBadge(badgeStatus);
 		setAnchorEl(null);
