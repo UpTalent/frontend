@@ -19,9 +19,9 @@ export const TimeStapm = ({ published }) => {
 	];
 
 	const date = new Date(published);
-	const formatedDate = `${month[date.getMonth()]}, ${
-		date.getDay() + 1
-	}, ${date.getFullYear()}`;
+	const formatedDate = `${
+		month[date.getMonth()]
+	}, ${date.getDate()}, ${date.getFullYear()}`;
 
 	return (
 		<div className={styles.timeStamp}>
