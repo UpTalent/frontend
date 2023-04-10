@@ -71,7 +71,7 @@ export const RegistrationForm = () => {
 		const registerData = { ...formData };
 		delete registerData.confirmPassword;
 
-		const data = { method: 'register', talentInfo: registerData };
+		const data = { talentInfo: registerData };
 
 		dispatch(authentificateTalent(data));
 	};

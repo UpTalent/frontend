@@ -7,6 +7,7 @@ const initialState = {
 	talent_id: null,
 	firstName: '',
 	error: null,
+	isPending: true,
 };
 
 const authSlice = createSlice({
@@ -18,7 +19,7 @@ const authSlice = createSlice({
 			state.talent_id = null;
 			state.firstName = '';
 			state.error = null;
-			localStorage.clear();
+			localStorage.removeItem('jwt_token');
 		},
 		clearError: state => {
 			state.error = null;
@@ -37,9 +38,10 @@ const authSlice = createSlice({
 				state.firstName = firstname;
 				state.isAuth = true;
 			} else {
-				localStorage.clear();
+				localStorage.removeItem('jwt_token');
 				state.isAuth = false;
 			}
+			state.isPending = false;
 		},
 		updateFirstName: (state, action) => {
 			state.firstName = action.payload;
@@ -63,7 +65,7 @@ export const authentificateTalent = createAsyncThunk(
 	async (params, thunkAPI) => {
 		try {
 			const { method, talentInfo } = params;
-			const { data } = await authAPI[method](talentInfo);
+			const { data } = await authAPI.authentificate(talentInfo, method);
 			setAuthToken(data.jwt_token);
 
 			const { firstname, talent_id } = parseJwt(data.jwt_token);
@@ -79,7 +81,9 @@ export const getErrors = state => state.authentification.error;
 export const getAuthTalentId = state => state.authentification.talent_id;
 export const getFirstName = state => state.authentification.firstName;
 export const getIsAuth = state => state.authentification.isAuth;
+export const getIsPending = state => state.authentification.isPending;
 
-export const { logOut, clearError, authApp, updateFirstName } = authSlice.actions;
+export const { logOut, clearError, authApp, updateFirstName } =
+	authSlice.actions;
 
 export default authSlice.reducer;
