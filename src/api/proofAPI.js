@@ -33,8 +33,21 @@ export const proofAPI = {
 			return await axiosInstance.get(`talents/${talent_Id}/proofs`, {
 				params: {
 					page: currentPage,
-                    size: pageSize,
-					status: status
+					size: pageSize,
+					status: status,
+				},
+			});
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	},
+	
+	async getAllProofs(currentPage = 0, pageSize = 9) {
+		try {
+			return await axiosInstance.get(`proofs`, {
+				params: {
+					page: currentPage,
+					size: pageSize,
 				},
 			});
 		} catch (error) {
