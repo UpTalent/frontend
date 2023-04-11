@@ -11,7 +11,7 @@ const initialState = {
 	status: '',
 };
 
-export const createProof = createAsyncThunk(
+ export const createProof = createAsyncThunk(
 	'createProof',
 	async (params, thunkAPI) => {
 		try {
@@ -41,9 +41,15 @@ const proofSlice = createSlice({
 	initialState,
 	reducers: {
 		updateProof: (state, action) => {
-			state = { ...state, ...action.payload };
+			Object.keys(state).forEach(key => {
+				state[key] = action.payload[key];
+			});
 		},
-		// ред'юсер для очищення???
+		clearProof: (state) => {
+			Object.keys(state).forEach(key => {
+				state[key] = null;
+			});
+		}
 	},
 	extraReducers: builder => {
 		builder.addCase(editProof.fulfilled, (state, action) => {
@@ -56,6 +62,6 @@ const proofSlice = createSlice({
 });
 
 export const getProof = state => state.proof;
-export const { updateProof } = proofSlice.actions;
+export const { updateProof, clearProof } = proofSlice.actions;
 
 export default proofSlice.reducer;

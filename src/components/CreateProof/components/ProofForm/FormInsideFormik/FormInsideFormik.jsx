@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setSystemMessage } from '../../../../../redux/reducers/systemMessages';
 import { getTalentsProofs } from '../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../redux/store';
+import { clearProof } from '../../../../../redux/reducers/proof';
 
 export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
@@ -27,17 +28,20 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 		try {
 			await proofAPI.createProof(talentId, data);
 			dispatch(setSystemMessage(true, 'Proof was successfully created'));
+			dispatch(clearProof());
+			navigate(-1);
 		} catch (err) {
 			setError(err.message);
-			console.log(err.message);
 		}
 	};
 
-	//  я не знаю чи це працює
-	const editProof = async ({ data, id }) => {
+	const editProof = async values => {
 		try {
-			await proofAPI.editProof(talentId, id, data);
+			const { id } = values;
+			await proofAPI.editProof(talentId, id, values);
 			dispatch(setSystemMessage(true, 'Proof was successfully edited'));
+			dispatch(clearProof());
+			navigate(-1);
 		} catch (err) {
 			setError(err.message);
 		}
@@ -53,10 +57,9 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 		if (mode === 'create') {
 			createProof({ ...proof, status: 'DRAFT' });
 		} else if (mode === 'edit') {
-			//editProof();
+			editProof({ ...proof });
 		}
 		updateList('DRAFT');
-		navigate(-1);
 	};
 
 	const publishHandler = () => {
@@ -68,7 +71,6 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 			createProof({ ...proof, status: 'PUBLISHED' });
 		}
 		updateList('PUBLISHED');
-		navigate(-1);
 	};
 
 	useEffect(() => {
@@ -119,11 +121,10 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 			/>
 			<div className={styles.buttonGroup}>
 				<Button
-					type='submit'
 					variant='contained'
 					className={`${isValid && styles.saveButton}`}
 					disabled={!isValid}
-					onClick={() => submitHandler()}
+					onClick={submitHandler}
 				>
 					{mode === 'create' ? 'SAVE AS DRAFT' : 'SAVE CHANGES'}
 				</Button>
@@ -131,7 +132,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 					variant='contained'
 					className={`${isValid && styles.publishButton}`}
 					disabled={!isValid}
-					onClick={() => publishHandler()}
+					onClick={publishHandler}
 				>
 					Publish
 				</Button>

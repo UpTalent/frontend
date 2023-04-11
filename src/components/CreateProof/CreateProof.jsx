@@ -7,31 +7,25 @@ import styles from './CreateProof.module.css';
 import { useNavigate } from 'react-router-dom';
 import { ProofForm } from './components/ProofForm';
 import { Proof } from '../shared/Proof';
-// import { useDispatch } from 'react-redux';
-// import { updateProof } from '../../redux/reducers/proof';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProof, getProof } from '../../redux/reducers/proof';
 
-export const CreateProof = ({ proof }) => {
-	// const dispatch = useDispatch();
+export const CreateProof = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [open, setOpen] = useState(true);
 	const [value, setValue] = useState(0);
 	const [error, setError] = useState(null);
 
-	const mode = proof.title ? 'edit' : 'create';
-	// якщо сюди передаємо не пустий пруф то в редакс записати те що прийшло з пропсів dispatch(updateProof(proof))
-	let initialproof = {
-		icon_number: proof && proof.icon_number ? proof.icon_number : null,
-		title: proof && proof.title ? proof.title : '',
-		summary: proof && proof.summary ? proof.summary : '',
-		content: proof && proof.content ? proof.content : '',
-		status: proof && proof.status ? proof.status : 'DRAFT',
-	};
+	const proof= useSelector(getProof);
 
-	// if (proof) {
-	// 	dispatch(updateProof(initialproof));
-	// }
-	// тоді це в редаксі не потрібно
-	const [proofForForm, setProofForForm] = useState(initialproof);
+	const saveProof = (values) => {
+		dispatch(updateProof(values))
+	}
+	
+	const mode = proof.status ? 'edit' : 'create';
+
+	console.log(mode);
 
 	const handleClose = () => {
 		setOpen(false);
@@ -41,12 +35,12 @@ export const CreateProof = ({ proof }) => {
 	const tabLabels = ['WRITE', 'PREVIEW'];
 	const tabContent = [
 		<ProofForm
-			proof={proofForForm}
-			saveProof={setProofForForm}
+			proof={proof}
+			saveProof={saveProof}
 			mode={mode}
 			setError={setError}
 		/>,
-		<Proof proof={proofForForm} withContent={true} showControlls={false} />,
+		<Proof proof={proof} withContent={true} showControlls={false} />,
 	];
 
 	return (
