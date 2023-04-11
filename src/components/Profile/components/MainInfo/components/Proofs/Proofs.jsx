@@ -55,7 +55,7 @@ export const Proofs = ({ isTalentProfile }) => {
 				)}
 				{!isFetching ? (
 					<>
-						{proofs.map(el => (
+						{proofs.slice(0,3).map(el => (
 							<Proof
 								key={el.id}
 								proof={el}

@@ -28,7 +28,7 @@ export const proofAPI = {
 		}
 	},
 
-	async getTalentProofs(talent_Id, currentPage = 0, status, pageSize = 3) {
+	async getTalentProofs(talent_Id, currentPage = 0, status, pageSize = 9) {
 		try {
 			return await axiosInstance.get(`talents/${talent_Id}/proofs`, {
 				params: {
@@ -50,6 +50,13 @@ export const proofAPI = {
 					size: pageSize,
 				},
 			});
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	},
+	async deleteProof(talent_Id, proof_Id) {
+		try {
+			return await axiosInstance.delete(`talents/${talent_Id}/proofs/${proof_Id}`);
 		} catch (error) {
 			throw new Error(error.response.data.message);
 		}

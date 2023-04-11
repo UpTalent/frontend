@@ -1,0 +1,18 @@
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    font-size: 23px;
+    max-width: 350px;
+    text-align: center;
+}
+
+.title svg{
+    width: 60px;
+    height: 60px;
+}
+
+.controlls {
+    justify-content: space-evenly !important; 
+}

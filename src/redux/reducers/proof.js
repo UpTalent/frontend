@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { proofAPI } from '../../api/proofAPI';
+import { setSystemMessage } from './systemMessages';
+import { deleteProofFromList } from './talentsProof';
 
 const initialState = {
 	id: 0,
@@ -36,18 +38,46 @@ export const editProof = createAsyncThunk(
 	},
 );
 
+export const deleteProof = createAsyncThunk(
+	'deleteProof',
+	async (params, thunkAPI) => {
+		try {
+			const { talent_Id, proof_Id } = params;
+			const { data } = await proofAPI.deleteProof(talent_Id, proof_Id);
+			thunkAPI.dispatch(
+				setSystemMessage(true, 'Your proof was succesfully deleted'),
+			);
+			thunkAPI.dispatch(deleteProofFromList(proof_Id));
+			return data;
+			
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.message);
+		}
+	},
+);
+
 const proofSlice = createSlice({
 	name: 'talentsProofs',
 	initialState,
 	reducers: {
 		updateProof: (state, action) => {
-			state = { ...state, ...action.payload };
+			Object.keys(state).forEach(key => {
+				state[key] = action.payload[key];
+			});
 		},
 	},
 	extraReducers: builder => {
-		builder.addCase(editProof.fulfilled, (state, action) => {
-			state = action.payload;
-		});
+		builder
+			.addCase(editProof.fulfilled, (state, action) => {
+				Object.keys(state).forEach(key => {
+					state[key] = action.payload[key];
+				});
+			})
+			.addCase(deleteProof.fulfilled, state => {
+				Object.keys(state).forEach(key => {
+					state[key] = initialState[key];
+				});
+			});
 	},
 });
 
