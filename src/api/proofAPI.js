@@ -43,7 +43,7 @@ export const proofAPI = {
 			throw new Error(error.response.data.message);
 		}
 	},
-
+	
 	async getAllProofs(currentPage = 0, pageSize = 9) {
 		try {
 			return await axiosInstance.get(`proofs`, {
