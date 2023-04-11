@@ -4,13 +4,11 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from './CreateProof.module.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ProofForm } from './components/ProofForm';
 import { Proof } from '../shared/Proof';
 // import { useDispatch } from 'react-redux';
 // import { updateProof } from '../../redux/reducers/proof';
-import { getTalentsProofs } from '../../redux/reducers/talentsProof';
-import { useStoreDispatch } from '../../redux/store';
 
 export const CreateProof = ({ proof }) => {
 	// const dispatch = useDispatch();
@@ -18,17 +16,15 @@ export const CreateProof = ({ proof }) => {
 	const [open, setOpen] = useState(true);
 	const [value, setValue] = useState(0);
 	const [error, setError] = useState(null);
-	const { talentId } = useParams();
-	const dispatch = useStoreDispatch();
 
-	const mode = proof ? 'edit' : 'create';
+	const mode = proof.title ? 'edit' : 'create';
 	// якщо сюди передаємо не пустий пруф то в редакс записати те що прийшло з пропсів dispatch(updateProof(proof))
 	let initialproof = {
 		icon_number: proof && proof.icon_number ? proof.icon_number : null,
 		title: proof && proof.title ? proof.title : '',
 		summary: proof && proof.summary ? proof.summary : '',
 		content: proof && proof.content ? proof.content : '',
-		status: 'DRAFT',
+		status: proof && proof.status ? proof.status : 'DRAFT',
 	};
 
 	// if (proof) {
@@ -52,17 +48,6 @@ export const CreateProof = ({ proof }) => {
 		/>,
 		<Proof proof={proofForForm} withContent={true} showControlls={false} />,
 	];
-
-	const updateList = (status) => {
-		const data = { talentId, status};
-		dispatch(getTalentsProofs(data));
-	}
-
-	useEffect(() => {
-		return () => {
-			updateList(proofForForm.status);
-		};
-	}, []);
 
 	return (
 		<>
