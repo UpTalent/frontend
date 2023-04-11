@@ -13,7 +13,7 @@ const initialState = {
 	status: '',
 };
 
-export const createProof = createAsyncThunk(
+ export const createProof = createAsyncThunk(
 	'createProof',
 	async (params, thunkAPI) => {
 		try {
@@ -65,6 +65,11 @@ const proofSlice = createSlice({
 				state[key] = action.payload[key];
 			});
 		},
+		clearProof: (state) => {
+			Object.keys(state).forEach(key => {
+				state[key] = null;
+			});
+		}
 	},
 	extraReducers: builder => {
 		builder
@@ -82,6 +87,6 @@ const proofSlice = createSlice({
 });
 
 export const getProof = state => state.proof;
-export const { updateProof } = proofSlice.actions;
+export const { updateProof, clearProof } = proofSlice.actions;
 
 export default proofSlice.reducer;

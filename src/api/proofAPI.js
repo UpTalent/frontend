@@ -5,15 +5,16 @@ export const proofAPI = {
 		try {
 			return await axiosInstance.get(`talents/${talent_Id}/proofs/${proof_Id}`);
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			throw new Error(error.response.data);
 		}
 	},
 
 	async createProof(talent_Id, data) {
 		try {
-			return await axiosInstance.post(`talents/${talent_Id}/proofs`, data);
+			await axiosInstance.post(`talents/${talent_Id}/proofs`, data);
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			const field = Object.keys(error.response.data)[0];
+			throw new Error(`${error.response.data[field]}`);
 		}
 	},
 
@@ -24,7 +25,8 @@ export const proofAPI = {
 				data,
 			);
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			const field = Object.keys(error.response.data)[0];
+			throw new Error(`${error.response.data[field]}`);
 		}
 	},
 
