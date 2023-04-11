@@ -43,9 +43,13 @@ const proofSlice = createSlice({
 		updateProof: (state, action) => {
 			state = { ...state, ...action.payload };
 		},
+		// ред'юсер для очищення???
 	},
 	extraReducers: builder => {
 		builder.addCase(editProof.fulfilled, (state, action) => {
+			state = action.payload;
+		})
+		.addCase(createProof.fulfilled, (state, action) => {
 			state = action.payload;
 		});
 	},

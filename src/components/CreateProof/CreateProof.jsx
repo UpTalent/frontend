@@ -1,27 +1,40 @@
-import React, { useState } from 'react';
-import { Dialog } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Alert, Dialog } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from './CreateProof.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ProofForm } from './components/ProofForm';
 import { Proof } from '../shared/Proof';
+// import { useDispatch } from 'react-redux';
+// import { updateProof } from '../../redux/reducers/proof';
+import { getTalentsProofs } from '../../redux/reducers/talentsProof';
+import { useStoreDispatch } from '../../redux/store';
 
 export const CreateProof = ({ proof }) => {
+	// const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(true);
 	const [value, setValue] = useState(0);
+	const [error, setError] = useState(null);
+	const { talentId } = useParams();
+	const dispatch = useStoreDispatch();
 
 	const mode = proof ? 'edit' : 'create';
-
+	// якщо сюди передаємо не пустий пруф то в редакс записати те що прийшло з пропсів dispatch(updateProof(proof))
 	let initialproof = {
 		icon_number: proof && proof.icon_number ? proof.icon_number : null,
 		title: proof && proof.title ? proof.title : '',
 		summary: proof && proof.summary ? proof.summary : '',
 		content: proof && proof.content ? proof.content : '',
+		status: 'DRAFT',
 	};
 
+	// if (proof) {
+	// 	dispatch(updateProof(initialproof));
+	// }
+	// тоді це в редаксі не потрібно
 	const [proofForForm, setProofForForm] = useState(initialproof);
 
 	const handleClose = () => {
@@ -31,9 +44,25 @@ export const CreateProof = ({ proof }) => {
 
 	const tabLabels = ['WRITE', 'PREVIEW'];
 	const tabContent = [
-		<ProofForm proof={proofForForm} saveProof={setProofForForm} mode={mode} />,
+		<ProofForm
+			proof={proofForForm}
+			saveProof={setProofForForm}
+			mode={mode}
+			setError={setError}
+		/>,
 		<Proof proof={proofForForm} withContent={true} showControlls={false} />,
 	];
+
+	const updateList = (status) => {
+		const data = { talentId, status};
+		dispatch(getTalentsProofs(data));
+	}
+
+	useEffect(() => {
+		return () => {
+			updateList(proofForForm.status);
+		};
+	}, []);
 
 	return (
 		<>
@@ -56,6 +85,11 @@ export const CreateProof = ({ proof }) => {
 				</Tabs>
 				<div className={styles.tabContent}>{tabContent[value]}</div>
 				<CloseIcon className={styles.closeIcon} onClick={handleClose} />
+				{error && (
+					<Alert severity='error' onClose={() => setError(null)}>
+						{error}
+					</Alert>
+				)}
 			</Dialog>
 		</>
 	);
