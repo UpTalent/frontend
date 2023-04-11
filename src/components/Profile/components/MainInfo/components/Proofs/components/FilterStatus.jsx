@@ -7,9 +7,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-export const FilterStatus = ({ handleChange }) => {
-
-	const [badge, setBadge] = useState('published');
+export const FilterStatus = ({ handleChange, status }) => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 
@@ -18,8 +16,6 @@ export const FilterStatus = ({ handleChange }) => {
 	};
 	const changeStatus = status => {
 		handleChange(status);
-		let badgeStatus = status.toLowerCase();
-		setBadge(badgeStatus);
 		setAnchorEl(null);
 	};
 
@@ -29,7 +25,7 @@ export const FilterStatus = ({ handleChange }) => {
 
 	return (
 		<div>
-			<Badge badgeContent={badge} color='primary'>
+			<Badge badgeContent={status} color='primary'>
 				<Button
 					aria-controls={open ? 'basic-menu' : undefined}
 					aria-haspopup='true'

@@ -8,6 +8,7 @@ import { CreateProof } from '../../../../../CreateProof';
 import { FilterStatus } from './components';
 import { useSelector } from 'react-redux';
 import {
+	getListStatus,
 	getProofList,
 	getTalentsProofs,
 	proofsPendingStatus,
@@ -16,6 +17,7 @@ import { useStoreDispatch } from '../../../../../../redux/store';
 
 export const Proofs = ({ isTalentProfile }) => {
 	const proofs = useSelector(getProofList);
+	const statusList = useSelector(getListStatus);
 	const isFetching = useSelector(proofsPendingStatus);
 	const dispatch = useStoreDispatch();
 
@@ -27,13 +29,13 @@ export const Proofs = ({ isTalentProfile }) => {
 		navigate(`${location.pathname}/${path}`);
 	};
 
-	const getProofs = (status) => {
+	const getProofs = status => {
 		const fetchData = { talentId, status };
 		dispatch(getTalentsProofs(fetchData));
-	}
+	};
 
 	useEffect(() => {
-		getProofs()
+		getProofs();
 	}, []);
 
 	return (
@@ -50,12 +52,12 @@ export const Proofs = ({ isTalentProfile }) => {
 						>
 							<AddIcon />
 						</Fab>
-						<FilterStatus handleChange={getProofs}/>
+						<FilterStatus handleChange={getProofs} status={statusList}/>
 					</div>
 				)}
 				{!isFetching ? (
 					<>
-						{proofs.slice(0,3).map(el => (
+						{proofs.slice(0, 3).map(el => (
 							<Proof
 								key={el.id}
 								proof={el}

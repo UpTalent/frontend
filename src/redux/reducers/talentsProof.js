@@ -6,6 +6,7 @@ const initialState = {
 	total_pages: 0,
 	isFetching: false,
 	error: null,
+	status: 'PUBLISHED',
 };
 
 export const getTalentsProofs = createAsyncThunk(
@@ -37,6 +38,7 @@ const proofsSlice = createSlice({
 				state.proofsList = action.payload.content;
 				state.total_pages = action.payload.total_pages;
 				state.isFetching = false;
+				state.status = action.payload.content[0]?.status;
 			})
 			.addCase(getTalentsProofs.pending, state => {
 				state.isFetching = true;
@@ -51,6 +53,7 @@ export const getProofList = state => state.talentsProofs.proofsList;
 export const getProofsTotalPages = state => state.talentsProofs.total_pages;
 export const proofsPendingStatus = state => state.talentsProofs.isFetching;
 export const getProofError = state => state.talentsProofs.error;
+export const getListStatus = state => state.talentsProofs.status;
 
 export const { deleteProofFromList } = proofsSlice.actions;
 export default proofsSlice.reducer;

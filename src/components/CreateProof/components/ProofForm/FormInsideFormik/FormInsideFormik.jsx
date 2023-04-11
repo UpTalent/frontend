@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
@@ -22,6 +22,20 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 	const handleChangesInFields = event => {
 		const { name, value } = event.target;
 		setFieldValue(name, value);
+		saveProof({ ...proof, [name]: value });
+	};
+
+	const modifyProof = async (data, proofStatus) => {
+		const action = proofStatus !== 'DRAFT' ? 'published' : 'edited';
+		try {
+			const { id } = data;
+			data = { ...data, status: proofStatus };
+			await proofAPI.editProof(talentId, id, data);
+			dispatch(setSystemMessage(true, `Proof was successfully ${action}`));
+			dispatch(clearProof());
+		} catch (err) {
+			setError(err.message);
+		}
 	};
 
 	const createProof = async data => {
@@ -29,18 +43,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 			await proofAPI.createProof(talentId, data);
 			dispatch(setSystemMessage(true, 'Proof was successfully created'));
 			dispatch(clearProof());
-			navigate(-1);
-		} catch (err) {
-			setError(err.message);
-		}
-	};
-
-	const editProof = async values => {
-		try {
-			const { id } = values;
-			await proofAPI.editProof(talentId, id, values);
-			dispatch(setSystemMessage(true, 'Proof was successfully edited'));
-			dispatch(clearProof());
+			updateList('DRAFT');
 			navigate(-1);
 		} catch (err) {
 			setError(err.message);
@@ -53,31 +56,20 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 	};
 
 	const submitHandler = () => {
-		saveProof({ ...values });
 		if (mode === 'create') {
-			createProof({ ...proof, status: 'DRAFT' });
+			createProof({ ...values, status: 'DRAFT' });
 		} else if (mode === 'edit') {
-			editProof({ ...proof });
+			modifyProof({ ...values }, 'DRAFT');
+			updateList('DRAFT');
+			navigate(-1);
 		}
-		updateList('DRAFT');
 	};
 
 	const publishHandler = () => {
-		saveProof({ ...values });
-		if (mode === 'edit') {
-			//editProof();
-		} else if (mode === 'create') {
-			console.log(proof);
-			createProof({ ...proof, status: 'PUBLISHED' });
-		}
+		modifyProof({ ...values }, 'PUBLISHED');
 		updateList('PUBLISHED');
+		navigate(-1);
 	};
-
-	useEffect(() => {
-		return () => {
-			saveProof({ ...values });
-		};
-	}, [values]);
 
 	return (
 		<Form className={styles.registrationForm}>
@@ -85,6 +77,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 				<IconList
 					proof={proof}
 					setFieldValue={setFieldValue}
+					saveIcon={saveProof}
 					error={errors.icon_number}
 					touched={touched.icon_number}
 				/>
@@ -131,7 +124,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 				<Button
 					variant='contained'
 					className={`${isValid && styles.publishButton}`}
-					disabled={!isValid}
+					disabled={true}
 					onClick={publishHandler}
 				>
 					Publish

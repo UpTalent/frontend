@@ -3,9 +3,15 @@ import { Menu, MenuItem, SpeedDialIcon } from '@mui/material';
 import { ProofIcons } from '../../../../../../assets/static/ProofIcons';
 import styles from './IconList.module.css';
 
-export const IconList = ({ proof, setFieldValue, error, touched }) => {
+export const IconList = ({
+	proof,
+	setFieldValue,
+	error,
+	touched,
+	saveIcon,
+}) => {
 	const [icon, setIcon] = useState(
-		proof.icon_number ? (
+		proof.icon_number >= 0 ? (
 			<img
 				src={ProofIcons[proof.icon_number].icon}
 				alt={ProofIcons[proof.icon_number].id}
@@ -27,6 +33,7 @@ export const IconList = ({ proof, setFieldValue, error, touched }) => {
 	const handleClickIcon = icon => {
 		setIcon(icon);
 		setFieldValue('icon_number', icon.props.alt);
+		saveIcon({ ...proof, icon_number: icon.props.alt });
 		handleClose();
 	};
 

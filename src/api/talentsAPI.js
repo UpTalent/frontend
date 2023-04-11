@@ -12,7 +12,7 @@ export const talentsAPI = {
 			}
 			);
 		} catch (error) {
-			return console.log(error);
+			throw new Error(error.response.data.message);
 		}
 	},
 

@@ -11,7 +11,7 @@ export const proofAPI = {
 
 	async createProof(talent_Id, data) {
 		try {
-			await axiosInstance.post(`talents/${talent_Id}/proofs`, data);
+			return await axiosInstance.post(`talents/${talent_Id}/proofs`, data);
 		} catch (error) {
 			const field = Object.keys(error.response.data)[0];
 			throw new Error(`${error.response.data[field]}`);
@@ -21,7 +21,7 @@ export const proofAPI = {
 	async editProof(talent_Id, proof_Id, data) {
 		try {
 			return await axiosInstance.patch(
-				`talents/${talent_Id}/proofs${proof_Id}`,
+				`talents/${talent_Id}/proofs/${proof_Id}`,
 				data,
 			);
 		} catch (error) {
