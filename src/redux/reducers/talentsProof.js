@@ -4,6 +4,7 @@ import { proofAPI } from '../../api/proofAPI';
 const initialState = {
 	proofsList: [],
 	total_pages: 0,
+	currentPage: 1,
 	isFetching: false,
 	error: null,
 	status: 'PUBLISHED',
@@ -13,9 +14,14 @@ export const getTalentsProofs = createAsyncThunk(
 	'getTalentsProofs',
 	async (params, thunkAPI) => {
 		try {
-			const { talentId, page, status } = params;
+			const { talentId, page } = params;
+			let { status } = params;
+			if (!status) {
+				status = thunkAPI.getState().talentsProofs.status;
+			}
 			const { data } = await proofAPI.getTalentProofs(talentId, page, status);
-			return data;
+			const formatPage = page >= 0 ? page : 0;
+			return { ...data, formatPage };
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
@@ -31,6 +37,14 @@ const proofsSlice = createSlice({
 				proof => proof.id !== action.payload,
 			);
 		},
+		setCurrentPage: (state, action) => {
+			state.currentPage = action.payload;
+		},
+		resetList: state => {
+			Object.keys(state).forEach(key => {
+				state[key] = initialState[key];
+			});
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -39,6 +53,7 @@ const proofsSlice = createSlice({
 				state.total_pages = action.payload.total_pages;
 				state.isFetching = false;
 				state.status = action.payload.content[0]?.status;
+				state.currentPage = action.payload.formatPage + 1;
 			})
 			.addCase(getTalentsProofs.pending, state => {
 				state.isFetching = true;
@@ -51,9 +66,10 @@ const proofsSlice = createSlice({
 
 export const getProofList = state => state.talentsProofs.proofsList;
 export const getProofsTotalPages = state => state.talentsProofs.total_pages;
+export const getProofsCurrentPage = state => state.talentsProofs.currentPage;
 export const proofsPendingStatus = state => state.talentsProofs.isFetching;
 export const getProofError = state => state.talentsProofs.error;
 export const getListStatus = state => state.talentsProofs.status;
 
-export const { deleteProofFromList } = proofsSlice.actions;
+export const { deleteProofFromList, setCurrentPage, resetList } = proofsSlice.actions;
 export default proofsSlice.reducer;

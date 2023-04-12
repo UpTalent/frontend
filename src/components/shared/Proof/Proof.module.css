@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
-.Proof{
+.Proof {
 	margin: 10px 0;
+	max-width: 730px;
 }
 
+.Proof p {
+	white-space: pre-wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 .General {
 	display: flex;
 	flex-direction: column;
