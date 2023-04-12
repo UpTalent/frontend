@@ -52,7 +52,7 @@ export const TalentsControl = ({ status, proofId }) => {
 		}
 	};
 	const deleteTalentProof = () => {
-		dispatch(deleteProof({ talentId, proof_Id: proofId }));
+		dispatch(deleteProof({ talentId, proofId }));
 	};
 
 	const changeVisibility = status => {

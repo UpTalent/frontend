@@ -7,6 +7,7 @@ import { store } from '../redux/store';
 import App from '../App';
 import { TalentsPage } from '../components/TalentsPage/TalentsPage';
 import { ProofPage } from '../components/ProofPage/ProofPage';
+import { CreateProof } from '../components/CreateProof';
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -36,6 +37,12 @@ export const router = createBrowserRouter([
 			{
 				path: 'talent/:talentId/*',
 				element: <Profile />,
+				children: [
+					{
+						path: 'createProof',
+						element: <CreateProof />,
+					},
+				],
 			},
 		],
 	},

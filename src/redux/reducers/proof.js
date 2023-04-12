@@ -14,13 +14,25 @@ const initialState = {
 	isFetching: false,
 };
 
-export const createProof = createAsyncThunk(
-	'createProof',
+export const publishDraftProof = createAsyncThunk(
+	'publishDraftProof',
 	async (params, thunkAPI) => {
 		try {
-			const { talentId, proof } = params;
-			const { data } = await proofAPI.createProof(talentId, proof);
-			return data;
+			const { talentId, draftProof } = params;
+
+			const { headers } = await proofAPI.createProof(talentId, draftProof);
+
+			const proofId = Number(headers.get('Location').split('/').splice(-1)[0]);
+			thunkAPI.dispatch(
+				editProof({
+					talentId,
+					proofId,
+					draftProof: { ...draftProof, status: 'PUBLISHED' },
+					status: 'PUBLISHED',
+				}),
+			);
+
+			return proofId;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
@@ -31,14 +43,22 @@ export const editProof = createAsyncThunk(
 	'editProof',
 	async (params, thunkAPI) => {
 		try {
-			const { talentId, proofId, status } = params;
-			let proof = thunkAPI
-				.getState()
-				.talentsProofs.proofsList.find(i => i.id === proofId);
-			proof = { ...proof, status };
-			const { data } = await proofAPI.editProof(talentId, proofId, proof);
+			let { talentId, proofId, status, draftProof } = params;
+			const action = status !== 'DRAFT' ? 'published' : 'edited';
+			if (!draftProof) {
+				draftProof = thunkAPI
+					.getState()
+					.talentsProofs.proofsList.find(i => i.id === proofId);
+				draftProof = { ...draftProof, status };
+			}
 
+			const { data } = await proofAPI.editProof(talentId, proofId, draftProof);
 			await thunkAPI.dispatch(getTalentsProofs({ talentId, status }));
+			thunkAPI.dispatch(
+				setSystemMessage(true, `Proof was successfully ${action}`),
+			);
+			thunkAPI.dispatch(clearProof());
+
 			return data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
@@ -50,13 +70,20 @@ export const deleteProof = createAsyncThunk(
 	'deleteProof',
 	async (params, thunkAPI) => {
 		try {
-			const { talentId, proof_Id } = params;
-			const { data } = await proofAPI.deleteProof(talentId, proof_Id);
+			const { talentId, proofId } = params;
+
+			await proofAPI.deleteProof(talentId, proofId);
 			thunkAPI.dispatch(
 				setSystemMessage(true, 'Your proof was succesfully deleted'),
 			);
-			thunkAPI.dispatch(deleteProofFromList(proof_Id));
-			return data;
+			const amountOfProofs =
+				thunkAPI.getState().talentsProofs.proofsList.length;
+			let page = thunkAPI.getState().talentsProofs.currentPage - 1;
+			thunkAPI.dispatch(deleteProofFromList(proofId));
+			if (amountOfProofs === 1) {
+				page -= 1;
+			}
+			thunkAPI.dispatch(getTalentsProofs({ talentId, page }));
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
