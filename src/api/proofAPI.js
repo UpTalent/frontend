@@ -44,18 +44,20 @@ export const proofAPI = {
 		}
 	},
 	
-	async getAllProofs(currentPage = 0, pageSize = 9) {
+	async getAllProofs(currentPage = 0,  sorting = 'desc', pageSize = 9,) {
 		try {
 			return await axiosInstance.get(`proofs`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
+					sort: sorting,
 				},
 			});
 		} catch (error) {
 			throw new Error(error.response.data.message);
 		}
 	},
+
 	async deleteProof(talent_Id, proof_Id) {
 		try {
 			return await axiosInstance.delete(`talents/${talent_Id}/proofs/${proof_Id}`);
