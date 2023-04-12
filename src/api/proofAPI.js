@@ -5,7 +5,7 @@ export const proofAPI = {
 		try {
 			return await axiosInstance.get(`talents/${talent_Id}/proofs/${proof_Id}`);
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			throw new Error(error.response.data);
 		}
 	},
 
@@ -13,22 +13,24 @@ export const proofAPI = {
 		try {
 			return await axiosInstance.post(`talents/${talent_Id}/proofs`, data);
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			const field = Object.keys(error.response.data)[0];
+			throw new Error(`${error.response.data[field]}`);
 		}
 	},
 
 	async editProof(talent_Id, proof_Id, data) {
 		try {
 			return await axiosInstance.patch(
-				`talents/${talent_Id}/proofs${proof_Id}`,
+				`talents/${talent_Id}/proofs/${proof_Id}`,
 				data,
 			);
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			const field = Object.keys(error.response.data)[0];
+			throw new Error(`${error.response.data[field]}`);
 		}
 	},
 
-	async getTalentProofs(talent_Id, currentPage = 0, status, pageSize = 3) {
+	async getTalentProofs(talent_Id, currentPage = 0, status, pageSize = 9) {
 		try {
 			return await axiosInstance.get(`talents/${talent_Id}/proofs`, {
 				params: {
@@ -50,6 +52,13 @@ export const proofAPI = {
 					size: pageSize,
 				},
 			});
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	},
+	async deleteProof(talent_Id, proof_Id) {
+		try {
+			return await axiosInstance.delete(`talents/${talent_Id}/proofs/${proof_Id}`);
 		} catch (error) {
 			throw new Error(error.response.data.message);
 		}

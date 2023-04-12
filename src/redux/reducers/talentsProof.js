@@ -6,6 +6,7 @@ const initialState = {
 	total_pages: 0,
 	isFetching: false,
 	error: null,
+	status: 'PUBLISHED',
 };
 
 export const getTalentsProofs = createAsyncThunk(
@@ -24,13 +25,20 @@ export const getTalentsProofs = createAsyncThunk(
 const proofsSlice = createSlice({
 	name: 'talentsProofs',
 	initialState,
-	reducers: {},
+	reducers: {
+		deleteProofFromList: (state, action) => {
+			state.proofsList = state.proofsList.filter(
+				proof => proof.id !== action.payload,
+			);
+		},
+	},
 	extraReducers: builder => {
 		builder
 			.addCase(getTalentsProofs.fulfilled, (state, action) => {
 				state.proofsList = action.payload.content;
 				state.total_pages = action.payload.total_pages;
 				state.isFetching = false;
+				state.status = action.payload.content[0]?.status;
 			})
 			.addCase(getTalentsProofs.pending, state => {
 				state.isFetching = true;
@@ -45,5 +53,7 @@ export const getProofList = state => state.talentsProofs.proofsList;
 export const getProofsTotalPages = state => state.talentsProofs.total_pages;
 export const proofsPendingStatus = state => state.talentsProofs.isFetching;
 export const getProofError = state => state.talentsProofs.error;
+export const getListStatus = state => state.talentsProofs.status;
 
+export const { deleteProofFromList } = proofsSlice.actions;
 export default proofsSlice.reducer;

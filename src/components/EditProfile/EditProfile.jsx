@@ -43,7 +43,6 @@ export const EditProfile = ({ talent, setTalent }) => {
 			navigate(`/talent/${talent.id}`);
 		} catch (err) {
 			setError(err.message);
-			console.log(err.message);
 		}
 	};
 

@@ -10,6 +10,7 @@ export const Proof = ({ proof, withContent, showControlls, className }) => {
 	const handleAccordionClick = () => {
 		setIsAccordionOpen(!isAccordionOpen);
 	};
+
 	return (
 		<div className={`${styles.Proof} ${className}`}>
 			{withContent ? (
@@ -34,6 +35,7 @@ export const Proof = ({ proof, withContent, showControlls, className }) => {
 							status={proof.status}
 							showControlls={showControlls}
 							openContent={handleAccordionClick}
+							proofId={proof.id}
 						/>
 					</AccordionSummary>
 					<AccordionDetails>

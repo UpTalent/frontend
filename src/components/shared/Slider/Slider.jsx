@@ -20,8 +20,8 @@ export const Slider = ({ sliderElements, viewAll, isLoading, item }) => {
 					<Swiper
 						loop={true}
 						navigation={{
-							prevEl: `.${item}`,
-							nextEl: `.${item}`,
+							prevEl: `.prev${item}`,
+							nextEl: `.next${item}`,
 						}}
 						slidesPerView={3}
 						modules={[Navigation]}
@@ -39,10 +39,10 @@ export const Slider = ({ sliderElements, viewAll, isLoading, item }) => {
 					>
 						{sliderElements}
 					</Swiper>
-					<div className={`swiperButton swiperButtonPrev ${item}`}>
+					<div className={`swiperButton swiperButtonPrev prev${item}`}>
 						<ArrowBack fontSize='large' />
 					</div>
-					<div className={`swiperButton swiperButtonNext ${item}`}>
+					<div className={`swiperButton swiperButtonNext next${item}`}>
 						<ArrowForward fontSize='large' />
 					</div>
 					<Link to={`/${viewAll}`}>
