@@ -6,19 +6,24 @@ import { IconList } from './IconList/IconList';
 import { proofAPI } from '../../../../../api/proofAPI';
 import { useNavigate, useParams } from 'react-router-dom';
 import { setSystemMessage } from '../../../../../redux/reducers/systemMessages';
-import { getTalentsProofs } from '../../../../../redux/reducers/talentsProof';
+import {
+	getProofError,
+	getTalentsProofs,
+} from '../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../redux/store';
 import {
 	clearProof,
 	editProof,
 	publishDraftProof,
 } from '../../../../../redux/reducers/proof';
+import { useSelector } from 'react-redux';
 
 export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
+	const serverError = useSelector(getProofError);
 	const { talentId } = useParams();
 
 	const handleChangesInFields = event => {
@@ -76,7 +81,10 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 					draftProof: { ...proof, status: 'DRAFT' },
 				}),
 			);
-			navigate(-1);
+			//do something
+			if (!serverError) {
+				navigate(-1);
+			}
 		}
 	};
 
