@@ -121,14 +121,16 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 				>
 					{mode === 'create' ? 'SAVE AS DRAFT' : 'SAVE CHANGES'}
 				</Button>
-				<Button
-					variant='contained'
-					className={`${isValid && styles.publishButton}`}
-					disabled={true}
-					onClick={publishHandler}
-				>
-					Publish
-				</Button>
+				{mode !== 'create' && (
+					<Button
+						variant='contained'
+						className={`${isValid && styles.publishButton}`}
+						disabled={!isValid}
+						onClick={publishHandler}
+					>
+						Publish
+					</Button>
+				)}
 			</div>
 		</Form>
 	);
