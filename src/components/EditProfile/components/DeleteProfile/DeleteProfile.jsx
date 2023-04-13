@@ -15,7 +15,7 @@ export const DeleteProfile = ({ talent_id }) => {
 	const deleteProfile = async () => {
 		await profileAPI.deleteProfile(talent_id);
 		dispatch(logOut());
-		dispatch(setSystemMessage(true, 'Your profile was deleted'));
+		dispatch(setSystemMessage(true, 'Your profile was deleted', 'info'));
 		navigate('/home');
 	};
 
