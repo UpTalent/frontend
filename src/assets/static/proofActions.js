@@ -8,7 +8,7 @@ export const proofActions = [
 		text: 'Proof will be impossible to recover',
 	},
 	{
-		action: 'PUBLISH',
+		action: 'SHOW',
 		icon: <AssignmentIcon color='primary' />,
 		text: 'Do you want to make a proof visible to everyone ?',
 	},
@@ -16,5 +16,10 @@ export const proofActions = [
 		action: 'HIDE',
 		icon: <AssignmentIcon color='primary' />,
 		text: 'Do you want to hide a proof?',
+	},
+	{
+		action: 'PUBLISH',
+		icon: <AssignmentIcon color='primary' />,
+		text: 'Do you want to publish a proof? You won`t be able to edit it',
 	},
 ];

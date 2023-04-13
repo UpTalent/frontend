@@ -28,7 +28,7 @@ export const TalentsControl = ({ status, proofId }) => {
 		switch (status) {
 			case 'HIDDEN':
 				setAction({
-					action: 'PUBLISH',
+					action: 'SHOW',
 					buttonHandler: () => changeVisibility('PUBLISHED'),
 				});
 				break;
