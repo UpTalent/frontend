@@ -8,16 +8,24 @@ import { useNavigate } from 'react-router-dom';
 import { ProofForm } from './components/ProofForm';
 import { Proof } from '../shared/Proof';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearProof, getProof, updateProof } from '../../redux/reducers/proof';
+import {
+	clearProof,
+	getProof,
+	isFetching,
+	setError,
+	updateProof,
+} from '../../redux/reducers/proof';
+import { getProofError } from '../../redux/reducers/talentsProof';
 
 export const CreateProof = () => {
 	const navigate = useNavigate();
 
 	const [open, setOpen] = useState(true);
 	const [value, setValue] = useState(0);
-	const [error, setError] = useState(null);
 
+	const serverError = useSelector(getProofError);
 	const proof = useSelector(getProof);
+	const fetchingProgress = useSelector(isFetching);
 	const dispatch = useDispatch();
 
 	const setProof = values => {
@@ -38,7 +46,7 @@ export const CreateProof = () => {
 			proof={proof}
 			updateTempProof={setProof}
 			mode={mode}
-			setError={setError}
+			setError={(value) => dispatch(setError(value))}
 		/>,
 		<Proof proof={proof} withContent={true} showControlls={false} />,
 	];
@@ -51,7 +59,7 @@ export const CreateProof = () => {
 				scroll='paper'
 				sx={{ '& .MuiDialog-paper': { padding: '20px' } }}
 			>
-				{proof.isFetching ? (
+				{fetchingProgress ? (
 					<div className='loaderContainer'>
 						<CircularProgress />
 					</div>
@@ -70,9 +78,9 @@ export const CreateProof = () => {
 						</Tabs>
 						<div className={styles.tabContent}>{tabContent[value]}</div>
 						<CloseIcon className={styles.closeIcon} onClick={handleClose} />
-						{error && (
-							<Alert severity='error' onClose={() => setError(null)}>
-								{error}
+						{serverError && (
+							<Alert severity='error' onClose={() => dispatch(setError(null))}>
+								{serverError}
 							</Alert>
 						)}
 					</>

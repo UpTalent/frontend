@@ -19,8 +19,12 @@ export const getTalentsProofs = createAsyncThunk(
 			if (!status) {
 				status = thunkAPI.getState().talentsProofs.status;
 			}
-			const { data } = await proofAPI.getTalentProofs(talentId, page, status);
 			const formatPage = page >= 0 ? page : 0;
+			const { data } = await proofAPI.getTalentProofs(
+				talentId,
+				formatPage,
+				status,
+			);
 			return { ...data, formatPage };
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
@@ -71,5 +75,6 @@ export const proofsPendingStatus = state => state.talentsProofs.isFetching;
 export const getProofError = state => state.talentsProofs.error;
 export const getListStatus = state => state.talentsProofs.status;
 
-export const { deleteProofFromList, setCurrentPage, resetList } = proofsSlice.actions;
+export const { deleteProofFromList, setCurrentPage, resetList } =
+	proofsSlice.actions;
 export default proofsSlice.reducer;

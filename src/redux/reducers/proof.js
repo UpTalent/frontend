@@ -4,14 +4,17 @@ import { setSystemMessage } from './systemMessages';
 import { deleteProofFromList, getTalentsProofs } from './talentsProof';
 
 const initialState = {
-	id: 0,
-	icon_number: 0,
-	title: '',
-	summary: '',
-	content: '',
-	published: null,
-	status: '',
+	proof: {
+		id: 0,
+		icon_number: 0,
+		title: '',
+		summary: '',
+		content: '',
+		published: null,
+		status: '',
+	},
 	isFetching: false,
+	error: null,
 };
 
 export const publishDraftProof = createAsyncThunk(
@@ -110,39 +113,44 @@ const proofSlice = createSlice({
 	initialState,
 	reducers: {
 		updateProof: (state, action) => {
-			Object.keys(state).forEach(key => {
+			Object.keys(state.proof).forEach(key => {
 				state[key] = action.payload[key];
 			});
 		},
 		clearProof: state => {
-			Object.keys(state).forEach(key => {
-				state[key] = initialState[key];
+			Object.keys(state.proof).forEach(key => {
+				state.proof[key] = initialState[key];
 			});
+		},
+		setError: (state, action) => {
+			state.error = action.payload;
 		},
 	},
 	extraReducers: builder => {
 		builder
 			.addCase(deleteProof.fulfilled, state => {
-				Object.keys(state).forEach(key => {
-					state[key] = initialState[key];
+				Object.keys(state.proof).forEach(key => {
+					state.proof[key] = initialState[key];
 				});
 			})
 			.addCase(fetchProof.fulfilled, (state, action) => {
-				Object.keys(state).forEach(key => {
-					if (key === 'isFetching') {
-						state.isFetching = false;
-					} else {
-						state[key] = action.payload[key];
-					}
-				});
+				Object.keys(state.proof).forEach(
+					key => (state.proof[key] = action.payload[key]),
+				);
+				state.isFetching = false;
 			})
 			.addCase(fetchProof.pending, state => {
 				state.isFetching = true;
+			})
+			.addCase(publishDraftProof.rejected, (state, action) => {
+				state.error = action.payload;
 			});
 	},
 });
 
-export const getProof = state => state.proof;
-export const { updateProof, clearProof } = proofSlice.actions;
+export const getProof = state => state.proof.proof;
+export const isFetching = state => state.proof.isFetching;
+export const proofError = state => state.proof.error;
+export const { updateProof, clearProof, setError } = proofSlice.actions;
 
 export default proofSlice.reducer;
