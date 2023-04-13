@@ -1,10 +1,12 @@
 import { Alert, Snackbar } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSystemMessage } from '../../../redux/reducers/systemMessages';
+import { getSystemMessage, setSystemMessage, systemMessageStatus, getMessageStatus } from '../../../redux/reducers/systemMessages';
 
-export const PopUpMessage = ({ status, message }) => {
-	const isSystemMessage = useSelector(state => state.systemMessage.isSystemMessage);
+export const PopUpMessage = () => {
+	const isSystemMessage = useSelector(systemMessageStatus);
+	const message = useSelector(getSystemMessage);
+	const status = useSelector(getMessageStatus)
 	const dispatch = useDispatch();
 
 	const handleClose = () => {

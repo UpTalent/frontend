@@ -3,6 +3,7 @@ import styles from '../../Proof.module.css';
 import { ProofIcons } from '../../../../../assets/static/ProofIcons';
 import { TimeStapm } from './components/TimeStamp';
 import { TalentsControl } from './components/TalentsControl';
+import { ReactFitty } from 'react-fitty';
 
 export const ProofTitle = ({
 	title,
@@ -24,7 +25,9 @@ export const ProofTitle = ({
 					src={icon_number ? ProofIcons[icon_number].icon : ProofIcons[0].icon}
 					alt={`${icon_number}`}
 				/>
-				<p>{title}</p>
+				<ReactFitty maxSize={40} minSize={5} wrapText={true}>
+					<p>{title}</p>
+				</ReactFitty>
 			</div>
 			{showControlls && (
 				<div className={`${styles.status} ${styles[status]}`}>
