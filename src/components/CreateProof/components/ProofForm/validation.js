@@ -7,14 +7,14 @@ export const validationSchema = Yup.object({
 			/^(?!\s+$).+/,
 			'Please write something',
 		)
-		.max(255, 'Must be 255 characters or less'),
+		.max(100, 'Must be 100 characters or less'),
 	summary: Yup.string()
 		.required('Summary is required')
 		.matches(
 			/^(?!\s+$).+/,
 			'Please write something',
 		)
-		.max(255, 'Must be 255 characters or less'),
+		.max(150, 'Must be 150 characters or less'),
 	content: Yup.string()
 		.required('Content is required')
 		.matches(
