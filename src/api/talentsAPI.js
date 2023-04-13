@@ -16,9 +16,10 @@ export const talentsAPI = {
 		}
 	},
 
-	getTalent(id) {
-		return axiosInstance.get(`talents/${id}`);
+	async getTalent(id) {
+		return await axiosInstance.get(`talents/${id}`);
 	},
+	
 	async edit(id, data) {
 		try {
 			return await axiosInstance.patch(`talents/${id}`, data);
