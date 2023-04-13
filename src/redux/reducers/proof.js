@@ -120,6 +120,7 @@ const proofSlice = createSlice({
 		updateProof: (state, action) => {
 			Object.keys(state.proof).forEach(key => {
 				state.proof[key] = action.payload[key];
+
 			});
 		},
 		clearProof: state => {
