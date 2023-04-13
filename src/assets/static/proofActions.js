@@ -10,7 +10,7 @@ export const proofActions = [
 	{
 		action: 'PUBLISH',
 		icon: <AssignmentIcon color='primary' />,
-		text: 'Do you want to publish a proof?',
+		text: 'Do you want to make a proof visible to everyone ?',
 	},
 	{
 		action: 'HIDE',

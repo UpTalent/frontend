@@ -1,30 +1,33 @@
 import { Button, TextField } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
 import { proofAPI } from '../../../../../api/proofAPI';
 import { useNavigate, useParams } from 'react-router-dom';
 import { setSystemMessage } from '../../../../../redux/reducers/systemMessages';
-import {
-	getProofError,
-	getTalentsProofs,
-} from '../../../../../redux/reducers/talentsProof';
+import { getTalentsProofs } from '../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../redux/store';
 import {
 	clearProof,
 	editProof,
 	publishDraftProof,
 } from '../../../../../redux/reducers/proof';
-import { useSelector } from 'react-redux';
+import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
 
 export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
-	const serverError = useSelector(getProofError);
 	const { talentId } = useParams();
+	const [openConfirm, setOpenConfirm] = useState(false);
+
+	const handleKeyDown = e => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+		}
+	};
 
 	const handleChangesInFields = event => {
 		const { name, value } = event.target;
@@ -81,10 +84,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 					draftProof: { ...proof, status: 'DRAFT' },
 				}),
 			);
-			//do something
-			if (!serverError) {
-				navigate(-1);
-			}
+			navigate(-1);
 		}
 	};
 
@@ -114,6 +114,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 				name='summary'
 				multiline
 				rows={4}
+				onKeyDown={handleKeyDown}
 				as={TextField}
 				error={touched.summary && Boolean(errors.summary)}
 				helperText={touched.summary && errors.summary}
@@ -143,10 +144,18 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 					variant='contained'
 					className={`${isValid && styles.publishButton}`}
 					disabled={!isValid}
-					onClick={publishHandler}
+					onClick={() => setOpenConfirm(true)}
 				>
 					Publish
 				</Button>
+				{openConfirm && (
+					<ConfirmationMessage
+						action={'PUBLISH'}
+						handleConfim={setOpenConfirm}
+						confirmMessage={openConfirm}
+						buttonHandler={publishHandler}
+					/>
+				)}
 			</div>
 		</Form>
 	);

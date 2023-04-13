@@ -47,7 +47,12 @@ export const editProof = createAsyncThunk(
 	async (params, thunkAPI) => {
 		try {
 			let { talentId, proofId, status, draftProof } = params;
-			const action = status !== 'DRAFT' ? 'published' : 'edited';
+			const action =
+				status !== 'DRAFT'
+					? status === 'PUBLISHED'
+						? 'published'
+						: 'hidden'
+					: 'edited';
 			if (!draftProof) {
 				draftProof = thunkAPI
 					.getState()
@@ -114,12 +119,12 @@ const proofSlice = createSlice({
 	reducers: {
 		updateProof: (state, action) => {
 			Object.keys(state.proof).forEach(key => {
-				state[key] = action.payload[key];
+				state.proof[key] = action.payload[key];
 			});
 		},
 		clearProof: state => {
 			Object.keys(state.proof).forEach(key => {
-				state.proof[key] = initialState[key];
+				state.proof[key] = initialState.proof[key];
 			});
 		},
 		setError: (state, action) => {
@@ -130,7 +135,7 @@ const proofSlice = createSlice({
 		builder
 			.addCase(deleteProof.fulfilled, state => {
 				Object.keys(state.proof).forEach(key => {
-					state.proof[key] = initialState[key];
+					state.proof[key] = initialState.proof[key];
 				});
 			})
 			.addCase(fetchProof.fulfilled, (state, action) => {

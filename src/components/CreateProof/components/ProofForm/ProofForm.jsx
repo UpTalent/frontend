@@ -11,6 +11,7 @@ export const ProofForm = ({ proof, updateTempProof, mode, setError }) => {
 				validationSchema={validationSchema}
 				validateOnChange={true}
 				validateOnBlur={true}
+				validateOnMount={true}
 			>
 				<FormInsideFormik
 					proof={proof}
