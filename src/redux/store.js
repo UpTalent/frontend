@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import talents from './reducers/talents';
+import dataList from './reducers/dataList';
 import authentification from './reducers/authentification';
 import systemMessage from './reducers/systemMessages';
 import talentsProofs from './reducers/talentsProof';
@@ -8,7 +8,7 @@ import proof from './reducers/proof';
 
 export const store = configureStore({
 	reducer: {
-		talents,
+		dataList,
 		authentification,
 		systemMessage,
 		talentsProofs,

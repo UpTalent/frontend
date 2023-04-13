@@ -3,28 +3,34 @@ import { PagesGrid } from '../shared/Grid';
 import { CircularProgress, Grid } from '@mui/material';
 import { Proof } from '../shared/Proof';
 import { useSearchParams } from 'react-router-dom';
-import { proofAPI } from '../../api/proofAPI';
 import { SortButtons } from './components/SortButtons/SortButtons';
+import { useSelector } from 'react-redux';
+import {
+	clearList,
+	getGridItem,
+	getGridList,
+	getGridTotalPages,
+	getProofsList,
+	pendingStatus,
+} from '../../redux/reducers/dataList';
+import { useStoreDispatch } from '../../redux/store';
 
 export const ProofPage = () => {
-	const [proofList, setProofList] = useState([]);
-	const [total_pages, setTotalPages] = useState(0);
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [isLoading, setIsLoading] = useState(false);
 	const [alignment, setAlignment] = useState('desc');
 
 	const urlPage = Number(searchParams.get('page')) || 1;
 
-	const getProofs = async (page, sort) => {
-		setIsLoading(true);
-		const { data } = await proofAPI.getAllProofs(page, sort);
-		setProofList(data.content);
-		setTotalPages(data.total_pages);
-		setIsLoading(false);
-	};
+	const proofList = useSelector(getGridList);
+	const total_pages = useSelector(getGridTotalPages);
+	const isLoading = useSelector(pendingStatus);
+	const gridItems = useSelector(getGridItem);
+	const dispatch = useStoreDispatch();
 
 	useEffect(() => {
-		getProofs(urlPage - 1, alignment);
+		dispatch(getProofsList({ page: urlPage - 1, alignment }));
+
+		return () => dispatch(clearList());
 	}, [urlPage]);
 
 	useEffect(() => {
@@ -40,7 +46,7 @@ export const ProofPage = () => {
 	));
 	return (
 		<>
-			{isLoading ? (
+			{isLoading || gridItems !== 'proofs' ? (
 				<div className='loaderContainer'>
 					<CircularProgress />
 				</div>
@@ -51,7 +57,9 @@ export const ProofPage = () => {
 						setAlignment={setAlignment}
 						setSearchParams={setSearchParams}
 						urlPage={urlPage}
-						getProofs={getProofs}
+						getProofs={(page, alignment) =>
+							dispatch(getProofsList({ page, alignment }))
+						}
 					/>
 					<PagesGrid gridItems={proofsList} total_pages={total_pages} />
 				</>
