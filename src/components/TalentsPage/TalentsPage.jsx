@@ -41,6 +41,7 @@ export const TalentsPage = () => {
 	let talentsList = talentList.map(talent => (
 		<Grid item md={6} sm={12} lg={4} key={talent.id}>
 			<GeneralTalent talent={talent} />
+			<GeneralTalent talent={talent} />
 		</Grid>
 	));
 	return (
