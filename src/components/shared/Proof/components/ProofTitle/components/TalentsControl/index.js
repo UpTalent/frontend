@@ -1,0 +1,1 @@
+export { TalentsControl } from './TalentsControl';

@@ -1,20 +1,32 @@
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { Button, Popover } from '@mui/material';
 import styles from './Header.module.css';
-import { Context } from '../../context';
 import { setAuthToken } from '../../api/index';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	getAuthTalentId,
+	getFirstName,
+	getIsAuth,
+	logOut,
+} from '../../redux/reducers/authentification';
+import logo from '../../assets/upTalent.png'
 
 export const Header = () => {
-	const { isTalent, setIsTalent, authTalent } = useContext(Context);
+	const dispatch = useDispatch();
+	const isTalent = useSelector(getIsAuth);
+	const authTalent = useSelector(getFirstName);
+	const authTalentId = useSelector(getAuthTalentId);
+
 	const [dropdownMenu, setDropdownMenu] = useState(null);
 
 	const location = useLocation();
 	const navigate = useNavigate();
 
 	const modalPathname = path => {
-		navigate(`${location.pathname}/${path}`, {
-			state: { from: location.pathname },
+		navigate({
+			pathname: `${location.pathname}/${path}`,
+			search: location.search,
 		});
 	};
 
@@ -25,16 +37,18 @@ export const Header = () => {
 	return (
 		<header className={styles.header}>
 			<Link to='/home' className={styles.logo}>
+				<img src={logo} alt='UpTalent Logo'/>
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<Link to='/talents'>Talents</Link>
+				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/talents'>Talents</NavLink>
+				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/proofs'>Proofs</NavLink>
 			</div>
 
 			{isTalent ? (
 				<div className={styles.buttonGroup}>
 					<div className={styles.nameButton} onClick={handleClick}>
-						<Button component={Link}>{authTalent.firstname}</Button>
+						<Button component={Link}>{authTalent}</Button>
 					</div>
 					{dropdownMenu && (
 						<Popover
@@ -50,7 +64,7 @@ export const Header = () => {
 							}}
 						>
 							<Link
-								to={`talent/${authTalent.talent_id}`}
+								to={`talent/${authTalentId}`}
 								className={styles.menuItem}
 								onClick={() => {
 									setDropdownMenu(null);
@@ -61,7 +75,7 @@ export const Header = () => {
 							<div
 								className={styles.menuItem}
 								onClick={() => {
-									setIsTalent(false);
+									dispatch(logOut());
 									setDropdownMenu(null);
 									setAuthToken();
 									navigate('/home');
@@ -80,15 +94,15 @@ export const Header = () => {
 							modalPathname('login');
 						}}
 					>
-						LogIn
+						Log In
 					</Button>
 					<Button
 						variant='outlined'
 						onClick={() => {
-							modalPathname('registrate');
+							modalPathname('register');
 						}}
 					>
-						SignUp
+						Register
 					</Button>
 				</div>
 			)}

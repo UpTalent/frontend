@@ -7,15 +7,17 @@ import { validationSchema } from './validation';
 import styles from '../LoginForm/LoginForm.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { talentsAPI } from '../../api/talentsAPI';
-import { useContext } from 'react';
-import { Context } from '../../context';
 import { DeleteProfile } from './components/DeleteProfile';
+import { useDispatch } from 'react-redux';
+import { setSystemMessage } from '../../redux/reducers/systemMessages';
+import { skills } from '../../assets/static/skills';
+import { updateFirstName } from '../../redux/reducers/authentification';
 
 export const EditProfile = ({ talent, setTalent }) => {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(true);
 	const [error, setError] = useState(null);
-	const { skills, setMessageForUser } = useContext(Context);
+	const dispatch = useDispatch();
 
 	let initialEditData = {
 		lastname: talent.lastname,
@@ -28,7 +30,7 @@ export const EditProfile = ({ talent, setTalent }) => {
 
 	const handleClose = () => {
 		setOpen(false);
-		navigate(`/talent/${talent.id}`);
+		navigate(-1);
 	};
 
 	const edit = async formData => {
@@ -36,11 +38,11 @@ export const EditProfile = ({ talent, setTalent }) => {
 		try {
 			const { data } = await talentsAPI.edit(talent.id, editData);
 			setTalent(data);
-			setMessageForUser(true);
+			dispatch(updateFirstName(data.firstname))
+			dispatch(setSystemMessage(true, 'Your profile was updated successfully!'));
 			navigate(`/talent/${talent.id}`);
 		} catch (err) {
 			setError(err.message);
-			console.log(err.message);
 		}
 	};
 

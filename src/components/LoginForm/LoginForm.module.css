@@ -5,7 +5,7 @@
     position: relative;
     align-items: center;
     padding: 35px;
-    overflow: hidden;
+    max-height: 600px;
 }
 
 .registrationForm .formTitle{
@@ -53,6 +53,7 @@
 .talentName{
     display: flex;
     gap: 20px;
+    width: 100%;
 }
 
 .registrationForm label {

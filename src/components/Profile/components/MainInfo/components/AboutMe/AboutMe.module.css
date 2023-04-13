@@ -1,0 +1,21 @@
+.about {
+    word-break: break-word;
+    padding: 10px 5px;
+}
+
+.about p {
+    font-weight: 300;
+    font-size: 16px;
+    margin: 25px 0px;
+}
+
+.about b {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.noData {
+    font-weight: 700;
+    font-size: 24px;
+}

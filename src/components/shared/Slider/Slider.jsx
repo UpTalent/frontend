@@ -1,30 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import 'swiper/css';
 import { Navigation } from 'swiper';
 import { Button } from '@mui/material';
 import { CircularProgress } from '@mui/material';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper } from 'swiper/react';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import './Slider.css';
-import { SliderTalent } from '../SliderTalent';
-import { talentsAPI } from '../../../api/talentsAPI';
 
-export const Slider = () => {
-	const [isLoading, setIsLoading] = useState(true);
-	const [sliderTalentsList, setSliderTalentsList] = useState([]);
-
-	const getSliderTalents = async () => {
-		setIsLoading(true);
-		const { data } = await talentsAPI.getTalents();
-		setSliderTalentsList(data.content);
-		setIsLoading(false);
-	};
-
-	useEffect(() => {
-		getSliderTalents();
-	}, []);
-
+export const Slider = ({ sliderElements, viewAll, isLoading, item }) => {
 	return (
 		<div className='slider'>
 			{isLoading ? (
@@ -36,8 +20,8 @@ export const Slider = () => {
 					<Swiper
 						loop={true}
 						navigation={{
-							prevEl: '.swiperButtonPrev',
-							nextEl: '.swiperButtonNext',
+							prevEl: `.prev${item}`,
+							nextEl: `.next${item}`,
 						}}
 						slidesPerView={3}
 						modules={[Navigation]}
@@ -53,25 +37,18 @@ export const Slider = () => {
 							},
 						}}
 					>
-						{sliderTalentsList?.map(user => (
-							<SwiperSlide
-								key={user.id}
-								style={{ display: 'flex', justifyContent: 'center' }}
-							>
-								<SliderTalent talent={user} />
-							</SwiperSlide>
-						))}
+						{sliderElements}
 					</Swiper>
-					<div className='swiperButton swiperButtonPrev'>
+					<div className={`swiperButton swiperButtonPrev prev${item}`}>
 						<ArrowBack fontSize='large' />
 					</div>
-					<div className='swiperButton swiperButtonNext'>
+					<div className={`swiperButton swiperButtonNext next${item}`}>
 						<ArrowForward fontSize='large' />
 					</div>
-					<Link to='/talents'>
+					<Link to={`/${viewAll}`}>
 						<Button
 							variant='outlined'
-							sx={{ backgroundColor: '#fff', fontSize: '30px', width: '300px' }}
+							sx={{ backgroundColor: '#fff', fontSize: '20px', width: '200px' }}
 						>
 							View all
 						</Button>

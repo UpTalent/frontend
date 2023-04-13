@@ -1,0 +1,33 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    width: 30% !important;
+}
+
+.wrapper .addIcon {
+    background-color: var(--secondary);
+    border-radius: 50%;
+    height: 90px;
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuItem {
+    background-color: var(--secondary);
+    border-radius: 50%;
+    width: 90px;
+    padding: 4px;
+}
+
+.error {
+    position: absolute;
+    bottom: -16px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.66;
+    letter-spacing: 0.03333em;
+    color: #d32f2f;
+}

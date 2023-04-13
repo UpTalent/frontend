@@ -1,0 +1,21 @@
+.sliderProof {
+	width: 250px;
+}
+
+.sliderProof p:last-child {
+	font-size: large;
+}
+
+.sliderProof img {
+	width: 60px;
+	height: 60px;
+}
+
+.sliderProof > div {
+	height: 250px;
+	box-shadow: none;
+}
+
+.sliderProof > div > div > div > div {
+	font-size: smaller;
+}

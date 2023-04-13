@@ -1,0 +1,1 @@
+export { ProofTitle } from './ProofTitle';
