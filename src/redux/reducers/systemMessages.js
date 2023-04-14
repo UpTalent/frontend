@@ -12,10 +12,8 @@ const systemMessagesSlice = createSlice({
 	reducers: {
 		setSystemMessage: {
 			reducer: (state, action) => {
-				console.log(Object.keys(state));
 				Object.keys(state).forEach(key => {
 					state[key] = action.payload[key];
-					console.log(state[key]);
 				});
 				
 			},
