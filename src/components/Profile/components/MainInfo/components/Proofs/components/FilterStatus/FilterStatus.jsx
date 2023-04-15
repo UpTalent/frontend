@@ -6,15 +6,18 @@ import { Badge } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useSearchParams } from 'react-router-dom';
 
 export const FilterStatus = ({ handleChange, status }) => {
 	const [anchorEl, setAnchorEl] = useState(null);
+	const [searchParams, setSearchParams] = useSearchParams();
 	const open = Boolean(anchorEl);
 
 	const handleClick = event => {
 		setAnchorEl(event.currentTarget);
 	};
 	const changeStatus = status => {
+		setSearchParams({page:searchParams.get('page'), filter: status})
 		handleChange(status);
 		setAnchorEl(null);
 	};
@@ -25,7 +28,7 @@ export const FilterStatus = ({ handleChange, status }) => {
 
 	return (
 		<div>
-			<Badge badgeContent={status} color='primary'>
+			<Badge badgeContent={searchParams.get('filter')} color='primary'>
 				<Button
 					aria-controls={open ? 'basic-menu' : undefined}
 					aria-haspopup='true'

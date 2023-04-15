@@ -3,7 +3,6 @@ import styles from './Home.module.css';
 import rightside_image from '../../assets/5876834.jpg';
 import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { PopUpMessage } from '../shared/PopUpMessage/PopUpMessage';
 import { useSelector } from 'react-redux';
 import {
 	getAuthTalentId,
@@ -15,7 +14,6 @@ import { ProofSlider } from './components/ProofSlider/ProofSlider';
 export const Home = () => {
 	const isTalent = useSelector(getIsAuth);
 	const authTalent = useSelector(getAuthTalentId);
-	const systemMessage = useSelector(state => state.systemMessage.messageText);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -61,7 +59,6 @@ export const Home = () => {
 					</div>
 				</div>
 			</div>
-			<PopUpMessage message={systemMessage} status='success' />
 
 			<TalentsSlider />
 			<ProofSlider />

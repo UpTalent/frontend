@@ -8,6 +8,8 @@ import App from '../App';
 import { TalentsPage } from '../components/TalentsPage/TalentsPage';
 import { ProofPage } from '../components/ProofPage/ProofPage';
 import { CreateProof } from '../components/CreateProof';
+import { Proofs } from '../components/Profile/components/MainInfo/components/Proofs';
+import { EditProfile } from '../components/EditProfile';
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -39,7 +41,7 @@ export const router = createBrowserRouter([
 				element: <Profile />,
 				children: [
 					{
-						path: 'createProof',
+						path: 'proofs/createProof',
 						element: <CreateProof />,
 					},
 				],

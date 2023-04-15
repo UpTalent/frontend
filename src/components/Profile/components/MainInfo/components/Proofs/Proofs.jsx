@@ -3,8 +3,8 @@ import { Proof } from '../../../../../shared/Proof';
 import styles from '../../MainInfo.module.css';
 import { Fab, LinearProgress, Pagination } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FilterStatus } from './components';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { FilterStatus } from './components/FilterStatus';
 import { useSelector } from 'react-redux';
 import {
 	getListStatus,
@@ -92,7 +92,6 @@ export const Proofs = ({ isTalentProfile }) => {
 					/>
 				)}
 			</div>
-			<Outlet />
 		</>
 	);
 };

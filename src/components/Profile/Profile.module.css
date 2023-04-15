@@ -16,7 +16,7 @@
 }
 
 .profileBanner {
-    height: 235px;
+    height: 235px !important;
 }
 
 .photoName {

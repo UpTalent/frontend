@@ -4,6 +4,7 @@
 	height: 120px;
 	border-radius: 10px 10px 0 0;
 	display: flex;
+	position: relative;
 }
 .banner img {
 	width: 100%;
@@ -13,4 +14,9 @@
 
 .brokenImage{
 	display: none;
+}
+
+.loader {
+	position: absolute;
+	background-color: rgba(255, 255, 255, 0.5);
 }
