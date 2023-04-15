@@ -17,7 +17,7 @@ export const FilterStatus = ({ handleChange, status }) => {
 		setAnchorEl(event.currentTarget);
 	};
 	const changeStatus = status => {
-		setSearchParams({page:searchParams.get('page'), filter: status})
+		setSearchParams({...Object.fromEntries([...searchParams]), filter: status})
 		handleChange(status);
 		setAnchorEl(null);
 	};

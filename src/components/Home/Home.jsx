@@ -59,7 +59,6 @@ export const Home = () => {
 					</div>
 				</div>
 			</div>
-
 			<TalentsSlider />
 			<ProofSlider />
 		</>
