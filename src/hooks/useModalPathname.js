@@ -1,8 +1,7 @@
-import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const useModalPathname = () => {
-  const location = useLocation();
+	const location = useLocation();
 	const navigate = useNavigate();
 
 	const modalPathname = path => {
@@ -11,5 +10,5 @@ export const useModalPathname = () => {
 			search: location.search,
 		});
 	};
-  return modalPathname;
-}
+	return modalPathname;
+};

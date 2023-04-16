@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Home.module.css';
 import rightside_image from '../../assets/5876834.jpg';
 import { Button } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { PopUpMessage } from '../shared/PopUpMessage/PopUpMessage';
 import { useSelector } from 'react-redux';
 import {
