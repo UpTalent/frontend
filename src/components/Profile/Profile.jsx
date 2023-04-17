@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { getAuthTalentId } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { PhotoBlock } from './components/PhotoBlock';
+import { useModalPathname } from '../../hooks/useModalPathname';
 
 export const Profile = () => {
 	const authTalent = useSelector(getAuthTalentId);
@@ -19,10 +20,8 @@ export const Profile = () => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
-
-	const modalPathname = path => {
-		navigate(`${location.pathname}/${path}`);
-	};
+	const modalPathname = useModalPathname();
+	const systemMessage = useSelector(state => state.systemMessage.messageText);
 
 	const getTalentProfile = async () => {
 		try {

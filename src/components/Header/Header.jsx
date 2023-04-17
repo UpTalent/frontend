@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation, NavLink } from 'react-router-dom';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
 import { Button, Popover } from '@mui/material';
 import styles from './Header.module.css';
 import { setAuthToken } from '../../api/index';
@@ -12,24 +12,18 @@ import {
 } from '../../redux/reducers/authentification';
 import logo from '../../assets/upTalent.png';
 import { ReactFitty } from 'react-fitty';
+import { useModalPathname } from '../../hooks/useModalPathname';
+
 
 export const Header = () => {
 	const dispatch = useDispatch();
 	const isTalent = useSelector(getIsAuth);
 	const authTalent = useSelector(getFirstName);
 	const authTalentId = useSelector(getAuthTalentId);
+	const modalPathname = useModalPathname();
 
 	const [dropdownMenu, setDropdownMenu] = useState(null);
-
-	const location = useLocation();
 	const navigate = useNavigate();
-
-	const modalPathname = path => {
-		navigate({
-			pathname: `${location.pathname}/${path}`,
-			search: location.search,
-		});
-	};
 
 	const handleClick = event => {
 		setDropdownMenu(event.currentTarget);

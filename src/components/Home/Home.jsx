@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Home.module.css';
 import rightside_image from '../../assets/5876834.jpg';
 import { Button } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
 	getAuthTalentId,
@@ -10,19 +10,15 @@ import {
 } from '../../redux/reducers/authentification';
 import { TalentsSlider } from './components/TalentsSlider';
 import { ProofSlider } from './components/ProofSlider/ProofSlider';
+import { useModalPathname } from '../../hooks/useModalPathname';
 
 export const Home = () => {
 	const isTalent = useSelector(getIsAuth);
 	const authTalent = useSelector(getAuthTalentId);
 
 	const navigate = useNavigate();
-	const location = useLocation();
+	const modalPathname = useModalPathname();
 
-	const modalPathname = path => {
-		navigate(`${location.pathname}/${path}`, {
-			state: { from: location.pathname },
-		});
-	};
 	return (
 		<>
 			<div className={styles.container}>

@@ -23,6 +23,7 @@ import {
 	resetList,
 } from '../../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../../redux/store';
+import { useModalPathname } from '../../../../../../hooks/useModalPathname';
 
 export const Proofs = () => {
 	const { isTalentProfile } = useOutletContext();
@@ -36,8 +37,7 @@ export const Proofs = () => {
 	const status = useSelector(getListStatus);
 	const dispatch = useStoreDispatch();
 
-	const navigate = useNavigate();
-	const location = useLocation();
+	const modalPathname = useModalPathname();
 	const { talentId } = useParams();
 	const urlPage = Number(searchParams.get('page')) || 1;
 	const filter = searchParams.get('filter');
@@ -53,6 +53,7 @@ export const Proofs = () => {
 			search: location.search,
 		});
 	};
+
 
 	useEffect(() => {
 		getProofs();
