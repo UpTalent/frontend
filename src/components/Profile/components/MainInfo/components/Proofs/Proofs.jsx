@@ -47,14 +47,6 @@ export const Proofs = () => {
 		dispatch(getTalentsProofs(fetchData));
 	};
 
-	const modalPathname = path => {
-		navigate({
-			pathname: `${location.pathname}/${path}`,
-			search: location.search,
-		});
-	};
-
-
 	useEffect(() => {
 		getProofs();
 		return () => {
