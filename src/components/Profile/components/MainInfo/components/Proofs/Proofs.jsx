@@ -5,8 +5,6 @@ import { Fab, LinearProgress, Pagination } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import {
 	Outlet,
-	useLocation,
-	useNavigate,
 	useOutletContext,
 	useParams,
 	useSearchParams,
