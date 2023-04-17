@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation, NavLink } from 'react-router-dom';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
 import { Button, Popover } from '@mui/material';
 import styles from './Header.module.css';
 import { setAuthToken } from '../../api/index';
@@ -10,25 +10,18 @@ import {
 	getIsAuth,
 	logOut,
 } from '../../redux/reducers/authentification';
-import logo from '../../assets/upTalent.png'
+import logo from '../../assets/upTalent.png';
+import { useModalPathname } from '../../hooks/useModalPathname';
 
 export const Header = () => {
 	const dispatch = useDispatch();
 	const isTalent = useSelector(getIsAuth);
 	const authTalent = useSelector(getFirstName);
 	const authTalentId = useSelector(getAuthTalentId);
+	const modalPathname = useModalPathname();
 
 	const [dropdownMenu, setDropdownMenu] = useState(null);
-
-	const location = useLocation();
 	const navigate = useNavigate();
-
-	const modalPathname = path => {
-		navigate({
-			pathname: `${location.pathname}/${path}`,
-			search: location.search,
-		});
-	};
 
 	const handleClick = event => {
 		setDropdownMenu(event.currentTarget);
@@ -37,12 +30,22 @@ export const Header = () => {
 	return (
 		<header className={styles.header}>
 			<Link to='/home' className={styles.logo}>
-				<img src={logo} alt='UpTalent Logo'/>
+				<img src={logo} alt='UpTalent Logo' />
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/talents'>Talents</NavLink>
-				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/proofs'>Proofs</NavLink>
+				<NavLink
+					className={({ isActive }) => (isActive ? styles.active : null)}
+					to='/talents'
+				>
+					Talents
+				</NavLink>
+				<NavLink
+					className={({ isActive }) => (isActive ? styles.active : null)}
+					to='/proofs'
+				>
+					Proofs
+				</NavLink>
 			</div>
 
 			{isTalent ? (

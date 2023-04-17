@@ -3,7 +3,7 @@ import { Proof } from '../../../../../shared/Proof';
 import styles from '../../MainInfo.module.css';
 import { Fab, LinearProgress, Pagination } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { FilterStatus } from './components';
 import { useSelector } from 'react-redux';
 import {
@@ -16,6 +16,7 @@ import {
 	resetList,
 } from '../../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../../redux/store';
+import { useModalPathname } from '../../../../../../hooks/useModalPathname';
 
 export const Proofs = ({ isTalentProfile }) => {
 	const proofs = useSelector(getProofList);
@@ -25,8 +26,7 @@ export const Proofs = ({ isTalentProfile }) => {
 	const currentPage = useSelector(getProofsCurrentPage);
 	const dispatch = useStoreDispatch();
 
-	const navigate = useNavigate();
-	const location = useLocation();
+	const modalPathname = useModalPathname();
 	const { talentId } = useParams();
 
 	const getProofs = (status, page) => {
@@ -34,9 +34,6 @@ export const Proofs = ({ isTalentProfile }) => {
 		dispatch(getTalentsProofs(fetchData));
 	};
 
-	const modalPathname = path => {
-		navigate(`${location.pathname}/${path}`);
-	};
 
 	useEffect(() => {
 		getProofs();
