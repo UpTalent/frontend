@@ -4,3 +4,14 @@
 	border-radius: 50%;
 	object-fit: cover;
 }
+
+.fetching {
+	display: flex;
+	align-items: center;
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	background-color: #fff;
+	justify-content: center;
+	border: 3px solid var(--primary);
+}

@@ -29,6 +29,12 @@
 	align-items: center;
 }
 
-.proofs{
+.proofs {
 	flex: 1;
+}
+
+@media screen and (max-width: 1000px) {
+	.mainInfo > div > div > div {
+		justify-content: center;
+	}
 }
