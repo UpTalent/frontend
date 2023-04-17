@@ -11,7 +11,9 @@ import {
 	logOut,
 } from '../../redux/reducers/authentification';
 import logo from '../../assets/upTalent.png';
+import { ReactFitty } from 'react-fitty';
 import { useModalPathname } from '../../hooks/useModalPathname';
+
 
 export const Header = () => {
 	const dispatch = useDispatch();
@@ -51,7 +53,9 @@ export const Header = () => {
 			{isTalent ? (
 				<div className={styles.buttonGroup}>
 					<div className={styles.nameButton} onClick={handleClick}>
-						<Button component={Link}>{authTalent}</Button>
+						<Button component={Link} sx={{ textAlign: 'center' }}>
+							<ReactFitty maxSize={20}>{authTalent}</ReactFitty>
+						</Button>
 					</div>
 					{dropdownMenu && (
 						<Popover
