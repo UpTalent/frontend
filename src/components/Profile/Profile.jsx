@@ -5,7 +5,6 @@ import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
 import { EditProfile } from '../EditProfile';
 import { UserInfo } from './components/UserInfo';
-import { MainInfo } from './components/MainInfo';
 import { useSelector } from 'react-redux';
 import { getAuthTalentId } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
@@ -46,10 +45,7 @@ export const Profile = () => {
 					<PhotoBlock isTalentProfile={isTalentProfile} talent={talent} talentId={talentId} setTalent={setTalent}/>
 					<div className={styles.allInfoAbouUser}>
 						<UserInfo talent={talent} isTalentProfile={isTalentProfile} />
-						<MainInfo
-							aboutMe={talent.about_me}
-							isTalentProfile={isTalentProfile}
-						/>
+						<Outlet context={{aboutMe: talent.about_me, isTalentProfile}} />
 					</div>
 					{isTalentProfile && (
 						<Tooltip title='Edit profile'>
@@ -61,7 +57,6 @@ export const Profile = () => {
 							/>
 						</Tooltip>
 					)}
-					<Outlet />
 					{location.pathname.endsWith('/edit') && (
 						<EditProfile talent={talent} setTalent={setTalent} />
 					)}

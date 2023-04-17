@@ -6,10 +6,7 @@ import { IconList } from './IconList/IconList';
 import { proofAPI } from '../../../../../api/proofAPI';
 import { useNavigate, useParams } from 'react-router-dom';
 import { setSystemMessage } from '../../../../../redux/reducers/systemMessages';
-import {
-	getProofError,
-	getTalentsProofs,
-} from '../../../../../redux/reducers/talentsProof';
+import { getTalentsProofs } from '../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../redux/store';
 import {
 	clearProof,
@@ -17,14 +14,12 @@ import {
 	publishDraftProof,
 } from '../../../../../redux/reducers/proof';
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
-import { useSelector } from 'react-redux';
 
 export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
-	const serverError = useSelector(getProofError);
 	const { talentId } = useParams();
 	const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -89,10 +84,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 					draftProof: { ...proof, status: 'DRAFT' },
 				}),
 			);
-			//do something
-			if (!serverError) {
-				navigate(-1);
-			}
+			navigate(-1);
 		}
 	};
 

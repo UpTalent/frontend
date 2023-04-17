@@ -10,7 +10,8 @@ import {
 	getIsAuth,
 	logOut,
 } from '../../redux/reducers/authentification';
-import logo from '../../assets/upTalent.png'
+import logo from '../../assets/upTalent.png';
+import { ReactFitty } from 'react-fitty';
 
 export const Header = () => {
 	const dispatch = useDispatch();
@@ -37,18 +38,30 @@ export const Header = () => {
 	return (
 		<header className={styles.header}>
 			<Link to='/home' className={styles.logo}>
-				<img src={logo} alt='UpTalent Logo'/>
+				<img src={logo} alt='UpTalent Logo' />
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/talents'>Talents</NavLink>
-				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/proofs'>Proofs</NavLink>
+				<NavLink
+					className={({ isActive }) => (isActive ? styles.active : null)}
+					to='/talents'
+				>
+					Talents
+				</NavLink>
+				<NavLink
+					className={({ isActive }) => (isActive ? styles.active : null)}
+					to='/proofs'
+				>
+					Proofs
+				</NavLink>
 			</div>
 
 			{isTalent ? (
 				<div className={styles.buttonGroup}>
 					<div className={styles.nameButton} onClick={handleClick}>
-						<Button component={Link}>{authTalent}</Button>
+						<Button component={Link} sx={{ textAlign: 'center' }}>
+							<ReactFitty maxSize={20}>{authTalent}</ReactFitty>
+						</Button>
 					</div>
 					{dropdownMenu && (
 						<Popover

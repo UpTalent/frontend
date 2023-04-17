@@ -7,18 +7,24 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useSearchParams } from 'react-router-dom';
+import { statuses } from '../../../../../../../../assets/static/status';
 
-export const FilterStatus = ({ handleChange, status }) => {
+export const FilterStatus = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const open = Boolean(anchorEl);
+
+	const intitalFilter = statuses.find(
+		item => item.status === searchParams.get('filter'),
+	)
+		? searchParams.get('filter')
+		: 'PUBLISHED';
 
 	const handleClick = event => {
 		setAnchorEl(event.currentTarget);
 	};
 	const changeStatus = status => {
-		setSearchParams({...Object.fromEntries([...searchParams]), filter: status})
-		handleChange(status);
+		setSearchParams({ page: 1, filter: status });
 		setAnchorEl(null);
 	};
 
@@ -28,7 +34,7 @@ export const FilterStatus = ({ handleChange, status }) => {
 
 	return (
 		<div>
-			<Badge badgeContent={searchParams.get('filter')} color='primary'>
+			<Badge badgeContent={intitalFilter} color='primary'>
 				<Button
 					aria-controls={open ? 'basic-menu' : undefined}
 					aria-haspopup='true'
