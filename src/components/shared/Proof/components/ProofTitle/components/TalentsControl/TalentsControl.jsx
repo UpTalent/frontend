@@ -12,13 +12,11 @@ import {
 	editProof,
 	fetchProof,
 } from '../../../../../../../redux/reducers/proof';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const TalentsControl = ({ status, proofId }) => {
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [action, setAction] = useState({ action: '', buttonHandler: null });
-	const [searchParams, setSearchParams] = useSearchParams();
-
 
 	const dispatch = useStoreDispatch();
 	const talentId = useSelector(getAuthTalentId);
@@ -50,10 +48,7 @@ export const TalentsControl = ({ status, proofId }) => {
 			setOpenConfirm(true);
 		} else {
 			dispatch(fetchProof({ talentId, proofId }));
-			navigate({
-				pathname: `${location.pathname}/createProof`,
-				search: location.search,
-			});
+			navigate(`${location.pathname}/createProof`);
 		}
 	};
 	const deleteTalentProof = () => {
@@ -62,10 +57,6 @@ export const TalentsControl = ({ status, proofId }) => {
 
 	const changeVisibility = status => {
 		const data = { talentId, proofId, status };
-		setSearchParams({
-			...Object.fromEntries([...searchParams]),
-			filter: status,
-		});
 		dispatch(editProof(data));
 		setOpenConfirm(false);
 	};

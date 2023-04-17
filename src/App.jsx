@@ -8,7 +8,6 @@ import { LoginForm } from './components/LoginForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { authApp, getIsPending } from './redux/reducers/authentification';
 import { Loader } from './components/shared/Loader';
-import { PopUpMessage } from './components/shared/PopUpMessage';
 
 const App = () => {
 	const location = useLocation();
@@ -28,7 +27,6 @@ const App = () => {
 						<Outlet />
 						{location.pathname.endsWith('/register') && <RegistrationForm />}
 						{location.pathname.endsWith('/login') && <LoginForm />}
-						<PopUpMessage />
 					</div>
 					<Footer />
 				</>
