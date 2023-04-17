@@ -3,15 +3,8 @@ import { Proof } from '../../../../../shared/Proof';
 import styles from '../../MainInfo.module.css';
 import { Fab, LinearProgress, Pagination } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import {
-	Outlet,
-	useLocation,
-	useNavigate,
-	useOutletContext,
-	useParams,
-	useSearchParams,
-} from 'react-router-dom';
-import { FilterStatus } from './components/FilterStatus';
+import { Outlet, useParams } from 'react-router-dom';
+import { FilterStatus } from './components';
 import { useSelector } from 'react-redux';
 import {
 	getListStatus,
@@ -25,33 +18,20 @@ import {
 import { useStoreDispatch } from '../../../../../../redux/store';
 import { useModalPathname } from '../../../../../../hooks/useModalPathname';
 
-export const Proofs = () => {
-	const { isTalentProfile } = useOutletContext();
-
-	const [searchParams, setSearchParams] = useSearchParams();
-
+export const Proofs = ({ isTalentProfile }) => {
 	const proofs = useSelector(getProofList);
+	const statusList = useSelector(getListStatus);
 	const isFetching = useSelector(proofsPendingStatus);
 	const total_pages = useSelector(getProofsTotalPages);
 	const currentPage = useSelector(getProofsCurrentPage);
-	const status = useSelector(getListStatus);
 	const dispatch = useStoreDispatch();
 
 	const modalPathname = useModalPathname();
 	const { talentId } = useParams();
-	const urlPage = Number(searchParams.get('page')) || 1;
-	const filter = searchParams.get('filter');
 
 	const getProofs = (status, page) => {
 		const fetchData = { talentId, status, page };
 		dispatch(getTalentsProofs(fetchData));
-	};
-
-	const modalPathname = path => {
-		navigate({
-			pathname: `${location.pathname}/${path}`,
-			search: location.search,
-		});
 	};
 
 
@@ -61,29 +41,6 @@ export const Proofs = () => {
 			dispatch(resetList());
 		};
 	}, [talentId]);
-
-	useEffect(() => {
-		if (urlPage < 0 || (total_pages < urlPage && total_pages !== 0)) {
-			setSearchParams({
-				...Object.fromEntries([...searchParams]),
-				page: 1,
-			});
-		}
-	});
-
-	useEffect(() => {
-		const page = urlPage - 1;
-		getProofs(filter, page);
-	}, [searchParams.get('filter'), urlPage]);
-
-	useEffect(() => {
-		if (filter !== status) {
-			setSearchParams({
-				page: 1,
-				filter: status,
-			});
-		}
-	}, [status]);
 
 	return (
 		<>
@@ -99,7 +56,7 @@ export const Proofs = () => {
 						>
 							<AddIcon />
 						</Fab>
-						<FilterStatus handleChange={getProofs} />
+						<FilterStatus handleChange={getProofs} status={statusList} />
 					</div>
 				)}
 				{!isFetching ? (
@@ -128,12 +85,7 @@ export const Proofs = () => {
 						sx={{ alignSelf: 'center' }}
 						color='primary'
 						size='small'
-						onChange={(e, page) =>
-							setSearchParams({
-								...Object.fromEntries([...searchParams]),
-								page,
-							})
-						}
+						onChange={(e, page) => getProofs(null, page - 1)}
 					/>
 				)}
 			</div>

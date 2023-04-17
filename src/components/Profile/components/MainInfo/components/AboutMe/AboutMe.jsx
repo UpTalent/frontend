@@ -1,10 +1,8 @@
 import React from 'react';
 import styles from './AboutMe.module.css';
-import { useOutletContext } from 'react-router-dom';
 
-export const AboutMe = () => {
-	const { aboutMe } = useOutletContext();
-	return (
+export const AboutMe = ({aboutMe}) => {
+  return (
 		<div className={styles.about}>
 			{aboutMe ? (
 				<b>{aboutMe}</b>
@@ -13,4 +11,4 @@ export const AboutMe = () => {
 			)}
 		</div>
 	);
-};
+}

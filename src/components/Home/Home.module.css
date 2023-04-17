@@ -36,8 +36,7 @@
 	justify-content: center;
 	width: 50%;
 	background-image: url('../../assets/Blueblick.jpg');
-	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: cover;
 }
 
 .getstarted {
@@ -51,48 +50,6 @@
 	font-weight: 400 !important;
 	font-size: 20px !important;
 	line-height: 24px !important;
-    letter-spacing: 0.1em;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    transition: 0.5s;
-}
-
-.getstarted span {
-    position: absolute;
-    width: 25%;
-    height: 100%;
-    background-color: var(--primary);
-    transform: translateY(150%);
-    border-radius: 50%;
-    left: calc((var(--n) - 1) * 25%);
-    transition: 0.5s;
-    transition-delay: calc((var(--n) - 1) * 0.1s);
-    z-index: -1;
-}
-
-.getstarted:hover {
-    color: black;
-}
-
-.getstarted:hover span {
-    transform: translateY(0) scale(2);
-}
-
-.getstarted span:nth-child(1) {
-    --n: 1;
-}
-
-.getstarted span:nth-child(2) {
-    --n: 2;
-}
-
-.getstarted span:nth-child(3) {
-    --n: 3;
-}
-
-.getstarted span:nth-child(4) {
-    --n: 4;
 }
 
 .waterRightside {
@@ -102,37 +59,8 @@
 	justify-content: center;
 }
 
-.waterRightside img{
-	object-fit: cover;
-}
-
 .rightsideImage {
 	width: 600px;
 	height: 450px;
     object-fit: cover;
-}
-
-@media screen and (max-width: 700px) {
-	.container{
-		height: auto;
-	}
-	.getstarted{
-		align-self: center;
-	}
-	.water {
-		flex-direction: column;
-	}
-
-	.waterLeftside{
-		width: 100%;
-		gap: 20px;
-		margin: 10px 0;
-		padding: 20px;
-		background-repeat: no-repeat;
-		background-size: contain;
-	}
-	.waterRightside{
-		width: 100%;
-	}
-
 }

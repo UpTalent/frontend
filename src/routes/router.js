@@ -8,9 +8,6 @@ import App from '../App';
 import  TalentsPage  from '../components/TalentsPage/TalentsPage';
 import  ProofPage  from '../components/ProofPage/ProofPage';
 import { CreateProof } from '../components/CreateProof';
-import { Proofs } from '../components/Profile/components/MainInfo/components/Proofs';
-import { MainInfo } from '../components/Profile/components/MainInfo';
-import { AboutMe } from '../components/Profile/components/MainInfo/components/AboutMe';
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -42,23 +39,8 @@ export const router = createBrowserRouter([
 				element: <Profile />,
 				children: [
 					{
-						element: <MainInfo />,
-						children: [
-							{
-								index: true,
-								element: <AboutMe />,
-							},
-							{
-								path: 'proofs/*',
-								element: <Proofs />,
-								children: [
-									{
-										path: 'createProof',
-										element: <CreateProof />,
-									},
-								],
-							},
-						],
+						path: 'createProof',
+						element: <CreateProof />,
 					},
 				],
 			},
