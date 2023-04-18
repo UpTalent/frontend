@@ -89,7 +89,7 @@ export const Proofs = () => {
 						>
 							<AddIcon />
 						</Fab>
-						<FilterStatus handleChange={getProofs} />
+						<FilterStatus />
 					</div>
 				)}
 				{!isFetching ? (

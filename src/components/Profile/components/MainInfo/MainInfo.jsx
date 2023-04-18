@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styles from './MainInfo.module.css';
 import { Tab, Tabs } from '@mui/material';
-import { Link, Outlet, useOutletContext } from 'react-router-dom';
+import { Link, Outlet, useLocation, useOutletContext } from 'react-router-dom';
 
 export const MainInfo = () => {
 	const { aboutMe, isTalentProfile } = useOutletContext();
-	const [value, setValue] = useState(0);
+	const location = useLocation();
+	const initialValue = location.pathname.endsWith('proofs') ? 1 : 0;
+	const [value, setValue] = useState(initialValue);
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};

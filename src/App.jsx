@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import './App.css';
-import { Header } from './components/Header/Header';
-import { Footer } from './components/Footer/Footer';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 import { RegistrationForm } from './components/RegistrationForm';
 import { LoginForm } from './components/LoginForm';
 import { useDispatch, useSelector } from 'react-redux';

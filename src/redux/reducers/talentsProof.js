@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { proofAPI } from '../../api/proofAPI';
+import { setSystemMessage } from './systemMessages';
 
 const initialState = {
 	proofsList: [],
@@ -25,8 +26,9 @@ export const getTalentsProofs = createAsyncThunk(
 				formatPage,
 				status,
 			);
-			return { ...data, formatPage };
+			return { ...data, formatPage, status };
 		} catch (error) {
+			thunkAPI.dispatch(setSystemMessage(true, error.message, 'error'));
 			return thunkAPI.rejectWithValue(error.message);
 		}
 	},
@@ -56,7 +58,7 @@ const proofsSlice = createSlice({
 				state.proofsList = action.payload.content;
 				state.total_pages = action.payload.total_pages;
 				state.isFetching = false;
-				state.status = action.payload.content[0]?.status;
+				state.status = action.payload.status;
 				state.currentPage = action.payload.formatPage + 1;
 			})
 			.addCase(getTalentsProofs.pending, state => {
