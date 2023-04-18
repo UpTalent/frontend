@@ -52,14 +52,11 @@ export const IconList = ({
 						boxShadow: 'none',
 					},
 				}}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+				transformOrigin={{ vertical: 'top', horizontal: 'center' }}
 				MenuListProps={{
 					style: {
-						maxHeight: '400px',
-					},
-				}}
-				sx={{
-					'& .MuiPaper-root': {
-						left: '178px !important',
+						maxHeight: '380px',
 					},
 				}}
 			>
