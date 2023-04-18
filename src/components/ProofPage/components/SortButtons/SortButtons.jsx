@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 import MoveUpIcon from '@mui/icons-material/MoveUp';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
 
 export const SortButtons = ({
-	alignment,
-	setAlignment,
-	setSearchParams,
 	urlPage,
+	setSearchParams,
 	getProofs,
+	alignment,
+	setAlignment
 }) => {
+	//const [alignment, setAlignment] = useState(value);
+
+	//...Object.fromEntries([...searchParams]),
 	const handleAlignment = (event, newAlignment) => {
 		setAlignment(newAlignment);
-		if (urlPage === 1) {
-			getProofs(0, newAlignment);
-		} else {
-			setSearchParams({ page: '1' });
-		}
+		getProofs(0, newAlignment);
+		console.log('i work 2');
+		setSearchParams({ page: '1', sort: newAlignment });
+		// setAlignment(newAlignment);
+		// if (urlPage === 1) {
+		// 	getProofs(0, newAlignment);
+		// 	setSearchParams({ ...Object.fromEntries([...searchParams])});
+		// } else {
+		// 	setSearchParams({ page: '1' , sort: alignment});
+		// }
 	};
 	return (
 		<ToggleButtonGroup

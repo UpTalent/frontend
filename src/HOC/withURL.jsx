@@ -12,7 +12,6 @@ import { CircularProgress } from '@mui/material';
 
 export const withURL = (Component, getList, nameList) => () => {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [alignment, setAlignment] = useState('desc');
 	const dispatch = useStoreDispatch();
 
 	const total_pages = useSelector(getGridTotalPages);
@@ -20,24 +19,33 @@ export const withURL = (Component, getList, nameList) => () => {
 	const gridItems = useSelector(getGridItem);
 
 	const urlPage = Number(searchParams.get('page')) || 1;
+	const value = searchParams.get('sort') || 'desc';
+
+	const [alignment, setAlignment] = useState(value);
 
 	const additionalParams = {
 		urlPage,
 		setSearchParams,
+		getProofs: getList,
 		alignment,
 		setAlignment,
 	};
 
+	const data =
+		nameList === 'proofs'
+			? { page: urlPage - 1, alignment }
+			: urlPage - 1;
+
 	useEffect(() => {
-		const data =
-			nameList === 'talents' ? urlPage - 1 : { page: urlPage - 1, alignment };
 		dispatch(getList(data));
+		console.log('i work 1');
+		nameList === 'proofs' && setSearchParams({ page: urlPage, sort: alignment });
 		return () => dispatch(clearList());
-	}, [urlPage, alignment]);
+	}, [urlPage]);
 
 	useEffect(() => {
 		if (urlPage < 0 || (total_pages < urlPage && total_pages !== 0)) {
-			setSearchParams({ page: '1' });
+			setSearchParams({ page: '1', sort: 'desc' });
 		}
 	});
 
