@@ -59,7 +59,6 @@ export const IconList = ({
 						maxHeight: '380px',
 					},
 				}}
-				}}
 			>
 				{ProofIcons.map(icon => (
 					<MenuItem key={icon.id}>
