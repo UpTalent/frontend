@@ -2,30 +2,21 @@ import React, { useState } from 'react';
 import { ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 import MoveUpIcon from '@mui/icons-material/MoveUp';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
+import { useSearchParams } from 'react-router-dom';
 
-export const SortButtons = ({
-	urlPage,
-	setSearchParams,
-	getProofs,
-	alignment,
-	setAlignment
-}) => {
-	//const [alignment, setAlignment] = useState(value);
+export const SortButtons = ({ getProofs }) => {
+	const [searchParams, setSearchParams] = useSearchParams();
 
-	//...Object.fromEntries([...searchParams]),
+	const value = searchParams.get('sort') || 'desc';
+
+	const [alignment, setAlignment] = useState(value);
+
 	const handleAlignment = (event, newAlignment) => {
 		setAlignment(newAlignment);
 		getProofs(0, newAlignment);
-		console.log('i work 2');
 		setSearchParams({ page: '1', sort: newAlignment });
-		// setAlignment(newAlignment);
-		// if (urlPage === 1) {
-		// 	getProofs(0, newAlignment);
-		// 	setSearchParams({ ...Object.fromEntries([...searchParams])});
-		// } else {
-		// 	setSearchParams({ page: '1' , sort: alignment});
-		// }
 	};
+
 	return (
 		<ToggleButtonGroup
 			value={alignment}
