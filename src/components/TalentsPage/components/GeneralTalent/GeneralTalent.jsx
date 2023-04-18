@@ -18,7 +18,10 @@ export const GeneralTalent = ({ talent }) => {
 	return (
 		<div className={styles.GeneralTalent}>
 			<Banner banner={talent.banner} />
-			<TalentAvatar photo={talent.avatar} additionalStyle={styles.talentPhoto} />
+			<TalentAvatar
+				photo={talent.avatar}
+				additionalStyle={styles.talentPhoto}
+			/>
 			<div className={styles.talentInfo}>
 				<h4>{`${talent.firstname} ${talent.lastname}`}</h4>
 				<div className={styles.skillBox}>{skills}</div>

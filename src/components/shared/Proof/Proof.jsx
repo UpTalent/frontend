@@ -5,8 +5,8 @@ import { ProofTitle } from './components/ProofTitle';
 import { ProofSummary } from './components/ProofSummary/ProofSummary';
 import { ProofBody } from './components/ProofBody/ProofBody';
 
-export const Proof = ({ proof, withContent, showControlls, className }) => {
-	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+export const Proof = ({ proof, withContent, showControlls, className, inForm=false }) => {
+	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
 	const handleAccordionClick = () => {
 		setIsAccordionOpen(!isAccordionOpen);
 	};
@@ -23,7 +23,7 @@ export const Proof = ({ proof, withContent, showControlls, className }) => {
 							margin: 0,
 							padding: 0,
 							'& .MuiAccordionSummary-content': {
-								margin: 0,
+								margin: '0 !important',
 								width: '100%',
 							},
 						}}
