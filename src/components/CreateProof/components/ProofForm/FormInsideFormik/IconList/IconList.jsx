@@ -55,7 +55,11 @@ export const IconList = ({
 				MenuListProps={{
 					style: {
 						maxHeight: '400px',
-						overflowY: 'scroll',
+					},
+				}}
+				sx={{
+					'& .MuiPaper-root': {
+						left: '178px !important',
 					},
 				}}
 			>
