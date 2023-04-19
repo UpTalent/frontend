@@ -29,7 +29,7 @@ export const withURL = (Component, getList, nameList) => () => {
 		dispatch(getList(data));
 		nameList === 'proofs' && setSearchParams({ page: urlPage, sort: value });
 		return () => dispatch(clearList());
-	}, [urlPage, value]);
+	}, [urlPage]);
 
 	useEffect(() => {
 		if (
