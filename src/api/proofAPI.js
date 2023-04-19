@@ -40,7 +40,7 @@ export const proofAPI = {
 				},
 			});
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			throw new Error(error.response.data.error);
 		}
 	},
 	
@@ -54,7 +54,7 @@ export const proofAPI = {
 				},
 			});
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			throw new Error(error.response.data.error);
 		}
 	},
 
@@ -62,7 +62,7 @@ export const proofAPI = {
 		try {
 			return await axiosInstance.delete(`talents/${talent_Id}/proofs/${proof_Id}`);
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			throw new Error(error.response.data.error);
 		}
 	},
 };
