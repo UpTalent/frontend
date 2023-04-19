@@ -42,6 +42,23 @@ export const publishDraftProof = createAsyncThunk(
 	},
 );
 
+export const createDraftProof = createAsyncThunk(
+	'createDraftProf',
+	async (params, thunkAPI) => {
+		try {
+			let { talentId, data } = params;
+			await proofAPI.createProof(talentId, data);
+			thunkAPI.dispatch(
+				setSystemMessage(true, 'Proof was successfully created'),
+			);
+			thunkAPI.dispatch(clearProof());
+			thunkAPI.dispatch(getTalentsProofs({ talentId, status: data.status }));
+		} catch (err) {
+			thunkAPI.dispatch(setSystemMessage(true, err.message, 'error'));
+		}
+	},
+);
+
 export const editProof = createAsyncThunk(
 	'editProof',
 	async (params, thunkAPI) => {
@@ -78,7 +95,7 @@ export const deleteProof = createAsyncThunk(
 	'deleteProof',
 	async (params, thunkAPI) => {
 		try {
-			const { talentId, proofId } = params;
+			const { talentId, proofId, status } = params;
 
 			await proofAPI.deleteProof(talentId, proofId);
 			thunkAPI.dispatch(
@@ -91,7 +108,7 @@ export const deleteProof = createAsyncThunk(
 			if (amountOfProofs === 1) {
 				page -= 1;
 			}
-			thunkAPI.dispatch(getTalentsProofs({ talentId, page }));
+			thunkAPI.dispatch(getTalentsProofs({ talentId, page, status }));
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
@@ -120,7 +137,6 @@ const proofSlice = createSlice({
 		updateProof: (state, action) => {
 			Object.keys(state.proof).forEach(key => {
 				state.proof[key] = action.payload[key];
-
 			});
 		},
 		clearProof: state => {

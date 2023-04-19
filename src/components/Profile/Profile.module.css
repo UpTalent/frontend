@@ -1,99 +1,125 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 * {
-    font-family: 'Roboto';
+	font-family: 'Roboto';
 }
 
 .profile {
-    position: relative;
-    width: 90%;
-    margin: 50px auto;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: center;
+	position: relative;
+	width: 90%;
+	margin: 50px auto;
+	border-radius: 10px;
+	box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	align-items: center;
 }
 
 .profileBanner {
-    height: 235px;
+	height: 235px !important;
 }
 
 .photoName {
-    display: flex;
-    width: 80%;
-    align-items: center;
-    position: absolute;
-    top: 80px;
-    left: 90px;
+	display: flex;
+	flex-direction: column;
+    gap: 10px;
+	width: 80%;
+	align-items: center;
+	position: absolute;
+	top: 80px;
+	left: 90px;
 }
 
 .profilePhoto {
-    width: 200px;
-    height: 200px;
+	width: 200px;
+	height: 200px;
+}
+
+.photo {
+    position: relative;
 }
 
 .profileName {
-    color: #fff;
-    font-size: 55px;
-    font-weight: 300;
-    padding-left: 55px;
-    text-transform: uppercase;
+	color: var(--dark);
+	font-size: 55px;
+	font-weight: 300;
+	text-align: center;
+	text-transform: uppercase;
 }
 
 .allInfoAbouUser {
-    display: flex;
-    width: 90%;
-    margin: 50px auto;
+	display: flex;
+	width: 90%;
+	margin: 140px auto 50px auto;
 }
 
 .pencil {
-    position: absolute;
-    cursor: pointer;
-    border-radius: 50%;
-    padding: 5px;
+	position: absolute;
+	cursor: pointer;
+	border-radius: 50%;
+	padding: 5px;
 }
 
-.pencil:hover{
-    background-color: rgba(0, 0, 0, 0.25);
+.pencil:hover {
+	background-color: rgba(0, 0, 0, 0.25);
 }
 
 .toEdit {
-    right: 25px;
-    top: 258px;
+	right: 25px;
+	top: 258px;
 }
 
 .photoName .toPhoto {
-    bottom: 0px;
-    left: 20px;
-    width: 35px;
-    height: 35px;
+	bottom: 0px;
+	left: 25px;
+	width: 35px;
+	height: 35px; 
 }
 
 .toBanner {
-    position: absolute;
-    background: #FFFFFF;
-    border-radius: 100px;
-    display: flex;
-    top: 190px;
-    right: 15px;
-    align-items: center;
-    padding: 0px 5px;
-    cursor: pointer;
+	position: absolute;
+	background: #ffffff;
+	border-radius: 100px;
+	display: flex;
+	top: 190px;
+	right: 15px;
+	align-items: center;
+	padding: 0px 5px;
+	cursor: pointer;
 }
 
 .toBanner p {
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 28px;
-    margin-left: 5px;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 28px;
+	margin-left: 5px;
 }
 
 .toBanner svg {
-    width: 15px;
-    height: 15px;
+	width: 15px;
+	height: 15px;
 }
 
-.profile input{
-    display: none;
+.profile input {
+	display: none;
+}
+
+@media screen and (max-width: 1000px) {
+	.allInfoAbouUser {
+		flex-direction: column;
+        margin-top: 180px ;
+	}
+
+    .allInfoAbouUser > div:first-child div {
+        width: 50%;
+        padding: 10px;
+        justify-content: center;
+    }
+    .allInfoAbouUser > div:first-child div b {
+        font-size: 20px;
+    }
+    .allInfoAbouUser > div:first-child div svg{
+        width: 40px;
+        height: 40px;
+    }
 }

@@ -3,11 +3,15 @@ import { Proof } from '../../../../../shared/Proof';
 import styles from '../../MainInfo.module.css';
 import { Fab, LinearProgress, Pagination } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FilterStatus } from './components';
+import {
+	Outlet,
+	useOutletContext,
+	useParams,
+	useSearchParams,
+} from 'react-router-dom';
+import { FilterStatus } from './components/FilterStatus';
 import { useSelector } from 'react-redux';
 import {
-	getListStatus,
 	getProofList,
 	getProofsCurrentPage,
 	getProofsTotalPages,
@@ -16,34 +20,46 @@ import {
 	resetList,
 } from '../../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../../redux/store';
+import { useModalPathname } from '../../../../../../hooks/useModalPathname';
 
-export const Proofs = ({ isTalentProfile }) => {
+export const Proofs = () => {
+	const { isTalentProfile } = useOutletContext();
+
+	const [searchParams, setSearchParams] = useSearchParams();
+
 	const proofs = useSelector(getProofList);
-	const statusList = useSelector(getListStatus);
 	const isFetching = useSelector(proofsPendingStatus);
 	const total_pages = useSelector(getProofsTotalPages);
 	const currentPage = useSelector(getProofsCurrentPage);
 	const dispatch = useStoreDispatch();
 
-	const navigate = useNavigate();
-	const location = useLocation();
+	const modalPathname = useModalPathname();
 	const { talentId } = useParams();
+	const urlPage = Number(searchParams.get('page')) || 1;
+	const filter = searchParams.get('filter');
 
 	const getProofs = (status, page) => {
 		const fetchData = { talentId, status, page };
 		dispatch(getTalentsProofs(fetchData));
 	};
 
-	const modalPathname = path => {
-		navigate(`${location.pathname}/${path}`);
-	};
-
 	useEffect(() => {
-		getProofs();
+		const page = urlPage - 1;
+		getProofs(filter, page);
+		
 		return () => {
 			dispatch(resetList());
 		};
-	}, [talentId]);
+	}, [talentId, searchParams.get('filter'), urlPage]);
+
+	useEffect(() => {
+		if (urlPage < 0 || (total_pages < urlPage && total_pages !== 0)) {
+			setSearchParams({
+				...Object.fromEntries([...searchParams]),
+				page: 1,
+			});
+		}
+	});
 
 	return (
 		<>
@@ -59,7 +75,7 @@ export const Proofs = ({ isTalentProfile }) => {
 						>
 							<AddIcon />
 						</Fab>
-						<FilterStatus handleChange={getProofs} status={statusList} />
+						<FilterStatus />
 					</div>
 				)}
 				{!isFetching ? (
@@ -88,7 +104,12 @@ export const Proofs = ({ isTalentProfile }) => {
 						sx={{ alignSelf: 'center' }}
 						color='primary'
 						size='small'
-						onChange={(e, page) => getProofs(null, page - 1)}
+						onChange={(e, page) =>
+							setSearchParams({
+								...Object.fromEntries([...searchParams]),
+								page,
+							})
+						}
 					/>
 				)}
 			</div>

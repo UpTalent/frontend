@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation, NavLink } from 'react-router-dom';
-import { Button, Popover } from '@mui/material';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
+import { Button, Menu, MenuItem } from '@mui/material';
 import styles from './Header.module.css';
-import { setAuthToken } from '../../api/index';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	getAuthTalentId,
@@ -10,81 +9,96 @@ import {
 	getIsAuth,
 	logOut,
 } from '../../redux/reducers/authentification';
-import logo from '../../assets/upTalent.png'
+import logo from '../../assets/upTalent.png';
+import { ReactFitty } from 'react-fitty';
+import { useModalPathname } from '../../hooks/useModalPathname';
 
 export const Header = () => {
 	const dispatch = useDispatch();
 	const isTalent = useSelector(getIsAuth);
 	const authTalent = useSelector(getFirstName);
 	const authTalentId = useSelector(getAuthTalentId);
-
-	const [dropdownMenu, setDropdownMenu] = useState(null);
-
-	const location = useLocation();
+	const modalPathname = useModalPathname();
 	const navigate = useNavigate();
 
-	const modalPathname = path => {
-		navigate({
-			pathname: `${location.pathname}/${path}`,
-			search: location.search,
-		});
-	};
+	const [dropdownMenu, setDropdownMenu] = useState(null);
+	const open = Boolean(dropdownMenu);
 
 	const handleClick = event => {
+		event.preventDefault();
 		setDropdownMenu(event.currentTarget);
+	};
+	const handleClose = () => {
+		setDropdownMenu(null);
 	};
 
 	return (
 		<header className={styles.header}>
 			<Link to='/home' className={styles.logo}>
-				<img src={logo} alt='UpTalent Logo'/>
+				<img src={logo} alt='UpTalent Logo' />
 				UPTALENT
 			</Link>
 			<div className={styles.navbar}>
-				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/talents'>Talents</NavLink>
-				<NavLink className={({isActive}) => isActive ? styles.active : null} to='/proofs'>Proofs</NavLink>
+				<NavLink
+					className={({ isActive }) => (isActive ? styles.active : null)}
+					to='/talents'
+				>
+					Talents
+				</NavLink>
+				<NavLink
+					className={({ isActive }) => (isActive ? styles.active : null)}
+					to='/proofs'
+				>
+					Proofs
+				</NavLink>
 			</div>
 
 			{isTalent ? (
 				<div className={styles.buttonGroup}>
-					<div className={styles.nameButton} onClick={handleClick}>
-						<Button component={Link}>{authTalent}</Button>
-					</div>
-					{dropdownMenu && (
-						<Popover
-							open={Boolean(dropdownMenu)}
-							onClose={() => setDropdownMenu(null)}
+					<div className={styles.nameButton}>
+						<Button
+							component={Link}
+							onClick={handleClick}
+							sx={{ textAlign: 'center' }}
+						>
+							<ReactFitty maxSize={20}>{authTalent}</ReactFitty>
+						</Button>
+						<Menu
 							anchorEl={dropdownMenu}
-							anchorOrigin={{
-								vertical: 'bottom',
-								horizontal: 1,
-							}}
-							PaperProps={{
-								style: { boxShadow: 'none', background: 'transparent' },
+							open={open}
+							onClose={handleClose}
+							sx={{
+								'& .MuiMenu-list': {
+									padding: 0,
+								},
+								'& .MuiPaper-root': {
+									background: 'transparent',
+									boxShadow: 'none',
+								},
+								'& .MuiMenuItem-root': {
+									padding: 0,
+									borderRadius: 10,
+								},
 							}}
 						>
-							<Link
-								to={`talent/${authTalentId}`}
-								className={styles.menuItem}
-								onClick={() => {
-									setDropdownMenu(null);
-								}}
-							>
-								<p>Talent's profile</p>
-							</Link>
-							<div
-								className={styles.menuItem}
-								onClick={() => {
-									dispatch(logOut());
-									setDropdownMenu(null);
-									setAuthToken();
-									navigate('/home');
-								}}
-							>
-								<p>Log out</p>
-							</div>
-						</Popover>
-					)}
+							<MenuItem onClick={handleClose}>
+								<Link to={`talent/${authTalentId}`} className={styles.menuItem}>
+									<p>Talent's profile</p>
+								</Link>
+							</MenuItem>
+							<MenuItem onClick={handleClose}>
+								<div
+									className={styles.menuItem}
+									onClick={() => {
+										dispatch(logOut());
+										navigate('/home');
+									}}
+								>
+									<p>Log out</p>
+								</div>
+							</MenuItem>
+						</Menu>
+					</div>
 				</div>
 			) : (
 				<div className={styles.guestButtons}>

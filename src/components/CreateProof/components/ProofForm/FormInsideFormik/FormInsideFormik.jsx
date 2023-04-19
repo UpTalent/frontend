@@ -3,28 +3,20 @@ import React, { useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
-import { proofAPI } from '../../../../../api/proofAPI';
 import { useNavigate, useParams } from 'react-router-dom';
-import { setSystemMessage } from '../../../../../redux/reducers/systemMessages';
-import {
-	getProofError,
-	getTalentsProofs,
-} from '../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../redux/store';
 import {
-	clearProof,
+	createDraftProof,
 	editProof,
 	publishDraftProof,
 } from '../../../../../redux/reducers/proof';
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
-import { useSelector } from 'react-redux';
 
 export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
-	const serverError = useSelector(getProofError);
 	const { talentId } = useParams();
 	const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -40,26 +32,12 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 		saveProof({ ...proof, [name]: value });
 	};
 
-	const createProofInForm = async data => {
-		try {
-			await proofAPI.createProof(talentId, data);
-			dispatch(setSystemMessage(true, 'Proof was successfully created'));
-			dispatch(clearProof());
-			updateList('DRAFT');
-			navigate(-1);
-		} catch (err) {
-			setError(err.message);
-		}
-	};
-
-	const updateList = status => {
-		const data = { talentId, status };
-		dispatch(getTalentsProofs(data));
-	};
-
 	const submitHandler = () => {
 		if (mode === 'create') {
-			createProofInForm({ ...values, status: 'DRAFT' });
+			dispatch(
+				createDraftProof({ talentId, data: { ...values, status: 'DRAFT' } }),
+			);
+			// navigate(`/talent/${talentId}/proofs?page=1&filter=DRAFT`);
 		} else if (mode === 'edit') {
 			const data = {
 				talentId,
@@ -68,8 +46,8 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 				status: 'DRAFT',
 			};
 			dispatch(editProof(data));
-			navigate(-1);
 		}
+		navigate(`/talent/${talentId}/proofs?page=1&filter=DRAFT`);
 	};
 
 	const publishHandler = () => {
@@ -81,7 +59,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 				status: 'PUBLISHED',
 			};
 			dispatch(editProof(data));
-			navigate(-1);
+			navigate(`/talent/${talentId}/proofs?page=1&filter=PUBLISHED`);
 		} else if (mode === 'create') {
 			dispatch(
 				publishDraftProof({
@@ -89,10 +67,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 					draftProof: { ...proof, status: 'DRAFT' },
 				}),
 			);
-			//do something
-			if (!serverError) {
-				navigate(-1);
-			}
+			navigate(`/talent/${talentId}/proofs?page=1&filter=PUBLISHED`);
 		}
 	};
 

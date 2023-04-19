@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import './App.css';
-import { Header } from './components/Header/Header';
-import { Footer } from './components/Footer/Footer';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 import { RegistrationForm } from './components/RegistrationForm';
 import { LoginForm } from './components/LoginForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { authApp, getIsPending } from './redux/reducers/authentification';
 import { Loader } from './components/shared/Loader';
+import { PopUpMessage } from './components/shared/PopUpMessage';
 
 const App = () => {
 	const location = useLocation();
@@ -27,6 +28,7 @@ const App = () => {
 						<Outlet />
 						{location.pathname.endsWith('/register') && <RegistrationForm />}
 						{location.pathname.endsWith('/login') && <LoginForm />}
+						<PopUpMessage />
 					</div>
 					<Footer />
 				</>

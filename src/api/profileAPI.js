@@ -22,7 +22,7 @@ export const profileAPI = {
                 }
             });
         } catch (error) {
-            throw new Error(error.response.data.message);
+            throw new Error(error.response.data.error);
         }
     },
 

@@ -46,9 +46,14 @@ export const CreateProof = () => {
 			proof={proof}
 			updateTempProof={setProof}
 			mode={mode}
-			setError={(value) => dispatch(setError(value))}
+			setError={value => dispatch(setError(value))}
 		/>,
-		<Proof proof={proof} withContent={true} showControlls={false} />,
+		<Proof
+			proof={proof}
+			withContent={true}
+			showControlls={false}
+			inForm={true}
+		/>,
 	];
 
 	return (

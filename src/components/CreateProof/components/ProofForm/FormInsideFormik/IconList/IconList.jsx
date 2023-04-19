@@ -52,10 +52,11 @@ export const IconList = ({
 						boxShadow: 'none',
 					},
 				}}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+				transformOrigin={{ vertical: 'top', horizontal: 'center' }}
 				MenuListProps={{
 					style: {
-						maxHeight: '400px',
-						overflowY: 'scroll',
+						maxHeight: '380px',
 					},
 				}}
 			>
