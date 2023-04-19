@@ -5,7 +5,13 @@ import { ProofTitle } from './components/ProofTitle';
 import { ProofSummary } from './components/ProofSummary/ProofSummary';
 import { ProofBody } from './components/ProofBody/ProofBody';
 
-export const Proof = ({ proof, withContent, showControlls, className, inForm=false }) => {
+export const Proof = ({
+	proof,
+	withContent,
+	showControlls,
+	className,
+	inForm = false,
+}) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
 	const handleAccordionClick = () => {
 		setIsAccordionOpen(!isAccordionOpen);
@@ -36,6 +42,10 @@ export const Proof = ({ proof, withContent, showControlls, className, inForm=fal
 							showControlls={showControlls}
 							openContent={handleAccordionClick}
 							proofId={proof.id}
+							// is_pressed={proof.is_pressed}
+							is_pressed={false}
+							// amount = {proof.kudos}
+							amount={10}
 						/>
 					</AccordionSummary>
 					<AccordionDetails>
