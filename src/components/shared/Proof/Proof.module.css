@@ -74,7 +74,6 @@
 
 .status {
 	text-transform: lowercase;
-	align-self: end;
 	border-radius: 30px;
 	padding: 5px 10px;
 	color: rgba(97, 97, 97, 1);
@@ -97,3 +96,9 @@
 	font-weight: 200;
 }
 
+.bottomPanel {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 10px 10px 0 10px;
+}
