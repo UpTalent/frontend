@@ -16,7 +16,7 @@ export const PhotoBlock = ({
 }) => {
 	const [loadAvatar, setLoadAvatar] = useState(false);
 	const [loadBanner, setLoadBanner] = useState(false);
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
 	const getFileFromUser = async (photo, operation) => {
 		operation === 'UPLOAD_AVATAR' ? setLoadAvatar(true) : setLoadBanner(true);
@@ -33,7 +33,7 @@ export const PhotoBlock = ({
 				}
 			}
 		} catch (err) {
-			dispatch(setSystemMessage(true, err.message, 'error'))
+			dispatch(setSystemMessage(true, err.message, 'error'));
 		}
 		operation === 'UPLOAD_AVATAR' ? setLoadAvatar(false) : setLoadBanner(false);
 	};
@@ -45,29 +45,31 @@ export const PhotoBlock = ({
 				isFetching={loadBanner}
 			/>
 			<div className={styles.photoName}>
-				<TalentAvatar
-					photo={talent.avatar}
-					additionalStyle={styles.profilePhoto}
-					isFetching={loadAvatar}
-				/>
+				<div className={styles.photo}>
+					<TalentAvatar
+						photo={talent.avatar}
+						additionalStyle={styles.profilePhoto}
+						isFetching={loadAvatar}
+					/>
+					{isTalentProfile && (
+						<Tooltip title='Change photo'>
+							<label
+								htmlFor='avatar'
+								className={`${styles.pencil} ${styles.toPhoto}`}
+							>
+								<input
+									id='avatar'
+									type={'file'}
+									onChange={file => getFileFromUser(file, 'UPLOAD_AVATAR')}
+								/>
+								<CreateOutlinedIcon />
+							</label>
+						</Tooltip>
+					)}
+				</div>
 				<p
 					className={styles.profileName}
 				>{`${talent.firstname} ${talent.lastname}`}</p>
-				{isTalentProfile && (
-					<Tooltip title='Change photo'>
-						<label
-							htmlFor='avatar'
-							className={`${styles.pencil} ${styles.toPhoto}`}
-						>
-							<input
-								id='avatar'
-								type={'file'}
-								onChange={file => getFileFromUser(file, 'UPLOAD_AVATAR')}
-							/>
-							<CreateOutlinedIcon />
-						</label>
-					</Tooltip>
-				)}
 			</div>
 			{isTalentProfile && (
 				<label htmlFor='banner' className={styles.toBanner}>
