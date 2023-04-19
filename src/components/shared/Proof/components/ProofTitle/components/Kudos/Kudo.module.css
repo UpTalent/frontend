@@ -18,5 +18,5 @@
 }
 
 .isPres {
-    color: #0A3586;
+    color: var(--secondary);
 }

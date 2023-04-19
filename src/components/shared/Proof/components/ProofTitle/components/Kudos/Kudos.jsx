@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Kudo.module.css';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
 import { useDispatch } from 'react-redux';
@@ -11,7 +11,6 @@ export const Kudos = ({ is_pressed, amount }) => {
 	const dispatch = useDispatch();
 
 	const handelClick = () => {
-		console.log('I work');
 		if (!isPres) {
 			setCount(prev => prev + 1);
 			setIsPres(true);
@@ -22,17 +21,10 @@ export const Kudos = ({ is_pressed, amount }) => {
 
 	return (
 		<div className={styles.background} onClick={handelClick}>
-			{isPres ? (
-				<>
-					<img src={presCat} className={styles.presCat} alt='Cat' />
-					<div className={styles.isPres}>{count} KUDO</div>
-				</>
-			) : (
-				<>
-					<img src={notPresCat} alt='notPresCat' />
-					<div className={styles.notPres}>{count} KUDO</div>
-				</>
-			)}
+			<img src={isPres ? presCat : notPresCat} alt='cat' />
+			<div className={isPres ? styles.isPres : styles.notPres}>
+				{count} KUDO
+			</div>
 		</div>
 	);
 };
