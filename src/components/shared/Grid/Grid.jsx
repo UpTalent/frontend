@@ -7,11 +7,12 @@ export const PagesGrid = ({ gridItems, total_pages }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const page = Number(searchParams.get('page')) > 0 ? Number(searchParams.get('page')) : 1;
+	const sort = searchParams.get('sort');
 
 	const [currentPage, setCurrentPage] = useState(page);
 
 	const changePage = (e, page) => {
-		setSearchParams({ page });
+		sort ? setSearchParams({ page, sort }) : setSearchParams({ page });
 		setCurrentPage(page);
 	};
 

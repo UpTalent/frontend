@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useStoreDispatch } from '../redux/store';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ import { CircularProgress } from '@mui/material';
 
 export const withURL = (Component, getList, nameList) => () => {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [alignment, setAlignment] = useState('desc');
 	const dispatch = useStoreDispatch();
 
 	const total_pages = useSelector(getGridTotalPages);
@@ -20,24 +19,25 @@ export const withURL = (Component, getList, nameList) => () => {
 	const gridItems = useSelector(getGridItem);
 
 	const urlPage = Number(searchParams.get('page')) || 1;
-
-	const additionalParams = {
-		urlPage,
-		setSearchParams,
-		alignment,
-		setAlignment,
-	};
+	const value = searchParams.get('sort') || 'desc';
+	const data =
+		nameList === 'proofs'
+			? { page: urlPage - 1, alignment: value }
+			: urlPage - 1;
 
 	useEffect(() => {
-		const data =
-			nameList === 'talents' ? urlPage - 1 : { page: urlPage - 1, alignment };
 		dispatch(getList(data));
+		nameList === 'proofs' && setSearchParams({ page: urlPage, sort: value });
 		return () => dispatch(clearList());
-	}, [urlPage, alignment]);
+	}, [urlPage]);
 
 	useEffect(() => {
-		if (urlPage < 0 || (total_pages < urlPage && total_pages !== 0)) {
-			setSearchParams({ page: '1' });
+		if (
+			urlPage < 0 ||
+			(total_pages < urlPage && total_pages !== 0) ||
+			!['desc', 'asc'].includes(value)
+		) {
+			setSearchParams({ page: '1', sort: 'desc' });
 		}
 	});
 
@@ -48,7 +48,7 @@ export const withURL = (Component, getList, nameList) => () => {
 					<CircularProgress />
 				</div>
 			) : (
-				<Component total_pages={total_pages} {...additionalParams} />
+				<Component total_pages={total_pages} getProofs={getList} />
 			)}
 		</>
 	);
