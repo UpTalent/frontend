@@ -12,7 +12,6 @@ import {
 import { FilterStatus } from './components/FilterStatus';
 import { useSelector } from 'react-redux';
 import {
-	getListStatus,
 	getProofList,
 	getProofsCurrentPage,
 	getProofsTotalPages,
@@ -32,7 +31,6 @@ export const Proofs = () => {
 	const isFetching = useSelector(proofsPendingStatus);
 	const total_pages = useSelector(getProofsTotalPages);
 	const currentPage = useSelector(getProofsCurrentPage);
-	const status = useSelector(getListStatus);
 	const dispatch = useStoreDispatch();
 
 	const modalPathname = useModalPathname();
@@ -46,11 +44,13 @@ export const Proofs = () => {
 	};
 
 	useEffect(() => {
-		getProofs();
+		const page = urlPage - 1;
+		getProofs(filter, page);
+		
 		return () => {
 			dispatch(resetList());
 		};
-	}, [talentId]);
+	}, [talentId, searchParams.get('filter'), urlPage]);
 
 	useEffect(() => {
 		if (urlPage < 0 || (total_pages < urlPage && total_pages !== 0)) {
@@ -60,20 +60,6 @@ export const Proofs = () => {
 			});
 		}
 	});
-
-	useEffect(() => {
-		const page = urlPage - 1;
-		getProofs(filter, page);
-	}, [searchParams.get('filter'), urlPage]);
-
-	useEffect(() => {
-		if (filter !== status) {
-			setSearchParams({
-				page: 1,
-				filter: status,
-			});
-		}
-	}, [status]);
 
 	return (
 		<>

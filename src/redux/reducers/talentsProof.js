@@ -8,25 +8,21 @@ const initialState = {
 	currentPage: 1,
 	isFetching: false,
 	error: null,
-	status: 'PUBLISHED',
 };
 
 export const getTalentsProofs = createAsyncThunk(
 	'getTalentsProofs',
 	async (params, thunkAPI) => {
 		try {
-			const { talentId, page } = params;
-			let { status } = params;
-			if (!status) {
-				status = thunkAPI.getState().talentsProofs.status;
-			}
+			const { talentId, page, status } = params;
+
 			const formatPage = page >= 0 ? page : 0;
 			const { data } = await proofAPI.getTalentProofs(
 				talentId,
 				formatPage,
 				status,
 			);
-			return { ...data, formatPage, status };
+			return { ...data, formatPage };
 		} catch (error) {
 			thunkAPI.dispatch(setSystemMessage(true, error.message, 'error'));
 			return thunkAPI.rejectWithValue(error.message);
@@ -58,7 +54,6 @@ const proofsSlice = createSlice({
 				state.proofsList = action.payload.content;
 				state.total_pages = action.payload.total_pages;
 				state.isFetching = false;
-				state.status = action.payload.status;
 				state.currentPage = action.payload.formatPage + 1;
 			})
 			.addCase(getTalentsProofs.pending, state => {
@@ -75,7 +70,6 @@ export const getProofsTotalPages = state => state.talentsProofs.total_pages;
 export const getProofsCurrentPage = state => state.talentsProofs.currentPage;
 export const proofsPendingStatus = state => state.talentsProofs.isFetching;
 export const getProofError = state => state.talentsProofs.error;
-export const getListStatus = state => state.talentsProofs.status;
 
 export const { deleteProofFromList, setCurrentPage, resetList } =
 	proofsSlice.actions;

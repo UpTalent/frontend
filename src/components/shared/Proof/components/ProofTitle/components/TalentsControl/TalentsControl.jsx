@@ -57,7 +57,7 @@ export const TalentsControl = ({ status, proofId }) => {
 		}
 	};
 	const deleteTalentProof = () => {
-		dispatch(deleteProof({ talentId, proofId }));
+		dispatch(deleteProof({ talentId, proofId, status }));
 	};
 
 	const changeVisibility = status => {
