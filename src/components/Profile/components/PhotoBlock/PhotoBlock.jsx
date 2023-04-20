@@ -29,6 +29,7 @@ export const PhotoBlock = ({
 				);
 				if (status === 200) {
 					const { data } = await profileAPI.getTalent(talentId);
+					console.log(data);
 					setTalent(data);
 					dispatch(setSystemMessage(true, 'Your photo was successfully updated'));
 				}
