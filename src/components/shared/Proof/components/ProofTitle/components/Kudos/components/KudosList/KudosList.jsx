@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './KudosList.module.css';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import {
+	Dialog,
+	DialogContent,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TablePagination,
+	TableRow,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { KudosListItem } from '../KudosListItem/KudosListItem';
 
 export const KudosList = ({
 	kudosList,
@@ -11,7 +22,12 @@ export const KudosList = ({
 }) => {
 	const closeHandler = () => {
 		setOpenList(false);
-		console.log(openList);
+	};
+
+	const [page, setPage] = useState(0);
+
+	const handleChangePage = (event, newPage) => {
+		setPage(newPage);
 	};
 
 	return (
@@ -19,19 +35,32 @@ export const KudosList = ({
 			open={openList}
 			onClose={closeHandler}
 			aria-labelledby='alert-dialog-title'
-			// sx={{
-			// 	'& .MuiPaper-root': {
-			// 		minHeight: '300px',
-			// 		borderRadius: '10px',
-			// 		justifyContent: 'space-around',
-			// 	},
-			// }}
+			sx={{
+				'& .MuiPaper-root': {
+					minHeight: '500px',
+					borderRadius: '10px',
+					width: 'auto'
+				},
+			}}
 		>
-			<DialogTitle id='alert-dialog-title'>
-				<p>ARE YOU SURE?</p>
-			</DialogTitle>
 			<DialogContent>
-				<div>List of talents that kudosed this proof</div>
+				<Table className={styles.tableContainer}>
+					<TableHead className={styles.head} sx={{
+						'& .MuiTableHead-root': {
+							borderRadius: '15px'
+						}
+					}}>
+						<TableRow>
+							{Object.keys(kudosList[0]).map(el => (
+								<TableCell key={el.sent}>{el.toUpperCase()}</TableCell>
+							))}
+						</TableRow>
+					</TableHead>
+					<TableBody className={styles.body}>
+						{kudosList.length !== 0 &&
+							kudosList.map(el => <KudosListItem key={el.sent} {...el} />)}
+					</TableBody>
+				</Table>
 			</DialogContent>
 			<CloseIcon className={styles.closeIcon} onClick={closeHandler} />
 		</Dialog>

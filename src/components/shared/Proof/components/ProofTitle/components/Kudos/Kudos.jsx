@@ -6,6 +6,7 @@ import { ReactComponent as NotPresCat } from '../../../../../../../assets/notPre
 import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
+import { KudosList } from './components/KudosList';
 
 export const Kudos = memo(
 	({ is_pressed, kudos, getKudoList, addKudos, kudosList }) => {
@@ -14,13 +15,11 @@ export const Kudos = memo(
 		const dispatch = useDispatch();
 		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
 		const formatNumber = formatter.format(kudos);
-
+		const [count, setCount] = useState(formatNumber);
 		const [openList, setOpenList] = useState(false);
 
 		// const isTalentProfile = useIsTalentProfile();
-		const isTalentProfile = false;
-
-		const [count, setCount] = useState(formatNumber);
+		const isTalentProfile = true;
 
 		let confettiInstance;
 
@@ -55,7 +54,7 @@ export const Kudos = memo(
 		};
 
 		return (
-			<>
+			<div>
 				<div className={styles.background} onClick={handelClick}>
 					<div className={styles.kitty}>
 						<NotPresCat
@@ -82,8 +81,8 @@ export const Kudos = memo(
 						className={styles.confetti}
 					/>
 				</div>
-				<Kudos {...{ kudosList, getKudoList, openList, setOpenList }} />
-			</>
+				<KudosList {...{ kudosList, getKudoList, openList, setOpenList }} />
+			</div>
 		);
 	},
 );
