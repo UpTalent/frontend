@@ -1,5 +1,6 @@
 import { Avatar, TableCell, TableRow } from '@mui/material';
 import React from 'react';
+import cat from '../../../../../../../../../assets/cat.png'
 
 export const KudosListItem = ({ photo, firstname, lastname, sent, kudos }) => {
 	const formatDate = dateString => {
@@ -18,12 +19,12 @@ export const KudosListItem = ({ photo, firstname, lastname, sent, kudos }) => {
 	return (
 		<TableRow>
 			<TableCell>
-				<Avatar src={photo} />
+				<Avatar src={photo || cat} />
 			</TableCell>
 			<TableCell>{firstname}</TableCell>
 			<TableCell>{lastname}</TableCell>
+			<TableCell align='center'>{kudos}</TableCell>
 			<TableCell>{formatDate(sent)}</TableCell>
-			<TableCell>{kudos}</TableCell>
 		</TableRow>
 	);
 };

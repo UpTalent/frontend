@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './KudosList.module.css';
 import {
 	Dialog,
@@ -8,7 +8,6 @@ import {
 	TableCell,
 	TableContainer,
 	TableHead,
-	TablePagination,
 	TableRow,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -31,33 +30,30 @@ export const KudosList = ({
 			aria-labelledby='alert-dialog-title'
 			sx={{
 				'& .MuiPaper-root': {
-					minHeight: '500px',
+					minHeight: '600px',
 					borderRadius: '10px',
-					width: 'auto',
+					minWidth: '600px',
 				},
 			}}
 		>
-			<DialogContent>
-				<Table className={styles.tableContainer}>
-					<TableHead
-						className={styles.head}
-						sx={{
-							'& .MuiTableHead-root': {
-								borderRadius: '15px',
-							},
-						}}
-					>
-						<TableRow>
-							{Object.keys(kudosList[0]).map(el => (
-								<TableCell key={el.sent}>{el.toUpperCase()}</TableCell>
-							))}
-						</TableRow>
-					</TableHead>
-					<TableBody className={styles.body}>
-						{kudosList.length !== 0 &&
-							kudosList.map(el => <KudosListItem key={el.sent} {...el} />)}
-					</TableBody>
-				</Table>
+			<DialogContent className={styles.dialog}>
+				<TableContainer sx={{ maxHeight: 600 }}>
+					<Table stickyHeader>
+						<TableHead>
+							<TableRow>
+								{Object.keys(kudosList[0]).map(el => (
+									<TableCell align='center' key={el.sent}>
+										{el.toUpperCase()}
+									</TableCell>
+								))}
+							</TableRow>
+						</TableHead>
+						<TableBody className={styles.body}>
+							{kudosList.length !== 0 &&
+								kudosList.map(el => <KudosListItem key={el.sent} {...el} />)}
+						</TableBody>
+					</Table>
+				</TableContainer>
 			</DialogContent>
 			<CloseIcon className={styles.closeIcon} onClick={closeHandler} />
 		</Dialog>

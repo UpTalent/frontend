@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
-.head th {
-    background-color: var(--primary);
+.dialog th {
     color: #fff;
+    background-color: var(--primary);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
 }
 
 .body td {
     border-bottom: 1px solid var(--primary);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
 }
 
 .closeIcon {
@@ -14,5 +18,5 @@
     top: 10px;
     right: 10px;
     cursor: pointer;
-    z-index: 3000;
+    z-index: 1000;
 }
