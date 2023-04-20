@@ -71,8 +71,8 @@ export const Home = () => {
 			<Proof proof={testProof} withContent={true} showControlls={true} />
 			<Proof proof={testProof} withContent={false} />
 			<Proof proof={testProof} withContent={true} showControlls={false} />
-			<TalentsSlider />
-			<ProofSlider />
+			{/* <TalentsSlider />
+			<ProofSlider /> */}
 		</>
 	);
 };
