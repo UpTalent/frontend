@@ -51,6 +51,14 @@
 .summary {
 	padding: 10px 20px;
 	width: 100%;
+	height: 60%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.summary > div:last-child {
+	align-self: flex-end;
 }
 
 .timeStamp {

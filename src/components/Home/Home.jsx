@@ -11,6 +11,7 @@ import {
 import { TalentsSlider } from './components/TalentsSlider';
 import { ProofSlider } from './components/ProofSlider/ProofSlider';
 import { useModalPathname } from '../../hooks/useModalPathname';
+import { Proof } from '../shared/Proof';
 
 export const Home = () => {
 	const isTalent = useSelector(getIsAuth);
@@ -19,9 +20,20 @@ export const Home = () => {
 	const navigate = useNavigate();
 	const modalPathname = useModalPathname();
 
+	const testProof = {
+		title: 'HELLO WORLD',
+		summary: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis,',
+		content: 'sdfhjkekjhfjefgr',
+		icon_number: 3,
+		published: "2023-04-20T10:52:58.454Z",
+		status: 'PUBLISHED',
+		kudos: 10,
+		is_pressed: false
+	}
+
 	return (
 		<>
-			<div className={styles.container}>
+			{/* <div className={styles.container}>
 				<div className={styles.water}>
 					<div className={styles.waterLeftside}>
 						<h1 className={styles.waterHeader}>
@@ -55,7 +67,10 @@ export const Home = () => {
 						/>
 					</div>
 				</div>
-			</div>
+			</div> */}
+			<Proof proof={testProof} withContent={true} showControlls={true} />
+			<Proof proof={testProof} withContent={false} />
+			<Proof proof={testProof} withContent={true} showControlls={false} />
 			<TalentsSlider />
 			<ProofSlider />
 		</>
