@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import styles from './Kudo.module.css';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
 import { useDispatch } from 'react-redux';
@@ -18,12 +18,11 @@ export const Kudos = ({ is_pressed, amount }) => {
 
 	let confettiInstance;
 
-	const getInstance = useCallback(
-		instance => {
-			confettiInstance = instance;
-		},
-		[confettiInstance],
-	);
+	const getInstance = useCallback(instance => {
+		confettiInstance = instance;
+	}, []);
+
+	const instance = useMemo(() => getInstance, []);
 
 	const handelClick = () => {
 		if (!isPres) {
@@ -62,10 +61,7 @@ export const Kudos = ({ is_pressed, amount }) => {
 				alt='paw'
 				className={`${isActive && styles.animation} ${styles.paw}`}
 			/>
-			<ReactCanvasConfetti
-				refConfetti={getInstance}
-				className={styles.confetti}
-			/>
+			<ReactCanvasConfetti refConfetti={instance} className={styles.confetti} />
 		</div>
 	);
 };
