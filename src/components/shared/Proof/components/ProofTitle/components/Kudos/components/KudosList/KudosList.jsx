@@ -24,12 +24,6 @@ export const KudosList = ({
 		setOpenList(false);
 	};
 
-	const [page, setPage] = useState(0);
-
-	const handleChangePage = (event, newPage) => {
-		setPage(newPage);
-	};
-
 	return (
 		<Dialog
 			open={openList}
@@ -39,17 +33,20 @@ export const KudosList = ({
 				'& .MuiPaper-root': {
 					minHeight: '500px',
 					borderRadius: '10px',
-					width: 'auto'
+					width: 'auto',
 				},
 			}}
 		>
 			<DialogContent>
 				<Table className={styles.tableContainer}>
-					<TableHead className={styles.head} sx={{
-						'& .MuiTableHead-root': {
-							borderRadius: '15px'
-						}
-					}}>
+					<TableHead
+						className={styles.head}
+						sx={{
+							'& .MuiTableHead-root': {
+								borderRadius: '15px',
+							},
+						}}
+					>
 						<TableRow>
 							{Object.keys(kudosList[0]).map(el => (
 								<TableCell key={el.sent}>{el.toUpperCase()}</TableCell>
