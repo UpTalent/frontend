@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import styles from './Kudo.module.css';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
 import { useDispatch } from 'react-redux';
@@ -7,12 +7,12 @@ import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 
-export const Kudos = ({ is_pressed, amount }) => {
+export const Kudos = memo(({ is_pressed, kudos, getKudoList, addKudos }) => {
 	const [isPres, setIsPres] = useState(is_pressed);
 	const [isActive, setIsActive] = useState(false);
 	const dispatch = useDispatch();
 	const formatter = Intl.NumberFormat('en', { notation: 'compact' });
-	const formatNumber = formatter.format(amount);
+	const formatNumber = formatter.format(kudos);
 
 	const [count, setCount] = useState(formatNumber);
 
@@ -24,21 +24,26 @@ export const Kudos = ({ is_pressed, amount }) => {
 
 	const instance = useMemo(() => getInstance, []);
 
-	const handelClick = () => {
+	const handelClick = async () => {
 		if (!isPres) {
-			const newCount = formatter.format(amount + 1);
-			setCount(newCount);
-			setIsPres(true);
-			setIsActive(true);
+			try {
+				// await addKudos();
+				setIsPres(true);
+				setIsActive(true);
+				setTimeout(() => {
+					setIsActive(false);
+					const newCount = formatter.format(kudos + 1);
+					setCount(newCount);
+					confettiInstance({
+						startVelocity: 15,
+					});
+				}, 1000);
+			} catch (err) {
+				console.log(err);
+			}
 		} else {
 			dispatch(setSystemMessage(true, 'Your already put kudos', 'error'));
 		}
-		setTimeout(() => {
-			setIsActive(false);
-			confettiInstance({
-				startVelocity: 15,
-			});
-		}, 1000);
 	};
 
 	return (
@@ -64,4 +69,4 @@ export const Kudos = ({ is_pressed, amount }) => {
 			<ReactCanvasConfetti refConfetti={instance} className={styles.confetti} />
 		</div>
 	);
-};
+});
