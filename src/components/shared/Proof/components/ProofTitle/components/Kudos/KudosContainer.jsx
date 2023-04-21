@@ -24,6 +24,15 @@ export const KudosContainer = memo(({ kudosed_by_me, kudos, proofId }) => {
 	};
 
 	return (
-		<Kudos {...{ kudosed_by_me, kudos, getKudoList, addKudos, kudosList, isAuth }} />
+		<Kudos
+			{...{
+				kudosed_by_me,
+				kudos,
+				getKudoList,
+				addKudos,
+				isAuth,
+				kudosList,
+			}}
+		/>
 	);
 });

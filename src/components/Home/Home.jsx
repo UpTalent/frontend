@@ -43,7 +43,10 @@ export const Home = () => {
 							}}
 						>
 							Get started
-						<span></span><span></span><span></span><span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
 						</Button>
 					</div>
 
