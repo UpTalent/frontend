@@ -4,7 +4,7 @@ import { ProofIcons } from '../../../../../assets/static/ProofIcons';
 import { TimeStapm } from './components/TimeStamp';
 import { TalentsControl } from './components/TalentsControl';
 import { ReactFitty } from 'react-fitty';
-import { Kudos } from './components/Kudos';
+import { KudosContainer } from './components/Kudos';
 
 export const ProofTitle = ({
 	title,
@@ -13,15 +13,18 @@ export const ProofTitle = ({
 	status,
 	showControlls,
 	openContent,
-	proofId,
-	is_pressed,
-	amount,
+	id,
+	kudosed_by_me,
+	kudos,
+	withContent,
 }) => {
 	return (
 		<div className={styles.ProofTitle}>
 			<div className={styles.controls}>
 				<TimeStapm published={published} />
-				{showControlls && <TalentsControl status={status} proofId={proofId} />}
+				{withContent && showControlls && (
+					<TalentsControl status={status} proofId={id} />
+				)}
 			</div>
 			<div className={styles.title} onClick={openContent}>
 				<img
@@ -33,8 +36,10 @@ export const ProofTitle = ({
 				</ReactFitty>
 			</div>
 			<div className={styles.bottomPanel}>
-				<Kudos is_pressed={is_pressed} amount={amount} />
-				{showControlls && (
+				{withContent && (
+					<KudosContainer {...{ kudosed_by_me, kudos }} proofId={id} />
+				)}
+				{withContent && showControlls && (
 					<div className={`${styles.status} ${styles[status]}`}>
 						<p>{status}</p>
 					</div>

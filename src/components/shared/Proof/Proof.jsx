@@ -35,17 +35,10 @@ export const Proof = ({
 						}}
 					>
 						<ProofTitle
-							icon_number={proof.icon_number}
-							title={proof.title}
-							published={proof.published}
-							status={proof.status}
 							showControlls={showControlls}
 							openContent={handleAccordionClick}
-							proofId={proof.id}
-							// is_pressed={proof.is_pressed}
-							is_pressed={false}
-							// amount = {proof.kudos}
-							amount={10}
+							withContent={withContent}
+							{...proof}
 						/>
 					</AccordionSummary>
 					<AccordionDetails>
@@ -62,7 +55,14 @@ export const Proof = ({
 						status={proof.status}
 						showControlls={showControlls}
 					/>
-					<ProofSummary summary={proof.summary} />
+					<ProofSummary
+						summary={proof.summary}
+						withKudos={true}
+						kudos={proof.kudos}
+						is_pressed={proof.is_pressed}
+						proofId={proof.id}
+						kudosed_by_me={proof.kudosed_by_me}
+					/>
 				</div>
 			)}
 		</div>

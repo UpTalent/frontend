@@ -7,7 +7,6 @@ import { Banner } from '../../../shared/Banner';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getIsAuth } from '../../../../redux/reducers/authentification';
-import { Kudos } from '../../../shared/Proof/components/ProofTitle/components/Kudos';
 
 export const GeneralTalent = ({ talent }) => {
 	const isTalent = useSelector(getIsAuth);
@@ -44,7 +43,6 @@ export const GeneralTalent = ({ talent }) => {
 						Check Profile
 					</Button>
 				)}
-				<Kudos is_pressed={false} amount={19499}/>
 			</div>
 		</div>
 	);

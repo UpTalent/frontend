@@ -1,1 +1,1 @@
-export { Kudos } from './Kudos';
+export { KudosContainer } from './KudosContainer';

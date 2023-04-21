@@ -96,7 +96,6 @@ export const EditProfile = ({ talent, setTalent }) => {
 							}}
 							multiple
 							limitTags={3}
-							freeSolo
 							fullWidth
 							onChange={(e, value) => {
 								setFieldValue('skills', value);

@@ -16,8 +16,12 @@
 	align-items: flex-start;
 }
 
-.background:hover {
-	background-color: rgba(72, 189, 226, 0.25);
+.disabled{
+	cursor: default;
+}
+
+.background:hover:not(.disabled) {
+	background-color: rgba(225, 225, 225, 0.7);;
 }
 
 .cat {

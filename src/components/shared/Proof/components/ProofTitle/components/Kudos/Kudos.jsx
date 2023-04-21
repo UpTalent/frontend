@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import styles from './Kudo.module.css';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
 import { useDispatch } from 'react-redux';
@@ -7,61 +7,74 @@ import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 
-export const Kudos = ({ is_pressed, amount }) => {
-	const [isPres, setIsPres] = useState(is_pressed);
-	const [isActive, setIsActive] = useState(false);
-	const dispatch = useDispatch();
-	const formatter = Intl.NumberFormat('en', { notation: 'compact' });
-	const formatNumber = formatter.format(amount);
+export const Kudos = memo(
+	({ kudosed_by_me, kudos, getKudoList, addKudos, isAuth }) => {
+		const [isPres, setIsPres] = useState(kudosed_by_me);
+		const disabled = isPres || !isAuth ? styles.disabled : null;
+		const [isActive, setIsActive] = useState(false);
+		const dispatch = useDispatch();
+		
+		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
+		const formatNumber = formatter.format(kudos);
 
-	const [count, setCount] = useState(formatNumber);
+		const [count, setCount] = useState(formatNumber);
 
-	let confettiInstance;
+		let confettiInstance;
 
-	const getInstance = useCallback(instance => {
-		confettiInstance = instance;
-	}, []);
+		const getInstance = useCallback(instance => {
+			confettiInstance = instance;
+		}, []);
 
-	const instance = useMemo(() => getInstance, []);
+		const instance = useMemo(() => getInstance, []);
 
-	const handelClick = () => {
-		if (!isPres) {
-			const newCount = formatter.format(amount + 1);
-			setCount(newCount);
-			setIsPres(true);
-			setIsActive(true);
-		} else {
-			dispatch(setSystemMessage(true, 'Your already put kudos', 'error'));
-		}
-		setTimeout(() => {
-			setIsActive(false);
-			confettiInstance({
-				startVelocity: 15,
-			});
-		}, 1000);
-	};
+		const handelClick = async () => {
+			try {
+				await addKudos();
+				setIsPres(true);
+				setIsActive(true);
+				setTimeout(() => {
+					setIsActive(false);
+					const newCount = formatter.format(kudos + 1);
+					setCount(newCount);
+					confettiInstance({
+						startVelocity: 15,
+					});
+				}, 1000);
+			} catch (error) {
+				dispatch(setSystemMessage(true, error.message, 'error'));
+			}
+		};
 
-	return (
-		<div className={styles.background} onClick={handelClick}>
-			<div className={styles.kitty}>
-				<NotPresCat className={`${styles.cat} ${isPres && styles.isPressed}`} />
+		return (
+			<div
+				className={`${styles.background} ${disabled}`}
+				onClick={disabled ? null : handelClick}
+			>
+				<div className={styles.kitty}>
+					<NotPresCat
+						className={`${styles.cat} ${isPres && styles.isPressed}`}
+					/>
+					<img
+						src={tick}
+						className={`${isActive && styles.animation} ${
+							isPres && !isActive ? styles.pressedTick : styles.tick
+						}`}
+						alt='tick'
+					/>
+				</div>
+				<div className={isPres ? styles.isPres : styles.notPres}>
+					{count} KUDO
+				</div>
 				<img
-					src={tick}
-					className={`${isActive && styles.animation} ${
-						isPres && !isActive ? styles.pressedTick : styles.tick
-					}`}
-					alt='tick'
+					src={paw}
+					alt='paw'
+					className={`${isActive && styles.animation} ${styles.paw}`}
+				/>
+				<ReactCanvasConfetti
+					refConfetti={instance}
+					className={styles.confetti}
 				/>
 			</div>
-			<div className={isPres ? styles.isPres : styles.notPres}>
-				{count} KUDO
-			</div>
-			<img
-				src={paw}
-				alt='paw'
-				className={`${isActive && styles.animation} ${styles.paw}`}
-			/>
-			<ReactCanvasConfetti refConfetti={instance} className={styles.confetti} />
-		</div>
-	);
-};
+		);
+	},
+);
