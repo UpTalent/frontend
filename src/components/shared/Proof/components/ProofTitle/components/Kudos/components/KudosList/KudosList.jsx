@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { KudosListItem } from '../KudosListItem/KudosListItem';
+import sadcat from '../../../../../../../../../assets/sadcat.png';
 
 export const KudosList = ({ kudosList, openList, setOpenList }) => {
 	const closeHandler = () => {
@@ -26,21 +27,21 @@ export const KudosList = ({ kudosList, openList, setOpenList }) => {
 			sx={{
 				'& .MuiPaper-root': {
 					borderRadius: '10px',
-					minWidth: '600px',
+					maxWidth: '100%',
 				},
 			}}
 		>
 			<DialogContent className={styles.dialog}>
 				{kudosList.length ? (
-					<TableContainer sx={{ maxHeight: 600 }}>
+					<TableContainer sx={{ maxHeight: 600, margin: '10px' }}>
 						<Table stickyHeader>
 							<TableHead>
 								<TableRow>
-									{Object.keys(kudosList[0]).map(el => (
-										<TableCell align='center' key={el.sent}>
-											{el.toUpperCase()}
-										</TableCell>
-									))}
+									<TableCell></TableCell>
+									<TableCell>FIRSTNAME</TableCell>
+									<TableCell>LASTNAME</TableCell>
+									<TableCell>KUDOS</TableCell>
+									<TableCell>TIME</TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody className={styles.body}>
@@ -50,7 +51,10 @@ export const KudosList = ({ kudosList, openList, setOpenList }) => {
 						</Table>
 					</TableContainer>
 				) : (
-					<p className={styles.NonKudo}>No one put kudos on your proof</p>
+					<>
+						<img src={sadcat} alt='sad cat' style={{ height: '50px' }} />
+						<p>Nobody put kudos on your proof</p>
+					</>
 				)}
 			</DialogContent>
 			<CloseIcon className={styles.closeIcon} onClick={closeHandler} />

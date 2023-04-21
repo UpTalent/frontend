@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
-/* .dialog {
-    display:flex;
-} */
+.dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
 .dialog th {
     color: #fff;

@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import styles from './Kudo.module.css';
-import { useDispatch } from 'react-redux';
 import { ReactComponent as NotPresCat } from '../../../../../../../assets/notPressedCat.svg';
 import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
@@ -12,7 +11,6 @@ export const Kudos = memo(
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
 		const disabled = isPres || !isAuth ? styles.disabled : null;
-		const dispatch = useDispatch();
 		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
 		const formatNumber = formatter.format(kudos);
 		const [count, setCount] = useState(formatNumber);
@@ -64,7 +62,7 @@ export const Kudos = memo(
 						/>
 					</div>
 					<div className={isPres ? styles.isPres : styles.notPres}>
-						{count} KUDO
+						{count} KUDOS
 					</div>
 					<img
 						src={paw}
