@@ -40,7 +40,6 @@ export const Proof = ({
 							withContent={withContent}
 							{...proof}
 							inForm={inForm}
-
 						/>
 					</AccordionSummary>
 					<AccordionDetails>
