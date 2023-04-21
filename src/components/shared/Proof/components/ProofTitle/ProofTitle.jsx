@@ -13,8 +13,8 @@ export const ProofTitle = ({
 	status,
 	showControlls,
 	openContent,
-	proofId,
-	is_pressed,
+	id,
+	kudosed_by_me,
 	kudos,
 	withContent,
 }) => {
@@ -23,7 +23,7 @@ export const ProofTitle = ({
 			<div className={styles.controls}>
 				<TimeStapm published={published} />
 				{withContent && showControlls && (
-					<TalentsControl status={status} proofId={proofId} />
+					<TalentsControl status={status} proofId={id} />
 				)}
 			</div>
 			<div className={styles.title} onClick={openContent}>
@@ -37,7 +37,7 @@ export const ProofTitle = ({
 			</div>
 			<div className={styles.bottomPanel}>
 				{withContent && (
-					<KudosContainer is_pressed={is_pressed} kudos={kudos} />
+					<KudosContainer {...{ kudosed_by_me, kudos }} proofId={id} />
 				)}
 				{withContent && showControlls && (
 					<div className={`${styles.status} ${styles[status]}`}>

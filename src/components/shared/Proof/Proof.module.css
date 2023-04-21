@@ -10,6 +10,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
 .General {
 	display: flex;
 	flex-direction: column;

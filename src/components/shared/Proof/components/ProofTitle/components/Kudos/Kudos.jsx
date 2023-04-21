@@ -7,8 +7,8 @@ import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 
-export const Kudos = memo(({ is_pressed, kudos, getKudoList, addKudos }) => {
-	const [isPres, setIsPres] = useState(is_pressed);
+export const Kudos = memo(({ kudosed_by_me, kudos, getKudoList, addKudos }) => {
+	const [isPres, setIsPres] = useState(kudosed_by_me);
 	const [isActive, setIsActive] = useState(false);
 	const dispatch = useDispatch();
 	const formatter = Intl.NumberFormat('en', { notation: 'compact' });
@@ -27,7 +27,7 @@ export const Kudos = memo(({ is_pressed, kudos, getKudoList, addKudos }) => {
 	const handelClick = async () => {
 		if (!isPres) {
 			try {
-				// await addKudos();
+				await addKudos();
 				setIsPres(true);
 				setIsActive(true);
 				setTimeout(() => {
@@ -38,8 +38,8 @@ export const Kudos = memo(({ is_pressed, kudos, getKudoList, addKudos }) => {
 						startVelocity: 15,
 					});
 				}, 1000);
-			} catch (err) {
-				console.log(err);
+			} catch (error) {
+				dispatch(setSystemMessage(true, error.message, 'error'));
 			}
 		} else {
 			dispatch(setSystemMessage(true, 'Your already put kudos', 'error'));

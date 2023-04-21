@@ -4,7 +4,7 @@ import { kudosAPI } from '../../../../../../../api/kudosAPI';
 import { useDispatch } from 'react-redux';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
 
-export const KudosContainer = memo(({ is_pressed, kudos, proofId }) => {
+export const KudosContainer = memo(({ kudosed_by_me, kudos, proofId }) => {
 	const [kudosList, setKudosList] = useState([]);
 	const dispatch = useDispatch();
 
@@ -18,12 +18,10 @@ export const KudosContainer = memo(({ is_pressed, kudos, proofId }) => {
 	};
 
 	const addKudos = async () => {
-		try {
-			await kudosAPI.addKudos(proofId);
-		} catch (error) {
-			dispatch(setSystemMessage(true, error.message, 'error'));
-		}
+		await kudosAPI.addKudos(proofId);
 	};
 
-	return <Kudos {...{ is_pressed, kudos, getKudoList, addKudos, kudosList }} />;
+	return (
+		<Kudos {...{ kudosed_by_me, kudos, getKudoList, addKudos, kudosList }} />
+	);
 });

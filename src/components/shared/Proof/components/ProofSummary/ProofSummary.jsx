@@ -6,15 +6,16 @@ import {  KudosContainer } from '../ProofTitle/components/Kudos';
 export const ProofSummary = ({
 	summary,
 	withKudos = false,
-	is_pressed,
+	kudosed_by_me,
 	kudos,
+	proofId
 }) => {
 	return (
 		<div className={styles.summary}>
 			<ReactFitty maxSize={40} minSize={5}>
 				<p>{summary}</p>
 			</ReactFitty>
-			{withKudos && <KudosContainer {...{ kudos, is_pressed }} />}
+			{withKudos && <KudosContainer {...{ kudos, kudosed_by_me, proofId }} />}
 		</div>
 	);
 };

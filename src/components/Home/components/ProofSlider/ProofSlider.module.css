@@ -2,7 +2,7 @@
 	width: 250px;
 }
 
-.sliderProof img {
+.sliderProof img:first-child {
 	width: 60px;
 	height: 60px;
 }
