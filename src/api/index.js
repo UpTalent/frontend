@@ -14,6 +14,7 @@ export const setAuthToken = token => {
 		axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 	} else {
 		localStorage.removeItem('jwt_token');
+		delete axiosInstance.defaults.headers.common['Authorization'];
 	}
 };
 

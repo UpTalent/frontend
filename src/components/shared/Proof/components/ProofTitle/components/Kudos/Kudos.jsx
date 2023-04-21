@@ -7,7 +7,7 @@ import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
 
 export const Kudos = memo(
-	({ kudosed_by_me, kudos, getKudoList, addKudos, isAuth, kudosList }) => {
+	({ kudosed_by_me, kudos = 0, getKudoList, addKudos, isAuth, kudosList }) => {
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
 		const disabled = isPres || !isAuth ? styles.disabled : null;
