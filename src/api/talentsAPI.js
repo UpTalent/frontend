@@ -12,13 +12,14 @@ export const talentsAPI = {
 			}
 			);
 		} catch (error) {
-			return console.log(error);
+			throw new Error(error.response.data.message);
 		}
 	},
 
-	getTalent(id) {
-		return axiosInstance.get(`talents/${id}`);
+	async getTalent(id) {
+		return await axiosInstance.get(`talents/${id}`);
 	},
+	
 	async edit(id, data) {
 		try {
 			return await axiosInstance.patch(`talents/${id}`, data);

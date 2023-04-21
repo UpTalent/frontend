@@ -20,3 +20,21 @@
 	width: 30%;
 	margin: 10px 0;
 }
+
+.emptyProofList {
+	width: 100%;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.proofs {
+	flex: 1;
+}
+
+@media screen and (max-width: 1000px) {
+	.mainInfo > div > div > div {
+		justify-content: center;
+	}
+}

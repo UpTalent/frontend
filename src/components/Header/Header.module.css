@@ -93,11 +93,11 @@
 }
 
 .guestButtons {
-  width: 255px;
+  width: 273px;
   height: 40px;
   display: flex;
   justify-content: space-between;
-  margin-right: 18px;
+  padding-right: 18px;
 }
 
 .guestButtons button {
@@ -117,4 +117,3 @@
   background-color: #000000;
   color: #fff;
 }
-

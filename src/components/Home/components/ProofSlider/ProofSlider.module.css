@@ -1,12 +1,12 @@
 .sliderProof {
-	max-width: 250px;
+	width: 250px;
 }
 
 .sliderProof p:last-child {
-	font-size: large;
+	font-size: smaller;
 }
 
-.sliderProof img {
+.sliderProof img:first-child {
 	width: 60px;
 	height: 60px;
 }

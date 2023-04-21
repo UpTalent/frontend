@@ -43,7 +43,6 @@ export const EditProfile = ({ talent, setTalent }) => {
 			navigate(`/talent/${talent.id}`);
 		} catch (err) {
 			setError(err.message);
-			console.log(err.message);
 		}
 	};
 
@@ -97,7 +96,6 @@ export const EditProfile = ({ talent, setTalent }) => {
 							}}
 							multiple
 							limitTags={3}
-							freeSolo
 							fullWidth
 							onChange={(e, value) => {
 								setFieldValue('skills', value);
