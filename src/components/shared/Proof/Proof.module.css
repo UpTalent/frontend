@@ -9,6 +9,7 @@
 	white-space: pre-wrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	word-break: break-word;
 }
 
 .General {

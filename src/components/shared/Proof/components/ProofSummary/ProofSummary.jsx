@@ -12,7 +12,7 @@ export const ProofSummary = ({
 }) => {
 	return (
 		<div className={styles.summary}>
-			<ReactFitty maxSize={40} minSize={5}>
+			<ReactFitty maxSize={40} minSize={5} wrapText={true}>
 				<p>{summary}</p>
 			</ReactFitty>
 			{withKudos && <KudosContainer {...{ kudos, kudosed_by_me, proofId }} />}
