@@ -17,6 +17,7 @@ export const Slider = ({ sliderElements, viewAll, isLoading, item }) => {
 				</div>
 			) : (
 				<>
+					<h1 className='sliderTitle'>{`${item}s`}</h1>
 					<Swiper
 						loop={true}
 						navigation={{
@@ -48,7 +49,12 @@ export const Slider = ({ sliderElements, viewAll, isLoading, item }) => {
 					<Link to={`/${viewAll}`}>
 						<Button
 							variant='outlined'
-							sx={{ backgroundColor: '#fff', fontSize: '20px', width: '200px' }}
+							sx={{
+								backgroundColor: '#fff',
+								fontSize: '20px',
+								width: '200px',
+								gridArea: 'button',
+							}}
 						>
 							View all
 						</Button>

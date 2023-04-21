@@ -19,7 +19,7 @@ const authSlice = createSlice({
 			state.talent_id = null;
 			state.firstName = '';
 			state.error = null;
-			localStorage.removeItem('jwt_token');
+			setAuthToken();
 		},
 		clearError: state => {
 			state.error = null;
