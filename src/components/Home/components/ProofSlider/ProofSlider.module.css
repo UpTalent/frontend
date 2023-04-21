@@ -2,13 +2,17 @@
 	width: 250px;
 }
 
+.sliderProof p:last-child {
+	font-size: smaller;
+}
+
 .sliderProof img:first-child {
 	width: 60px;
 	height: 60px;
 }
 
 .sliderProof > div {
-	height: 270px;
+	height: 250px;
 	box-shadow: none;
 }
 

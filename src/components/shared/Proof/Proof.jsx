@@ -39,6 +39,7 @@ export const Proof = ({
 							openContent={handleAccordionClick}
 							withContent={withContent}
 							{...proof}
+							inForm={inForm}
 						/>
 					</AccordionSummary>
 					<AccordionDetails>

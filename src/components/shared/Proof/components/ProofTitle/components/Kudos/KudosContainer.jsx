@@ -5,25 +5,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
 import { getIsAuth } from '../../../../../../../redux/reducers/authentification';
 
-export const KudosContainer = memo(({ kudosed_by_me, kudos, proofId }) => {
-	const [kudosList, setKudosList] = useState([]);
-	const dispatch = useDispatch();
-	const isAuth = useSelector(getIsAuth);
+export const KudosContainer = memo(
+	({ kudosed_by_me, kudos, proofId, inForm = false }) => {
+		const [kudosList, setKudosList] = useState([]);
+		const dispatch = useDispatch();
+		const isAuth = useSelector(getIsAuth) && !inForm;
 
-	const getKudoList = async () => {
-		try {
-			const { data } = await kudosAPI.getProofsKudos(proofId);
-			setKudosList(data);
-		} catch (error) {
-			dispatch(setSystemMessage(true, error.message, 'error'));
-		}
-	};
+		const getKudoList = async () => {
+			try {
+				const { data } = await kudosAPI.getProofsKudos(proofId);
+				setKudosList(data);
+			} catch (error) {
+				dispatch(setSystemMessage(true, error.message, 'error'));
+			}
+		};
 
-	const addKudos = async () => {
-		await kudosAPI.addKudos(proofId);
-	};
+		const addKudos = async () => {
+			await kudosAPI.addKudos(proofId);
+		};
 
-	return (
-		<Kudos {...{ kudosed_by_me, kudos, getKudoList, addKudos, kudosList, isAuth }} />
-	);
-});
+		return (
+			<Kudos
+				{...{ kudosed_by_me, kudos, getKudoList, addKudos, kudosList, isAuth }}
+			/>
+		);
+	},
+);

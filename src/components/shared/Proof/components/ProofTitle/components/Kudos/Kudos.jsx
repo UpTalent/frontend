@@ -8,12 +8,12 @@ import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 
 export const Kudos = memo(
-	({ kudosed_by_me, kudos, getKudoList, addKudos, isAuth }) => {
+	({ kudosed_by_me, kudos = 0, getKudoList, addKudos, isAuth }) => {
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const disabled = isPres || !isAuth ? styles.disabled : null;
 		const [isActive, setIsActive] = useState(false);
 		const dispatch = useDispatch();
-		
+
 		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
 		const formatNumber = formatter.format(kudos);
 
