@@ -24,10 +24,18 @@ export const KudosContainer = memo(
 			await kudosAPI.addKudos(proofId);
 		};
 
-		return (
-			<Kudos
-				{...{ kudosed_by_me, kudos, getKudoList, addKudos, kudosList, isAuth }}
-			/>
-		);
-	},
-);
+
+	return (
+		<Kudos
+			{...{
+				kudosed_by_me,
+				kudos,
+				getKudoList,
+				addKudos,
+				isAuth,
+				kudosList,
+			}}
+		/>
+	);
+});
+
