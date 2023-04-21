@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
+/* .dialog {
+    display:flex;
+} */
+
 .dialog th {
     color: #fff;
     background-color: var(--primary);
@@ -11,6 +15,10 @@
     border-bottom: 1px solid var(--primary);
     font-family: 'Quicksand', sans-serif;
     font-weight: 600;
+}
+
+.NonKudo{
+    margin: 0 auto;
 }
 
 .closeIcon {

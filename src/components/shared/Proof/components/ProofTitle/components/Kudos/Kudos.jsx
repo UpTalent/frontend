@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import styles from './Kudo.module.css';
-import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
 import { useDispatch } from 'react-redux';
 import { ReactComponent as NotPresCat } from '../../../../../../../assets/notPressedCat.svg';
 import tick from '../../../../../../../assets/tick.svg';
@@ -9,17 +8,15 @@ import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
 
 export const Kudos = memo(
-	({ is_pressed, kudos, getKudoList, addKudos, kudosList }) => {
-		const [isPres, setIsPres] = useState(is_pressed);
+	({ kudosed_by_me, kudos, getKudoList, addKudos, isAuth, kudosList }) => {
+		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
+		const disabled = isPres || !isAuth ? styles.disabled : null;
 		const dispatch = useDispatch();
 		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
 		const formatNumber = formatter.format(kudos);
 		const [count, setCount] = useState(formatNumber);
 		const [openList, setOpenList] = useState(false);
-
-		// const isTalentProfile = useIsTalentProfile();
-		const isTalentProfile = true;
 
 		let confettiInstance;
 
@@ -30,32 +27,30 @@ export const Kudos = memo(
 		const instance = useMemo(() => getInstance, []);
 
 		const handelClick = async () => {
-			if (isTalentProfile) {
+			try {
+				await addKudos();
+				setIsPres(true);
+				setIsActive(true);
+				setTimeout(() => {
+					setIsActive(false);
+					const newCount = formatter.format(kudos + 1);
+					setCount(newCount);
+					confettiInstance({
+						startVelocity: 15,
+					});
+				}, 1000);
+			} catch (error) {
 				setOpenList(true);
-			} else if (!isPres) {
-				try {
-					// await addKudos();
-					setIsPres(true);
-					setIsActive(true);
-					setTimeout(() => {
-						setIsActive(false);
-						const newCount = formatter.format(kudos + 1);
-						setCount(newCount);
-						confettiInstance({
-							startVelocity: 15,
-						});
-					}, 1000);
-				} catch (err) {
-					console.log(err);
-				}
-			} else {
-				dispatch(setSystemMessage(true, 'Your already put kudos', 'error'));
+				getKudoList();
 			}
 		};
 
 		return (
 			<div>
-				<div className={styles.background} onClick={handelClick}>
+				<div
+					className={`${styles.background} ${disabled}`}
+					onClick={disabled ? null : handelClick}
+				>
 					<div className={styles.kitty}>
 						<NotPresCat
 							className={`${styles.cat} ${isPres && styles.isPressed}`}
@@ -81,7 +76,7 @@ export const Kudos = memo(
 						className={styles.confetti}
 					/>
 				</div>
-				<KudosList {...{ kudosList, getKudoList, openList, setOpenList }} />
+				<KudosList {...{ kudosList, openList, setOpenList }} />
 			</div>
 		);
 	},

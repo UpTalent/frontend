@@ -9,7 +9,9 @@
 	white-space: pre-wrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	word-break: break-word;
 }
+
 .General {
 	display: flex;
 	flex-direction: column;

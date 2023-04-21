@@ -60,6 +60,8 @@ export const Proof = ({
 						withKudos={true}
 						kudos={proof.kudos}
 						is_pressed={proof.is_pressed}
+						proofId={proof.id}
+						kudosed_by_me={proof.kudosed_by_me}
 					/>
 				</div>
 			)}

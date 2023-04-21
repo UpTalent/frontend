@@ -10,8 +10,7 @@ export const validationSchema = Yup.object({
 		.matches(/^[,./:;'"|<>\w\s&^%$#@!*()_+=-]+$/, 'Only latin letters, digits and special symbols are allowed')
 		.max(150, 'Must be 150 characters or less'),
 	content: Yup.string()
-		.required('Content is required')
-		.matches(/^(?!\s+$).+$/, 'Please write something')
+		.trim().required('Content is required')
 		.max(5000, 'Must be 5000 characters or less'),
 	icon_number: Yup.number().typeError('Choose icon'),
 });
