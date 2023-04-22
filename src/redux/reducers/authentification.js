@@ -31,14 +31,14 @@ const authSlice = createSlice({
 				return state;
 			}
 
-			const { exp, firstname, talent_id } = parseJwt(jwt);
+			const { exp, name, id } = parseJwt(jwt);
 			const currentTime = new Date();
 			const expire = new Date(exp * 1000);
 
 			if (currentTime <= expire) {
 				setAuthToken(jwt);
-				state.talent_id = talent_id;
-				state.firstName = firstname;
+				state.talent_id = id;
+				state.firstName = name;
 				state.isAuth = true;
 			} else {
 				localStorage.removeItem('jwt_token');
@@ -54,8 +54,8 @@ const authSlice = createSlice({
 		builder
 			.addCase(authentificateTalent.fulfilled, (state, action) => {
 				state.isAuth = true;
-				state.talent_id = action.payload.talent_id;
-				state.firstName = action.payload.firstname;
+				state.talent_id = action.payload.id;
+				state.firstName = action.payload.name;
 			})
 			.addCase(authentificateTalent.rejected, (state, action) => {
 				state.error = action.payload;
@@ -71,9 +71,9 @@ export const authentificateTalent = createAsyncThunk(
 			const { data } = await authAPI.authentificate(talentInfo, method);
 			setAuthToken(data.jwt_token);
 
-			const { firstname, talent_id } = parseJwt(data.jwt_token);
+			const { name, id } = parseJwt(data.jwt_token);
 
-			return { firstname, talent_id };
+			return { name, id };
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
