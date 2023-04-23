@@ -6,36 +6,45 @@ import { setSystemMessage } from '../../../../../../../redux/reducers/systemMess
 import { getIsAuth } from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
-	({ kudosed_by_me, kudos, proofId, inForm = false }) => {
+	({ kudosed_by_me, kudos, proofId, inForm = false, my_proof }) => {
 		const [kudosList, setKudosList] = useState([]);
+		const [openList, setOpenList] = useState(false);
+
 		const dispatch = useDispatch();
-		const isAuth = useSelector(getIsAuth) && !inForm;
+		const isDisabled = useSelector(get) && !inForm;
 
 		const getKudoList = async () => {
+			const { data } = await kudosAPI.getProofsKudos(proofId);
+			setKudosList(data);
+			setOpenList(true);
+		};
+
+		const handleKudosClick = async () => {
+			console.log(my_proof);
 			try {
-				const { data } = await kudosAPI.getProofsKudos(proofId);
-				setKudosList(data);
+				if (my_proof) {
+					await getKudoList();
+				} else {
+					const { status } = await kudosAPI.addKudos(proofId);
+					return status;
+				}
 			} catch (error) {
 				dispatch(setSystemMessage(true, error.message, 'error'));
 			}
 		};
 
-		const addKudos = async () => {
-			await kudosAPI.addKudos(proofId);
-		};
-
-
-	return (
-		<Kudos
-			{...{
-				kudosed_by_me,
-				kudos,
-				getKudoList,
-				addKudos,
-				isAuth,
-				kudosList,
-			}}
-		/>
-	);
-});
-
+		return (
+			<Kudos
+				{...{
+					kudosed_by_me,
+					kudos,
+					handleKudosClick,
+					isAuth,
+					kudosList,
+					openList,
+					setOpenList,
+				}}
+			/>
+		);
+	},
+);
