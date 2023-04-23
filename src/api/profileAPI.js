@@ -15,7 +15,7 @@ export const profileAPI = {
 			formData.append('image', photo);
 			formData.append('operation', operation);
 
-			return await axiosInstance.post(`/talents/${id}/image/upload`, formData, {
+			return await axiosInstance.post(`/images/${id}/upload`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},

@@ -5,8 +5,9 @@ import { Banner } from '../../../shared/Banner';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { profileAPI } from '../../../../api/profileAPI';
 import { Tooltip } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSystemMessage } from '../../../../redux/reducers/systemMessages';
+import { getRole } from '../../../../redux/reducers/authentification';
 
 export const PhotoBlock = ({
 	isTalentProfile,
@@ -16,11 +17,12 @@ export const PhotoBlock = ({
 }) => {
 	const [loadAvatar, setLoadAvatar] = useState(false);
 	const [loadBanner, setLoadBanner] = useState(false);
+	const role = useSelector(getRole);
 	const dispatch = useDispatch();
-	const allowedFormats = 'Allowed formats are .jpeg, .png';
+	const allowedFormats = 'Allowed formats are .jpeg, .png, max size: 5mb';
 
 	const getFileFromUser = async (photo, operation) => {
-		operation === 'UPLOAD_AVATAR' ? setLoadAvatar(true) : setLoadBanner(true);
+		operation === 'AVATAR' ? setLoadAvatar(true) : setLoadBanner(true);
 		try {
 			if (photo.target.files.length) {
 				const { status } = await profileAPI.uplaodPhoto(
@@ -29,7 +31,7 @@ export const PhotoBlock = ({
 					operation,
 				);
 				if (status === 200) {
-					const { data } = await profileAPI.getUser(null,talentId);
+					const { data } = await profileAPI.getUser(null, talentId);
 					setTalent(data);
 					dispatch(
 						setSystemMessage(true, 'Your photo was successfully updated'),
@@ -39,7 +41,7 @@ export const PhotoBlock = ({
 		} catch (err) {
 			dispatch(setSystemMessage(true, err.message, 'error'));
 		}
-		operation === 'UPLOAD_AVATAR' ? setLoadAvatar(false) : setLoadBanner(false);
+		operation === 'AVATAR' ? setLoadAvatar(false) : setLoadBanner(false);
 	};
 	return (
 		<>
@@ -64,7 +66,7 @@ export const PhotoBlock = ({
 								<input
 									id='avatar'
 									type={'file'}
-									onChange={file => getFileFromUser(file, 'UPLOAD_AVATAR')}
+									onChange={file => getFileFromUser(file, 'AVATAR')}
 								/>
 								<CreateOutlinedIcon />
 							</label>
@@ -75,13 +77,13 @@ export const PhotoBlock = ({
 					className={styles.profileName}
 				>{`${talent.firstname} ${talent.lastname}`}</p>
 			</div>
-			{isTalentProfile && (
+			{isTalentProfile && role === 'talent' && (
 				<Tooltip title={allowedFormats}>
 					<label htmlFor='banner' className={styles.toBanner}>
 						<input
 							id='banner'
 							type={'file'}
-							onChange={file => getFileFromUser(file, 'UPLOAD_BANNER')}
+							onChange={file => getFileFromUser(file, 'BANNER')}
 						/>
 						<CreateOutlinedIcon />
 						<p>EDIT BANNER</p>
