@@ -6,27 +6,30 @@ import { profileAPI } from '../../api/profileAPI';
 import { EditProfile } from '../EditProfile';
 import { UserInfo } from './components/UserInfo';
 import { useSelector } from 'react-redux';
-import { getAuthId } from '../../redux/reducers/authentification';
+import { getAuthId, getRole } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { PhotoBlock } from './components/PhotoBlock';
 import { useModalPathname } from '../../hooks/useModalPathname';
 
 export const Profile = () => {
-	const authTalent = useSelector(getAuthId);
+	const authUserId = useSelector(getAuthId);
+	const userRole = useSelector(getRole);
 
-	const [isTalentProfile, setIsTalentProfile] = useState(false);
-	const [talent, setTalent] = useState(null);
-	const { talentId } = useParams();
+	const [isUserProfile, setIsUserProfile] = useState(false);
+	const [user, setUser] = useState(null);
+	const { talentId, sponsorId } = useParams();
+	const userId = talentId || sponsorId;
 
 	const navigate = useNavigate();
 	const location = useLocation();
 	const modalPathname = useModalPathname();
+	const profile = location.pathname.split('/')[1];
 
 	const getTalentProfile = async () => {
 		try {
-			const { data } = await profileAPI.getTalent(talentId);
-			setTalent(data);
-			setIsTalentProfile(Number(talentId) === authTalent);
+			const { data } = await profileAPI.getUser(profile, userId);
+			setUser(data);
+			setIsUserProfile(Number(userId) === authUserId && profile === userRole);
 		} catch (err) {
 			navigate('/home');
 		}
@@ -34,18 +37,28 @@ export const Profile = () => {
 
 	useEffect(() => {
 		getTalentProfile();
-	}, [authTalent, talentId]);
+	}, [authUserId, userId]);
 
 	return (
 		<>
-			{talent ? (
+			{user ? (
 				<div className={styles.profile}>
-					<PhotoBlock isTalentProfile={isTalentProfile} talent={talent} talentId={talentId} setTalent={setTalent}/>
+					<PhotoBlock
+						isTalentProfile={isUserProfile}
+						talent={user}
+						talentId={userId}
+						setTalent={setUser}
+					/>
 					<div className={styles.allInfoAbouUser}>
-						<UserInfo talent={talent} isTalentProfile={isTalentProfile} />
-						<Outlet context={{aboutMe: talent.about_me, isTalentProfile}} />
+						<UserInfo talent={user} isTalentProfile={isUserProfile} />
+						<Outlet
+							context={{
+								aboutMe: user.about_me,
+								isTalentProfile: isUserProfile,
+							}}
+						/>
 					</div>
-					{isTalentProfile && (
+					{isUserProfile && (
 						<Tooltip title='Edit profile'>
 							<CreateOutlinedIcon
 								className={`${styles.pencil} ${styles.toEdit}`}
@@ -56,7 +69,7 @@ export const Profile = () => {
 						</Tooltip>
 					)}
 					{location.pathname.endsWith('/edit') && (
-						<EditProfile talent={talent} setTalent={setTalent} />
+						<EditProfile talent={user} setTalent={setUser} />
 					)}
 				</div>
 			) : (

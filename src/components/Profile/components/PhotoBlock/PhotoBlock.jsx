@@ -29,7 +29,7 @@ export const PhotoBlock = ({
 					operation,
 				);
 				if (status === 200) {
-					const { data } = await profileAPI.getTalent(talentId);
+					const { data } = await profileAPI.getUser(null,talentId);
 					setTalent(data);
 					dispatch(
 						setSystemMessage(true, 'Your photo was successfully updated'),

@@ -70,15 +70,13 @@ export const authentificateTalent = createAsyncThunk(
 	'authentificateTalent',
 	async (params, thunkAPI) => {
 		try {
-			const { talentInfo, role, method } = params;
-			const { data } = await authAPI.authentificate(talentInfo, role, method);
+			const { userInfo, role, method } = params;
+			const { data } = await authAPI.authentificate(userInfo, role, method);
 			setAuthToken(data.jwt_token);
 
 			const { name, id } = parseJwt(data.jwt_token);
-			console.log(parseJwt(data.jwt_token));
 			return { name, id, role };
 		} catch (error) {
-			console.log(error);
 			return thunkAPI.rejectWithValue(error.message);
 		}
 	},

@@ -15,10 +15,6 @@ export const talentsAPI = {
 			throw new Error(error.response.data.message);
 		}
 	},
-
-	async getTalent(id) {
-		return await axiosInstance.get(`talents/${id}`);
-	},
 	
 	async edit(id, data) {
 		try {
