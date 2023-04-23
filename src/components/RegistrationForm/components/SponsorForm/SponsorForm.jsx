@@ -2,9 +2,11 @@ import { Button, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import styles from '../../../LoginForm/LoginForm.module.css';
 import React from 'react';
+import { validationSchema } from './validation';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { FormField } from '../../../shared/FormField';
 
@@ -18,10 +20,11 @@ export const SponsorForm = ({ register }) => {
 		fullname: '',
 		confirmPassword: '',
 	};
+
 	return (
 		<Formik
 			initialValues={initialRegistartionData}
-			// validationSchema={validationSchema}
+			validationSchema={validationSchema}
 			validateOnChange={true}
 			validateOnBlur={true}
 			validateOnMount={true}
@@ -34,7 +37,12 @@ export const SponsorForm = ({ register }) => {
 						<AutoAwesomeIcon />
 					</Typography>
 					<label>How can we call you?</label>
-					<FormField label='Name' name='fullname' required={true} />
+					<FormField
+						label='Fullname'
+						name='fullname'
+						required={true}
+						icon={<AccountCircleOutlinedIcon />}
+					/>
 					<FormField
 						label='Email'
 						name='email'
