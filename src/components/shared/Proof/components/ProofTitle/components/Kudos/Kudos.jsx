@@ -11,14 +11,14 @@ export const Kudos = memo(
 		kudosed_by_me,
 		kudos = 0,
 		handleKudosClick,
-		isAuth,
+		isDisabled,
 		kudosList,
 		openList,
 		setOpenList,
 	}) => {
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
-		const disabled = isPres || !isAuth ? styles.disabled : null;
+		const disabled = isPres || isDisabled ? styles.disabled : null;
 		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
 		const formatNumber = formatter.format(kudos);
 		const [count, setCount] = useState(formatNumber);

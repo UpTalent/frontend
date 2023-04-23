@@ -3,7 +3,7 @@ import { Kudos } from './Kudos';
 import { kudosAPI } from '../../../../../../../api/kudosAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
-import { getIsAuth } from '../../../../../../../redux/reducers/authentification';
+import { getRole } from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
 	({ kudosed_by_me, kudos, proofId, inForm = false, my_proof }) => {
@@ -11,7 +11,7 @@ export const KudosContainer = memo(
 		const [openList, setOpenList] = useState(false);
 
 		const dispatch = useDispatch();
-		const isDisabled = useSelector(get) && !inForm;
+		const isDisabled = useSelector(getRole) !== 'sponsor' && !my_proof;
 
 		const getKudoList = async () => {
 			const { data } = await kudosAPI.getProofsKudos(proofId);
@@ -39,7 +39,7 @@ export const KudosContainer = memo(
 					kudosed_by_me,
 					kudos,
 					handleKudosClick,
-					isAuth,
+					isDisabled,
 					kudosList,
 					openList,
 					setOpenList,

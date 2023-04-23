@@ -14,7 +14,6 @@ import { useModalPathname } from '../../hooks/useModalPathname';
 export const Header = () => {
 	const dispatch = useDispatch();
 	const authUser = useSelector(getAuthUser);
-	console.log(authUser);
 
 	const modalPathname = useModalPathname();
 	const navigate = useNavigate();
