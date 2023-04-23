@@ -15,10 +15,8 @@ export const SponsorForm = ({ register }) => {
 	let initialRegistartionData = {
 		email: '',
 		password: '',
-		lastname: '',
-		firstname: '',
+		fullname: '',
 		confirmPassword: '',
-		skills: [],
 	};
 	return (
 		<Formik
@@ -36,7 +34,7 @@ export const SponsorForm = ({ register }) => {
 						<AutoAwesomeIcon />
 					</Typography>
 					<label>How can we call you?</label>
-					<FormField label='Name' name='Name' required={true} />
+					<FormField label='Name' name='fullname' required={true} />
 					<FormField
 						label='Email'
 						name='email'

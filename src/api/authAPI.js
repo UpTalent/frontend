@@ -1,13 +1,8 @@
 import { axiosInstance } from './index';
 
 export const authAPI = {
-	async authentificate(data, role, method) {
-		let url;
-		if (role === 'talent') {
-			url = method ? `talents/login` : `talents`;
-		} else if (role === 'sponsor') {
-			url = method ? `sponsors/login` : `sponsors`;
-		}
+	async authentificate(data, role='talent', method) {
+		const  url = method ? `${role}s/login` : `${role}s`;
 		try {
 			return await axiosInstance.post(url, data);
 		} catch (error) {

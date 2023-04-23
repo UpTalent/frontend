@@ -17,7 +17,6 @@ import { SponsorForm } from './components/SponsorForm';
 
 export const RegistrationForm = () => {
 	const [modal, setModal] = useState(true);
-	const [error, setError] = useState(null);
 	const [role, setRole] = useState(null);
 
 	const dispatch = useStoreDispatch();
@@ -37,7 +36,7 @@ export const RegistrationForm = () => {
 
 	useEffect(() => {
 		if (id) {
-			navigate(`/talent/${id}`);
+			navigate(`/${role}/${id}`);
 		}
 
 		if (authError) {
@@ -45,15 +44,11 @@ export const RegistrationForm = () => {
 		}
 	}, [id]);
 
-	useEffect(() => {
-		setError(authError);
-	}, [authError]);
-
 	const register = async formData => {
 		const registerData = { ...formData };
 		delete registerData.confirmPassword;
 
-		const data = { talentInfo: registerData, role: 'talent' };
+		const data = { talentInfo: registerData, role };
 
 		dispatch(authentificateTalent(data));
 	};
@@ -78,9 +73,9 @@ export const RegistrationForm = () => {
 					</>
 				)}
 				<CloseIcon className={styles.closeIcon} onClick={handleClose} />
-				{error && (
-					<Alert severity='error' onClose={() => setError(null)}>
-						{error}
+				{authError && (
+					<Alert severity='error' onClose={() => dispatch(clearError())}>
+						{authError}
 					</Alert>
 				)}
 			</Dialog>

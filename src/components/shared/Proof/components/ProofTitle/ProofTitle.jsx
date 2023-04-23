@@ -4,7 +4,7 @@ import { ProofIcons } from '../../../../../assets/static/ProofIcons';
 import { TimeStapm } from './components/TimeStamp';
 import { TalentsControl } from './components/TalentsControl';
 import { ReactFitty } from 'react-fitty';
-import { KudosContainer } from './components/Kudos';
+import { KudosContainer } from './components/Kudos/KudosContainer';
 
 export const ProofTitle = ({
 	title,

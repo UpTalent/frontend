@@ -16,11 +16,10 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		logOut: state => {
-			state.isAuth = false;
-			state.id = null;
-			state.name = '';
-			state.error = null;
-			state.role = '';
+			Object.keys(state).forEach(key => {
+				state[key] = initialState[key];
+			});
+			state.isPending = false;
 			setAuthToken();
 		},
 		clearError: state => {
@@ -33,7 +32,7 @@ const authSlice = createSlice({
 				return state;
 			}
 
-			const { exp, name, id } = parseJwt(jwt);
+			const { exp, name, id, role } = parseJwt(jwt);
 			const currentTime = new Date();
 			const expire = new Date(exp * 1000);
 
@@ -42,6 +41,7 @@ const authSlice = createSlice({
 				state.id = id;
 				state.name = name;
 				state.isAuth = true;
+				state.role = role.toLowerCase();
 			} else {
 				localStorage.removeItem('jwt_token');
 				state.isAuth = false;
@@ -58,6 +58,7 @@ const authSlice = createSlice({
 				state.isAuth = true;
 				state.id = action.payload.id;
 				state.name = action.payload.name;
+				state.role = action.payload.role;
 			})
 			.addCase(authentificateTalent.rejected, (state, action) => {
 				state.error = action.payload;
@@ -70,17 +71,14 @@ export const authentificateTalent = createAsyncThunk(
 	async (params, thunkAPI) => {
 		try {
 			const { talentInfo, role, method } = params;
-			const { data } = await authAPI.authentificate(
-				talentInfo,
-				(role = 'talent'),
-				method,
-			);
+			const { data } = await authAPI.authentificate(talentInfo, role, method);
 			setAuthToken(data.jwt_token);
 
 			const { name, id } = parseJwt(data.jwt_token);
-
-			return { name, id };
+			console.log(parseJwt(data.jwt_token));
+			return { name, id, role };
 		} catch (error) {
+			console.log(error);
 			return thunkAPI.rejectWithValue(error.message);
 		}
 	},
@@ -92,6 +90,13 @@ export const getName = state => state.authentification.name;
 export const getIsAuth = state => state.authentification.isAuth;
 export const getIsPending = state => state.authentification.isPending;
 export const getRole = state => state.authentification.role;
+
+export const getAuthUser = state => ({
+	name: state.authentification.name,
+	id: state.authentification.id,
+	role: state.authentification.role,
+	isAuth: state.authentification.isAuth,
+});
 
 export const { logOut, clearError, authApp, updateFirstName } =
 	authSlice.actions;

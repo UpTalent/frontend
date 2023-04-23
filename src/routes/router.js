@@ -62,6 +62,10 @@ export const router = createBrowserRouter([
 					},
 				],
 			},
+			{
+				path:'sponsor/:sponsorId/*',
+				element: <Profile />
+			}
 		],
 	},
 ]);

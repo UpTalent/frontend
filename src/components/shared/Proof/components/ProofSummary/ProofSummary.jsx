@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../Proof.module.css';
 import { ReactFitty } from 'react-fitty';
-import {  KudosContainer } from '../ProofTitle/components/Kudos';
+import { KudosContainer } from '../ProofTitle/components/Kudos/KudosContainer';
 
 export const ProofSummary = ({
 	summary,
