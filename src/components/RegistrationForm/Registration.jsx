@@ -21,7 +21,7 @@ import { useStoreDispatch } from '../../redux/store';
 import {
 	authentificateTalent,
 	clearError,
-	getAuthTalentId,
+	getAuthId,
 	getErrors,
 } from '../../redux/reducers/authentification';
 import { useSelector } from 'react-redux';
@@ -31,7 +31,7 @@ export const RegistrationForm = () => {
 	const [error, setError] = useState(null);
 
 	const dispatch = useStoreDispatch();
-	const talent_id = useSelector(getAuthTalentId);
+	const talent_id = useSelector(getAuthId);
 	const authError = useSelector(getErrors);
 
 	const navigate = useNavigate();
@@ -72,7 +72,7 @@ export const RegistrationForm = () => {
 		const registerData = { ...formData };
 		delete registerData.confirmPassword;
 
-		const data = { talentInfo: registerData };
+		const data = { talentInfo: registerData, role: 'talent' };
 
 		dispatch(authentificateTalent(data));
 	};

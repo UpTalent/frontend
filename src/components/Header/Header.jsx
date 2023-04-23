@@ -4,8 +4,8 @@ import { Button, Menu, MenuItem } from '@mui/material';
 import styles from './Header.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	getAuthTalentId,
-	getFirstName,
+	getAuthId,
+	getName,
 	getIsAuth,
 	logOut,
 } from '../../redux/reducers/authentification';
@@ -16,8 +16,8 @@ import { useModalPathname } from '../../hooks/useModalPathname';
 export const Header = () => {
 	const dispatch = useDispatch();
 	const isTalent = useSelector(getIsAuth);
-	const authTalent = useSelector(getFirstName);
-	const authTalentId = useSelector(getAuthTalentId);
+	const authTalent = useSelector(getName);
+	const authTalentId = useSelector(getAuthId);
 	const modalPathname = useModalPathname();
 	const navigate = useNavigate();
 

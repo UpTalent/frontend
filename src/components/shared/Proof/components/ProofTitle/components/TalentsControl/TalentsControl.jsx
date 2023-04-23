@@ -6,7 +6,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useStoreDispatch } from '../../../../../../../redux/store';
 import { useSelector } from 'react-redux';
-import { getAuthTalentId } from '../../../../../../../redux/reducers/authentification';
+import { getAuthId } from '../../../../../../../redux/reducers/authentification';
 import {
 	deleteProof,
 	editProof,
@@ -21,7 +21,7 @@ export const TalentsControl = ({ status, proofId }) => {
 
 
 	const dispatch = useStoreDispatch();
-	const talentId = useSelector(getAuthTalentId);
+	const talentId = useSelector(getAuthId);
 
 	const navigate = useNavigate();
 	const location = useLocation();

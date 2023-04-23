@@ -6,13 +6,13 @@ import { profileAPI } from '../../api/profileAPI';
 import { EditProfile } from '../EditProfile';
 import { UserInfo } from './components/UserInfo';
 import { useSelector } from 'react-redux';
-import { getAuthTalentId } from '../../redux/reducers/authentification';
+import { getAuthId } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { PhotoBlock } from './components/PhotoBlock';
 import { useModalPathname } from '../../hooks/useModalPathname';
 
 export const Profile = () => {
-	const authTalent = useSelector(getAuthTalentId);
+	const authTalent = useSelector(getAuthId);
 
 	const [isTalentProfile, setIsTalentProfile] = useState(false);
 	const [talent, setTalent] = useState(null);

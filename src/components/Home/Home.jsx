@@ -4,17 +4,14 @@ import rightside_image from '../../assets/5876834.jpg';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import {
-	getAuthTalentId,
-	getIsAuth,
-} from '../../redux/reducers/authentification';
+import { getAuthId, getIsAuth } from '../../redux/reducers/authentification';
 import { TalentsSlider } from './components/TalentsSlider';
 import { ProofSlider } from './components/ProofSlider/ProofSlider';
 import { useModalPathname } from '../../hooks/useModalPathname';
 
 export const Home = () => {
 	const isTalent = useSelector(getIsAuth);
-	const authTalent = useSelector(getAuthTalentId);
+	const authTalent = useSelector(getAuthId);
 
 	const navigate = useNavigate();
 	const modalPathname = useModalPathname();
