@@ -12,7 +12,7 @@ import { FormField } from '../shared/FormField';
 import {
 	authentificateTalent,
 	clearError,
-	getAuthTalentId,
+	getAuthId,
 	getErrors,
 } from '../../redux/reducers/authentification';
 import { useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ export const LoginForm = () => {
 	const [error, setError] = useState(null);
 
 	const dispatch = useStoreDispatch();
-	const talent_id = useSelector(getAuthTalentId);
+	const talent_id = useSelector(getAuthId);
 	const authError = useSelector(getErrors);
 
 	const navigate = useNavigate();
@@ -52,7 +52,7 @@ export const LoginForm = () => {
 	}, [authError]);
 
 	const tryToLogin = async formData => {
-		const data = { method: 'login', talentInfo: formData };
+		const data = { method: 'login', talentInfo: formData};
 		dispatch(authentificateTalent(data));
 	};
 

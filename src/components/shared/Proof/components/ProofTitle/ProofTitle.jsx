@@ -4,7 +4,7 @@ import { ProofIcons } from '../../../../../assets/static/ProofIcons';
 import { TimeStapm } from './components/TimeStamp';
 import { TalentsControl } from './components/TalentsControl';
 import { ReactFitty } from 'react-fitty';
-import { KudosContainer } from './components/Kudos';
+import { KudosContainer } from './components/Kudos/KudosContainer';
 
 export const ProofTitle = ({
 	title,
@@ -17,7 +17,8 @@ export const ProofTitle = ({
 	kudosed_by_me,
 	kudos,
 	withContent,
-	inForm
+	inForm,
+	my_proof
 }) => {
 	return (
 		<div className={styles.ProofTitle}>
@@ -38,7 +39,7 @@ export const ProofTitle = ({
 			</div>
 			<div className={styles.bottomPanel}>
 				{withContent && (
-					<KudosContainer {...{ kudosed_by_me, kudos, inForm }} proofId={id} />
+					<KudosContainer {...{ kudosed_by_me, kudos, inForm, my_proof }} proofId={id} />
 				)}
 				{withContent && showControlls && (
 					<div className={`${styles.status} ${styles[status]}`}>

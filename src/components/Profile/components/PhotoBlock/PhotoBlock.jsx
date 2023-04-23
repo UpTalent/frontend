@@ -17,6 +17,7 @@ export const PhotoBlock = ({
 	const [loadAvatar, setLoadAvatar] = useState(false);
 	const [loadBanner, setLoadBanner] = useState(false);
 	const dispatch = useDispatch();
+	const allowedFormats = 'Allowed formats are .jpeg, .png';
 
 	const getFileFromUser = async (photo, operation) => {
 		operation === 'UPLOAD_AVATAR' ? setLoadAvatar(true) : setLoadBanner(true);
@@ -30,7 +31,9 @@ export const PhotoBlock = ({
 				if (status === 200) {
 					const { data } = await profileAPI.getTalent(talentId);
 					setTalent(data);
-					dispatch(setSystemMessage(true, 'Your photo was successfully updated'));
+					dispatch(
+						setSystemMessage(true, 'Your photo was successfully updated'),
+					);
 				}
 			}
 		} catch (err) {
@@ -53,7 +56,7 @@ export const PhotoBlock = ({
 						isFetching={loadAvatar}
 					/>
 					{isTalentProfile && (
-						<Tooltip title='Change photo'>
+						<Tooltip title={`Change photo (${allowedFormats})`}>
 							<label
 								htmlFor='avatar'
 								className={`${styles.pencil} ${styles.toPhoto}`}
@@ -73,15 +76,17 @@ export const PhotoBlock = ({
 				>{`${talent.firstname} ${talent.lastname}`}</p>
 			</div>
 			{isTalentProfile && (
-				<label htmlFor='banner' className={styles.toBanner}>
-					<input
-						id='banner'
-						type={'file'}
-						onChange={file => getFileFromUser(file, 'UPLOAD_BANNER')}
-					/>
-					<CreateOutlinedIcon />
-					<p>EDIT BANNER</p>
-				</label>
+				<Tooltip title={allowedFormats}>
+					<label htmlFor='banner' className={styles.toBanner}>
+						<input
+							id='banner'
+							type={'file'}
+							onChange={file => getFileFromUser(file, 'UPLOAD_BANNER')}
+						/>
+						<CreateOutlinedIcon />
+						<p>EDIT BANNER</p>
+					</label>
+				</Tooltip>
 			)}
 		</>
 	);

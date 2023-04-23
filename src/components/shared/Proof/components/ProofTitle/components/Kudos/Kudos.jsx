@@ -7,14 +7,21 @@ import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
 
 export const Kudos = memo(
-	({ kudosed_by_me, kudos = 0, getKudoList, addKudos, isAuth, kudosList }) => {
+	({
+		kudosed_by_me,
+		kudos = 0,
+		handleKudosClick,
+		isDisabled,
+		kudosList,
+		openList,
+		setOpenList,
+	}) => {
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
-		const disabled = isPres || !isAuth ? styles.disabled : null;
+		const disabled = isPres || isDisabled ? styles.disabled : null;
 		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
 		const formatNumber = formatter.format(kudos);
 		const [count, setCount] = useState(formatNumber);
-		const [openList, setOpenList] = useState(false);
 
 		let confettiInstance;
 
@@ -25,22 +32,19 @@ export const Kudos = memo(
 		const instance = useMemo(() => getInstance, []);
 
 		const handelClick = async () => {
-			try {
-				await addKudos();
-				setIsPres(true);
-				setIsActive(true);
-				setTimeout(() => {
-					setIsActive(false);
-					const newCount = formatter.format(kudos + 1);
-					setCount(newCount);
-					confettiInstance({
-						startVelocity: 15,
-					});
-				}, 1000);
-			} catch (error) {
-				setOpenList(true);
-				getKudoList();
-			}
+			const status = await handleKudosClick();
+			if (status !== 204) return;
+
+			setIsPres(true);
+			setIsActive(true);
+			setTimeout(() => {
+				setIsActive(false);
+				const newCount = formatter.format(kudos + 1);
+				setCount(newCount);
+				confettiInstance({
+					startVelocity: 15,
+				});
+			}, 1000);
 		};
 
 		return (
