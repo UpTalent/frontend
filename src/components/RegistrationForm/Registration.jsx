@@ -1,10 +1,9 @@
-import { Alert, Button, Dialog, Typography } from '@mui/material';
+import { Alert, Button, Dialog } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from '../LoginForm/LoginForm.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { useStoreDispatch } from '../../redux/store';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import {
 	authentificateTalent,
 	clearError,
