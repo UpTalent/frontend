@@ -23,7 +23,7 @@ export const KudosListItem = ({ avatar, firstname, lastname, sent, kudos }) => {
 			</TableCell>
 			<TableCell>{firstname}</TableCell>
 			<TableCell>{lastname}</TableCell>
-			<TableCell>{kudos}</TableCell>
+			<TableCell align='center'>{kudos}</TableCell>
 			<TableCell>{formatDate(sent)}</TableCell>
 		</TableRow>
 	);
