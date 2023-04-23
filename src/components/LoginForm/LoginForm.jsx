@@ -52,7 +52,7 @@ export const LoginForm = () => {
 	}, [authError]);
 
 	const tryToLogin = async formData => {
-		const data = { method: 'login', talentInfo: formData, role: 'talent' };
+		const data = { method: 'login', talentInfo: formData};
 		dispatch(authentificateTalent(data));
 	};
 

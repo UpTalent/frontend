@@ -6,7 +6,7 @@ export const authAPI = {
 		if (role === 'talent') {
 			url = method ? `talents/login` : `talents`;
 		} else if (role === 'sponsor') {
-			url = method ? `sponsor/login` : `sponsorss`;
+			url = method ? `sponsors/login` : `sponsors`;
 		}
 		try {
 			return await axiosInstance.post(url, data);
