@@ -77,6 +77,7 @@ export const RegistrationForm = () => {
 							<Button onClick={() => setRole('sponsor')}>Sponsor</Button>
 						</ButtonGroup>
 					</div>
+
 				)}
 				{role && (
 					<>

@@ -8,14 +8,17 @@ export const ProofSummary = ({
 	withKudos = false,
 	kudosed_by_me,
 	kudos,
-	proofId
+	proofId,
+	my_proof,
 }) => {
 	return (
 		<div className={styles.summary}>
 			<ReactFitty maxSize={40} minSize={5} wrapText={true}>
 				<p>{summary}</p>
 			</ReactFitty>
-			{withKudos && <KudosContainer {...{ kudos, kudosed_by_me, proofId }} />}
+			{withKudos && (
+				<KudosContainer {...{ kudos, kudosed_by_me, proofId, my_proof }} />
+			)}
 		</div>
 	);
 };
