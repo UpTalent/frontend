@@ -4,7 +4,6 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
 import { EditProfile } from '../EditProfile';
-import { UserInfo } from './components/UserInfo';
 import { useSelector } from 'react-redux';
 import { getAuthId, getRole } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
@@ -23,7 +22,7 @@ export const Profile = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const modalPathname = useModalPathname();
-	const profile = location.pathname.split('/')[1];
+	const profile = talentId ? 'talent' : 'sponsor';
 
 	const getTalentProfile = async () => {
 		try {
@@ -50,11 +49,10 @@ export const Profile = () => {
 						setTalent={setUser}
 					/>
 					<div className={styles.allInfoAbouUser}>
-						<UserInfo talent={user} isTalentProfile={isUserProfile} />
 						<Outlet
 							context={{
-								aboutMe: user.about_me,
-								isTalentProfile: isUserProfile,
+								user,
+								isUserProfile: isUserProfile,
 							}}
 						/>
 					</div>

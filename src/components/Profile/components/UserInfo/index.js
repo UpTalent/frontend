@@ -1,1 +1,1 @@
-export { UserInfo } from './UserInfo';
+export { TalentInfo } from './TalentInfo';

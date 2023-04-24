@@ -28,7 +28,7 @@ export const GeneralTalent = ({ talent }) => {
 				{isTalent && (
 					<Button
 						component={Link}
-						to={`/talent/${talent.id}`}
+						to={`/profile/talent/${talent.id}`}
 						color='dark'
 						variant='contained'
 						sx={{

@@ -1,1 +1,1 @@
-export { SponsorProfile } from './SposorProfile';
+export { SponsorProfile } from './SponsorProfile';

@@ -40,7 +40,7 @@ export const EditProfile = ({ talent, setTalent }) => {
 			setTalent(data);
 			dispatch(updateFirstName(data.firstname))
 			dispatch(setSystemMessage(true, 'Your profile was updated successfully!'));
-			navigate(`/talent/${talent.id}`);
+			navigate(`profile/talent/${talent.id}`);
 		} catch (err) {
 			setError(err.message);
 		}

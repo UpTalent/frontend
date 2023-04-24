@@ -4,7 +4,11 @@ import rightside_image from '../../assets/5876834.jpg';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getAuthId, getIsAuth } from '../../redux/reducers/authentification';
+import {
+	getAuthId,
+	getIsAuth,
+	getRole,
+} from '../../redux/reducers/authentification';
 import { TalentsSlider } from './components/TalentsSlider';
 import { ProofSlider } from './components/ProofSlider/ProofSlider';
 import { useModalPathname } from '../../hooks/useModalPathname';
@@ -12,6 +16,7 @@ import { useModalPathname } from '../../hooks/useModalPathname';
 export const Home = () => {
 	const isTalent = useSelector(getIsAuth);
 	const authTalent = useSelector(getAuthId);
+	const authRole = useSelector(getRole);
 
 	const navigate = useNavigate();
 	const modalPathname = useModalPathname();
@@ -35,7 +40,7 @@ export const Home = () => {
 							variant='contained'
 							onClick={() => {
 								isTalent
-									? navigate(`/talent/${authTalent}`)
+									? navigate(`porifle/${authRole}/${authTalent}`)
 									: modalPathname('register');
 							}}
 						>

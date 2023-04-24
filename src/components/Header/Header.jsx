@@ -79,7 +79,7 @@ export const Header = () => {
 							}}
 						>
 							<MenuItem onClick={handleClose}>
-								<Link to={`${authUser.role}/${authUser.id}`} className={styles.menuItem}>
+								<Link to={`profile/${authUser.role}/${authUser.id}`} className={styles.menuItem}>
 									<p>Your profile</p>
 								</Link>
 							</MenuItem>
