@@ -8,8 +8,13 @@ import { getAuthId, getIsAuth } from '../../redux/reducers/authentification';
 import { TalentsSlider } from './components/TalentsSlider';
 import { ProofSlider } from './components/ProofSlider/ProofSlider';
 import { useModalPathname } from '../../hooks/useModalPathname';
+import EditSponsor from '../EditSponsor/EditSponsor';
+import { useState } from 'react';
 
 export const Home = () => {
+	// delete
+	const [sponsor, setSponsor] = useState(sponsor1);
+	//
 	const isTalent = useSelector(getIsAuth);
 	const authTalent = useSelector(getAuthId);
 
@@ -19,6 +24,7 @@ export const Home = () => {
 	return (
 		<>
 			<div className={styles.container}>
+				<EditSponsor user={sponsor} setUser={setSponsor} />
 				<div className={styles.water}>
 					<div className={styles.waterLeftside}>
 						<h1 className={styles.waterHeader}>
@@ -60,4 +66,14 @@ export const Home = () => {
 			<ProofSlider />
 		</>
 	);
+};
+
+const sponsor1 = {
+	fullname: 'Some company',
+	kudos: 50,
+};
+
+const sponsor2 = {
+	fullname: 'Rich person',
+	kudos: 25,
 };

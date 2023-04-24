@@ -3,7 +3,7 @@ import styles from './Profile.module.css';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
-import { EditProfile } from '../EditProfile';
+import EditTalent from '../EditTalent/EditTalent';
 import { UserInfo } from './components/UserInfo';
 import { useSelector } from 'react-redux';
 import { getAuthId } from '../../redux/reducers/authentification';
@@ -40,10 +40,15 @@ export const Profile = () => {
 		<>
 			{talent ? (
 				<div className={styles.profile}>
-					<PhotoBlock isTalentProfile={isTalentProfile} talent={talent} talentId={talentId} setTalent={setTalent}/>
+					<PhotoBlock
+						isTalentProfile={isTalentProfile}
+						talent={talent}
+						talentId={talentId}
+						setTalent={setTalent}
+					/>
 					<div className={styles.allInfoAbouUser}>
 						<UserInfo talent={talent} isTalentProfile={isTalentProfile} />
-						<Outlet context={{aboutMe: talent.about_me, isTalentProfile}} />
+						<Outlet context={{ aboutMe: talent.about_me, isTalentProfile }} />
 					</div>
 					{isTalentProfile && (
 						<Tooltip title='Edit profile'>
@@ -56,7 +61,7 @@ export const Profile = () => {
 						</Tooltip>
 					)}
 					{location.pathname.endsWith('/edit') && (
-						<EditProfile talent={talent} setTalent={setTalent} />
+						<EditTalent user={talent} setUser={setTalent} />
 					)}
 				</div>
 			) : (
