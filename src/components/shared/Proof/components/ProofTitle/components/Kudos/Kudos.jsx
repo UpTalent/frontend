@@ -19,6 +19,7 @@ export const Kudos = memo(
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
 		const disabled = isPres || isDisabled ? styles.disabled : null;
+    
 		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
 		const formatNumber = formatter.format(kudos);
 		const [count, setCount] = useState(formatNumber);

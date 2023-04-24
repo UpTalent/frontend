@@ -21,7 +21,8 @@ export const profileAPI = {
 				},
 			});
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			const message = error.response.data.message || error.response.data.error;
+			throw new Error(message);
 		}
 	},
 

@@ -20,7 +20,6 @@ export const KudosContainer = memo(
 		};
 
 		const handleKudosClick = async () => {
-			console.log(my_proof);
 			try {
 				if (my_proof) {
 					await getKudoList();
