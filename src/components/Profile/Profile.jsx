@@ -38,6 +38,11 @@ export const Profile = () => {
 		}
 	};
 
+	const edit = () => {
+		const Component = userRole === 'talent' ? EditTalent : EditSponsor;
+		return <Component {...{ user, setUser }} />;
+	};
+
 	useEffect(() => {
 		getTalentProfile();
 	}, [authUserId, userId]);
@@ -71,11 +76,7 @@ export const Profile = () => {
 							/>
 						</Tooltip>
 					)}
-					{location.pathname.endsWith('/edit') &&
-						((userRole === 'sponsor' && (
-							<EditSponsor {...{ user, setUser }} />
-						)) ||
-							(userRole === 'talent' && <EditTalent {...{ user, setUser }} />))}
+					{location.pathname.endsWith('/edit') && edit()}
 				</div>
 			) : (
 				<div className='loaderContainer'>
