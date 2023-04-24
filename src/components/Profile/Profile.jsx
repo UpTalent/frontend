@@ -3,15 +3,19 @@ import styles from './Profile.module.css';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
-import EditTalent from '../EditTalent/EditTalent';
+import EditTalent from '../EditProfile/EditTalent';
 import { UserInfo } from './components/UserInfo';
 import { useSelector } from 'react-redux';
 import { getAuthId } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { PhotoBlock } from './components/PhotoBlock';
 import { useModalPathname } from '../../hooks/useModalPathname';
+import EditSponsor from '../EditSponsor/EditSponsor';
 
 export const Profile = () => {
+	// delete
+	const [sponsor, setSponsor] = useState(sponsor1);
+	//
 	const authTalent = useSelector(getAuthId);
 
 	const [isTalentProfile, setIsTalentProfile] = useState(false);
@@ -63,6 +67,7 @@ export const Profile = () => {
 					{location.pathname.endsWith('/edit') && (
 						<EditTalent user={talent} setUser={setTalent} />
 					)}
+					<EditSponsor user={sponsor} setUser={setSponsor} />
 				</div>
 			) : (
 				<div className='loaderContainer'>
@@ -71,4 +76,14 @@ export const Profile = () => {
 			)}
 		</>
 	);
+};
+
+const sponsor1 = {
+	fullname: 'Some company',
+	kudos: 50,
+};
+
+const sponsor2 = {
+	fullname: 'Rich person',
+	kudos: 25,
 };
