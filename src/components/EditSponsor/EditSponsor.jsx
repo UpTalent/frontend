@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from '../LoginForm/LoginForm.module.css';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { Button } from '@mui/material';
-import { Form } from 'react-router-dom';
 import { FormField } from '../shared/FormField';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { validationSchema } from './validation';

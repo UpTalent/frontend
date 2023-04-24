@@ -32,7 +32,7 @@ export const withEdit =
 				dispatch(
 					setSystemMessage(true, 'Your profile was updated successfully!'),
 				);
-				navigate(`/talent/${user.id}`);
+				navigate(`/${role}/${user.id}`);
 			} catch (err) {
 				setError(err.message);
 			}
