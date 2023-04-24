@@ -3,30 +3,33 @@ import styles from './Profile.module.css';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
-import { EditProfile } from '../EditProfile';
-import { UserInfo } from './components/UserInfo';
+import EditTalent from '../EditProfile/EditTalent';
 import { useSelector } from 'react-redux';
-import { getAuthTalentId } from '../../redux/reducers/authentification';
+import { getAuthId, getRole } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { PhotoBlock } from './components/PhotoBlock';
 import { useModalPathname } from '../../hooks/useModalPathname';
+// import EditSponsor from '../EditSponsor/EditSponsor';
 
 export const Profile = () => {
-	const authTalent = useSelector(getAuthTalentId);
+	const authUserId = useSelector(getAuthId);
+	const userRole = useSelector(getRole);
 
-	const [isTalentProfile, setIsTalentProfile] = useState(false);
-	const [talent, setTalent] = useState(null);
-	const { talentId } = useParams();
+	const [isUserProfile, setIsUserProfile] = useState(false);
+	const [user, setUser] = useState(null);
+	const { talentId, sponsorId } = useParams();
+	const userId = talentId || sponsorId;
 
 	const navigate = useNavigate();
 	const location = useLocation();
 	const modalPathname = useModalPathname();
+	const profile = talentId ? 'talent' : 'sponsor';
 
 	const getTalentProfile = async () => {
 		try {
-			const { data } = await profileAPI.getTalent(talentId);
-			setTalent(data);
-			setIsTalentProfile(Number(talentId) === authTalent);
+			const { data } = await profileAPI.getUser(profile, userId);
+			setUser(data);
+			setIsUserProfile(Number(userId) === authUserId && profile === userRole);
 		} catch (err) {
 			navigate('/home');
 		}
@@ -34,18 +37,27 @@ export const Profile = () => {
 
 	useEffect(() => {
 		getTalentProfile();
-	}, [authTalent, talentId]);
+	}, [authUserId, userId]);
 
 	return (
 		<>
-			{talent ? (
+			{user ? (
 				<div className={styles.profile}>
-					<PhotoBlock isTalentProfile={isTalentProfile} talent={talent} talentId={talentId} setTalent={setTalent}/>
+					<PhotoBlock
+						isTalentProfile={isUserProfile}
+						talent={user}
+						talentId={userId}
+						setTalent={setUser}
+					/>
 					<div className={styles.allInfoAbouUser}>
-						<UserInfo talent={talent} isTalentProfile={isTalentProfile} />
-						<Outlet context={{aboutMe: talent.about_me, isTalentProfile}} />
+						<Outlet
+							context={{
+								user,
+								isUserProfile: isUserProfile,
+							}}
+						/>
 					</div>
-					{isTalentProfile && (
+					{isUserProfile && (
 						<Tooltip title='Edit profile'>
 							<CreateOutlinedIcon
 								className={`${styles.pencil} ${styles.toEdit}`}
@@ -56,8 +68,9 @@ export const Profile = () => {
 						</Tooltip>
 					)}
 					{location.pathname.endsWith('/edit') && (
-						<EditProfile talent={talent} setTalent={setTalent} />
+						<EditTalent {...{user, setUser}} />
 					)}
+					{/* <EditSponsor user={sponsor} setUser={setSponsor} /> */}
 				</div>
 			) : (
 				<div className='loaderContainer'>
@@ -67,3 +80,4 @@ export const Profile = () => {
 		</>
 	);
 };
+

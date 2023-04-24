@@ -6,24 +6,25 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Formik, Form } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import styles from './LoginForm.module.css';
+import styles from './Forms.module.css';
 import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
 import {
 	authentificateTalent,
 	clearError,
-	getAuthTalentId,
+	getAuthId,
 	getErrors,
 } from '../../redux/reducers/authentification';
 import { useSelector } from 'react-redux';
 import { useStoreDispatch } from '../../redux/store';
+import { RoleRadio } from '../RegistrationForm/components/RoleRadio/RoleRadio';
 
 export const LoginForm = () => {
 	const [open, setOpen] = useState(true);
-	const [error, setError] = useState(null);
+	const [role, setRole] = useState(null);
 
 	const dispatch = useStoreDispatch();
-	const talent_id = useSelector(getAuthTalentId);
+	const id = useSelector(getAuthId);
 	const authError = useSelector(getErrors);
 
 	const navigate = useNavigate();
@@ -38,21 +39,17 @@ export const LoginForm = () => {
 	};
 
 	useEffect(() => {
-		if (talent_id) {
-			navigate(`/talent/${talent_id}`);
+		if (id) {
+			navigate(`profile/${role}/${id}`);
 		}
 
 		if (authError) {
 			dispatch(clearError());
 		}
-	}, [talent_id]);
-
-	useEffect(() => {
-		setError(authError);
-	}, [authError]);
+	}, [id]);
 
 	const tryToLogin = async formData => {
-		const data = { method: 'login', talentInfo: formData };
+		const data = { method: 'login', userInfo: formData, role };
 		dispatch(authentificateTalent(data));
 	};
 
@@ -87,6 +84,10 @@ export const LoginForm = () => {
 								required={true}
 								icon={<LockOutlinedIcon />}
 							/>
+							<RoleRadio
+								handleSponsor={() => setRole('sponsor')}
+								handleTalent={() => setRole('talent')}
+							/>
 							<Button
 								type='submit'
 								variant='contained'
@@ -113,9 +114,9 @@ export const LoginForm = () => {
 					)}
 				</Formik>
 				<CloseIcon className={styles.closeIcon} onClick={handleClose} />
-				{error && (
-					<Alert severity='error' onClose={() => setError(null)}>
-						{error}
+				{authError && (
+					<Alert severity='error' onClose={() => dispatch(clearError())}>
+						{authError}
 					</Alert>
 				)}
 			</Dialog>

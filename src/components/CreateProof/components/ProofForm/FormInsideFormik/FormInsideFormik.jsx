@@ -37,7 +37,6 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 			dispatch(
 				createDraftProof({ talentId, data: { ...values, status: 'DRAFT' } }),
 			);
-			// navigate(`/talent/${talentId}/proofs?page=1&filter=DRAFT`);
 		} else if (mode === 'edit') {
 			const data = {
 				talentId,
@@ -47,7 +46,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 			};
 			dispatch(editProof(data));
 		}
-		navigate(`/talent/${talentId}/proofs?page=1&filter=DRAFT`);
+		navigate(`/profile/talent/${talentId}/proofs?page=1&filter=DRAFT`);
 	};
 
 	const publishHandler = () => {
@@ -59,7 +58,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 				status: 'PUBLISHED',
 			};
 			dispatch(editProof(data));
-			navigate(`/talent/${talentId}/proofs?page=1&filter=PUBLISHED`);
+			navigate(`/profile/talent/${talentId}/proofs?page=1&filter=PUBLISHED`);
 		} else if (mode === 'create') {
 			dispatch(
 				publishDraftProof({
@@ -67,7 +66,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 					draftProof: { ...proof, status: 'DRAFT' },
 				}),
 			);
-			navigate(`/talent/${talentId}/proofs?page=1&filter=PUBLISHED`);
+			navigate(`/profile/talent/${talentId}/proofs?page=1&filter=PUBLISHED`);
 		}
 	};
 

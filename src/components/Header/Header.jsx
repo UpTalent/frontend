@@ -4,10 +4,8 @@ import { Button, Menu, MenuItem } from '@mui/material';
 import styles from './Header.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	getAuthTalentId,
-	getFirstName,
-	getIsAuth,
 	logOut,
+	getAuthUser,
 } from '../../redux/reducers/authentification';
 import logo from '../../assets/upTalent.png';
 import { ReactFitty } from 'react-fitty';
@@ -15,9 +13,8 @@ import { useModalPathname } from '../../hooks/useModalPathname';
 
 export const Header = () => {
 	const dispatch = useDispatch();
-	const isTalent = useSelector(getIsAuth);
-	const authTalent = useSelector(getFirstName);
-	const authTalentId = useSelector(getAuthTalentId);
+	const authUser = useSelector(getAuthUser);
+
 	const modalPathname = useModalPathname();
 	const navigate = useNavigate();
 
@@ -53,7 +50,7 @@ export const Header = () => {
 				</NavLink>
 			</div>
 
-			{isTalent ? (
+			{authUser.isAuth ? (
 				<div className={styles.buttonGroup}>
 					<div className={styles.nameButton}>
 						<Button
@@ -61,7 +58,7 @@ export const Header = () => {
 							onClick={handleClick}
 							sx={{ textAlign: 'center' }}
 						>
-							<ReactFitty maxSize={20}>{authTalent}</ReactFitty>
+							<ReactFitty maxSize={20}>{authUser.name}</ReactFitty>
 						</Button>
 						<Menu
 							anchorEl={dropdownMenu}
@@ -82,8 +79,8 @@ export const Header = () => {
 							}}
 						>
 							<MenuItem onClick={handleClose}>
-								<Link to={`talent/${authTalentId}`} className={styles.menuItem}>
-									<p>Talent's profile</p>
+								<Link to={`profile/${authUser.role}/${authUser.id}`} className={styles.menuItem}>
+									<p>Your profile</p>
 								</Link>
 							</MenuItem>
 							<MenuItem onClick={handleClose}>

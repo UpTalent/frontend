@@ -4,10 +4,11 @@ import { authAPI } from '../../api/authAPI';
 
 const initialState = {
 	isAuth: false,
-	talent_id: null,
-	firstName: '',
+	id: null,
+	name: '',
 	error: null,
 	isPending: true,
+	role: '',
 };
 
 const authSlice = createSlice({
@@ -15,10 +16,10 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		logOut: state => {
-			state.isAuth = false;
-			state.talent_id = null;
-			state.firstName = '';
-			state.error = null;
+			Object.keys(state).forEach(key => {
+				state[key] = initialState[key];
+			});
+			state.isPending = false;
 			setAuthToken();
 		},
 		clearError: state => {
@@ -31,15 +32,16 @@ const authSlice = createSlice({
 				return state;
 			}
 
-			const { exp, firstname, talent_id } = parseJwt(jwt);
+			const { exp, name, id, role } = parseJwt(jwt);
 			const currentTime = new Date();
 			const expire = new Date(exp * 1000);
 
 			if (currentTime <= expire) {
 				setAuthToken(jwt);
-				state.talent_id = talent_id;
-				state.firstName = firstname;
+				state.id = id;
+				state.name = name;
 				state.isAuth = true;
+				state.role = role.toLowerCase();
 			} else {
 				localStorage.removeItem('jwt_token');
 				state.isAuth = false;
@@ -47,15 +49,16 @@ const authSlice = createSlice({
 			state.isPending = false;
 		},
 		updateFirstName: (state, action) => {
-			state.firstName = action.payload;
+			state.name = action.payload;
 		},
 	},
 	extraReducers: builder => {
 		builder
 			.addCase(authentificateTalent.fulfilled, (state, action) => {
 				state.isAuth = true;
-				state.talent_id = action.payload.talent_id;
-				state.firstName = action.payload.firstname;
+				state.id = action.payload.id;
+				state.name = action.payload.name;
+				state.role = action.payload.role;
 			})
 			.addCase(authentificateTalent.rejected, (state, action) => {
 				state.error = action.payload;
@@ -67,13 +70,12 @@ export const authentificateTalent = createAsyncThunk(
 	'authentificateTalent',
 	async (params, thunkAPI) => {
 		try {
-			const { method, talentInfo } = params;
-			const { data } = await authAPI.authentificate(talentInfo, method);
+			const { userInfo, role, method } = params;
+			const { data } = await authAPI.authentificate(userInfo, role, method);
 			setAuthToken(data.jwt_token);
 
-			const { firstname, talent_id } = parseJwt(data.jwt_token);
-
-			return { firstname, talent_id };
+			const { name, id } = parseJwt(data.jwt_token);
+			return { name, id, role };
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
@@ -81,10 +83,18 @@ export const authentificateTalent = createAsyncThunk(
 );
 
 export const getErrors = state => state.authentification.error;
-export const getAuthTalentId = state => state.authentification.talent_id;
-export const getFirstName = state => state.authentification.firstName;
+export const getAuthId = state => state.authentification.id;
+export const getName = state => state.authentification.name;
 export const getIsAuth = state => state.authentification.isAuth;
 export const getIsPending = state => state.authentification.isPending;
+export const getRole = state => state.authentification.role;
+
+export const getAuthUser = state => ({
+	name: state.authentification.name,
+	id: state.authentification.id,
+	role: state.authentification.role,
+	isAuth: state.authentification.isAuth,
+});
 
 export const { logOut, clearError, authApp, updateFirstName } =
 	authSlice.actions;
