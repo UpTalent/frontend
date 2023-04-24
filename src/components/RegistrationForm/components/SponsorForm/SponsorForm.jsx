@@ -1,6 +1,6 @@
 import { Button, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
-import styles from '../../../LoginForm/LoginForm.module.css';
+import styles from '../../../LoginForm/Forms.module.css';
 import React from 'react';
 import { validationSchema } from './validation';
 import { useLocation, useNavigate } from 'react-router-dom';

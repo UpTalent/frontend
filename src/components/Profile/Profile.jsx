@@ -3,12 +3,13 @@ import styles from './Profile.module.css';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
-import { EditProfile } from '../EditProfile';
+import EditTalent from '../EditProfile/EditTalent';
 import { useSelector } from 'react-redux';
 import { getAuthId, getRole } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { PhotoBlock } from './components/PhotoBlock';
 import { useModalPathname } from '../../hooks/useModalPathname';
+import EditSponsor from '../EditSponsor/EditSponsor';
 
 export const Profile = () => {
 	const authUserId = useSelector(getAuthId);
@@ -67,8 +68,9 @@ export const Profile = () => {
 						</Tooltip>
 					)}
 					{location.pathname.endsWith('/edit') && (
-						<EditProfile talent={user} setTalent={setUser} />
+						<EditTalent {...{user, setUser}} />
 					)}
+					{/* <EditSponsor user={sponsor} setUser={setSponsor} /> */}
 				</div>
 			) : (
 				<div className='loaderContainer'>
@@ -78,3 +80,4 @@ export const Profile = () => {
 		</>
 	);
 };
+

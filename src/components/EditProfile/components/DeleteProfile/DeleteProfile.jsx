@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { profileAPI } from '../../../../api/profileAPI';
-import styles from '../../../LoginForm/LoginForm.module.css';
+import styles from '../../../LoginForm/Forms.module.css';
 import { useDispatch } from 'react-redux';
 import { setSystemMessage } from '../../../../redux/reducers/systemMessages';
 import { logOut } from '../../../../redux/reducers/authentification';
