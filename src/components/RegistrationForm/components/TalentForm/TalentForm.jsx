@@ -1,6 +1,6 @@
 import { Autocomplete, Button, TextField, Typography } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
-import styles from '../../../LoginForm/LoginForm.module.css';
+import styles from '../../../LoginForm/Forms.module.css';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';

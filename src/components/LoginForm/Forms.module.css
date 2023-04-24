@@ -8,6 +8,7 @@
     max-height: 800px;
 }
 
+
 .registrationForm .formTitle{
     font-family: 'Rubik';
     font-weight: 400;
@@ -15,6 +16,12 @@
     line-height: 60px;
     display: flex;
     align-items: center;
+}
+
+.registrationForm .editTitle{
+    font-family: 'Rubik';
+    font-weight: 400;
+    font-size: 40px;
 }
 
 .formTitle svg {
@@ -70,4 +77,8 @@
     font-size: 15px;
     font-weight: 200;
     color: rgb(187, 52, 52);
+}
+
+.kudosIcon {
+    fill: var(--secondary);
 }

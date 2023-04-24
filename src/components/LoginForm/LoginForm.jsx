@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Formik, Form } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import styles from './LoginForm.module.css';
+import styles from './Forms.module.css';
 import { validationSchema } from './validation';
 import { FormField } from '../shared/FormField';
 import {
@@ -52,7 +52,7 @@ export const LoginForm = () => {
 	}, [authError]);
 
 	const tryToLogin = async formData => {
-		const data = { method: 'login', talentInfo: formData};
+		const data = { method: 'login', talentInfo: formData };
 		dispatch(authentificateTalent(data));
 	};
 

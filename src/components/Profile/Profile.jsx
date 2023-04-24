@@ -3,15 +3,19 @@ import styles from './Profile.module.css';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { profileAPI } from '../../api/profileAPI';
-import { EditProfile } from '../EditProfile';
+import EditTalent from '../EditProfile/EditTalent';
 import { UserInfo } from './components/UserInfo';
 import { useSelector } from 'react-redux';
 import { getAuthId } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { PhotoBlock } from './components/PhotoBlock';
 import { useModalPathname } from '../../hooks/useModalPathname';
+import EditSponsor from '../EditSponsor/EditSponsor';
 
 export const Profile = () => {
+	// delete
+	const [sponsor, setSponsor] = useState(sponsor1);
+	//
 	const authTalent = useSelector(getAuthId);
 
 	const [isTalentProfile, setIsTalentProfile] = useState(false);
@@ -40,10 +44,15 @@ export const Profile = () => {
 		<>
 			{talent ? (
 				<div className={styles.profile}>
-					<PhotoBlock isTalentProfile={isTalentProfile} talent={talent} talentId={talentId} setTalent={setTalent}/>
+					<PhotoBlock
+						isTalentProfile={isTalentProfile}
+						talent={talent}
+						talentId={talentId}
+						setTalent={setTalent}
+					/>
 					<div className={styles.allInfoAbouUser}>
 						<UserInfo talent={talent} isTalentProfile={isTalentProfile} />
-						<Outlet context={{aboutMe: talent.about_me, isTalentProfile}} />
+						<Outlet context={{ aboutMe: talent.about_me, isTalentProfile }} />
 					</div>
 					{isTalentProfile && (
 						<Tooltip title='Edit profile'>
@@ -56,8 +65,9 @@ export const Profile = () => {
 						</Tooltip>
 					)}
 					{location.pathname.endsWith('/edit') && (
-						<EditProfile talent={talent} setTalent={setTalent} />
+						<EditTalent user={talent} setUser={setTalent} />
 					)}
+					{/* <EditSponsor user={sponsor} setUser={setSponsor} /> */}
 				</div>
 			) : (
 				<div className='loaderContainer'>
@@ -66,4 +76,14 @@ export const Profile = () => {
 			)}
 		</>
 	);
+};
+
+const sponsor1 = {
+	fullname: 'Some company',
+	kudos: 50,
+};
+
+const sponsor2 = {
+	fullname: 'Rich person',
+	kudos: 25,
 };
