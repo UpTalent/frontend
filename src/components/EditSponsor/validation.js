@@ -8,4 +8,7 @@ export const validationSchema = Yup.object({
 			/^[a-zA-Z\s.]+(-[a-zA-Z\s.]+)?[a-zA-Z\s.]*$/,
 			'Only English letters and one special symbol in a row ',
 		),
+	kudos: Yup.number()
+		.required('Kudos are required')
+		.min(0, 'Kudos cannot be less than 0'),
 });

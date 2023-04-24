@@ -67,7 +67,7 @@ export const Profile = () => {
 					{location.pathname.endsWith('/edit') && (
 						<EditTalent user={talent} setUser={setTalent} />
 					)}
-					<EditSponsor user={sponsor} setUser={setSponsor} />
+					{/* <EditSponsor user={sponsor} setUser={setSponsor} /> */}
 				</div>
 			) : (
 				<div className='loaderContainer'>

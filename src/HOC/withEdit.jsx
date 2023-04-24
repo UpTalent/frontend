@@ -1,7 +1,7 @@
 import { Alert, Dialog } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../components/LoginForm/LoginForm.module.css';
+import styles from '../components/LoginForm/Forms.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRole, updateFirstName } from '../redux/reducers/authentification';
@@ -39,7 +39,16 @@ export const withEdit =
 		};
 
 		return (
-			<Dialog open={open} onClose={handleClose}>
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				sx={{
+					'& .MuiPaper-root': {
+						borderRadius: '10px',
+						maxWidth: '100%',
+					},
+				}}
+			>
 				<Component user={user} edit={edit} />
 				<CloseIcon className={styles.closeIcon} onClick={handleClose} />
 				{error && (

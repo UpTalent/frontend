@@ -38,8 +38,7 @@ export const KudosList = ({ kudosList, openList, setOpenList }) => {
 							<TableHead>
 								<TableRow>
 									<TableCell></TableCell>
-									<TableCell align='center'>FIRSTNAME</TableCell>
-									<TableCell align='center'>LASTNAME</TableCell>
+									<TableCell align='center'>FULLNAME</TableCell>
 									<TableCell align='center'>KUDOS</TableCell>
 									<TableCell align='center'>DATE/TIME</TableCell>
 								</TableRow>
