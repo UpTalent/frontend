@@ -23,7 +23,6 @@ export const Kudos = memo(
 		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
 		const formatNumber = formatter.format(kudos);
 		const [count, setCount] = useState(formatNumber);
-		const [openList, setOpenList] = useState(false);
 
 		let confettiInstance;
 
