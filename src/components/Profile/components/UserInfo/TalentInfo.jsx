@@ -6,7 +6,7 @@ import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlin
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import {ProfileInfo} from './ProfileInfo'
 
-export const UserInfo = ({talent, isTalentProfile}) => {
+export const TalentInfo = ({talent, isTalentProfile}) => {
   const infoAboutUser = [
 		{
 			icon: <LocationOnOutlinedIcon />,

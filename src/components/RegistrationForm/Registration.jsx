@@ -1,4 +1,4 @@
-import { Alert, Button, ButtonGroup, Dialog, Typography } from '@mui/material';
+import { Alert, Dialog, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Registration.module.css';
@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { TalentForm } from './components/TalentForm';
 import { SponsorForm } from './components/SponsorForm';
 import photo1 from '../../assets/photo1.png';
+import { RoleRadio } from './components/RoleRadio/RoleRadio';
 
 export const RegistrationForm = () => {
 	const [modal, setModal] = useState(true);
@@ -37,7 +38,7 @@ export const RegistrationForm = () => {
 
 	useEffect(() => {
 		if (id) {
-			navigate(`/${role}/${id}`);
+			navigate(`profile/${role}/${id}`);
 		}
 
 		if (authError) {
@@ -49,7 +50,7 @@ export const RegistrationForm = () => {
 		const registerData = { ...formData };
 		delete registerData.confirmPassword;
 
-		const data = { talentInfo: registerData, role };
+		const data = { userInfo: registerData, role };
 
 		dispatch(authentificateTalent(data));
 	};
@@ -72,12 +73,11 @@ export const RegistrationForm = () => {
 							Choose how you want to register
 						</Typography>
 						<img src={photo1} className={styles.image} alt='photoTeam' />
-						<ButtonGroup color='primary' sx={{ fontSize: '32px' }}>
-							<Button onClick={() => setRole('talent')}>Talent</Button>
-							<Button onClick={() => setRole('sponsor')}>Sponsor</Button>
-						</ButtonGroup>
+						<RoleRadio
+							handleSponsor={() => setRole('sponsor')}
+							handleTalent={() => setRole('talent')}
+						/>
 					</div>
-
 				)}
 				{role && (
 					<>
@@ -86,15 +86,13 @@ export const RegistrationForm = () => {
 						) : (
 							<SponsorForm register={register} />
 						)}
+						<ArrowBackIcon
+							className={styles.undoIcon}
+							onClick={() => setRole(null)}
+						/>
 					</>
 				)}
 				<CloseIcon className={styles.closeIcon} onClick={handleClose} />
-				{role && (
-					<ArrowBackIcon
-						className={styles.undoIcon}
-						onClick={() => setRole(null)}
-					/>
-				)}
 				{authError && (
 					<Alert severity='error' onClose={() => dispatch(clearError())}>
 						{authError}

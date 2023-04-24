@@ -4,22 +4,17 @@ import { Tab, Tabs } from '@mui/material';
 import { Link, Outlet, useLocation, useOutletContext } from 'react-router-dom';
 
 export const MainInfo = () => {
-	const { aboutMe, isTalentProfile } = useOutletContext();
+	const { tabLabels, user, isUserProfile } = useOutletContext();
 	const location = useLocation();
 	const initialValue = location.pathname.endsWith('proofs') ? 1 : 0;
 	const [value, setValue] = useState(initialValue);
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
-	const tabLabels = [
-		{ label: 'About me', link: '' },
-		{ label: 'Proofs', link: 'proofs?page=1&filter=PUBLISHED' },
-	];
-
 	return (
 		<div className={styles.mainInfo}>
 			<Tabs value={value} onChange={handleChange}>
-				{tabLabels.map((item, index) => (
+				{tabLabels?.map((item, index) => (
 					<Tab
 						key={index}
 						label={item.label}
@@ -29,7 +24,9 @@ export const MainInfo = () => {
 					/>
 				))}
 			</Tabs>
-			<Outlet context={{ aboutMe, isTalentProfile }} />
+			<Outlet
+				context={{ aboutMe: user?.about_me, isTalentProfile: isUserProfile }}
+			/>
 		</div>
 	);
 };
