@@ -9,7 +9,7 @@ import { getAuthId, getRole } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { PhotoBlock } from './components/PhotoBlock';
 import { useModalPathname } from '../../hooks/useModalPathname';
-import EditSponsor from '../EditSponsor/EditSponsor';
+// import EditSponsor from '../EditSponsor/EditSponsor';
 
 export const Profile = () => {
 	const authUserId = useSelector(getAuthId);
