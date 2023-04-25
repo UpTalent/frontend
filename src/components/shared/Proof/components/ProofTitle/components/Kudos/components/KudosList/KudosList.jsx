@@ -28,7 +28,7 @@ export const KudosList = ({ kudosList, openList, setOpenList }) => {
 				'& .MuiPaper-root': {
 					borderRadius: '10px',
 					maxWidth: '100%',
-					maxHeight: '100%'
+					maxHeight: '100%',
 				},
 			}}
 		>
@@ -46,7 +46,7 @@ export const KudosList = ({ kudosList, openList, setOpenList }) => {
 							</TableHead>
 							<TableBody className={styles.body}>
 								{kudosList.length !== 0 &&
-									kudosList.map(el => <KudosListItem key={el.sent} {...el} />)}
+									kudosList.map((el, i) => <KudosListItem key={i} {...el} />)}
 							</TableBody>
 						</Table>
 					</TableContainer>

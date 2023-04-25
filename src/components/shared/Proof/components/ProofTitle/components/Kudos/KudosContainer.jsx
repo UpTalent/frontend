@@ -32,9 +32,12 @@ export const KudosContainer = memo(
 					await getKudoList();
 				} else {
 					setOpenMenu(false);
-					const { status } = await kudosAPI.addKudos(proofId, kudosAmount);
+					const { data, status } = await kudosAPI.addKudos(
+						proofId,
+						kudosAmount,
+					);
 					dispatch(setKudos(kudosState - kudosAmount));
-					return status;
+					return { ...data, status };
 				}
 			} catch (error) {
 				dispatch(setSystemMessage(true, error.message, 'error'));
@@ -52,7 +55,8 @@ export const KudosContainer = memo(
 					openList,
 					setOpenList,
 					openMenu,
-					setOpenMenu
+					setOpenMenu,
+					my_proof,
 				}}
 			/>
 		);
