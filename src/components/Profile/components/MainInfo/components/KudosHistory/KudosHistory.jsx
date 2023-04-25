@@ -9,7 +9,7 @@ import { CircularProgress, Pagination } from '@mui/material';
 
 export const KudosHistory = () => {
 	const { sponsorId } = useParams();
-	const [proofs, setProofs] = useState(test);
+	const [proofs, setProofs] = useState([]);
 	const [isFetching, setIsFetching] = useState(false);
 	const [total_pages, setTotalPages] = useState(1);
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -21,7 +21,6 @@ export const KudosHistory = () => {
 		try {
 			setIsFetching(true);
 			const { data } = await sponsorApi.getKudosedProofs(sponsorId, page);
-			console.log(data);
 			setProofs(data.content);
 			setTotalPages(data.total_pages);
 			setIsFetching(false);
@@ -72,24 +71,3 @@ export const KudosHistory = () => {
 		</div>
 	);
 };
-
-const test = [
-	{
-		proof_id: 81,
-		icon_number: 3,
-		title: 'Proof PUBLISHED',
-		total_sum_kudos: 232,
-	},
-	{
-		proof_id: 9,
-		icon_number: 9,
-		title: 'Proof of Rosendo Luettgen',
-		total_sum_kudos: 53,
-	},
-	{
-		proof_id: 8,
-		icon_number: 2,
-		title: 'Proof of Gricelda Mann',
-		total_sum_kudos: 24,
-	},
-];

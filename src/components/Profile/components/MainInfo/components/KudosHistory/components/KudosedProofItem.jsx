@@ -22,7 +22,11 @@ export const KudosedProofItem = ({ id }) => {
 	const getHistory = async page => {
 		try {
 			setIsFetching(true);
-			const { data } = await sponsorApi.getKudosedProofHistory(sponsorId, id, page);
+			const { data } = await sponsorApi.getKudosedProofHistory(
+				sponsorId,
+				id,
+				page,
+			);
 			setHistory(prev => [...prev, ...data.content]);
 			setTotalPages(data.total_pages);
 			setIsFetching(false);
@@ -56,7 +60,7 @@ export const KudosedProofItem = ({ id }) => {
 
 	return (
 		<>
-			<TableContainer>
+			<TableContainer sx={{ maxHeight: '400px' }}>
 				<Table stickyHeader>
 					<TableHead>
 						<TableRow>
@@ -65,24 +69,23 @@ export const KudosedProofItem = ({ id }) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{history.length && history.map(el => (
-							<TableRow>
+						{history.map((el, id) => (
+							<TableRow key={id}>
 								<TableCell>{el.kudos}</TableCell>
 								<TableCell>{formatDate(el.sent)}</TableCell>
 							</TableRow>
 						))}
-
-						{isFetching ? (
-							<CircularProgress />
-						) : (
-							total_pages - 1 !== currentPage && (
-								<Button variant='text' onClick={uploadHistory}>
-									Load more
-								</Button>
-							)
-						)}
 					</TableBody>
 				</Table>
+				{isFetching ? (
+					<CircularProgress />
+				) : (
+					total_pages - 1 !== currentPage && (
+						<Button variant='text' onClick={uploadHistory}>
+							Load more
+						</Button>
+					)
+				)}
 			</TableContainer>
 		</>
 	);

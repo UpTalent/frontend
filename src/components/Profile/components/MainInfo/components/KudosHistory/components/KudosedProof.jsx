@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import { ProofTitle } from '../../../../../../shared/Proof/components/ProofTitle';
 import styles from '../../../../../../shared/Proof/Proof.module.css';
-// import { KudosedProofItem } from './KudosedProofItem';
+import { KudosedProofItem } from './KudosedProofItem';
 
 export const KudosedProof = ({ proofInfo }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -31,10 +31,11 @@ export const KudosedProof = ({ proofInfo }) => {
 						{...proofInfo}
 						kudos={proofInfo.total_sum_kudos}
 						withContent={true}
+						id={proofInfo.proof_id}
 					/>
 				</AccordionSummary>
 				<AccordionDetails>
-					<KudosedProofItem id={proofInfo.proof_id} />
+					{isAccordionOpen && <KudosedProofItem id={proofInfo.proof_id} />}
 				</AccordionDetails>
 			</Accordion>
 		</div>
