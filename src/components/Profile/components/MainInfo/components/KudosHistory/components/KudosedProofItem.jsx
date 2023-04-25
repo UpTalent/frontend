@@ -16,14 +16,17 @@ export const KudosedProofItem = ({ id }) => {
 	const { sponsorId } = useParams();
 	const [isFetching, setIsFetching] = useState(false);
 	const [total_pages, setTotalPages] = useState(3);
-	const [history, setHistory] = useState(test.content);
+	const [history, setHistory] = useState([]);
 	const [currentPage, setCurrentPage] = useState(0);
 
-	const getHistory = page => {
+	const getHistory = async page => {
 		try {
 			setIsFetching(true);
-			const { data } = sponsorApi.getKudosedProofHistory(sponsorId, id, page);
-			console.log(data);
+			const { data } = await sponsorApi.getKudosedProofHistory(
+				sponsorId,
+				id,
+				page,
+			);
 			setHistory(prev => [...prev, ...data.content]);
 			setTotalPages(data.total_pages);
 			setIsFetching(false);
@@ -57,7 +60,7 @@ export const KudosedProofItem = ({ id }) => {
 
 	return (
 		<>
-			<TableContainer>
+			<TableContainer sx={{ maxHeight: '400px' }}>
 				<Table stickyHeader>
 					<TableHead>
 						<TableRow>
@@ -66,71 +69,24 @@ export const KudosedProofItem = ({ id }) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{history.map(el => (
-							<TableRow>
+						{history.map((el, id) => (
+							<TableRow key={id}>
 								<TableCell>{el.kudos}</TableCell>
 								<TableCell>{formatDate(el.sent)}</TableCell>
 							</TableRow>
 						))}
-
-						{isFetching ? (
-							<CircularProgress />
-						) : (
-							total_pages - 1 !== currentPage && (
-								<Button variant='text' onClick={uploadHistory}>
-									Load more
-								</Button>
-							)
-						)}
 					</TableBody>
 				</Table>
+				{isFetching ? (
+					<CircularProgress />
+				) : (
+					total_pages - 1 !== currentPage && (
+						<Button variant='text' onClick={uploadHistory}>
+							Load more
+						</Button>
+					)
+				)}
 			</TableContainer>
 		</>
 	);
-};
-
-const test = {
-	content: [
-		{
-			sent: '2023-04-24 22:34',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:56',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-	],
-	total_pages: 3,
 };
