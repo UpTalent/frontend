@@ -3,7 +3,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { sponsorApi } from '../../../../../../api/sponsorAPI';
-import styles from '../../../../../shared/Proof/Proof.module.css';
+import styles from '../../MainInfo.module.css';
 
 import { KudosedProof } from './components/KudosedProof';
 import { CircularProgress, Pagination } from '@mui/material';

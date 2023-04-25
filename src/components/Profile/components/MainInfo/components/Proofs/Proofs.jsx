@@ -114,7 +114,6 @@ export const Proofs = () => {
 					/>
 				)}
 			</div>
-			<KudosHistory/>
 			<Outlet />
 		</>
 	);
