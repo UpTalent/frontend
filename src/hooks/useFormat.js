@@ -11,7 +11,7 @@ export const useFormat = initial => {
 		setCount(formatter.format(num));
 		setUnformated(num);
 	};
-
+//try make this logic in sposorprofile
 	useEffect(() => {
 		updateNumber(initial);
 	}, [initial]);

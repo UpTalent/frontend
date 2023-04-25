@@ -12,14 +12,14 @@ export const Kudos = memo(
 	({
 		kudosed_by_me,
 		kudos = 0,
-		handleKudosClick,
+		addingKudos,
 		isDisabled,
 		kudosList,
 		openList,
 		setOpenList,
 		openMenu,
 		setOpenMenu,
-		my_proof,
+		clickOnKudos
 	}) => {
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
@@ -30,9 +30,9 @@ export const Kudos = memo(
 
 		const handelClick = async kudosAmount => {
 			setConfetti(prev => ({ ...prev, reset: {} }));
-			const data = await handleKudosClick(kudosAmount);
+			const data = await addingKudos(kudosAmount);
 	
-			if (data?.status !== 200) return;
+			if (data.status !== 200) return;
 
 			setIsPres(true);
 			setIsActive(true);
@@ -43,7 +43,6 @@ export const Kudos = memo(
 			}, 1000);
 		};
 
-		const clickOnKudos = my_proof ? handelClick : () => setOpenMenu(true);
 		return (
 			<div>
 				<div

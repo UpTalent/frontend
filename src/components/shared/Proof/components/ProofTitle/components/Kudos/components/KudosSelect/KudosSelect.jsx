@@ -14,11 +14,11 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 	const balance = useSelector(getUserKudos);
 
 	const handleChange = e => {
-		// if (e.target.value < balance) {
+		if (e.target.value < balance) {
 			setValue(Number(e.target.value));
-		// } else {
-		// 	setValue(balance);
-		// }
+		} else {
+			setValue(balance);
+		}
 	};
 	const putKudos = () => {
 		if (value > 0) {

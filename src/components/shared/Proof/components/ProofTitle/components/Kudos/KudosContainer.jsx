@@ -21,42 +21,39 @@ export const KudosContainer = memo(
 		const isDisabled = useSelector(getRole) !== 'sponsor' && !my_proof;
 
 		const getKudoList = async () => {
-			const { data } = await kudosAPI.getProofsKudos(proofId);
-			setKudosList(data);
-			setOpenList(true);
-		};
-
-		const handleKudosClick = async kudosAmount => {
 			try {
-				if (my_proof) {
-					await getKudoList();
-				} else {
-					setOpenMenu(false);
-					const { data, status } = await kudosAPI.addKudos(
-						proofId,
-						kudosAmount,
-					);
-					dispatch(setKudos(kudosState - kudosAmount));
-					return { ...data, status };
-				}
+				const { data } = await kudosAPI.getProofsKudos(proofId);
+				setKudosList(data);
+				setOpenList(true);
+			} catch (error) {
+				dispatch(setSystemMessage(true, error.message, 'error'));
+			}
+		};
+		const addingKudos = async kudosAmount => {
+			try {
+				setOpenMenu(false);
+				const { data, status } = await kudosAPI.addKudos(proofId, kudosAmount);
+				dispatch(setKudos(kudosState - kudosAmount));
+				return { ...data, status };
 			} catch (error) {
 				dispatch(setSystemMessage(true, error.message, 'error'));
 			}
 		};
 
+		const clickOnKudos = my_proof ? getKudoList : () => setOpenMenu(true);
 		return (
 			<Kudos
 				{...{
 					kudosed_by_me,
 					kudos,
-					handleKudosClick,
+					addingKudos,
 					isDisabled,
 					kudosList,
 					openList,
 					setOpenList,
 					openMenu,
 					setOpenMenu,
-					my_proof,
+					clickOnKudos,
 				}}
 			/>
 		);
