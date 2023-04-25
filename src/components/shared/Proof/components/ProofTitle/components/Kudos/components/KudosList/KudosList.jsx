@@ -28,6 +28,7 @@ export const KudosList = ({ kudosList, openList, setOpenList }) => {
 				'& .MuiPaper-root': {
 					borderRadius: '10px',
 					maxWidth: '100%',
+					maxHeight: '100%'
 				},
 			}}
 		>

@@ -13,6 +13,8 @@ export const KudosContainer = memo(
 	({ kudosed_by_me, kudos, proofId, my_proof }) => {
 		const [kudosList, setKudosList] = useState([]);
 		const [openList, setOpenList] = useState(false);
+		const [openMenu, setOpenMenu] = useState(false);
+
 		const kudosState = useSelector(getUserKudos);
 
 		const dispatch = useDispatch();
@@ -29,6 +31,7 @@ export const KudosContainer = memo(
 				if (my_proof) {
 					await getKudoList();
 				} else {
+					setOpenMenu(false);
 					const { status } = await kudosAPI.addKudos(proofId, kudosAmount);
 					dispatch(setKudos(kudosState - kudosAmount));
 					return status;
@@ -48,6 +51,8 @@ export const KudosContainer = memo(
 					kudosList,
 					openList,
 					setOpenList,
+					openMenu,
+					setOpenMenu
 				}}
 			/>
 		);

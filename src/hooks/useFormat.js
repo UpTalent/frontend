@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -8,17 +7,14 @@ export const useFormat = initial => {
 	const [count, setCount] = useState(formatNumber);
 	const [unformated, setUnformated] = useState(initial);
 
-	const updateNumber = useCallback(
-		num => {
-			setCount(formatter.format(num));
-			setUnformated(num);
-		},
-		[formatter],
-	);
+	const updateNumber = num => {
+		setCount(formatter.format(num));
+		setUnformated(num);
+	};
 
 	useEffect(() => {
 		updateNumber(initial);
-	}, [initial, updateNumber]);
+	}, [initial]);
 
 	return [count, updateNumber, unformated];
 };

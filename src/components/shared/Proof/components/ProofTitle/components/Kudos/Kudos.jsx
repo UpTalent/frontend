@@ -17,10 +17,11 @@ export const Kudos = memo(
 		kudosList,
 		openList,
 		setOpenList,
+		openMenu,
+		setOpenMenu,
 	}) => {
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
-		const [openMenu, setOpenMenu] = useState(false);
 		const disabled = isDisabled ? styles.disabled : null;
 		const [confetti, setConfetti] = useState({ fire: false, reset: false });
 
@@ -28,7 +29,6 @@ export const Kudos = memo(
 
 		const handelClick = async kudosAmount => {
 			setConfetti(prev => ({ ...prev, reset: {} }));
-			setOpenMenu(false);
 			const status = await handleKudosClick(kudosAmount);
 			if (status !== 204) return;
 
@@ -45,7 +45,7 @@ export const Kudos = memo(
 			<div>
 				<div
 					className={`${styles.background} ${disabled}`}
-					onClick={disabled ? null : () => setOpenMenu(true)}
+					onClick={disabled ? null : handelClick}
 				>
 					<div className={styles.kitty}>
 						<NotPresCat
