@@ -21,6 +21,7 @@ import {
 } from '../../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../../redux/store';
 import { useModalPathname } from '../../../../../../hooks/useModalPathname';
+import { KudosHistory } from '../KudosHistory/KudosHistory';
 
 export const Proofs = () => {
 	const { isTalentProfile } = useOutletContext();
