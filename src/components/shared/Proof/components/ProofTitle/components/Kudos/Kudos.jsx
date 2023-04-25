@@ -20,6 +20,7 @@ export const Kudos = memo(
 	}) => {
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
+    
 		const [openMenu, setOpenMenu] = useState(false);
 		const disabled = isDisabled ? styles.disabled : null;
 		const [confetti, setConfetti] = useState({ fire: false, reset: false });
