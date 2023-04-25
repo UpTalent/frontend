@@ -16,14 +16,13 @@ export const KudosedProofItem = ({ id }) => {
 	const { sponsorId } = useParams();
 	const [isFetching, setIsFetching] = useState(false);
 	const [total_pages, setTotalPages] = useState(3);
-	const [history, setHistory] = useState(test.content);
+	const [history, setHistory] = useState([]);
 	const [currentPage, setCurrentPage] = useState(0);
 
-	const getHistory = page => {
+	const getHistory = async page => {
 		try {
 			setIsFetching(true);
-			const { data } = sponsorApi.getKudosedProofHistory(sponsorId, id, page);
-			console.log(data);
+			const { data } = await sponsorApi.getKudosedProofHistory(sponsorId, id, page);
 			setHistory(prev => [...prev, ...data.content]);
 			setTotalPages(data.total_pages);
 			setIsFetching(false);
@@ -66,7 +65,7 @@ export const KudosedProofItem = ({ id }) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{history.map(el => (
+						{history.length && history.map(el => (
 							<TableRow>
 								<TableCell>{el.kudos}</TableCell>
 								<TableCell>{formatDate(el.sent)}</TableCell>
@@ -87,50 +86,4 @@ export const KudosedProofItem = ({ id }) => {
 			</TableContainer>
 		</>
 	);
-};
-
-const test = {
-	content: [
-		{
-			sent: '2023-04-24 22:34',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:56',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-		{
-			sent: '2023-04-24 11:39',
-			kudos: 12,
-		},
-	],
-	total_pages: 3,
 };

@@ -34,7 +34,7 @@ export const KudosedProof = ({ proofInfo }) => {
 					/>
 				</AccordionSummary>
 				<AccordionDetails>
-					{/* <KudosedProofItem id={proofInfo.proof_id} /> */}
+					<KudosedProofItem id={proofInfo.proof_id} />
 				</AccordionDetails>
 			</Accordion>
 		</div>

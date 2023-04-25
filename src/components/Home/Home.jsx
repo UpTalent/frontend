@@ -12,7 +12,6 @@ import {
 import { TalentsSlider } from './components/TalentsSlider';
 import { ProofSlider } from './components/ProofSlider/ProofSlider';
 import { useModalPathname } from '../../hooks/useModalPathname';
-import { KudosHistory } from '../Profile/components/MainInfo/components/KudosHistory/KudosHistory';
 
 export const Home = () => {
 	const isTalent = useSelector(getIsAuth);
@@ -25,7 +24,6 @@ export const Home = () => {
 	return (
 		<>
 			<div className={styles.container}>
-				<KudosHistory />
 				<div className={styles.water}>
 					<div className={styles.waterLeftside}>
 						<h1 className={styles.waterHeader}>

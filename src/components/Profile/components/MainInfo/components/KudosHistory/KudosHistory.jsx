@@ -1,11 +1,9 @@
 import React from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { kudosAPI } from '../../../../../../api/kudosAPI';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { sponsorApi } from '../../../../../../api/sponsorAPI';
 import styles from '../../../../../shared/Proof/Proof.module.css';
-
 import { KudosedProof } from './components/KudosedProof';
 import { CircularProgress, Pagination } from '@mui/material';
 
@@ -19,10 +17,10 @@ export const KudosHistory = () => {
 	const urlPage = Number(searchParams.get('page')) || 1;
 	const [currentPage, setCurrentPage] = useState(urlPage);
 
-	const getProofs = page => {
+	const getProofs = async page => {
 		try {
 			setIsFetching(true);
-			const { data } = sponsorApi.getKudosedProofs(sponsorId, page);
+			const { data } = await sponsorApi.getKudosedProofs(sponsorId, page);
 			console.log(data);
 			setProofs(data.content);
 			setTotalPages(data.total_pages);
@@ -34,7 +32,7 @@ export const KudosHistory = () => {
 
 	useEffect(() => {
 		setCurrentPage(urlPage);
-		getProofs(currentPage-1);
+		getProofs(urlPage-1);
 	}, [urlPage]);
 
 	useEffect(() => {
