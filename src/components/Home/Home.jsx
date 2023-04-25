@@ -40,7 +40,7 @@ export const Home = () => {
 							variant='contained'
 							onClick={() => {
 								isTalent
-									? navigate(`porifle/${authRole}/${authTalent}`)
+									? navigate(`/profile/${authRole}/${authTalent}`)
 									: modalPathname('register');
 							}}
 						>

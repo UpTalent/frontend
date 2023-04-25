@@ -6,7 +6,7 @@ import { setSystemMessage } from '../../../../../../../redux/reducers/systemMess
 import { getRole } from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
-	({ kudosed_by_me, kudos, proofId, inForm = false, my_proof }) => {
+	({ kudosed_by_me, kudos, proofId, my_proof }) => {
 		const [kudosList, setKudosList] = useState([]);
 		const [openList, setOpenList] = useState(false);
 
@@ -19,12 +19,12 @@ export const KudosContainer = memo(
 			setOpenList(true);
 		};
 
-		const handleKudosClick = async () => {
+		const handleKudosClick = async kudosAmount => {
 			try {
 				if (my_proof) {
 					await getKudoList();
 				} else {
-					const { status } = await kudosAPI.addKudos(proofId);
+					const { status } = await kudosAPI.addKudos(proofId, kudosAmount);
 					return status;
 				}
 			} catch (error) {

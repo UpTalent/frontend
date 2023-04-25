@@ -17,7 +17,6 @@ export const ProofTitle = ({
 	kudosed_by_me,
 	kudos,
 	withContent,
-	inForm,
 	my_proof
 }) => {
 	return (
@@ -39,7 +38,7 @@ export const ProofTitle = ({
 			</div>
 			<div className={styles.bottomPanel}>
 				{withContent && (
-					<KudosContainer {...{ kudosed_by_me, kudos, inForm, my_proof }} proofId={id} />
+					<KudosContainer {...{ kudosed_by_me, kudos, my_proof }} proofId={id} />
 				)}
 				{withContent && showControlls && (
 					<div className={`${styles.status} ${styles[status]}`}>

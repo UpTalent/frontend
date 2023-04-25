@@ -6,17 +6,26 @@ import { Footer } from './components/Footer';
 import { RegistrationForm } from './components/RegistrationForm';
 import { LoginForm } from './components/LoginForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { authApp, getIsPending } from './redux/reducers/authentification';
+import {
+	authApp,
+	getIsPending,
+	getKudos,
+	getRole,
+} from './redux/reducers/authentification';
 import { Loader } from './components/shared/Loader';
 import { PopUpMessage } from './components/shared/PopUpMessage';
 
 const App = () => {
 	const location = useLocation();
 	const dispatch = useDispatch();
+	const role = useSelector(getRole);
 	const isPending = useSelector(getIsPending);
 
 	useEffect(() => {
 		dispatch(authApp());
+		if (role === 'sponsor') {
+			dispatch(getKudos());
+		}
 	}, []);
 
 	return (
