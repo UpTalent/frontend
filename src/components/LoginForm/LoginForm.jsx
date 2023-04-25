@@ -97,7 +97,7 @@ export const LoginForm = () => {
 								LOG IN
 							</Button>
 							<Typography>
-								ARE YOU NOT A TALENT YET?{' '}
+								ARE YOU NOT A MEMBER YET?{' '}
 								<span
 									className={styles.signInElement}
 									onClick={() =>

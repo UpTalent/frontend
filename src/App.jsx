@@ -26,7 +26,7 @@ const App = () => {
 		if (role === 'sponsor') {
 			dispatch(getKudos());
 		}
-	}, []);
+	}, [role]);
 
 	return (
 		<>

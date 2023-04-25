@@ -81,7 +81,7 @@ export const authentificateTalent = createAsyncThunk(
 
 			const { name, id } = parseJwt(data.jwt_token);
 			if (role === 'sponsor') {
-				thunkAPI.dispatch(getKudos());
+				thunkAPI.dispatch(getKudos(id));
 			}
 			return { name, id, role };
 		} catch (error) {
@@ -92,9 +92,9 @@ export const authentificateTalent = createAsyncThunk(
 
 export const getKudos = createAsyncThunk(
 	'getKudos',
-	async (params, thunkAPI) => {
-		const id = thunkAPI.getState().authentification.id;
-		const { data } = await profileAPI.getUser('sponsor', id);
+	async (id, thunkAPI) => {
+		const idOfUser = id || thunkAPI.getState().authentification.id;
+		const { data } = await profileAPI.getUser('sponsor', idOfUser);
 		thunkAPI.dispatch(setKudos(data.kudos));
 	},
 );
