@@ -34,4 +34,14 @@ export const sponsorApi = {
 			throw new Error(error.response.data.message);
 		}
 	},
+
+	async updateKudosQuantity(sponsorId, balance) {
+		try {
+			return await axiosInstance.put(`sponsors/${sponsorId}/kudos`, {
+				balance,
+			});
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	},
 };

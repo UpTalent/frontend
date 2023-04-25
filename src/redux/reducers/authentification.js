@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
+import { profileAPI } from '../../api/profileAPI';
 
 const initialState = {
 	isAuth: false,
@@ -9,6 +10,7 @@ const initialState = {
 	error: null,
 	isPending: true,
 	role: '',
+	kudos: 0,
 };
 
 const authSlice = createSlice({
@@ -51,6 +53,9 @@ const authSlice = createSlice({
 		updateFirstName: (state, action) => {
 			state.name = action.payload;
 		},
+		setKudos: (state, action) => {
+			state.kudos = action.payload;
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -75,10 +80,22 @@ export const authentificateTalent = createAsyncThunk(
 			setAuthToken(data.jwt_token);
 
 			const { name, id } = parseJwt(data.jwt_token);
+			if (role === 'sponsor') {
+				thunkAPI.dispatch(getKudos(id));
+			}
 			return { name, id, role };
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
+	},
+);
+
+export const getKudos = createAsyncThunk(
+	'getKudos',
+	async (id, thunkAPI) => {
+		const idOfUser = id || thunkAPI.getState().authentification.id;
+		const { data } = await profileAPI.getUser('sponsor', idOfUser);
+		thunkAPI.dispatch(setKudos(data.kudos));
 	},
 );
 
@@ -88,6 +105,7 @@ export const getName = state => state.authentification.name;
 export const getIsAuth = state => state.authentification.isAuth;
 export const getIsPending = state => state.authentification.isPending;
 export const getRole = state => state.authentification.role;
+export const getUserKudos = state => state.authentification.kudos;
 
 export const getAuthUser = state => ({
 	name: state.authentification.name,
@@ -96,7 +114,7 @@ export const getAuthUser = state => ({
 	isAuth: state.authentification.isAuth,
 });
 
-export const { logOut, clearError, authApp, updateFirstName } =
+export const { logOut, clearError, authApp, updateFirstName, setKudos } =
 	authSlice.actions;
 
 export default authSlice.reducer;

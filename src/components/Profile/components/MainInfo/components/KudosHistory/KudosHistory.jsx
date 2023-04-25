@@ -32,7 +32,7 @@ export const KudosHistory = () => {
 
 	useEffect(() => {
 		setCurrentPage(urlPage);
-		getProofs(urlPage-1);
+		getProofs(urlPage - 1);
 	}, [urlPage]);
 
 	useEffect(() => {
