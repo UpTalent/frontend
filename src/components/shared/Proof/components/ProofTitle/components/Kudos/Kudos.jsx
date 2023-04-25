@@ -1,10 +1,12 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import styles from './Kudo.module.css';
 import { ReactComponent as NotPresCat } from '../../../../../../../assets/notPressedCat.svg';
 import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
+import { useFormat } from '../../../../../../../hooks/useFormat';
+import { KudosSelect } from './components/KudosSelect/KudosSelect';
 
 export const Kudos = memo(
 	({
@@ -18,33 +20,25 @@ export const Kudos = memo(
 	}) => {
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
-		const disabled = isPres || isDisabled ? styles.disabled : null;
     
-		const formatter = Intl.NumberFormat('en', { notation: 'compact' });
-		const formatNumber = formatter.format(kudos);
-		const [count, setCount] = useState(formatNumber);
+		const [openMenu, setOpenMenu] = useState(false);
+		const disabled = isDisabled ? styles.disabled : null;
+		const [confetti, setConfetti] = useState({ fire: false, reset: false });
 
-		let confettiInstance;
+		const [count, setCount, currentKudos] = useFormat(kudos);
 
-		const getInstance = useCallback(instance => {
-			confettiInstance = instance;
-		}, []);
-
-		const instance = useMemo(() => getInstance, []);
-
-		const handelClick = async () => {
-			const status = await handleKudosClick();
+		const handelClick = async kudosAmount => {
+			setConfetti(prev => ({ ...prev, reset: {} }));
+			setOpenMenu(false);
+			const status = await handleKudosClick(kudosAmount);
 			if (status !== 204) return;
 
 			setIsPres(true);
 			setIsActive(true);
 			setTimeout(() => {
 				setIsActive(false);
-				const newCount = formatter.format(kudos + 1);
-				setCount(newCount);
-				confettiInstance({
-					startVelocity: 15,
-				});
+				setCount(currentKudos + kudosAmount);
+				setConfetti(prev => ({ ...prev, fire: {} }));
 			}, 1000);
 		};
 
@@ -52,7 +46,7 @@ export const Kudos = memo(
 			<div>
 				<div
 					className={`${styles.background} ${disabled}`}
-					onClick={disabled ? null : handelClick}
+					onClick={disabled ? null : () => setOpenMenu(true)}
 				>
 					<div className={styles.kitty}>
 						<NotPresCat
@@ -75,11 +69,18 @@ export const Kudos = memo(
 						className={`${isActive && styles.animation} ${styles.paw}`}
 					/>
 					<ReactCanvasConfetti
-						refConfetti={instance}
+						startVelocity={15}
+						reset={confetti.reset}
+						fire={confetti.fire}
 						className={styles.confetti}
 					/>
 				</div>
 				<KudosList {...{ kudosList, openList, setOpenList }} />
+				<KudosSelect
+					open={openMenu}
+					addKudos={handelClick}
+					close={setOpenMenu}
+				/>
 			</div>
 		);
 	},

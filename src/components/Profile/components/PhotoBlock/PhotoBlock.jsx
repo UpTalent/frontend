@@ -14,6 +14,7 @@ export const PhotoBlock = ({
 	talent,
 	talentId,
 	setTalent,
+	name,
 }) => {
 	const [loadAvatar, setLoadAvatar] = useState(false);
 	const [loadBanner, setLoadBanner] = useState(false);
@@ -73,9 +74,7 @@ export const PhotoBlock = ({
 						</Tooltip>
 					)}
 				</div>
-				<p
-					className={styles.profileName}
-				>{`${talent.firstname} ${talent.lastname}`}</p>
+				<p className={styles.profileName}>{name}</p>
 			</div>
 			{isTalentProfile && role === 'talent' && (
 				<Tooltip title={allowedFormats}>

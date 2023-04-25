@@ -3,12 +3,17 @@ import { Kudos } from './Kudos';
 import { kudosAPI } from '../../../../../../../api/kudosAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
-import { getRole } from '../../../../../../../redux/reducers/authentification';
+import {
+	getRole,
+	getUserKudos,
+	setKudos,
+} from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
-	({ kudosed_by_me, kudos, proofId, inForm = false, my_proof }) => {
+	({ kudosed_by_me, kudos, proofId, my_proof }) => {
 		const [kudosList, setKudosList] = useState([]);
 		const [openList, setOpenList] = useState(false);
+		const kudosState = useSelector(getUserKudos);
 
 		const dispatch = useDispatch();
 		const isDisabled = useSelector(getRole) !== 'sponsor' && !my_proof;
@@ -19,12 +24,13 @@ export const KudosContainer = memo(
 			setOpenList(true);
 		};
 
-		const handleKudosClick = async () => {
+		const handleKudosClick = async kudosAmount => {
 			try {
 				if (my_proof) {
 					await getKudoList();
 				} else {
-					const { status } = await kudosAPI.addKudos(proofId);
+					const { status } = await kudosAPI.addKudos(proofId, kudosAmount);
+					dispatch(setKudos(kudosState - kudosAmount));
 					return status;
 				}
 			} catch (error) {
