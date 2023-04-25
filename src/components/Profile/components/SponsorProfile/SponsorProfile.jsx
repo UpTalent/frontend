@@ -6,7 +6,7 @@ import { useFormat } from '../../../../hooks/useFormat';
 
 export const SponsorProfile = () => {
 	const { user, isUserProfile } = useOutletContext();
-	const tabLabels = [{ label: 'History', link: '' }];
+	const tabLabels = [{ label: 'History', link: 'history' }];
 	const [kudos] = useFormat(user.kudos);
 	return (
 		<>

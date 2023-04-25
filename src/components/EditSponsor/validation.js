@@ -10,5 +10,6 @@ export const validationSchema = Yup.object({
 		),
 	kudos: Yup.number()
 		.required('Kudos are required')
-		.min(0, 'Kudos cannot be less than 0'),
+		.min(0, 'Kudos cannot be less than 0')
+		.max(2147483647, 'Kudos cannot be more than 2147483647' ),
 });
