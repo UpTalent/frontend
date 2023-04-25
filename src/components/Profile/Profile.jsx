@@ -9,7 +9,7 @@ import { getAuthId, getRole } from '../../redux/reducers/authentification';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { PhotoBlock } from './components/PhotoBlock';
 import { useModalPathname } from '../../hooks/useModalPathname';
-// import EditSponsor from '../EditSponsor/EditSponsor';
+import EditSponsor from '../EditSponsor/EditSponsor';
 
 export const Profile = () => {
 	const authUserId = useSelector(getAuthId);
@@ -19,6 +19,9 @@ export const Profile = () => {
 	const [user, setUser] = useState(null);
 	const { talentId, sponsorId } = useParams();
 	const userId = talentId || sponsorId;
+	const name = user?.fullname
+		? user?.fullname
+		: `${user?.firstname} ${user?.lastname}`;
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -35,6 +38,11 @@ export const Profile = () => {
 		}
 	};
 
+	const edit = () => {
+		const Component = userRole === 'talent' ? EditTalent : EditSponsor;
+		return <Component {...{ user, setUser }} />;
+	};
+
 	useEffect(() => {
 		getTalentProfile();
 	}, [authUserId, userId]);
@@ -48,6 +56,7 @@ export const Profile = () => {
 						talent={user}
 						talentId={userId}
 						setTalent={setUser}
+						name={name}
 					/>
 					<div className={styles.allInfoAbouUser}>
 						<Outlet
@@ -67,10 +76,7 @@ export const Profile = () => {
 							/>
 						</Tooltip>
 					)}
-					{location.pathname.endsWith('/edit') && (
-						<EditTalent {...{user, setUser}} />
-					)}
-					{/* <EditSponsor user={sponsor} setUser={setSponsor} /> */}
+					{location.pathname.endsWith('/edit') && edit()}
 				</div>
 			) : (
 				<div className='loaderContainer'>
@@ -80,4 +86,3 @@ export const Profile = () => {
 		</>
 	);
 };
-
