@@ -25,9 +25,10 @@ const EditSponsor = ({ user, edit }) => {
 
 	const handleSubmit = async values => {
 		try {
-			await sponsorApi.updateKudosQuantity(user.id, values.kudos);
-		edit(values);
-		} catch (err){
+			values.kudos > 0 &&
+				(await sponsorApi.updateKudosQuantity(user.id, values.kudos));
+			edit(values);
+		} catch (err) {
 			dispatch(setSystemMessage(true, err.message, 'error'));
 		}
 	};
