@@ -16,6 +16,7 @@ export const withEdit =
 	({ user, setUser }) => {
 		const navigate = useNavigate();
 		const [open, setOpen] = useState(true);
+
 		const dispatch = useDispatch();
 		const role = useSelector(getRole);
 
