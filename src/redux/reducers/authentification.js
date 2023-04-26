@@ -76,6 +76,7 @@ export const authentificateTalent = createAsyncThunk(
 	async (params, thunkAPI) => {
 		try {
 			const { userInfo, role, method } = params;
+			if (!role) return thunkAPI.rejectWithValue('Please choose your role!');
 			const { data } = await authAPI.authentificate(userInfo, role, method);
 			setAuthToken(data.jwt_token);
 
@@ -90,14 +91,11 @@ export const authentificateTalent = createAsyncThunk(
 	},
 );
 
-export const getKudos = createAsyncThunk(
-	'getKudos',
-	async (id, thunkAPI) => {
-		const idOfUser = id || thunkAPI.getState().authentification.id;
-		const { data } = await profileAPI.getUser('sponsor', idOfUser);
-		thunkAPI.dispatch(setKudos(data.kudos));
-	},
-);
+export const getKudos = createAsyncThunk('getKudos', async (id, thunkAPI) => {
+	const idOfUser = id || thunkAPI.getState().authentification.id;
+	const { data } = await profileAPI.getUser('sponsor', idOfUser);
+	thunkAPI.dispatch(setKudos(data.kudos));
+});
 
 export const getErrors = state => state.authentification.error;
 export const getAuthId = state => state.authentification.id;

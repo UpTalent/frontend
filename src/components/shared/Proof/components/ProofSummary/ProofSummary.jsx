@@ -17,7 +17,9 @@ export const ProofSummary = ({
 				<p>{summary}</p>
 			</ReactFitty>
 			{withKudos && (
-				<KudosContainer {...{ kudos, kudosed_by_me, proofId, my_proof }} />
+				<KudosContainer
+					{...{ kudos, kudosed_by_me, proofId, my_proof, talentView: summary }}
+				/>
 			)}
 		</div>
 	);

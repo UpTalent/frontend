@@ -5,39 +5,40 @@ import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
-import { useFormat } from '../../../../../../../hooks/useFormat';
 import { KudosSelect } from './components/KudosSelect/KudosSelect';
+import { formatNumber } from '../../../../../../../hooks/formatNumber';
 
 export const Kudos = memo(
 	({
 		kudosed_by_me,
 		kudos = 0,
-		handleKudosClick,
+		addingKudos,
 		isDisabled,
 		kudosList,
 		openList,
 		setOpenList,
+		openMenu,
+		setOpenMenu,
+		clickOnKudos
 	}) => {
 		const [isPres, setIsPres] = useState(kudosed_by_me);
 		const [isActive, setIsActive] = useState(false);
-    
-		const [openMenu, setOpenMenu] = useState(false);
 		const disabled = isDisabled ? styles.disabled : null;
 		const [confetti, setConfetti] = useState({ fire: false, reset: false });
 
-		const [count, setCount, currentKudos] = useFormat(kudos);
+		const [count, setCount] = useState(kudos);
 
 		const handelClick = async kudosAmount => {
 			setConfetti(prev => ({ ...prev, reset: {} }));
-			setOpenMenu(false);
-			const status = await handleKudosClick(kudosAmount);
-			if (status !== 204) return;
+			const data = await addingKudos(kudosAmount);
+			console.log(data);
+			if (data.status !== 200) return;
 
 			setIsPres(true);
 			setIsActive(true);
 			setTimeout(() => {
 				setIsActive(false);
-				setCount(currentKudos + kudosAmount);
+				setCount(data.currentKudos);
 				setConfetti(prev => ({ ...prev, fire: {} }));
 			}, 1000);
 		};
@@ -46,7 +47,7 @@ export const Kudos = memo(
 			<div>
 				<div
 					className={`${styles.background} ${disabled}`}
-					onClick={disabled ? null : () => setOpenMenu(true)}
+					onClick={disabled ? null : clickOnKudos}
 				>
 					<div className={styles.kitty}>
 						<NotPresCat
@@ -61,7 +62,7 @@ export const Kudos = memo(
 						/>
 					</div>
 					<div className={isPres ? styles.isPres : styles.notPres}>
-						{count} KUDOS
+						{formatNumber(count)} KUDOS
 					</div>
 					<img
 						src={paw}

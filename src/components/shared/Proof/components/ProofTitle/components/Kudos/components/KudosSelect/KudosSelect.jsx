@@ -6,6 +6,7 @@ import kitty from '../../../../../../../../../assets/kudosKitty.png';
 import { ReactComponent as NotPresCat } from '../../../../../../../../../assets/notPressedCat.svg';
 import { useSelector } from 'react-redux';
 import { getUserKudos } from '../../../../../../../../../redux/reducers/authentification';
+import { MAX_KUDOS } from '../../../../../../../../../service/constants';
 
 export const KudosSelect = ({ open, close, addKudos }) => {
 	const [value, setValue] = useState(0);
@@ -14,11 +15,12 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 	const balance = useSelector(getUserKudos);
 
 	const handleChange = e => {
-		// if (e.target.value < balance) {
-			setValue(Number(e.target.value));
-		// } else {
-		// 	setValue(balance);
-		// }
+		const current = e.target.value;
+		if (current < balance && current < MAX_KUDOS) {
+			setValue(Number(current));
+		} else {
+			setValue(balance);
+		}
 	};
 	const putKudos = () => {
 		if (value > 0) {
