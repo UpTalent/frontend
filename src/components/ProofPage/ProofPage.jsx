@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 import { Proof } from '../shared/Proof';
 import { SortButtons } from './components/SortButtons/SortButtons';
 import { getGridList, getProofsList } from '../../redux/reducers/dataList';
-import { withURL } from '../../HOC/withURL';
+import { withURL } from '../../service/HOC/withURL';
 import { useSelector } from 'react-redux';
 import { useStoreDispatch } from '../../redux/store';
 

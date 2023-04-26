@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useStoreDispatch } from '../redux/store';
+import { useStoreDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import {
 	clearList,
 	getGridItem,
 	getGridTotalPages,
 	pendingStatus,
-} from '../redux/reducers/dataList';
+} from '../../redux/reducers/dataList';
 import { CircularProgress } from '@mui/material';
 
 export const withURL = (Component, getList, nameList) => () => {
