@@ -8,9 +8,10 @@ import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { validationSchema } from './validation';
 import { withEdit } from '../../service/HOC/withEdit';
 import { sponsorApi } from '../../api/sponsorAPI';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserKudos } from '../../redux/reducers/authentification';
 import { ButtonGroup } from './components/AddBtn/ButtonGroup';
+import { setSystemMessage } from '../../redux/reducers/systemMessages';
 
 const EditSponsor = ({ user, edit }) => {
 	const initialEditData = {
@@ -20,10 +21,15 @@ const EditSponsor = ({ user, edit }) => {
 	};
 
 	const currentKudos = useSelector(getUserKudos);
+	const dispatch = useDispatch();
 
 	const handleSubmit = async values => {
-		await sponsorApi.updateKudosQuantity(user.id, values.kudos);
+		try {
+			await sponsorApi.updateKudosQuantity(user.id, values.kudos);
 		edit(values);
+		} catch (err){
+			dispatch(setSystemMessage(true, err.message, 'error'));
+		}
 	};
 
 	return (

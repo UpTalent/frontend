@@ -10,7 +10,6 @@ export const validationSchema = Yup.object({
 			'Only English letters and one special symbol in a row ',
 		),
 	kudos: Yup.number()
-		.required('Kudos are required')
 		.min(0, 'Kudos cannot be less than 0')
-		.max(MAX_KUDOS, `Kudos cannot be more than ${MAX_KUDOS}` ),
+		.max(MAX_KUDOS, `Kudos cannot be more than ${MAX_KUDOS}`),
 });
