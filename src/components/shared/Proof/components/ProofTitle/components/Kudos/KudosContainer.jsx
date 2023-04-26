@@ -5,17 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
 import {
 	getRole,
-	getUserKudos,
 	setKudos,
 } from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
-	({ kudosed_by_me, kudos, proofId, my_proof }) => {
+	({ kudosed_by_me, kudos, proofId, my_proof, talentView }) => {
 		const [kudosList, setKudosList] = useState([]);
 		const [openList, setOpenList] = useState(false);
 		const [openMenu, setOpenMenu] = useState(false);
-
-		const kudosState = useSelector(getUserKudos);
 
 		const dispatch = useDispatch();
 		const isDisabled = useSelector(getRole) !== 'sponsor' && !my_proof;
@@ -33,8 +30,12 @@ export const KudosContainer = memo(
 			try {
 				setOpenMenu(false);
 				const { data, status } = await kudosAPI.addKudos(proofId, kudosAmount);
-				dispatch(setKudos(kudosState - kudosAmount));
-				return { ...data, status };
+				const currentKudos = talentView
+					? data.current_count_kudos
+					: data.current_sum_kudos_by_sponsor;
+
+				dispatch(setKudos(data.current_sponsor_balance));
+				return { currentKudos, status };
 			} catch (error) {
 				dispatch(setSystemMessage(true, error.message, 'error'));
 			}

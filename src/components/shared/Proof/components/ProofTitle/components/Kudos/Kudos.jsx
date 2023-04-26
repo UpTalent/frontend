@@ -5,8 +5,8 @@ import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
-import { useFormat } from '../../../../../../../hooks/useFormat';
 import { KudosSelect } from './components/KudosSelect/KudosSelect';
+import { formatNumber } from '../../../../../../../hooks/formatNumber';
 
 export const Kudos = memo(
 	({
@@ -26,19 +26,19 @@ export const Kudos = memo(
 		const disabled = isDisabled ? styles.disabled : null;
 		const [confetti, setConfetti] = useState({ fire: false, reset: false });
 
-		const [count, setCount, currentKudos] = useFormat(kudos);
+		const [count, setCount] = useState(kudos);
 
 		const handelClick = async kudosAmount => {
 			setConfetti(prev => ({ ...prev, reset: {} }));
 			const data = await addingKudos(kudosAmount);
-	
+			console.log(data);
 			if (data.status !== 200) return;
 
 			setIsPres(true);
 			setIsActive(true);
 			setTimeout(() => {
 				setIsActive(false);
-				setCount(currentKudos + kudosAmount);
+				setCount(data.currentKudos);
 				setConfetti(prev => ({ ...prev, fire: {} }));
 			}, 1000);
 		};
@@ -62,7 +62,7 @@ export const Kudos = memo(
 						/>
 					</div>
 					<div className={isPres ? styles.isPres : styles.notPres}>
-						{count} KUDOS
+						{formatNumber(count)} KUDOS
 					</div>
 					<img
 						src={paw}
