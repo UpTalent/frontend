@@ -6,7 +6,7 @@ import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
 import { KudosSelect } from './components/KudosSelect/KudosSelect';
-import { formatNumber } from '../../../../../../../hooks/formatNumber';
+import { formatNumber } from '../../../../../../../service/hooks/formatNumber';
 
 export const Kudos = memo(
 	({

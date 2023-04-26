@@ -6,7 +6,7 @@ import { FormField } from '../shared/FormField';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { validationSchema } from './validation';
-import { withEdit } from '../../HOC/withEdit';
+import { withEdit } from '../../service/HOC/withEdit';
 import { sponsorApi } from '../../api/sponsorAPI';
 import { useSelector } from 'react-redux';
 import { getUserKudos } from '../../redux/reducers/authentification';
