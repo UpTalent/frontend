@@ -7,7 +7,7 @@ import {
 	getGridList,
 	getTalentsList,
 } from '../../redux/reducers/dataList';
-import { withURL } from '../../HOC/withURL';
+import { withURL } from '../../service/HOC/withURL';
 
 const TalentsPage = ({ total_pages }) => {
 	const talentList = useSelector(getGridList);
