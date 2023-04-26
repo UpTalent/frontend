@@ -1,12 +1,12 @@
 import { Alert, Dialog } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../components/LoginForm/Forms.module.css';
+import styles from '../../components/LoginForm/Forms.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRole, updateFirstName } from '../redux/reducers/authentification';
-import { talentsAPI } from '../api/talentsAPI';
-import { setSystemMessage } from '../redux/reducers/systemMessages';
+import { talentsAPI } from '../../api/talentsAPI';
+import { getRole, updateFirstName } from '../../redux/reducers/authentification';
+import { setSystemMessage } from '../../redux/reducers/systemMessages';
 
 export const withEdit =
 	Component =>

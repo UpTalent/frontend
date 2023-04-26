@@ -29,12 +29,13 @@ const authSlice = createSlice({
 		},
 		authApp: state => {
 			const jwt = localStorage.getItem('jwt_token');
+			const name = localStorage.getItem('userName');
 			if (!jwt) {
 				state.isPending = false;
 				return state;
 			}
 
-			const { exp, name, id, role } = parseJwt(jwt);
+			const { exp, id, role } = parseJwt(jwt);
 			const currentTime = new Date();
 			const expire = new Date(exp * 1000);
 
@@ -46,12 +47,14 @@ const authSlice = createSlice({
 				state.role = role.toLowerCase();
 			} else {
 				localStorage.removeItem('jwt_token');
+				localStorage.removeItem('userName');
 				state.isAuth = false;
 			}
 			state.isPending = false;
 		},
 		updateFirstName: (state, action) => {
 			state.name = action.payload;
+			localStorage.setItem('userName', action.payload);
 		},
 		setKudos: (state, action) => {
 			state.kudos = action.payload;
@@ -81,6 +84,7 @@ export const authentificateTalent = createAsyncThunk(
 			setAuthToken(data.jwt_token);
 
 			const { name, id } = parseJwt(data.jwt_token);
+			localStorage.setItem('userName', name);
 			if (role === 'sponsor') {
 				thunkAPI.dispatch(getKudos(id));
 			}

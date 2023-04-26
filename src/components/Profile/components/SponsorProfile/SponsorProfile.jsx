@@ -7,11 +7,11 @@ import {
 	getUserKudos,
 	setKudos,
 } from '../../../../redux/reducers/authentification';
-import { formatNumber } from '../../../../hooks/formatNumber';
+import { formatNumber } from '../../../../service/hooks/formatNumber';
 
 export const SponsorProfile = () => {
 	const { user, isUserProfile } = useOutletContext();
-	const tabLabels = [{ label: 'History', link: 'history' }];
+	const tabLabels = [{ label: 'History', link: '' }];
 	const sponsorKudos = useSelector(getUserKudos);
 	const dispatch = useDispatch();
 

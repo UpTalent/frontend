@@ -11,7 +11,7 @@ import {
 } from '../../redux/reducers/authentification';
 import { TalentsSlider } from './components/TalentsSlider';
 import { ProofSlider } from './components/ProofSlider/ProofSlider';
-import { useModalPathname } from '../../hooks/useModalPathname';
+import { useModalPathname } from '../../service/hooks/useModalPathname';
 
 export const Home = () => {
 	const isTalent = useSelector(getIsAuth);
