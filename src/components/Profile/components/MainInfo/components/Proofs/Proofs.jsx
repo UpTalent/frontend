@@ -20,7 +20,7 @@ import {
 	resetList,
 } from '../../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../../redux/store';
-import { useModalPathname } from '../../../../../../hooks/useModalPathname';
+import { useModalPathname } from '../../../../../../service/hooks/useModalPathname';
 
 export const Proofs = () => {
 	const { isTalentProfile } = useOutletContext();

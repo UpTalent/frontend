@@ -9,7 +9,7 @@ import {
 } from '../../redux/reducers/authentification';
 import logo from '../../assets/upTalent.png';
 import { ReactFitty } from 'react-fitty';
-import { useModalPathname } from '../../hooks/useModalPathname';
+import { useModalPathname } from '../../service/hooks/useModalPathname';
 
 export const Header = () => {
 	const dispatch = useDispatch();

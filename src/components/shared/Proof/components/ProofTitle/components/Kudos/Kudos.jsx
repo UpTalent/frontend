@@ -6,7 +6,7 @@ import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
 import { KudosSelect } from './components/KudosSelect/KudosSelect';
-import { formatNumber } from '../../../../../../../hooks/formatNumber';
+import { formatNumber } from '../../../../../../../service/hooks/formatNumber';
 
 export const Kudos = memo(
 	({
@@ -31,7 +31,6 @@ export const Kudos = memo(
 		const handelClick = async kudosAmount => {
 			setConfetti(prev => ({ ...prev, reset: {} }));
 			const data = await addingKudos(kudosAmount);
-			console.log(data);
 			if (data.status !== 200) return;
 
 			setIsPres(true);
