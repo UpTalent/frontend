@@ -31,7 +31,7 @@ export const Kudos = memo(
 		const handelClick = async kudosAmount => {
 			setConfetti(prev => ({ ...prev, reset: {} }));
 			const data = await addingKudos(kudosAmount);
-			console.log(data);
+
 			if (data.status !== 200) return;
 
 			setIsPres(true);
