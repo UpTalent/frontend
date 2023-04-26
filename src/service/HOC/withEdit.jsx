@@ -5,15 +5,23 @@ import styles from '../../components/LoginForm/Forms.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { talentsAPI } from '../../api/talentsAPI';
-import { getRole, updateFirstName } from '../../redux/reducers/authentification';
-import { setSystemMessage } from '../../redux/reducers/systemMessages';
+import {
+	clearError,
+	getErrors,
+	getRole,
+	updateFirstName,
+} from '../../redux/reducers/authentification';
+import {
+	getSystemMessage,
+	setSystemMessage,
+} from '../../redux/reducers/systemMessages';
 
 export const withEdit =
 	Component =>
 	({ user, setUser }) => {
 		const navigate = useNavigate();
 		const [open, setOpen] = useState(true);
-		const [error, setError] = useState(null);
+		const authError = useSelector(getSystemMessage);
 		const dispatch = useDispatch();
 		const role = useSelector(getRole);
 
@@ -34,7 +42,7 @@ export const withEdit =
 				);
 				navigate(`/profile/${role}/${user.id}`);
 			} catch (err) {
-				setError(err.message);
+				dispatch(setSystemMessage(true, err.message, 'error'));
 			}
 		};
 
@@ -51,11 +59,6 @@ export const withEdit =
 			>
 				<Component user={user} edit={edit} />
 				<CloseIcon className={styles.closeIcon} onClick={handleClose} />
-				{error && (
-					<Alert severity='error' onClose={() => setError(null)}>
-						{error}
-					</Alert>
-				)}
 			</Dialog>
 		);
 	};
