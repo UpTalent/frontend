@@ -29,12 +29,13 @@ const authSlice = createSlice({
 		},
 		authApp: state => {
 			const jwt = localStorage.getItem('jwt_token');
+			const name = localStorage.getItem('userName');
 			if (!jwt) {
 				state.isPending = false;
 				return state;
 			}
 
-			const { exp, name, id, role } = parseJwt(jwt);
+			const { exp, id, role } = parseJwt(jwt);
 			const currentTime = new Date();
 			const expire = new Date(exp * 1000);
 
@@ -46,12 +47,14 @@ const authSlice = createSlice({
 				state.role = role.toLowerCase();
 			} else {
 				localStorage.removeItem('jwt_token');
+				localStorage.removeItem('userName');
 				state.isAuth = false;
 			}
 			state.isPending = false;
 		},
 		updateFirstName: (state, action) => {
 			state.name = action.payload;
+			localStorage.setItem('userName', action.payload);
 		},
 		setKudos: (state, action) => {
 			state.kudos = action.payload;
@@ -76,10 +79,12 @@ export const authentificateTalent = createAsyncThunk(
 	async (params, thunkAPI) => {
 		try {
 			const { userInfo, role, method } = params;
+			if (!role) return thunkAPI.rejectWithValue('Please choose your role!');
 			const { data } = await authAPI.authentificate(userInfo, role, method);
 			setAuthToken(data.jwt_token);
 
 			const { name, id } = parseJwt(data.jwt_token);
+			localStorage.setItem('userName', name);
 			if (role === 'sponsor') {
 				thunkAPI.dispatch(getKudos(id));
 			}
@@ -90,14 +95,11 @@ export const authentificateTalent = createAsyncThunk(
 	},
 );
 
-export const getKudos = createAsyncThunk(
-	'getKudos',
-	async (id, thunkAPI) => {
-		const idOfUser = id || thunkAPI.getState().authentification.id;
-		const { data } = await profileAPI.getUser('sponsor', idOfUser);
-		thunkAPI.dispatch(setKudos(data.kudos));
-	},
-);
+export const getKudos = createAsyncThunk('getKudos', async (id, thunkAPI) => {
+	const idOfUser = id || thunkAPI.getState().authentification.id;
+	const { data } = await profileAPI.getUser('sponsor', idOfUser);
+	thunkAPI.dispatch(setKudos(data.kudos));
+});
 
 export const getErrors = state => state.authentification.error;
 export const getAuthId = state => state.authentification.id;

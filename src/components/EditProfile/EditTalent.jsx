@@ -6,7 +6,7 @@ import { validationSchema } from './validation';
 import styles from '../LoginForm/Forms.module.css';
 import { DeleteProfile } from './components/DeleteProfile';
 import { skills } from '../../assets/static/skills';
-import { withEdit } from '../../HOC/withEdit';
+import { withEdit } from '../../service/HOC/withEdit';
 
 const EditTalent = ({ user, edit }) => {
 	let initialEditData = {

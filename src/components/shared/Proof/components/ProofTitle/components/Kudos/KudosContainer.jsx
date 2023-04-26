@@ -5,49 +5,56 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSystemMessage } from '../../../../../../../redux/reducers/systemMessages';
 import {
 	getRole,
-	getUserKudos,
 	setKudos,
 } from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
-	({ kudosed_by_me, kudos, proofId, my_proof }) => {
+	({ kudosed_by_me, kudos, proofId, my_proof, talentView }) => {
 		const [kudosList, setKudosList] = useState([]);
 		const [openList, setOpenList] = useState(false);
-		const kudosState = useSelector(getUserKudos);
+		const [openMenu, setOpenMenu] = useState(false);
 
 		const dispatch = useDispatch();
 		const isDisabled = useSelector(getRole) !== 'sponsor' && !my_proof;
 
 		const getKudoList = async () => {
-			const { data } = await kudosAPI.getProofsKudos(proofId);
-			setKudosList(data);
-			setOpenList(true);
-		};
-
-		const handleKudosClick = async kudosAmount => {
 			try {
-				if (my_proof) {
-					await getKudoList();
-				} else {
-					const { status } = await kudosAPI.addKudos(proofId, kudosAmount);
-					dispatch(setKudos(kudosState - kudosAmount));
-					return status;
-				}
+				const { data } = await kudosAPI.getProofsKudos(proofId);
+				setKudosList(data);
+				setOpenList(true);
+			} catch (error) {
+				dispatch(setSystemMessage(true, error.message, 'error'));
+			}
+		};
+		const addingKudos = async kudosAmount => {
+			try {
+				setOpenMenu(false);
+				const { data, status } = await kudosAPI.addKudos(proofId, kudosAmount);
+				const currentKudos = talentView
+					? data.current_count_kudos
+					: data.current_sum_kudos_by_sponsor;
+
+				dispatch(setKudos(data.current_sponsor_balance));
+				return { currentKudos, status };
 			} catch (error) {
 				dispatch(setSystemMessage(true, error.message, 'error'));
 			}
 		};
 
+		const clickOnKudos = my_proof ? getKudoList : () => setOpenMenu(true);
 		return (
 			<Kudos
 				{...{
 					kudosed_by_me,
 					kudos,
-					handleKudosClick,
+					addingKudos,
 					isDisabled,
 					kudosList,
 					openList,
 					setOpenList,
+					openMenu,
+					setOpenMenu,
+					clickOnKudos,
 				}}
 			/>
 		);

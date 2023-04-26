@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { sponsorApi } from '../../../../../../api/sponsorAPI';
 import styles from '../../MainInfo.module.css';
 import { KudosedProof } from './components/KudosedProof';
-import { CircularProgress, Pagination } from '@mui/material';
+import { LinearProgress, Pagination } from '@mui/material';
 
 export const KudosHistory = () => {
 	const { sponsorId } = useParams();
@@ -51,7 +51,7 @@ export const KudosHistory = () => {
 					))}
 				</div>
 			) : (
-				<CircularProgress />
+				<LinearProgress />
 			)}
 			{Boolean(proofs.length) && (
 				<Pagination

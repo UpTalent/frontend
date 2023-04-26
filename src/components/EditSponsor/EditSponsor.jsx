@@ -6,30 +6,26 @@ import { FormField } from '../shared/FormField';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { validationSchema } from './validation';
-import { withEdit } from '../../HOC/withEdit';
+import { withEdit } from '../../service/HOC/withEdit';
 import { sponsorApi } from '../../api/sponsorAPI';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserKudos, setKudos } from '../../redux/reducers/authentification';
+import { useSelector } from 'react-redux';
+import { getUserKudos } from '../../redux/reducers/authentification';
+import { ButtonGroup } from './components/AddBtn/ButtonGroup';
 
 const EditSponsor = ({ user, edit }) => {
-	let initialEditData = {
+	const initialEditData = {
 		id: user.id,
 		fullname: user.fullname,
-		kudos: user.kudos,
+		kudos: 0,
 	};
-	const dispatch = useDispatch();
+
 	const currentKudos = useSelector(getUserKudos);
 
 	const handleSubmit = async values => {
-		const { status } = await sponsorApi.updateKudosQuantity(
-			user.id,
-			values.kudos,
-		);
-		if (status === 204) {
-			dispatch(setKudos(currentKudos + values.kudos));
-		}
+		await sponsorApi.updateKudosQuantity(user.id, values.kudos);
 		edit(values);
 	};
+
 	return (
 		<Formik
 			initialValues={initialEditData}
@@ -39,7 +35,7 @@ const EditSponsor = ({ user, edit }) => {
 			validateOnMount={true}
 			onSubmit={handleSubmit}
 		>
-			{({ isValid }) => (
+			{({ isValid, setFieldValue, values }) => (
 				<Form className={styles.registrationForm}>
 					<div className={styles.editTitle}>Personal information</div>
 					<FormField
@@ -48,15 +44,25 @@ const EditSponsor = ({ user, edit }) => {
 						required={true}
 						icon={<AccountCircleOutlinedIcon />}
 					/>
-
-					<FormField
-						label='Kudos'
-						name='kudos'
-						type='number'
-						step={10}
-						required={true}
-						icon={<PetsOutlinedIcon />}
-					/>
+					<div className={styles.kudos}>
+						<p>
+							Balance: <b>{currentKudos} </b>KUDOS
+						</p>
+						<div className={styles.controls}>
+							<FormField
+								label='Add Kudos'
+								name='kudos'
+								type='number'
+								step={10}
+								required={true}
+								icon={<PetsOutlinedIcon />}
+							/>
+							<ButtonGroup
+								kudosCurrent={values.kudos}
+								setFieldValue={setFieldValue}
+							/>
+						</div>
+					</div>
 
 					<Button
 						type='submit'
