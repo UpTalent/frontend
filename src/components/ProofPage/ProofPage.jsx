@@ -20,8 +20,8 @@ const ProofPage = ({
 	const proofList = useSelector(getGridList);
 
 	let proofsList = proofList.map(proof => (
-		<Grid item md={6} sm={12} lg={4} key={proof.id}>
-			<Proof proof={proof} withContent={false} />
+		<Grid item md={12} sm={12} lg={12} key={proof.id}>
+			<Proof proof={proof} withContent={false} inForm={true}/>
 		</Grid>
 	));
 	return (
