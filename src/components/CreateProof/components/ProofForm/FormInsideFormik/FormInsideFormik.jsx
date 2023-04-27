@@ -12,7 +12,7 @@ import {
 } from '../../../../../redux/reducers/proof';
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
 
-export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
+export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 	const navigate = useNavigate();
