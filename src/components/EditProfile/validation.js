@@ -27,6 +27,6 @@ export const validationSchema = Yup.object({
 		)
 		.nullable(),
 	about_me: Yup.string()
-		.max(255, 'Must be less than 255 characters')
+		.max(2250, 'Must be less than 2250 characters')
 		.nullable(),
 });

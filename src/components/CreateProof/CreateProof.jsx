@@ -46,7 +46,6 @@ export const CreateProof = () => {
 			proof={proof}
 			updateTempProof={setProof}
 			mode={mode}
-			setError={value => dispatch(setError(value))}
 		/>,
 		<Proof
 			proof={proof}

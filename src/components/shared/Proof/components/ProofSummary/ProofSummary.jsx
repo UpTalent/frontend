@@ -14,7 +14,7 @@ export const ProofSummary = ({
 	return (
 		<div className={styles.summary}>
 			<ReactFitty maxSize={40} minSize={5} wrapText={true}>
-				<p>{summary}</p>
+				<p>{summary.trim()}</p>
 			</ReactFitty>
 			{withKudos && (
 				<KudosContainer
