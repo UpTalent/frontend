@@ -11,5 +11,5 @@ export const validationSchema = Yup.object({
 		),
 	kudos: Yup.number()
 		.min(0, 'Kudos cannot be less than 0')
-		.max(MAX_KUDOS, `Kudos cannot be more than ${MAX_KUDOS}`),
+		.max(MAX_KUDOS, `Mr. Richman contact us, please! (Maximum number: ${MAX_KUDOS})`),
 });

@@ -6,7 +6,7 @@
 }
 
 .Proof p {
-	white-space: pre-wrap;
+	white-space: pre-line;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	word-break: break-word;
