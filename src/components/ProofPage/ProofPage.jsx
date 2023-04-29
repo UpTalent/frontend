@@ -7,7 +7,7 @@ import { getGridList, getProofsList } from '../../redux/reducers/dataList';
 import { withURL } from '../../service/HOC/withURL';
 import { useSelector } from 'react-redux';
 import { useStoreDispatch } from '../../redux/store';
-import { getIsAuth, getRole } from '../../redux/reducers/authentification';
+import { getRole } from '../../redux/reducers/authentification';
 import { SponsorsRating } from './components/SponsorsRating/SponsorsRating';
 import styles from './ProofPage.module.css';
 
