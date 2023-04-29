@@ -1,43 +1,62 @@
-.footer{
-    font-family: 'Rubik', sans-serif;
-    color: #fff;
-    background: #292A2D;
-    display: flex;
-    flex-direction: column;
-    height: 260px;
-    width: 100%;
+.footer {
+	font-family: 'Rubik', sans-serif;
+	color: #fff;
+	background: #292a2d;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 }
 
-.footer__header{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    text-align: center;
+.footer__header {
+	padding: 20px 0;
+	text-align: center;
 }
 
-.bigflex{
-    padding: 0 100px;
-    gap:30px;
-    display: flex;
-    justify-content: space-between; 
+.bigflex {
+	padding: 0 100px;
+	gap: 30px;
+	display: flex;
+	justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-.smallflex
-{   
-    display: flex;
-    flex-direction: column;
+.smallflex {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
+}
+
+.info {
+	gap: 30px;
+}
+.info div {
+    font-size: x-large;
     justify-content: center;
+	display: flex;
+	gap: 20px;
+	align-items: center;
+}
+.smallflex img {
+	width: 60px;
+	height: 60px;
 }
 
-.smallflex__item
-{
-    margin-bottom: 20px;
-    color:#fff;
-    text-decoration: none;
+.smallflex p {
+	font-weight: 200;
+}
+
+.names {
+	align-self: flex-start;
+	margin: 10px 0;
+}
+
+.smallflex__item {
+	margin-bottom: 20px;
+	color: #fff;
 }
 
 .smallflex__item:hover {
-    text-decoration: underline !important;
-    cursor: pointer;
+	text-decoration: underline !important;
+	cursor: pointer;
 }
-
- 
