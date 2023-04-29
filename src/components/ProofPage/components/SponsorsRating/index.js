@@ -1,0 +1,1 @@
+export { SponsorsRating } from './SponsorsRating';

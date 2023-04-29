@@ -18,7 +18,7 @@ export const PagesGrid = ({ gridItems, total_pages }) => {
 
 	return (
 		<div className={styles.Grid}>
-			<Grid container rowSpacing={4} align='center'>
+			<Grid container rowSpacing={4} columnSpacing={3} align='center'>
 				{gridItems}
 			</Grid>
 			<Pagination

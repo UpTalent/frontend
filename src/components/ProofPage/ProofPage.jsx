@@ -7,6 +7,9 @@ import { getGridList, getProofsList } from '../../redux/reducers/dataList';
 import { withURL } from '../../service/HOC/withURL';
 import { useSelector } from 'react-redux';
 import { useStoreDispatch } from '../../redux/store';
+import { getIsAuth } from '../../redux/reducers/authentification';
+import { SponsorsRating } from './components/SponsorsRating/SponsorsRating';
+import styles from './ProofPage.module.css';
 
 const ProofPage = ({
 	total_pages,
@@ -16,12 +19,13 @@ const ProofPage = ({
 	setAlignment,
 }) => {
 	const dispatch = useStoreDispatch();
+	const isAuth = useSelector(getIsAuth);
 
 	const proofList = useSelector(getGridList);
 
 	let proofsList = proofList.map(proof => (
-		<Grid item md={6} sm={12} lg={4} key={proof.id}>
-			<Proof proof={proof} withContent={false} />
+		<Grid item md={12} sm={12} lg={12} key={proof.id}>
+			<Proof proof={proof} withContent={false} inForm={true} />
 		</Grid>
 	));
 	return (
@@ -35,7 +39,10 @@ const ProofPage = ({
 					dispatch(getProofsList({ page, alignment }))
 				}
 			/>
-			<PagesGrid gridItems={proofsList} total_pages={total_pages} />
+			<div className={styles.gridContainer}>
+				<PagesGrid gridItems={proofsList} total_pages={total_pages} />
+				{isAuth && <SponsorsRating />}
+			</div>
 		</>
 	);
 };
