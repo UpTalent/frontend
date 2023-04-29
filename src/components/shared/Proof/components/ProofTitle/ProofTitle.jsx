@@ -18,6 +18,7 @@ export const ProofTitle = ({
 	kudos,
 	withContent,
 	my_proof,
+	inSlider
 }) => {
 	return (
 		<div className={styles.ProofTitle}>
@@ -37,7 +38,7 @@ export const ProofTitle = ({
 				</ReactFitty>
 			</div>
 			<div className={styles.bottomPanel}>
-				{withContent && (
+				{!inSlider && (
 					<KudosContainer
 						{...{ kudosed_by_me, kudos, my_proof, talentView: status }}
 						proofId={id}

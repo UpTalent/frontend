@@ -19,9 +19,12 @@ export const SponsorsRating = () => {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
 	};
-
 	const sponsorItems = sponsorList?.map((el, i) => (
-		<SponsorItem {...el} key={i} style={{ animationDelay: `.${i*3}s` }} />
+		<SponsorItem
+			{...el}
+			key={i}
+			style={{ animationDelay: `${((i * 2) / 10).toFixed(2)}s` }}
+		/>
 	));
 
 	useEffect(() => {
