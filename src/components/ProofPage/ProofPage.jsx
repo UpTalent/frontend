@@ -7,7 +7,7 @@ import { getGridList, getProofsList } from '../../redux/reducers/dataList';
 import { withURL } from '../../service/HOC/withURL';
 import { useSelector } from 'react-redux';
 import { useStoreDispatch } from '../../redux/store';
-import { getIsAuth } from '../../redux/reducers/authentification';
+import { getIsAuth, getRole } from '../../redux/reducers/authentification';
 import { SponsorsRating } from './components/SponsorsRating/SponsorsRating';
 import styles from './ProofPage.module.css';
 
@@ -19,7 +19,7 @@ const ProofPage = ({
 	setAlignment,
 }) => {
 	const dispatch = useStoreDispatch();
-	const isAuth = useSelector(getIsAuth);
+	const role = useSelector(getRole);
 
 	const proofList = useSelector(getGridList);
 
@@ -41,7 +41,7 @@ const ProofPage = ({
 			/>
 			<div className={styles.gridContainer}>
 				<PagesGrid gridItems={proofsList} total_pages={total_pages} />
-				{isAuth && <SponsorsRating />}
+				{role === 'talent' && <SponsorsRating />}
 			</div>
 		</>
 	);

@@ -78,12 +78,13 @@ export const authentificateTalent = createAsyncThunk(
 	'authentificateTalent',
 	async (params, thunkAPI) => {
 		try {
-			const { userInfo, role, method } = params;
-			if (!role) return thunkAPI.rejectWithValue('Please choose your role!');
-			const { data } = await authAPI.authentificate(userInfo, role, method);
+			const { userInfo, userRole, method } = params;
+
+			const { data } = await authAPI.authentificate(userInfo, userRole, method);
 			setAuthToken(data.jwt_token);
 
-			const { name, id } = parseJwt(data.jwt_token);
+			const { name, id, role } = parseJwt(data.jwt_token);
+
 			localStorage.setItem('userName', name);
 			if (role === 'sponsor') {
 				thunkAPI.dispatch(getKudos(id));
