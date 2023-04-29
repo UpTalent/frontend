@@ -21,4 +21,12 @@ export const talentsAPI = {
 			throw new Error(error.response.data.message);
 		}
 	},
+
+	async getTopSponsors() {
+		try {
+			return await axiosInstance.get('sponsors/rating');
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	},
 };
