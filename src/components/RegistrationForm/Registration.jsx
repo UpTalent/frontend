@@ -50,7 +50,7 @@ export const RegistrationForm = () => {
 		const registerData = { ...formData };
 		delete registerData.confirmPassword;
 
-		const data = { userInfo: registerData, role };
+		const data = { userInfo: registerData, userRole: role };
 
 		dispatch(authentificateTalent(data));
 	};

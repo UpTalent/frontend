@@ -11,7 +11,7 @@ export const Proof = ({
 	showControlls,
 	className,
 	inForm = false,
-	inSlider
+	inSlider,
 }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
 	const handleAccordionClick = () => {
@@ -36,10 +36,8 @@ export const Proof = ({
 						}}
 					>
 						<ProofTitle
-							showControlls={showControlls}
 							openContent={handleAccordionClick}
-							withContent={withContent}
-							{...proof}
+							{...{ ...proof, withContent, inSlider, showControlls }}
 						/>
 					</AccordionSummary>
 					<AccordionDetails>

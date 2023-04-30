@@ -1,8 +1,8 @@
 import { axiosInstance } from './index';
 
 export const authAPI = {
-	async authentificate(data, role='talent', method) {
-		const  url = method ? `${role}s/login` : `${role}s`;
+	async authentificate(data, role, method) {
+		const  url = method ? `auth/login` : `${role}s`;
 		try {
 			return await axiosInstance.post(url, data);
 		} catch (error) {
