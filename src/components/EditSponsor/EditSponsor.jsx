@@ -37,10 +37,10 @@ const EditSponsor = ({ user, edit }) => {
 
 	const handleChange = e => {
 		const current = e.target.value;
-		if (current < MAX_KUDOS) {
+		if (current < MAX_KUDOS - currentKudos) {
 			setKudosValue(Number(current));
 		} else {
-			setKudosValue(MAX_KUDOS);
+			setKudosValue(MAX_KUDOS - currentKudos);
 		}
 	};
 
