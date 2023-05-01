@@ -35,7 +35,11 @@ export const KudosContainer = memo(
 					: data.current_sum_kudos_by_sponsor;
 
 				dispatch(setKudos(data.current_sponsor_balance));
-				return { currentKudos, status };
+				return {
+					currentKudos,
+					status,
+					sponsorKudos: data.current_sum_kudos_by_sponsor,
+				};
 			} catch (error) {
 				dispatch(setSystemMessage(true, error.message, 'error'));
 			}

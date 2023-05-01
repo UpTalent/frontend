@@ -1,13 +1,13 @@
 import React, { memo, useState } from 'react';
 import styles from './Kudo.module.css';
 import { ReactComponent as NotPresCat } from '../../../../../../../assets/notPressedCat.svg';
-// import tick from '../../../../../../../assets/tick.svg';
+import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
 import { KudosSelect } from './components/KudosSelect/KudosSelect';
 import { formatNumber } from '../../../../../../../service/hooks/formatNumber';
-import { SponsorKudos } from './components/SponsorKudos/SponsorKudos';
+import { Tooltip } from '@mui/material';
 
 export const Kudos = memo(
 	({
@@ -20,7 +20,7 @@ export const Kudos = memo(
 		setOpenList,
 		openMenu,
 		setOpenMenu,
-		clickOnKudos
+		clickOnKudos,
 	}) => {
 		const [isPres, setIsPres] = useState(Boolean(sum_kudos_from_me));
 		const [isActive, setIsActive] = useState(false);
@@ -28,6 +28,7 @@ export const Kudos = memo(
 		const [confetti, setConfetti] = useState({ fire: false, reset: false });
 
 		const [count, setCount] = useState(kudos);
+		const [totalSposorKudos, setTotalSposorKudos] = useState(sum_kudos_from_me);
 
 		const handelClick = async kudosAmount => {
 			setConfetti(prev => ({ ...prev, reset: {} }));
@@ -39,44 +40,49 @@ export const Kudos = memo(
 			setTimeout(() => {
 				setIsActive(false);
 				setCount(data.currentKudos);
+				setTotalSposorKudos(data.sponsorKudos);
 				setConfetti(prev => ({ ...prev, fire: {} }));
 			}, 1000);
 		};
 
 		return (
 			<div>
-				<div
-					className={`${styles.background} ${disabled}`}
-					onClick={disabled ? null : clickOnKudos}
+				<Tooltip
+					title={totalSposorKudos && `Your kudos: ${totalSposorKudos}`}
+					arrow
 				>
-					<div className={styles.kitty}>
-						<NotPresCat
-							className={`${styles.cat} ${isPres && styles.isPressed}`}
+					<div
+						className={`${styles.background} ${disabled}`}
+						onClick={disabled ? null : clickOnKudos}
+					>
+						<div className={styles.kitty}>
+							<NotPresCat
+								className={`${styles.cat} ${isPres && styles.isPressed}`}
+							/>
+							<img
+								src={tick}
+								className={`${isActive && styles.animation} ${
+									isPres && !isActive ? styles.pressedTick : styles.tick
+								}`}
+								alt='tick'
+							/>
+						</div>
+						<div className={isPres ? styles.isPres : styles.notPres}>
+							{formatNumber(count)} KUDOS
+						</div>
+						<img
+							src={paw}
+							alt='paw'
+							className={`${isActive && styles.animation} ${styles.paw}`}
 						/>
-						{/* <img
-							src={tick}
-							className={`${isActive && styles.animation} ${
-								isPres && !isActive ? styles.pressedTick : styles.tick
-							}`}
-							alt='tick'
-						/> */}
-						<SponsorKudos {...{isActive, sum_kudos_from_me, isPres}} />
+						<ReactCanvasConfetti
+							startVelocity={15}
+							reset={confetti.reset}
+							fire={confetti.fire}
+							className={styles.confetti}
+						/>
 					</div>
-					<div className={isPres ? styles.isPres : styles.notPres}>
-						{formatNumber(count)} KUDOS
-					</div>
-					<img
-						src={paw}
-						alt='paw'
-						className={`${isActive && styles.animation} ${styles.paw}`}
-					/>
-					<ReactCanvasConfetti
-						startVelocity={15}
-						reset={confetti.reset}
-						fire={confetti.fire}
-						className={styles.confetti}
-					/>
-				</div>
+				</Tooltip>
 				<KudosList {...{ kudosList, openList, setOpenList }} />
 				<KudosSelect
 					open={openMenu}
