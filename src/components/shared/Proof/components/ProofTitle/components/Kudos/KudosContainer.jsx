@@ -9,7 +9,7 @@ import {
 } from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
-	({ kudosed_by_me, kudos, proofId, my_proof, talentView }) => {
+	({ sum_kudos_from_me, kudos, proofId, my_proof, talentView }) => {
 		const [kudosList, setKudosList] = useState([]);
 		const [openList, setOpenList] = useState(false);
 		const [openMenu, setOpenMenu] = useState(false);
@@ -45,7 +45,7 @@ export const KudosContainer = memo(
 		return (
 			<Kudos
 				{...{
-					kudosed_by_me,
+					sum_kudos_from_me,
 					kudos,
 					addingKudos,
 					isDisabled,

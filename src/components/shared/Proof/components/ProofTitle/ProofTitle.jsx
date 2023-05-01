@@ -14,7 +14,7 @@ export const ProofTitle = ({
 	showControlls,
 	openContent,
 	id,
-	kudosed_by_me,
+	sum_kudos_from_me,
 	kudos,
 	withContent,
 	my_proof,
@@ -40,7 +40,7 @@ export const ProofTitle = ({
 			<div className={styles.bottomPanel}>
 				{!inSlider && (
 					<KudosContainer
-						{...{ kudosed_by_me, kudos, my_proof, talentView: status }}
+						{...{ sum_kudos_from_me, kudos, my_proof, talentView: status }}
 						proofId={id}
 					/>
 				)}

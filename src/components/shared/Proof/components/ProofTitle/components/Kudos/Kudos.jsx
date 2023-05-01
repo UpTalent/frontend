@@ -1,16 +1,17 @@
 import React, { memo, useState } from 'react';
 import styles from './Kudo.module.css';
 import { ReactComponent as NotPresCat } from '../../../../../../../assets/notPressedCat.svg';
-import tick from '../../../../../../../assets/tick.svg';
+// import tick from '../../../../../../../assets/tick.svg';
 import paw from '../../../../../../../assets/paw.png';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import { KudosList } from './components/KudosList';
 import { KudosSelect } from './components/KudosSelect/KudosSelect';
 import { formatNumber } from '../../../../../../../service/hooks/formatNumber';
+import { SponsorKudos } from './components/SponsorKudos/SponsorKudos';
 
 export const Kudos = memo(
 	({
-		kudosed_by_me,
+		sum_kudos_from_me,
 		kudos = 0,
 		addingKudos,
 		isDisabled,
@@ -21,7 +22,7 @@ export const Kudos = memo(
 		setOpenMenu,
 		clickOnKudos
 	}) => {
-		const [isPres, setIsPres] = useState(kudosed_by_me);
+		const [isPres, setIsPres] = useState(Boolean(sum_kudos_from_me));
 		const [isActive, setIsActive] = useState(false);
 		const disabled = isDisabled ? styles.disabled : null;
 		const [confetti, setConfetti] = useState({ fire: false, reset: false });
@@ -52,13 +53,14 @@ export const Kudos = memo(
 						<NotPresCat
 							className={`${styles.cat} ${isPres && styles.isPressed}`}
 						/>
-						<img
+						{/* <img
 							src={tick}
 							className={`${isActive && styles.animation} ${
 								isPres && !isActive ? styles.pressedTick : styles.tick
 							}`}
 							alt='tick'
-						/>
+						/> */}
+						<SponsorKudos {...{isActive, sum_kudos_from_me, isPres}} />
 					</div>
 					<div className={isPres ? styles.isPres : styles.notPres}>
 						{formatNumber(count)} KUDOS

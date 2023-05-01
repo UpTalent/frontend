@@ -6,7 +6,7 @@ import { KudosContainer } from '../ProofTitle/components/Kudos/KudosContainer';
 export const ProofSummary = ({
 	summary,
 	withKudos = false,
-	kudosed_by_me,
+	sum_kudos_from_me,
 	kudos,
 	proofId,
 	my_proof,
@@ -18,7 +18,7 @@ export const ProofSummary = ({
 			</ReactFitty>
 			{withKudos && (
 				<KudosContainer
-					{...{ kudos, kudosed_by_me, proofId, my_proof, talentView: summary }}
+					{...{ kudos, sum_kudos_from_me, proofId, my_proof, talentView: summary }}
 				/>
 			)}
 		</div>
