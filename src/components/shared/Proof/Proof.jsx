@@ -19,7 +19,11 @@ export const Proof = ({
 	};
 
 	return (
-		<div className={`${styles.Proof} ${className}`}>
+		<div
+			className={`${styles.Proof} ${className} ${
+				proof.my_proof && inForm && styles.myProof
+			}`}
+		>
 			{!inSlider ? (
 				<Accordion expanded={isAccordionOpen}>
 					<AccordionSummary
@@ -32,7 +36,7 @@ export const Proof = ({
 							'& .MuiAccordionSummary-content': {
 								margin: '0 !important',
 								width: '100%',
-							},
+							}
 						}}
 					>
 						<ProofTitle
