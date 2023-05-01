@@ -1,9 +1,9 @@
 import React from 'react';
 import { AddBtn } from './AddBtn';
 
-export const ButtonGroup = ({ setFieldValue, kudosCurrent }) => {
+export const ButtonGroup = ({ setValue }) => {
 	const handleClick = quantity => {
-		setFieldValue('kudos', kudosCurrent + quantity);
+		setValue(prev => prev + quantity);
 	};
 	return (
 		<div>

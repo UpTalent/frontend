@@ -67,10 +67,6 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 				<div className={styles.selectKudos}>
 					<p>How many kudos you want to give?</p>
 
-					{/* <p className={styles.inputs}>
-						Balance: <NotPresCat />
-						<b>{balance}</b>
-					</p> */}
 					<TextField
 						value={value}
 						onChange={handleChange}
