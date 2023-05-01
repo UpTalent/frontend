@@ -81,7 +81,11 @@ const EditSponsor = ({ user, edit }) => {
 								}}
 								onChange={handleChange}
 							/>
-							<ButtonGroup setValue={setKudosValue} />
+							<ButtonGroup
+								prevValue={kudosValue}
+								setValue={setKudosValue}
+								currentKudos={currentKudos}
+							/>
 						</div>
 					</div>
 
