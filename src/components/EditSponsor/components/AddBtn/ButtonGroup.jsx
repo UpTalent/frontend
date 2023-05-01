@@ -1,9 +1,14 @@
 import React from 'react';
 import { AddBtn } from './AddBtn';
+import { MAX_KUDOS } from '../../../../service/constants';
 
-export const ButtonGroup = ({ setFieldValue, kudosCurrent }) => {
+export const ButtonGroup = ({ prevValue, setValue, currentKudos }) => {
 	const handleClick = quantity => {
-		setFieldValue('kudos', kudosCurrent + quantity);
+		if (prevValue + quantity > MAX_KUDOS - currentKudos) {
+			setValue(MAX_KUDOS - currentKudos);
+		} else {
+			setValue(prev => prev + quantity);
+		}
 	};
 	return (
 		<div>

@@ -1,4 +1,4 @@
-import { Button, Dialog, TextField } from '@mui/material';
+import { Button, Dialog, Slider, TextField } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 import styles from '../../Kudo.module.css';
@@ -13,6 +13,27 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 	const [error, setError] = useState(false);
 
 	const balance = useSelector(getUserKudos);
+
+	const marks = [
+		{
+			value: 0,
+			label: (
+				<div className={styles.inputs}>
+					<NotPresCat />
+					<b>0</b>
+				</div>
+			),
+		},
+		{
+			value: balance,
+			label: (
+				<div className={styles.inputs}>
+					<NotPresCat />
+					<b>{balance}</b>
+				</div>
+			),
+		},
+	];
 
 	const handleChange = e => {
 		const current = e.target.value;
@@ -46,16 +67,21 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 				<div className={styles.selectKudos}>
 					<p>How many kudos you want to give?</p>
 
-					<p className={styles.inputs}>
-						Balance: <NotPresCat />
-						<b>{balance}</b>
-					</p>
 					<TextField
 						value={value}
 						onChange={handleChange}
 						error={error}
 						type='number'
 						helperText={error && 'Kudos number must be positive'}
+					/>
+
+					<Slider
+						className={styles.slider}
+						marks={marks}
+						value={value}
+						onChange={handleChange}
+						max={balance}
+						aria-labelledby='input-slider'
 					/>
 
 					<Button onClick={putKudos} variant='outlined'>

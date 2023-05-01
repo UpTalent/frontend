@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../LoginForm/Forms.module.css';
 import { Form, Formik } from 'formik';
-import { Button } from '@mui/material';
+import { Button, InputAdornment, TextField } from '@mui/material';
 import { FormField } from '../shared/FormField';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
@@ -12,24 +12,35 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserKudos } from '../../redux/reducers/authentification';
 import { ButtonGroup } from './components/AddBtn/ButtonGroup';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
+import { MAX_KUDOS } from '../../service/constants';
 
 const EditSponsor = ({ user, edit }) => {
 	const initialEditData = {
 		id: user.id,
 		fullname: user.fullname,
-		kudos: 0,
 	};
 
 	const currentKudos = useSelector(getUserKudos);
 	const dispatch = useDispatch();
 
+	const [kudosValue, setKudosValue] = useState(0);
+
 	const handleSubmit = async values => {
 		try {
-			values.kudos > 0 &&
-				(await sponsorApi.updateKudosQuantity(user.id, values.kudos));
+			kudosValue > 0 &&
+				(await sponsorApi.updateKudosQuantity(user.id, kudosValue));
 			edit(values);
 		} catch (err) {
 			dispatch(setSystemMessage(true, err.message, 'error'));
+		}
+	};
+
+	const handleChange = e => {
+		const current = e.target.value;
+		if (current < MAX_KUDOS - currentKudos) {
+			setKudosValue(Number(current));
+		} else {
+			setKudosValue(MAX_KUDOS - currentKudos);
 		}
 	};
 
@@ -42,7 +53,7 @@ const EditSponsor = ({ user, edit }) => {
 			validateOnMount={true}
 			onSubmit={handleSubmit}
 		>
-			{({ isValid, setFieldValue, values }) => (
+			{({ isValid }) => (
 				<Form className={styles.registrationForm}>
 					<div className={styles.editTitle}>Personal information</div>
 					<FormField
@@ -56,17 +67,24 @@ const EditSponsor = ({ user, edit }) => {
 							Balance: <b>{currentKudos} </b>KUDOS
 						</p>
 						<div className={styles.controls}>
-							<FormField
+							<TextField
 								label='Add Kudos'
-								name='kudos'
+								value={kudosValue}
 								type='number'
 								step={10}
-								required={true}
-								icon={<PetsOutlinedIcon />}
+								InputProps={{
+									startAdornment: (
+										<InputAdornment position='start'>
+											<PetsOutlinedIcon />
+										</InputAdornment>
+									),
+								}}
+								onChange={handleChange}
 							/>
 							<ButtonGroup
-								kudosCurrent={values.kudos}
-								setFieldValue={setFieldValue}
+								prevValue={kudosValue}
+								setValue={setKudosValue}
+								currentKudos={currentKudos}
 							/>
 						</div>
 					</div>
