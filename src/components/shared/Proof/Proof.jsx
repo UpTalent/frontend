@@ -47,20 +47,13 @@ export const Proof = ({
 				</Accordion>
 			) : (
 				<div className={styles.General}>
-					<ProofTitle
-						icon_number={proof.icon_number}
-						title={proof.title}
-						published={proof.published}
-						status={proof.status}
-						showControlls={showControlls}
-					/>
+					<ProofTitle {...{ ...proof, inSlider, showControlls }} />
 					<ProofSummary
 						summary={proof.summary}
 						withKudos={true}
 						kudos={proof.kudos}
-						is_pressed={proof.is_pressed}
 						proofId={proof.id}
-						kudosed_by_me={proof.kudosed_by_me}
+						sum_kudos_from_me={proof.sum_kudos_from_me}
 					/>
 				</div>
 			)}
