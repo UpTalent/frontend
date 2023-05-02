@@ -35,9 +35,9 @@ export const AuthButtons = () => {
 						<Button
 							component={Link}
 							onClick={handleClick}
-							sx={{ textAlign: 'center' }}
+							sx={{ textAlign: 'center' , alignItems: 'center'}}
 						>
-							<ReactFitty maxSize={20}>{authUser.name}</ReactFitty>
+							<ReactFitty maxSize={20} minSize={5}>{authUser.name}</ReactFitty>
 						</Button>
 						<Menu
 							anchorEl={dropdownMenu}

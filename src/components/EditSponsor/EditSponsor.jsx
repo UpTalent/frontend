@@ -27,7 +27,7 @@ const EditSponsor = ({ user, edit }) => {
 
 	const handleSubmit = async values => {
 		try {
-			kudosValue > 0 &&
+			kudosValue > 1 &&
 				(await sponsorApi.updateKudosQuantity(user.id, kudosValue));
 			edit(values);
 		} catch (err) {
@@ -38,7 +38,9 @@ const EditSponsor = ({ user, edit }) => {
 	const handleChange = e => {
 		const current = e.target.value;
 		if (current < MAX_KUDOS - currentKudos) {
-			setKudosValue(Number(current));
+			if (current >= 1) {
+				setKudosValue(Number(current));
+			}
 		} else {
 			setKudosValue(MAX_KUDOS - currentKudos);
 		}
