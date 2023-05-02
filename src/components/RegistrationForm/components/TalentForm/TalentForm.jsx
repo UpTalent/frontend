@@ -80,8 +80,8 @@ export const TalentForm = ({ register }) => {
 								key={i}
 								{...params}
 								name='skill'
-								label='Tell us what you can...'
-								variant='standard'
+								label='Skills'
+								variant='outlined'
 							/>
 						)}
 						sx={{

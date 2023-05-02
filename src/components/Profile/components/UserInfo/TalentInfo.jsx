@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 import styles from './UserInfo.module.css';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import {ProfileInfo} from './ProfileInfo'
+import { ProfileInfo } from './ProfileInfo';
 
-export const TalentInfo = ({talent, isTalentProfile}) => {
-  const infoAboutUser = [
+export const TalentInfo = ({ talent, isTalentProfile }) => {
+	const infoAboutUser = [
 		{
 			icon: <LocationOnOutlinedIcon />,
 			header: 'Location',
@@ -22,7 +22,7 @@ export const TalentInfo = ({talent, isTalentProfile}) => {
 		},
 		{
 			icon: <AutoAwesomeIcon />,
-			header: 'I can...',
+			header: 'Skills',
 			info: talent.skills?.join(', '),
 			visiableForGuest: true,
 		},
@@ -33,19 +33,19 @@ export const TalentInfo = ({talent, isTalentProfile}) => {
 			visiableForGuest: isTalentProfile,
 		},
 	];
-    return (
-			<div className={styles.info}>
-				{infoAboutUser.map(
-					(el, i) =>
-						el.visiableForGuest && (
-							<ProfileInfo
-								key={i}
-								element={el.icon}
-								header={el.header}
-								info={el.info}
-							/>
-						),
-				)}
-			</div>
-		);
-}
+	return (
+		<div className={styles.info}>
+			{infoAboutUser.map(
+				(el, i) =>
+					el.visiableForGuest && (
+						<ProfileInfo
+							key={i}
+							element={el.icon}
+							header={el.header}
+							info={el.info}
+						/>
+					),
+			)}
+		</div>
+	);
+};
