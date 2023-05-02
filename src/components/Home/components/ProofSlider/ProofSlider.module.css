@@ -2,10 +2,6 @@
 	width: 250px;
 }
 
-.sliderProof p:last-child {
-	font-size: smaller;
-}
-
 .sliderProof img:first-child {
 	width: 60px;
 	height: 60px;
@@ -17,5 +13,5 @@
 }
 
 .sliderProof > div > div > div > div {
-	font-size: x-small;
+	font-size: xx-small;
 }

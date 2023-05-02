@@ -20,7 +20,7 @@ export const ProofSlider = () => {
 			key={proof.id}
 			style={{ display: 'flex', justifyContent: 'center' }}
 		>
-			<Proof proof={proof} withContent={false} className={styles.sliderProof} />
+			<Proof proof={proof} inSlider={true} className={styles.sliderProof} />
 		</SwiperSlide>
 	));
 

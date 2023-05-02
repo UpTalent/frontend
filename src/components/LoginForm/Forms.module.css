@@ -98,3 +98,8 @@
 	gap: 20px;
     align-items: center;
 }
+
+.buttonGroup {
+	display: flex;
+	gap: 10px;
+}
