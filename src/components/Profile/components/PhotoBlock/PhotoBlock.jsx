@@ -20,7 +20,7 @@ export const PhotoBlock = ({
 	const [loadBanner, setLoadBanner] = useState(false);
 	const role = useSelector(getRole);
 	const dispatch = useDispatch();
-	const allowedFormats = 'Allowed formats are .jpeg, .png, max size: 5mb';
+	const allowedFormats = 'Allowed formats are JPEG, PNG, BMP, WEBP, GIF; max size: 5 MB';
 
 	const getFileFromUser = async (photo, operation) => {
 		operation === 'AVATAR' ? setLoadAvatar(true) : setLoadBanner(true);
