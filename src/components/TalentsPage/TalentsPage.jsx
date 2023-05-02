@@ -13,7 +13,7 @@ const TalentsPage = ({ total_pages }) => {
 	const talentList = useSelector(getGridList);
 
 	let talentsList = talentList.map(talent => (
-		<Grid item md={6} sm={12} lg={4} key={talent.id}>
+		<Grid item sm={12} lg={6} xl={4} key={talent.id}>
 			<GeneralTalent talent={talent} />
 		</Grid>
 	));

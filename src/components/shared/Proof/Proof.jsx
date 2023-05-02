@@ -20,12 +20,10 @@ export const Proof = ({
 
 	return (
 		<div
-			className={`${styles.Proof} ${className} ${
-				proof.my_proof && inForm && styles.myProof
-			}`}
+			className={`${styles.Proof} ${className} ${proof.my_proof && inForm && styles.myProof}`}
 		>
 			{!inSlider ? (
-				<Accordion expanded={isAccordionOpen}>
+				<Accordion expanded={isAccordionOpen} sx={{borderRadius: '10px !important'}}>
 					<AccordionSummary
 						onClick={e => e.stopPropagation()}
 						sx={{
@@ -36,7 +34,7 @@ export const Proof = ({
 							'& .MuiAccordionSummary-content': {
 								margin: '0 !important',
 								width: '100%',
-							}
+							},
 						}}
 					>
 						<ProofTitle

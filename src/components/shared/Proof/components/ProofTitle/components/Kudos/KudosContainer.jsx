@@ -30,7 +30,7 @@ export const KudosContainer = memo(
 			try {
 				setOpenMenu(false);
 				const { data, status } = await kudosAPI.addKudos(proofId, kudosAmount);
-				const currentKudos = talentView
+				const currentKudos = !isNaN(talentView)
 					? data.current_count_kudos
 					: data.current_sum_kudos_by_sponsor;
 
