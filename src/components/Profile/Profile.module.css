@@ -110,7 +110,7 @@
 	}
 
     .allInfoAbouUser > div:first-child div {
-        width: 50%;
+        width: 100%;
         padding: 10px;
         justify-content: center;
     }

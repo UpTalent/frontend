@@ -37,4 +37,8 @@
 	.mainInfo > div > div > div {
 		justify-content: center;
 	}
+
+	.proofContolls{
+		width: 50%;
+	}
 }

@@ -5,7 +5,7 @@
 	border-radius: 10px;
 	box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
 	position: relative;
-	max-width: 352px;
+	width: 352px;
 	min-height: 350px;
 }
 
