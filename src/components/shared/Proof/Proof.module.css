@@ -109,6 +109,11 @@
 	font-weight: 200;
 }
 
+.content img {
+	max-width: 100%;
+	object-fit: cover;
+}
+
 .bottomPanel {
 	display: flex;
 	justify-content: space-between;
