@@ -5,6 +5,7 @@ import authentification from './reducers/authentification';
 import systemMessage from './reducers/systemMessages';
 import talentsProofs from './reducers/talentsProof';
 import proof from './reducers/proof';
+import skills from './reducers/skills';
 
 export const store = configureStore({
 	reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
 		systemMessage,
 		talentsProofs,
 		proof,
+		skills
 	},
 	devTools: true,
 });

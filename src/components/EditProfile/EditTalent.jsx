@@ -27,15 +27,7 @@ const EditTalent = ({ user, edit }) => {
 			validateOnMount={true}
 			onSubmit={edit}
 		>
-			{({
-				isValid,
-				setFieldValue,
-				values,
-				setFieldTouched,
-				errors,
-				setFieldError,
-				touched,
-			}) => (
+			{({ isValid, setFieldValue, values, touched, errors }) => (
 				<Form className={styles.registrationForm}>
 					<div className={styles.formTitle}>Personal information</div>
 					<div className={styles.talentName}>
@@ -70,16 +62,9 @@ const EditTalent = ({ user, edit }) => {
 						fullWidth
 						onChange={(e, value) => {
 							setFieldValue('skills', value);
-							setFieldTouched('skills', true, false);
 						}}
 						value={values.skills}
-						onClick={() => {
-							setFieldError('skills');
-						}}
 					/>
-					{touched.skills && errors.skills ? (
-						<div className={styles.skilsError}>{errors.skills}</div>
-					) : null}
 					<Field
 						label='About me'
 						name='about_me'

@@ -61,7 +61,6 @@ export const CreateProof = () => {
 				open={open}
 				onClose={handleClose}
 				scroll='paper'
-				sx={{ '& .MuiDialog-paper': { padding: '20px' } }}
 			>
 				{fetchingProgress ? (
 					<div className='loaderContainer'>

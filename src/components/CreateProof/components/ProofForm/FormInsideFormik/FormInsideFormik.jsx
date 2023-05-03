@@ -1,5 +1,5 @@
-import { Button, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import { Autocomplete, Button, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
@@ -11,12 +11,15 @@ import {
 	publishDraftProof,
 } from '../../../../../redux/reducers/proof';
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
+import { useSelector } from 'react-redux';
+import { getAllSkills, getSkills } from '../../../../../redux/reducers/skills';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
+	const skills = useSelector(getAllSkills);
 	const { talentId } = useParams();
 	const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -70,6 +73,12 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 		}
 	};
 
+	useEffect(() => {
+		if (skills.length === 0) {
+			dispatch(getSkills());
+		}
+	}, []);
+
 	return (
 		<Form className={styles.registrationForm}>
 			<div className={styles.iconTitle}>
@@ -95,6 +104,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				label='Add some annotation, what your proof is about?'
 				name='summary'
 				multiline
+				fullWidth
 				rows={4}
 				onKeyDown={handleKeyDown}
 				as={TextField}
@@ -106,11 +116,46 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				label='Content of proof'
 				name='content'
 				multiline
+				fullWidth
 				rows={4}
 				as={TextField}
 				error={touched.content && Boolean(errors.content)}
 				helperText={touched.content && errors.content}
 				onChange={handleChangesInFields}
+			/>
+			<Field
+				name='skills'
+				component={Autocomplete}
+				options={skills}
+				getOptionLabel={option => option.name}
+				renderInput={(params, i) => (
+					<TextField
+						label='Skills'
+						key={i}
+						{...params}
+						name='skill'
+						variant='outlined'
+					/>
+				)}
+				sx={{
+					'& .MuiAutocomplete-tag': {
+						backgroundColor: '#48bde2',
+						color: '#fff',
+					},
+					maxWidth: '500px',
+				}}
+				multiple
+				limitTags={3}
+				fullWidth
+				onChange={(event, value) => {
+					const selectedSkills = value.map(skill => ({
+						id: skill.id,
+						name: skill.name,
+					}));
+					setFieldValue('skills', selectedSkills);
+				}}
+				value={values.skills}
+				isOptionEqualToValue={(option, value) => option.id === value.id}
 			/>
 			<div className={styles.buttonGroup}>
 				<Button
