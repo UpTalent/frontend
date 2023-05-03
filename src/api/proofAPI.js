@@ -1,17 +1,10 @@
 import { axiosInstance } from './index';
+import { skillsAPI } from './skillsAPI';
 
 export const proofAPI = {
 	async getProof(talent_Id, proof_Id) {
 		try {
 			return await axiosInstance.get(`talents/${talent_Id}/proofs/${proof_Id}`);
-		} catch (error) {
-			throw new Error(error.response.data);
-		}
-	},
-
-	async getProofSkills(proof_Id) {
-		try {
-			return await axiosInstance.get(`proofs/${proof_Id}/skills`);
 		} catch (error) {
 			throw new Error(error.response.data);
 		}
@@ -52,11 +45,11 @@ export const proofAPI = {
 					status: status,
 				},
 			});
-			const result = data.content.map(el => {
-				const response = axiosInstance.get(`proofs/${el.id}/skills`);
-				return response.data;
-			});
-			return { data: {...data, result} };
+			const content = await skillsAPI.getListWithSkills(
+				data.content,
+				'Proof',
+			);
+			return { data: { ...data, content } };
 		} catch (error) {
 			throw new Error(error.response.data.error);
 		}
@@ -64,13 +57,18 @@ export const proofAPI = {
 
 	async getAllProofs(currentPage = 0, sorting = 'desc', pageSize = 9) {
 		try {
-			return await axiosInstance.get(`proofs`, {
+			const { data } = await axiosInstance.get(`proofs`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
 					sort: sorting,
 				},
 			});
+			const content = await skillsAPI.getListWithSkills(
+				data.content,
+				'Proof',
+			);
+			return { data: { ...data, content } };
 		} catch (error) {
 			throw new Error(error.response.data.error);
 		}

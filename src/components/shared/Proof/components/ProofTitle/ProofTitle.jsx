@@ -4,11 +4,12 @@ import { ProofIcons } from '../../../../../assets/static/ProofIcons';
 import { TimeStapm } from './components/TimeStamp';
 import { TalentsControl } from './components/TalentsControl';
 import { ReactFitty } from 'react-fitty';
-import { KudosContainer } from './components/Kudos/KudosContainer';
+import { SkillArea } from '../SkillArea/SkillArea';
 
 export const ProofTitle = ({
 	title,
 	published,
+	skills,
 	icon_number,
 	status,
 	showControlls,
@@ -39,15 +40,17 @@ export const ProofTitle = ({
 			</div>
 			<div className={styles.bottomPanel}>
 				{!inSlider && (
-					<KudosContainer
-						{...{
-							sum_kudos_from_me,
-							kudos,
-							my_proof,
-							talentView: sum_kudos_from_me,
-						}}
-						proofId={id}
-					/>
+						<SkillArea
+							skills={skills}
+							kudos={{
+								sum_kudos_from_me,
+								kudos,
+								my_proof,
+								talentView: sum_kudos_from_me,
+								proofId: id,
+							}}
+							additionalStyle={!withContent && styles.proofPageView}
+						/>
 				)}
 				{withContent && showControlls && (
 					<div className={`${styles.status} ${styles[status]}`}>
