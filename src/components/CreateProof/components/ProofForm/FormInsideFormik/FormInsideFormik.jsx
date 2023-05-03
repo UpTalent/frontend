@@ -1,10 +1,11 @@
-import { Button, TextField } from '@mui/material';
+import { Autocomplete, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useStoreDispatch } from '../../../../../redux/store';
+import { skills } from '../../../../../assets/static/skills';
 import {
 	createDraftProof,
 	editProof,
@@ -111,6 +112,33 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				error={touched.content && Boolean(errors.content)}
 				helperText={touched.content && errors.content}
 				onChange={handleChangesInFields}
+			/>
+			<Field
+				name='skills'
+				component={Autocomplete}
+				options={skills}
+				getOptionLabel={option => option}
+				renderInput={(params, i) => (
+					<TextField
+						label='Tell us what you can...'
+						key={i}
+						{...params}
+						name='skill'
+						variant='standard'
+					/>
+				)}
+				sx={{
+					'& .MuiAutocomplete-tag': {
+						backgroundColor: '#48bde2',
+						color: '#fff',
+					},
+					maxWidth: '500px',
+				}}
+				multiple
+				limitTags={3}
+				fullWidth
+				onChange={handleChangesInFields}
+				value={values.skills}
 			/>
 			<div className={styles.buttonGroup}>
 				<Button
