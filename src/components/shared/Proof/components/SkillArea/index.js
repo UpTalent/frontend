@@ -1,0 +1,1 @@
+export { SkillArea } from './SkillArea';

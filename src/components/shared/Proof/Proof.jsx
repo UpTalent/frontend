@@ -16,7 +16,10 @@ export const Proof = ({
 	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
 
 	const summaryForSlider =
-		proof.summary.length > 100 ? proof.summary.substring(0, 100) + '...' : proof.summary;
+		proof.summary.length > 100
+			? proof.summary.substring(0, 100) + '...'
+			: proof.summary;
+
 	const handleAccordionClick = () => {
 		setIsAccordionOpen(!isAccordionOpen);
 	};
@@ -62,6 +65,7 @@ export const Proof = ({
 						summary={summaryForSlider}
 						withKudos={true}
 						kudos={proof.kudos}
+						skills={proof.skills}
 						proofId={proof.id}
 						sum_kudos_from_me={proof.sum_kudos_from_me}
 					/>

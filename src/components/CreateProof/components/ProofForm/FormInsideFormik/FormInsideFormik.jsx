@@ -153,6 +153,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 						name: skill.name,
 					}));
 					setFieldValue('skills', selectedSkills);
+					saveProof({ ...proof, skills: selectedSkills });
 				}}
 				value={values.skills}
 				isOptionEqualToValue={(option, value) => option.id === value.id}

@@ -121,11 +121,10 @@ export const fetchProof = createAsyncThunk(
 	async (params, thunkAPI) => {
 		try {
 			const { proofId } = params;
-			const content = thunkAPI
+			const data = thunkAPI
 				.getState()
 				.talentsProofs.proofsList.find(i => i.id === proofId);
-			const { data } = await proofAPI.getProofSkills(proofId);
-			return { ...content, skills: data };
+			return data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
