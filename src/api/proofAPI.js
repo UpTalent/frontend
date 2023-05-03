@@ -38,21 +38,31 @@ export const proofAPI = {
 		}
 	},
 
-	async getTalentProofs(talent_Id, currentPage = 0, status='PUBLISHED', pageSize = 3) {
+	async getTalentProofs(
+		talent_Id,
+		currentPage = 0,
+		status = 'PUBLISHED',
+		pageSize = 3,
+	) {
 		try {
-			return await axiosInstance.get(`talents/${talent_Id}/proofs`, {
+			const { data } = await axiosInstance.get(`talents/${talent_Id}/proofs`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
 					status: status,
 				},
 			});
+			const result = data.content.map(el => {
+				const response = axiosInstance.get(`proofs/${el.id}/skills`);
+				return response.data;
+			});
+			return { data: {...data, result} };
 		} catch (error) {
 			throw new Error(error.response.data.error);
 		}
 	},
-	
-	async getAllProofs(currentPage = 0,  sorting = 'desc', pageSize = 9,) {
+
+	async getAllProofs(currentPage = 0, sorting = 'desc', pageSize = 9) {
 		try {
 			return await axiosInstance.get(`proofs`, {
 				params: {
@@ -68,7 +78,9 @@ export const proofAPI = {
 
 	async deleteProof(talent_Id, proof_Id) {
 		try {
-			return await axiosInstance.delete(`talents/${talent_Id}/proofs/${proof_Id}`);
+			return await axiosInstance.delete(
+				`talents/${talent_Id}/proofs/${proof_Id}`,
+			);
 		} catch (error) {
 			throw new Error(error.response.data.error);
 		}

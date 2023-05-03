@@ -36,7 +36,6 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	};
 
 	const submitHandler = () => {
-		console.log(values);
 		if (mode === 'create') {
 			dispatch(
 				createDraftProof({ talentId, data: { ...values, status: 'DRAFT' } }),
@@ -78,7 +77,6 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 		if (skills.length === 0) {
 			dispatch(getSkills());
 		}
-		console.log(skills);
 	}, []);
 
 	return (
@@ -157,6 +155,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 					setFieldValue('skills', selectedSkills);
 				}}
 				value={values.skills}
+				isOptionEqualToValue={(option, value) => option.id === value.id}
 			/>
 			<div className={styles.buttonGroup}>
 				<Button
