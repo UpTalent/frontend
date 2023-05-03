@@ -1,119 +1,144 @@
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap');
 
 .header {
-  height: 60px;
-  border-bottom: 1px solid var(--primary);
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 0px;
-  width: 100%;
+	height: 60px;
+	border-bottom: 1px solid var(--primary);
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 0px;
+	width: 100%;
 }
 
 .logo {
-  font-family: "Sarabun";
-  color: var(--dark);
-  width: 228px;
-  font-size: 40px;
-  line-height: 80%;
-  text-align: center;
-  font-weight: 200;
-  text-decoration: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-left: 20px;
+	font-family: 'Sarabun';
+	color: var(--dark);
+	width: 228px;
+	font-size: 40px;
+	line-height: 80%;
+	text-align: center;
+	font-weight: 200;
+	text-decoration: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-left: 20px;
 }
 
 .logo img {
-  width: 60px;
-  height: 50px;
-  object-fit: cover;
+	width: 60px;
+	height: 50px;
+	object-fit: cover;
 }
 
 .navbar {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .navbar a {
-  display: block;
-  color: #000000;
-  font-family: "Sarabun";
-  font-weight: 200;
-  font-size: 25px;
-  padding: 0 20px;
+	display: block;
+	color: #000000;
+	font-family: 'Sarabun';
+	font-weight: 200;
+	font-size: 25px;
+	padding: 0 20px;
 }
 
 .active {
-  color: var(--primary) !important;
-  font-weight: bold !important;
+	color: var(--primary) !important;
+	font-weight: bold !important;
 }
 
 .nameButton a {
-  background-color: var(--primary);
-  color: #fff;
-  border-bottom: 1px solid var(--primary);
-  border-radius: 10px;
-  width: 199px;
-  height: 41px;
-  font-style: normal;
-  font-weight: 300px;
-  font-size: 20px;
+	background-color: var(--primary);
+	color: #fff;
+	border-bottom: 1px solid var(--primary);
+	border-radius: 10px;
+	width: 199px;
+	height: 41px;
+	font-style: normal;
+	font-weight: 300px;
+	font-size: 20px;
 }
 
 .nameButton a:hover {
-  background-color: var(--primary);
-  color: #fff;
+	background-color: var(--primary);
+	color: #fff;
 }
 
 .buttonGroup {
-  position: relative;
-  margin-right: 18px;
+	position: relative;
+	margin-right: 18px;
 }
 
 .menuItem {
-  display: flex;
-  align-items: center;
-  width: 196px;
-  height: 42px;
-  color: var(--primary);
-  border: 1px solid #9cdaed;
-  cursor: pointer;
-  border-radius: 10px;
-  background-color: #fff;
+	display: flex;
+	align-items: center;
+	width: 196px;
+	height: 42px;
+	color: var(--primary);
+	border: 1px solid #9cdaed;
+	cursor: pointer;
+	border-radius: 10px;
+	background-color: #fff;
 }
 
 .menuItem p {
-  font-weight: 400;
-  font-size: 14px;
-  padding-left: 15px;
+	font-weight: 400;
+	font-size: 14px;
+	padding-left: 15px;
 }
 
 .guestButtons {
-  width: 273px;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  padding-right: 18px;
+	width: 273px;
+	height: 40px;
+	display: flex;
+	justify-content: space-between;
+	padding-right: 18px;
 }
 
 .guestButtons button {
-  text-transform: none;
-  width: 45%;
-  font-weight: 300px;
-  font-size: 20px;
-  border-radius: 10px;
+	text-transform: none;
+	width: 45%;
+	font-weight: 300px;
+	font-size: 20px;
+	border-radius: 10px;
 }
 
 .guestButtons .login {
-  background-color: #000000;
-  color: #fff;
+	background-color: #000000;
+	color: #fff;
 }
 
 .guestButtons .login:hover {
-  background-color: #000000;
-  color: #fff;
+	background-color: #000000;
+	color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+	.guestButtons,
+	.navbar,
+	.buttonGroup {
+		flex-direction: column;
+		gap: 30px;
+		align-items: center;
+		justify-content: center;
+		align-self: center;
+		height: fit-content;
+	}
+	.mobileLogo img {
+		width: 60px;
+		height: 80px;
+		margin: 10px;
+	}
+	.navbar {
+		flex: 0.6;
+	}
+
+	.guestButtons {
+		padding: 0;
+	}
 }

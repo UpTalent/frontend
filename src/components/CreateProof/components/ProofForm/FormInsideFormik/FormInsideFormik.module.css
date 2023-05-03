@@ -8,15 +8,16 @@
     overflow: hidden;
 }
 
-.registrationForm div {
-    width: 100%;
-}
-
 .iconTitle{
     display:flex;
     height: 90px;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+}
+
+.iconTitle div{
+    width: 100%;
 }
 
 .buttonGroup{

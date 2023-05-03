@@ -9,6 +9,14 @@ export const proofAPI = {
 		}
 	},
 
+	async getProofSkills(proof_Id) {
+		try {
+			return await axiosInstance.get(`proofs/${proof_Id}/skills`);
+		} catch (error) {
+			throw new Error(error.response.data);
+		}
+	},
+
 	async createProof(talent_Id, data) {
 		try {
 			return await axiosInstance.post(`talents/${talent_Id}/proofs`, data);

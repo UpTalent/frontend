@@ -1,23 +1,25 @@
 import { Autocomplete, Button, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useStoreDispatch } from '../../../../../redux/store';
-import { skills } from '../../../../../assets/static/skills';
 import {
 	createDraftProof,
 	editProof,
 	publishDraftProof,
 } from '../../../../../redux/reducers/proof';
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
+import { useSelector } from 'react-redux';
+import { getAllSkills, getSkills } from '../../../../../redux/reducers/skills';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
+	const skills = useSelector(getAllSkills);
 	const { talentId } = useParams();
 	const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -34,6 +36,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	};
 
 	const submitHandler = () => {
+		console.log(values);
 		if (mode === 'create') {
 			dispatch(
 				createDraftProof({ talentId, data: { ...values, status: 'DRAFT' } }),
@@ -71,6 +74,13 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 		}
 	};
 
+	useEffect(() => {
+		if (skills.length === 0) {
+			dispatch(getSkills());
+		}
+		console.log(skills);
+	}, []);
+
 	return (
 		<Form className={styles.registrationForm}>
 			<div className={styles.iconTitle}>
@@ -96,6 +106,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				label='Add some annotation, what your proof is about?'
 				name='summary'
 				multiline
+				fullWidth
 				rows={4}
 				onKeyDown={handleKeyDown}
 				as={TextField}
@@ -107,6 +118,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				label='Content of proof'
 				name='content'
 				multiline
+				fullWidth
 				rows={4}
 				as={TextField}
 				error={touched.content && Boolean(errors.content)}
@@ -117,14 +129,14 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				name='skills'
 				component={Autocomplete}
 				options={skills}
-				getOptionLabel={option => option}
+				getOptionLabel={option => option.name}
 				renderInput={(params, i) => (
 					<TextField
-						label='Tell us what you can...'
+						label='Skills'
 						key={i}
 						{...params}
 						name='skill'
-						variant='standard'
+						variant='outlined'
 					/>
 				)}
 				sx={{
@@ -137,7 +149,13 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				multiple
 				limitTags={3}
 				fullWidth
-				onChange={handleChangesInFields}
+				onChange={(event, value) => {
+					const selectedSkills = value.map(skill => ({
+						id: skill.id,
+						name: skill.name,
+					}));
+					setFieldValue('skills', selectedSkills);
+				}}
 				value={values.skills}
 			/>
 			<div className={styles.buttonGroup}>

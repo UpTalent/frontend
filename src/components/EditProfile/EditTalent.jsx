@@ -27,7 +27,7 @@ const EditTalent = ({ user, edit }) => {
 			validateOnMount={true}
 			onSubmit={edit}
 		>
-			{({ isValid, setFieldValue, values }) => (
+			{({ isValid, setFieldValue, values, touched, errors }) => (
 				<Form className={styles.registrationForm}>
 					<div className={styles.formTitle}>Personal information</div>
 					<div className={styles.talentName}>
@@ -43,11 +43,11 @@ const EditTalent = ({ user, edit }) => {
 						getOptionLabel={option => option}
 						renderInput={(params, i) => (
 							<TextField
-								label='Tell us what you can...'
+								label='Skills'
 								key={i}
 								{...params}
 								name='skill'
-								variant='standard'
+								variant='outlined'
 							/>
 						)}
 						sx={{
@@ -65,17 +65,27 @@ const EditTalent = ({ user, edit }) => {
 						}}
 						value={values.skills}
 					/>
-					<FormField label='About me' name='about_me' type='text' />
-
-					<Button
-						type='submit'
-						variant='contained'
-						className={styles.logInButton}
-						disabled={!isValid}
-					>
-						SAVE
-					</Button>
-					<DeleteProfile talent_id={user.id} />
+					<Field
+						label='About me'
+						name='about_me'
+						multiline
+						fullWidth
+						rows={6}
+						as={TextField}
+						error={touched.content && Boolean(errors.content)}
+						helperText={touched.content && errors.content}
+					/>
+					<div className={styles.buttonGroup}>
+						<Button
+							type='submit'
+							variant='contained'
+							className={styles.logInButton}
+							disabled={!isValid}
+						>
+							SAVE
+						</Button>
+						<DeleteProfile talent_id={user.id} />
+					</div>
 				</Form>
 			)}
 		</Formik>
