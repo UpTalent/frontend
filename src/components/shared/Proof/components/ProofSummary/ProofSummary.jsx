@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from '../../Proof.module.css';
 import { ReactFitty } from 'react-fitty';
-import { KudosContainer } from '../ProofTitle/components/Kudos/KudosContainer';
+import { SkillArea } from '../SkillArea/SkillArea';
 
 export const ProofSummary = ({
 	summary,
 	withKudos = false,
 	sum_kudos_from_me,
 	kudos,
+	skills,
 	proofId,
 	my_proof,
 }) => {
@@ -17,8 +18,16 @@ export const ProofSummary = ({
 				<p>{summary.trim()}</p>
 			</ReactFitty>
 			{withKudos && (
-				<KudosContainer
-					{...{ kudos, sum_kudos_from_me, proofId, my_proof, talentView: sum_kudos_from_me }}
+				<SkillArea
+					skills={skills.slice(0,3)}
+					kudos={{
+						sum_kudos_from_me,
+						kudos,
+						my_proof,
+						talentView: sum_kudos_from_me,
+						proofId,
+					}}
+					additionalStyle={styles.skillsSlider}
 				/>
 			)}
 		</div>

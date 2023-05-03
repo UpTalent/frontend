@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './Skill.module.css';
 
-export const Skill = ({ skill }) => {
+export const Skill = memo(({ skill }) => {
 	const colorList = [
 		'#FFBF5B',
 		'#48BDE2',
@@ -16,4 +16,4 @@ export const Skill = ({ skill }) => {
 			<p>{skill}</p>
 		</div>
 	);
-};
+});

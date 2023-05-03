@@ -29,7 +29,7 @@
 
 .ProofTitle {
 	background-color: var(--primary);
-	border-radius: 10px 10px 0 0;
+	border-radius: 8px;
 	height: 40%;
 	padding: 10px;
 	display: flex;
@@ -109,9 +109,30 @@
 	font-weight: 200;
 }
 
+.content img {
+	max-width: 100%;
+	object-fit: cover;
+}
+
 .bottomPanel {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin: 10px 10px 0 10px;
+}
+
+.proofPageView {
+	align-self: flex-end;
+}
+
+.skillsSlider {
+	flex-direction: column-reverse;
+	gap: 10px !important;
+	align-items: flex-end !important;
+}
+.skillsSlider > div p {
+	font-size: 0.4rem;
+}
+.skillsSlider > div:last-child > div {
+	padding: 2px 8px;
 }

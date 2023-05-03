@@ -12,6 +12,7 @@ const initialState = {
 		content: '',
 		published: null,
 		status: '',
+		skills: [],
 	},
 	isFetching: false,
 	error: null,

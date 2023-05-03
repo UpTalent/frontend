@@ -1,4 +1,5 @@
 import { axiosInstance } from './index';
+import { skillsAPI } from './skillsAPI';
 
 export const proofAPI = {
 	async getProof(talent_Id, proof_Id) {
@@ -30,29 +31,44 @@ export const proofAPI = {
 		}
 	},
 
-	async getTalentProofs(talent_Id, currentPage = 0, status='PUBLISHED', pageSize = 3) {
+	async getTalentProofs(
+		talent_Id,
+		currentPage = 0,
+		status = 'PUBLISHED',
+		pageSize = 3,
+	) {
 		try {
-			return await axiosInstance.get(`talents/${talent_Id}/proofs`, {
+			const { data } = await axiosInstance.get(`talents/${talent_Id}/proofs`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
 					status: status,
 				},
 			});
+			const content = await skillsAPI.getListWithSkills(
+				data.content,
+				'Proof',
+			);
+			return { data: { ...data, content } };
 		} catch (error) {
 			throw new Error(error.response.data.error);
 		}
 	},
-	
-	async getAllProofs(currentPage = 0,  sorting = 'desc', pageSize = 9,) {
+
+	async getAllProofs(currentPage = 0, sorting = 'desc', pageSize = 9) {
 		try {
-			return await axiosInstance.get(`proofs`, {
+			const { data } = await axiosInstance.get(`proofs`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
 					sort: sorting,
 				},
 			});
+			const content = await skillsAPI.getListWithSkills(
+				data.content,
+				'Proof',
+			);
+			return { data: { ...data, content } };
 		} catch (error) {
 			throw new Error(error.response.data.error);
 		}
@@ -60,7 +76,9 @@ export const proofAPI = {
 
 	async deleteProof(talent_Id, proof_Id) {
 		try {
-			return await axiosInstance.delete(`talents/${talent_Id}/proofs/${proof_Id}`);
+			return await axiosInstance.delete(
+				`talents/${talent_Id}/proofs/${proof_Id}`,
+			);
 		} catch (error) {
 			throw new Error(error.response.data.error);
 		}

@@ -31,14 +31,7 @@ export const TalentForm = ({ register }) => {
 			validateOnMount={true}
 			onSubmit={register}
 		>
-			{({
-				isValid,
-				setFieldValue,
-				setFieldTouched,
-				errors,
-				setFieldError,
-				touched,
-			}) => (
+			{({ isValid, setFieldValue }) => (
 				<Form className={styles.registrationForm}>
 					<Typography className={styles.formTitle}>
 						Join our team!
@@ -96,15 +89,8 @@ export const TalentForm = ({ register }) => {
 						fullWidth
 						onChange={(e, value) => {
 							setFieldValue('skills', value);
-							setFieldTouched('skills', true, false);
-						}}
-						onClick={() => {
-							setFieldError('skills');
 						}}
 					/>
-					{touched.skills && errors.skills ? (
-						<div className={styles.skilsError}>{errors.skills}</div>
-					) : null}
 					<Button
 						type='submit'
 						variant='contained'

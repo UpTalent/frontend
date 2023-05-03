@@ -7,6 +7,11 @@
 	font-size: 20px;
 }
 
+.mainInfo img {
+	max-width: 100%;
+	object-fit: contain;
+}
+
 .proofContainer {
 	display: flex;
 	flex-direction: column;

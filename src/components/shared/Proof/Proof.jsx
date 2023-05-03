@@ -14,16 +14,27 @@ export const Proof = ({
 	inSlider,
 }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
+
+	const summaryForSlider =
+		proof.summary.length > 100
+			? proof.summary.substring(0, 100) + '...'
+			: proof.summary;
+
 	const handleAccordionClick = () => {
 		setIsAccordionOpen(!isAccordionOpen);
 	};
 
 	return (
 		<div
-			className={`${styles.Proof} ${className} ${proof.my_proof && inForm && styles.myProof}`}
+			className={`${styles.Proof} ${className} ${
+				proof.my_proof && inForm && styles.myProof
+			}`}
 		>
 			{!inSlider ? (
-				<Accordion expanded={isAccordionOpen} sx={{borderRadius: '10px !important'}}>
+				<Accordion
+					expanded={isAccordionOpen}
+					sx={{ borderRadius: '10px !important' }}
+				>
 					<AccordionSummary
 						onClick={e => e.stopPropagation()}
 						sx={{
@@ -51,9 +62,10 @@ export const Proof = ({
 				<div className={styles.General}>
 					<ProofTitle {...{ ...proof, inSlider, showControlls }} />
 					<ProofSummary
-						summary={proof.summary}
+						summary={summaryForSlider}
 						withKudos={true}
 						kudos={proof.kudos}
+						skills={proof.skills}
 						proofId={proof.id}
 						sum_kudos_from_me={proof.sum_kudos_from_me}
 					/>

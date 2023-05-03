@@ -8,7 +8,7 @@ export const validationSchema = Yup.object({
 	summary: Yup.string()
 		.required('Summary is required')
 		.matches(/^[,./:;'"|<>\w\s&?{}[\]^%$#@!*()_+=-]+$/, 'Only latin letters, digits and special symbols are allowed')
-		.max(150, 'Must be 150 characters or less'),
+		.max(255, 'Must be 255 characters or less'),
 	content: Yup.string()
 		.trim().required('Content is required')
 		.max(5000, 'Must be 5000 characters or less'),
