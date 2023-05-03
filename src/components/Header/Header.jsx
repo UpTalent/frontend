@@ -9,7 +9,6 @@ import { useMediaQuery } from '@mui/material';
 export const Header = () => {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const mobile = useMediaQuery(theme => theme.breakpoints.up('sm'));
-	
 	return (
 		<header className={styles.header}>
 			<Logo />
