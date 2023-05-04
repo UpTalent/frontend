@@ -64,6 +64,7 @@
 
 .summary > div:last-child {
 	align-self: flex-end;
+	width: 100%;
 }
 
 .timeStamp {

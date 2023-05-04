@@ -15,10 +15,11 @@ export const Proof = ({
 }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
 
-	const summaryForSlider =
-		proof.summary.length > 100
-			? proof.summary.substring(0, 100) + '...'
-			: proof.summary;
+	const formatSliderText = text => {
+		return text.length > 50 ? text.substring(0, 50) + '...' : text;
+	};
+	const summaryForSlider = formatSliderText(proof.summary);
+	const titleForSlider = formatSliderText(proof.title);
 
 	const handleAccordionClick = () => {
 		setIsAccordionOpen(!isAccordionOpen);
@@ -60,7 +61,9 @@ export const Proof = ({
 				</Accordion>
 			) : (
 				<div className={styles.General}>
-					<ProofTitle {...{ ...proof, inSlider, showControlls }} />
+					<ProofTitle
+						{...{ ...proof, inSlider, showControlls, title: titleForSlider }}
+					/>
 					<ProofSummary
 						summary={summaryForSlider}
 						withKudos={true}
