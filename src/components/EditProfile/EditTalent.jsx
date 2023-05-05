@@ -33,9 +33,6 @@ const EditTalent = ({ user, edit }) => {
 		<Formik
 			initialValues={initialEditData}
 			validationSchema={validationSchema}
-			validateOnChange={true}
-			validateOnBlur={true}
-			validateOnMount={true}
 			onSubmit={edit}
 		>
 			{({ isValid, setFieldValue, values, touched, errors }) => (
