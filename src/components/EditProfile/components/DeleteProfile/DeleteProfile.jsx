@@ -1,4 +1,11 @@
-import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+} from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { profileAPI } from '../../../../api/profileAPI';
@@ -6,17 +13,23 @@ import styles from '../../../LoginForm/Forms.module.css';
 import { useDispatch } from 'react-redux';
 import { setSystemMessage } from '../../../../redux/reducers/systemMessages';
 import { logOut } from '../../../../redux/reducers/authentification';
+import { sponsorApi } from '../../../../api/sponsorAPI';
 
-export const DeleteProfile = ({ talent_id }) => {
+export const DeleteProfile = ({ userId, message, role }) => {
+	const apiHandler = role === 'talent' ? profileAPI : sponsorApi;
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [modal, toggleModal] = useState(false);
 
 	const deleteProfile = async () => {
-		await profileAPI.deleteProfile(talent_id);
-		dispatch(logOut());
-		dispatch(setSystemMessage(true, 'Your profile was deleted', 'info'));
-		navigate('/home');
+		try {
+			await apiHandler.deleteProfile(userId);
+			dispatch(logOut());
+			dispatch(setSystemMessage(true, 'Your profile was deleted', 'info'));
+			navigate('/home');
+		} catch (error) {
+			dispatch(setSystemMessage(true, error.message, 'error'));
+		}
 	};
 
 	const closeModal = () => {
@@ -38,9 +51,8 @@ export const DeleteProfile = ({ talent_id }) => {
 				onClose={closeModal}
 				aria-labelledby='alert-dialog-title'
 			>
-				<DialogTitle id='alert-dialog-title'>
-					Are you sure you want to delete your profile (It's permanent!)
-				</DialogTitle>
+				<DialogTitle id='alert-dialog-title'>{message.title}</DialogTitle>
+				<DialogContent sx={{ color: '#797575' }}>{message.text}</DialogContent>
 				<DialogActions>
 					<Button variant='outlined' onClick={closeModal}>
 						Cancel
