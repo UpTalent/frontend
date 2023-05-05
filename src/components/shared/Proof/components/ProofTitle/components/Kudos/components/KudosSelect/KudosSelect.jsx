@@ -39,12 +39,12 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 		const current = e.target.value;
 		if (current < balance && current < MAX_KUDOS) {
 			setValue(Number(current));
-		} else {
+		} else if (current > balance || current > MAX_KUDOS) {
 			setValue(balance);
 		}
 	};
 	const putKudos = () => {
-		if (value > 0) {
+		if (value > 0 && Number.isInteger(value)) {
 			addKudos(value);
 		} else {
 			setError(true);
@@ -71,8 +71,8 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 						value={value}
 						onChange={handleChange}
 						error={error}
-						type='number'
-						helperText={error && 'Kudos number must be positive'}
+						inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+						helperText={error && 'Kudos number must be positive integer'}
 					/>
 
 					<Slider
