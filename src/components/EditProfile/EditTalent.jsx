@@ -84,7 +84,13 @@ const EditTalent = ({ user, edit }) => {
 						>
 							SAVE
 						</Button>
-						<DeleteProfile talent_id={user.id} />
+						<DeleteProfile
+							userId={user.id}
+							message={
+								'Are you sure you want to delete your profile? (It`s permanent!)'
+							}
+							role={'talent'}
+						/>
 					</div>
 				</Form>
 			)}

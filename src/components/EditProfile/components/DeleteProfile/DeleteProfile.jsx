@@ -6,17 +6,23 @@ import styles from '../../../LoginForm/Forms.module.css';
 import { useDispatch } from 'react-redux';
 import { setSystemMessage } from '../../../../redux/reducers/systemMessages';
 import { logOut } from '../../../../redux/reducers/authentification';
+import { sponsorApi } from '../../../../api/sponsorAPI';
 
-export const DeleteProfile = ({ talent_id }) => {
+export const DeleteProfile = ({ userId, message, role }) => {
+	const apiHandler = role === 'talent' ? profileAPI : sponsorApi;
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [modal, toggleModal] = useState(false);
 
 	const deleteProfile = async () => {
-		await profileAPI.deleteProfile(talent_id);
-		dispatch(logOut());
-		dispatch(setSystemMessage(true, 'Your profile was deleted', 'info'));
-		navigate('/home');
+		try {
+			await apiHandler.deleteProfile(userId);
+			dispatch(logOut());
+			dispatch(setSystemMessage(true, 'Your profile was deleted', 'info'));
+			navigate('/home');
+		} catch (error) {
+			dispatch(setSystemMessage(true, error.message, 'error'));
+		}
 	};
 
 	const closeModal = () => {
@@ -38,9 +44,7 @@ export const DeleteProfile = ({ talent_id }) => {
 				onClose={closeModal}
 				aria-labelledby='alert-dialog-title'
 			>
-				<DialogTitle id='alert-dialog-title'>
-					Are you sure you want to delete your profile (It's permanent!)
-				</DialogTitle>
+				<DialogTitle id='alert-dialog-title'>{message}</DialogTitle>
 				<DialogActions>
 					<Button variant='outlined' onClick={closeModal}>
 						Cancel

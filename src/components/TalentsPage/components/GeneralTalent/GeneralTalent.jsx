@@ -9,11 +9,12 @@ import { useSelector } from 'react-redux';
 import { getIsAuth } from '../../../../redux/reducers/authentification';
 
 export const GeneralTalent = ({ talent }) => {
+	console.log(talent);
 	const isTalent = useSelector(getIsAuth);
 
 	const skills = talent.skills
 		.slice(0, 3)
-		.map((skill, index) => <Skill key={index} skill={skill} />);
+		.map(skill => <Skill key={skill.id} skill={skill.name} />);
 
 	return (
 		<div className={styles.GeneralTalent}>

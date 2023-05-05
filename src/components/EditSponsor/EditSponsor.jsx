@@ -9,10 +9,14 @@ import { validationSchema } from './validation';
 import { withEdit } from '../../service/HOC/withEdit';
 import { sponsorApi } from '../../api/sponsorAPI';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserKudos } from '../../redux/reducers/authentification';
+import {
+	getUserEmail,
+	getUserKudos,
+} from '../../redux/reducers/authentification';
 import { ButtonGroup } from './components/AddBtn/ButtonGroup';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import { MAX_KUDOS } from '../../service/constants';
+import { DeleteProfile } from '../EditProfile/components/DeleteProfile';
 
 const EditSponsor = ({ user, edit }) => {
 	const initialEditData = {
@@ -21,6 +25,7 @@ const EditSponsor = ({ user, edit }) => {
 	};
 
 	const currentKudos = useSelector(getUserKudos);
+	const userEmail = useSelector(getUserEmail);
 	const dispatch = useDispatch();
 
 	const [kudosValue, setKudosValue] = useState(0);
@@ -90,15 +95,21 @@ const EditSponsor = ({ user, edit }) => {
 							/>
 						</div>
 					</div>
-
-					<Button
-						type='submit'
-						variant='contained'
-						className={styles.logInButton}
-						disabled={!isValid}
-					>
-						SAVE
-					</Button>
+					<div className={styles.buttonGroup}>
+						<Button
+							type='submit'
+							variant='contained'
+							className={styles.logInButton}
+							disabled={!isValid}
+						>
+							SAVE
+						</Button>
+						<DeleteProfile
+							userId={user.id}
+							message={`Are you sure you want to delete your profile? \n You can restore it in 7 days \n The recovery link was sent on your email - ${userEmail}`}
+							role={'talent'}
+						/>
+					</div>
 				</Form>
 			)}
 		</Formik>

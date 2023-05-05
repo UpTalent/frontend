@@ -47,4 +47,12 @@ export const sponsorApi = {
 			throw new Error(`${error.response.data[field]}`);
 		}
 	},
+
+	async deleteProfile(sponsorId) {
+		try {
+			return await axiosInstance.delete(`sponsors/${sponsorId}`);
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	},
 };
