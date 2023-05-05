@@ -1,4 +1,4 @@
-import { Autocomplete, Button, TextField } from '@mui/material';
+import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
@@ -12,6 +12,7 @@ import {
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
 import { profileAPI } from '../../../../../api/profileAPI';
 import { useStoreDispatch } from '../../../../../redux/store';
+import { Markdown } from '../../../../shared/FormField/components/Markdown/Markdown';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
@@ -130,6 +131,13 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				error={touched.content && Boolean(errors.content)}
 				helperText={touched.content && errors.content}
 				onChange={handleChangesInFields}
+				InputProps={{
+					startAdornment: (
+						<InputAdornment position='start'>
+							<Markdown />
+						</InputAdornment>
+					),
+				}}
 			/>
 			<Field
 				name='skills'
