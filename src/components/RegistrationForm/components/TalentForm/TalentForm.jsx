@@ -38,9 +38,6 @@ export const TalentForm = ({ register }) => {
 		<Formik
 			initialValues={initialRegistartionData}
 			validationSchema={validationSchema}
-			validateOnChange={true}
-			validateOnBlur={true}
-			validateOnMount={true}
 			onSubmit={register}
 		>
 			{({ isValid, setFieldValue }) => (

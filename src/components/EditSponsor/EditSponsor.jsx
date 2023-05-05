@@ -50,9 +50,6 @@ const EditSponsor = ({ user, edit }) => {
 		<Formik
 			initialValues={initialEditData}
 			validationSchema={validationSchema}
-			validateOnChange={true}
-			validateOnBlur={true}
-			validateOnMount={true}
 			onSubmit={handleSubmit}
 		>
 			{({ isValid }) => (
