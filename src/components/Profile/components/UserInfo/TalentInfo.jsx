@@ -4,7 +4,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import { ProfileInfo } from './ProfileInfo';
+import { ProfileInfo } from '../UserInfo/ProfileInfo';
 import { Skill } from '../../../shared/Skill';
 
 export const TalentInfo = ({ talent, isTalentProfile }) => {
