@@ -5,14 +5,8 @@ import { FormInsideFormik } from './FormInsideFormik/FormInsideFormik';
 
 export const ProofForm = ({ proof, updateTempProof, mode }) => {
 	return (
-		<> 
-			<Formik
-				initialValues={proof}
-				validationSchema={validationSchema}
-				validateOnChange={true}
-				validateOnBlur={true}
-				validateOnMount={true}
-			>
+		<>
+			<Formik initialValues={proof} validationSchema={validationSchema}>
 				<FormInsideFormik
 					proof={proof}
 					saveProof={updateTempProof}

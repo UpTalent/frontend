@@ -1,1 +1,0 @@
-export { SliderTalent } from './SliderTalent';
