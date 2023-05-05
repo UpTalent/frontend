@@ -4,7 +4,8 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import { ProfileInfo } from './ProfileInfo';
+import { ProfileInfo } from '../UserInfo/ProfileInfo';
+import { Skill } from '../../../shared/Skill';
 
 export const TalentInfo = ({ talent, isTalentProfile }) => {
 	const infoAboutUser = [
@@ -23,7 +24,14 @@ export const TalentInfo = ({ talent, isTalentProfile }) => {
 		{
 			icon: <AutoAwesomeIcon />,
 			header: 'Skills',
-			info: talent.skills?.join(', '),
+			info:
+				talent.skills.length > 0 ? (
+					<div className={styles.skills}>
+						{talent.skills?.map(el => (
+							<Skill skill={el.name} key={el.id} />
+						))}
+					</div>
+				) : null,
 			visiableForGuest: true,
 		},
 		{

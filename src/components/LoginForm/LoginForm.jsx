@@ -59,9 +59,6 @@ export const LoginForm = () => {
 				<Formik
 					initialValues={{ email: '', password: '' }}
 					validationSchema={validationSchema}
-					validateOnChange={true}
-					validateOnBlur={true}
-					validateOnMount={true}
 					onSubmit={tryToLogin}
 				>
 					{({ isValid }) => (

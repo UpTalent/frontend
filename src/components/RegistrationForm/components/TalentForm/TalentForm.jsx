@@ -8,11 +8,17 @@ import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlin
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { validationSchema } from './validation';
 import { FormField } from '../../../shared/FormField';
-import { skills } from '../../../../assets/static/skills';
+import { useStoreDispatch } from '../../../../redux/store';
+import { useSelector } from 'react-redux';
+import { getAllSkills, getSkills } from '../../../../redux/reducers/skills';
+import { useEffect } from 'react';
 
 export const TalentForm = ({ register }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
+
+	const dispatch = useStoreDispatch();
+	const skills = useSelector(getAllSkills);
 
 	let initialRegistartionData = {
 		email: '',
@@ -22,13 +28,16 @@ export const TalentForm = ({ register }) => {
 		confirmPassword: '',
 		skills: [],
 	};
+
+	useEffect(() => {
+		if (skills.length === 0) {
+			dispatch(getSkills());
+		}
+	}, []);
 	return (
 		<Formik
 			initialValues={initialRegistartionData}
 			validationSchema={validationSchema}
-			validateOnChange={true}
-			validateOnBlur={true}
-			validateOnMount={true}
 			onSubmit={register}
 		>
 			{({ isValid, setFieldValue }) => (
@@ -67,7 +76,7 @@ export const TalentForm = ({ register }) => {
 						name='skills'
 						component={Autocomplete}
 						options={skills}
-						getOptionLabel={option => option}
+						getOptionLabel={option => option.name}
 						renderInput={(params, i) => (
 							<TextField
 								key={i}
@@ -87,9 +96,14 @@ export const TalentForm = ({ register }) => {
 						multiple
 						limitTags={3}
 						fullWidth
-						onChange={(e, value) => {
-							setFieldValue('skills', value);
+						onChange={(event, value) => {
+							const selectedSkills = value.map(skill => ({
+								id: skill.id,
+								name: skill.name,
+							}));
+							setFieldValue('skills', selectedSkills);
 						}}
+						isOptionEqualToValue={(option, value) => option.id === value.id}
 					/>
 					<Button
 						type='submit'

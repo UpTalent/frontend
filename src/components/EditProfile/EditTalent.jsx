@@ -1,12 +1,15 @@
-import { Autocomplete, Button, TextField } from '@mui/material';
+import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormField } from '../shared/FormField';
 import { validationSchema } from './validation';
 import styles from '../LoginForm/Forms.module.css';
 import { DeleteProfile } from './components/DeleteProfile';
-import { skills } from '../../assets/static/skills';
 import { withEdit } from '../../service/HOC/withEdit';
+import { Markdown } from '../shared/FormField/components/Markdown/Markdown';
+import { useSelector } from 'react-redux';
+import { getAllSkills, getSkills } from '../../redux/reducers/skills';
+import { useStoreDispatch } from '../../redux/store';
 
 const EditTalent = ({ user, edit }) => {
 	let initialEditData = {
@@ -17,14 +20,19 @@ const EditTalent = ({ user, edit }) => {
 		skills: user.skills,
 		about_me: user.about_me,
 	};
+	const dispatch = useStoreDispatch();
+	const skills = useSelector(getAllSkills);
+
+	useEffect(() => {
+		if (skills.length === 0) {
+			dispatch(getSkills());
+		}
+	}, []);
 
 	return (
 		<Formik
 			initialValues={initialEditData}
 			validationSchema={validationSchema}
-			validateOnChange={true}
-			validateOnBlur={true}
-			validateOnMount={true}
 			onSubmit={edit}
 		>
 			{({ isValid, setFieldValue, values, touched, errors }) => (
@@ -40,7 +48,7 @@ const EditTalent = ({ user, edit }) => {
 						name='skills'
 						component={Autocomplete}
 						options={skills}
-						getOptionLabel={option => option}
+						getOptionLabel={option => option.name}
 						renderInput={(params, i) => (
 							<TextField
 								label='Skills'
@@ -60,10 +68,15 @@ const EditTalent = ({ user, edit }) => {
 						multiple
 						limitTags={3}
 						fullWidth
-						onChange={(e, value) => {
-							setFieldValue('skills', value);
+						onChange={(event, value) => {
+							const selectedSkills = value.map(skill => ({
+								id: skill.id,
+								name: skill.name,
+							}));
+							setFieldValue('skills', selectedSkills);
 						}}
 						value={values.skills}
+						isOptionEqualToValue={(option, value) => option.id === value.id}
 					/>
 					<Field
 						label='About me'
@@ -72,8 +85,15 @@ const EditTalent = ({ user, edit }) => {
 						fullWidth
 						rows={6}
 						as={TextField}
-						error={touched.content && Boolean(errors.content)}
-						helperText={touched.content && errors.content}
+						error={touched.about_me && Boolean(errors.about_me)}
+						helperText={touched.about_me && errors.about_me}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position='start'>
+									<Markdown />
+								</InputAdornment>
+							),
+						}}
 					/>
 					<div className={styles.buttonGroup}>
 						<Button
@@ -84,7 +104,14 @@ const EditTalent = ({ user, edit }) => {
 						>
 							SAVE
 						</Button>
-						<DeleteProfile talent_id={user.id} />
+						<DeleteProfile
+							userId={user.id}
+							message={{
+								title:
+									'Are you sure you want to delete your profile? (It`s permanent!)',
+							}}
+							role={'talent'}
+						/>
 					</div>
 				</Form>
 			)}

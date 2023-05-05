@@ -1,6 +1,12 @@
 .info {
-    display: flex;
-    flex-wrap: wrap;
-    flex-basis: 40%;
-    align-content: flex-start;
+	display: flex;
+	flex-wrap: wrap;
+	flex-basis: 40%;
+	align-content: flex-start;
+}
+
+.skills {
+	display: flex;
+	gap: 5px;
+	flex-wrap: wrap;
 }

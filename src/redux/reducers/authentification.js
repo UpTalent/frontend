@@ -10,6 +10,7 @@ const initialState = {
 	error: null,
 	isPending: true,
 	role: '',
+	email: '',
 	kudos: 0,
 };
 
@@ -35,7 +36,7 @@ const authSlice = createSlice({
 				return state;
 			}
 
-			const { exp, id, role } = parseJwt(jwt);
+			const { exp, id, role, sub } = parseJwt(jwt);
 			const currentTime = new Date();
 			const expire = new Date(exp * 1000);
 
@@ -45,6 +46,7 @@ const authSlice = createSlice({
 				state.name = name;
 				state.isAuth = true;
 				state.role = role.toLowerCase();
+				state.email = sub;
 			} else {
 				localStorage.removeItem('jwt_token');
 				localStorage.removeItem('userName');
@@ -67,6 +69,7 @@ const authSlice = createSlice({
 				state.id = action.payload.id;
 				state.name = action.payload.name;
 				state.role = action.payload.role;
+				state.email = action.payload.sub;
 			})
 			.addCase(authentificateTalent.rejected, (state, action) => {
 				state.error = action.payload;
@@ -83,13 +86,13 @@ export const authentificateTalent = createAsyncThunk(
 			const { data } = await authAPI.authentificate(userInfo, userRole, method);
 			setAuthToken(data.jwt_token);
 
-			const { name, id, role } = parseJwt(data.jwt_token);
+			const { name, id, role, sub } = parseJwt(data.jwt_token);
 
 			localStorage.setItem('userName', name);
 			if (role === 'sponsor') {
 				thunkAPI.dispatch(getKudos(id));
 			}
-			return { name, id, role };
+			return { name, id, role, sub };
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
@@ -109,6 +112,7 @@ export const getIsAuth = state => state.authentification.isAuth;
 export const getIsPending = state => state.authentification.isPending;
 export const getRole = state => state.authentification.role;
 export const getUserKudos = state => state.authentification.kudos;
+export const getUserEmail = state => state.authentification.email;
 
 export const getAuthUser = state => ({
 	name: state.authentification.name,

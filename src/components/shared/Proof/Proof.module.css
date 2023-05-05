@@ -64,6 +64,7 @@
 
 .summary > div:last-child {
 	align-self: flex-end;
+	width: 100%;
 }
 
 .timeStamp {
@@ -122,7 +123,7 @@
 }
 
 .proofPageView {
-	align-self: flex-end;
+	width: 100% !important;
 }
 
 .skillsSlider {

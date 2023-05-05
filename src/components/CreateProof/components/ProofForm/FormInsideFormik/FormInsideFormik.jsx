@@ -1,27 +1,36 @@
-import { Autocomplete, Button, TextField } from '@mui/material';
+import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useStoreDispatch } from '../../../../../redux/store';
 import {
 	createDraftProof,
 	editProof,
 	publishDraftProof,
 } from '../../../../../redux/reducers/proof';
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
-import { useSelector } from 'react-redux';
-import { getAllSkills, getSkills } from '../../../../../redux/reducers/skills';
+import { profileAPI } from '../../../../../api/profileAPI';
+import { useStoreDispatch } from '../../../../../redux/store';
+import { Markdown } from '../../../../shared/FormField/components/Markdown/Markdown';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
-	const skills = useSelector(getAllSkills);
+	const [skills, setSkills] = useState([]);
 	const { talentId } = useParams();
 	const [openConfirm, setOpenConfirm] = useState(false);
+
+	const getSkills = async () => {
+		try {
+			const { data } = await profileAPI.getUser('talent', talentId);
+			setSkills(data.skills);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const handleKeyDown = e => {
 		if (e.key === 'Enter') {
@@ -75,7 +84,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 
 	useEffect(() => {
 		if (skills.length === 0) {
-			dispatch(getSkills());
+			getSkills();
 		}
 	}, []);
 
@@ -122,6 +131,13 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				error={touched.content && Boolean(errors.content)}
 				helperText={touched.content && errors.content}
 				onChange={handleChangesInFields}
+				InputProps={{
+					startAdornment: (
+						<InputAdornment position='start'>
+							<Markdown />
+						</InputAdornment>
+					),
+				}}
 			/>
 			<Field
 				name='skills'
