@@ -1,4 +1,4 @@
-import { Autocomplete, Button, TextField } from '@mui/material';
+import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { FormField } from '../shared/FormField';
@@ -7,6 +7,7 @@ import styles from '../LoginForm/Forms.module.css';
 import { DeleteProfile } from './components/DeleteProfile';
 import { skills } from '../../assets/static/skills';
 import { withEdit } from '../../service/HOC/withEdit';
+import { Markdown } from '../shared/FormField/components/Markdown/Markdown';
 
 const EditTalent = ({ user, edit }) => {
 	let initialEditData = {
@@ -72,8 +73,15 @@ const EditTalent = ({ user, edit }) => {
 						fullWidth
 						rows={6}
 						as={TextField}
-						error={touched.content && Boolean(errors.content)}
-						helperText={touched.content && errors.content}
+						error={touched.about_me && Boolean(errors.about_me)}
+						helperText={touched.about_me && errors.about_me}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position='start'>
+									<Markdown />
+								</InputAdornment>
+							),
+						}}
 					/>
 					<div className={styles.buttonGroup}>
 						<Button
