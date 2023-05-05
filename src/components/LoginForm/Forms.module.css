@@ -103,3 +103,16 @@
 	display: flex;
 	gap: 10px;
 }
+
+.markdown {
+	position: absolute;
+	bottom: 0;
+	font-size: 10px;
+	display: inline-flex;
+	gap: 5px;
+	align-items: flex-start;
+}
+.markdown img {
+	width: 20px;
+	object-fit: contain;
+}

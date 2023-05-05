@@ -43,10 +43,8 @@ const EditSponsor = ({ user, edit }) => {
 	const handleChange = e => {
 		const current = e.target.value;
 		if (current < MAX_KUDOS - currentKudos) {
-			if (current >= 1) {
-				setKudosValue(Number(current));
-			}
-		} else {
+			setKudosValue(Number(current));
+		} else if (current > MAX_KUDOS - currentKudos) {
 			setKudosValue(MAX_KUDOS - currentKudos);
 		}
 	};
@@ -77,8 +75,7 @@ const EditSponsor = ({ user, edit }) => {
 							<TextField
 								label='Add Kudos'
 								value={kudosValue}
-								type='number'
-								step={10}
+								inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
 								InputProps={{
 									startAdornment: (
 										<InputAdornment position='start'>
