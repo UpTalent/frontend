@@ -25,7 +25,7 @@ export const MainInfo = () => {
 				))}
 			</Tabs>
 			<Outlet
-				context={{ aboutMe: user?.about_me, isTalentProfile: isUserProfile }}
+				context={{ ...user, isTalentProfile: isUserProfile }}
 			/>
 		</div>
 	);

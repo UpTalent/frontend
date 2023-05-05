@@ -108,15 +108,11 @@
 		flex-direction: column;
         margin-top: 180px ;
 	}
-/* 
-    .allInfoAbouUser > div:first-child div {
-        width: 100%;
-        padding: 10px;
-        justify-content: center;
-    } */
+
     .allInfoAbouUser > div:first-child div b {
         font-size: 20px;
     }
+	
     .allInfoAbouUser > div:first-child div svg{
         width: 40px;
         height: 40px;

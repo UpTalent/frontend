@@ -23,7 +23,7 @@ import { useStoreDispatch } from '../../../../../../redux/store';
 import { useModalPathname } from '../../../../../../service/hooks/useModalPathname';
 
 export const Proofs = () => {
-	const { isTalentProfile } = useOutletContext();
+	const { isTalentProfile, skills } = useOutletContext();
 
 	const [searchParams, setSearchParams] = useSearchParams();
 
@@ -113,7 +113,7 @@ export const Proofs = () => {
 					/>
 				)}
 			</div>
-			<Outlet />
+			<Outlet context={{skills}} />
 		</>
 	);
 };
