@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import { getIsAuth } from '../../../../redux/reducers/authentification';
 
 export const GeneralTalent = ({ talent }) => {
-	console.log(talent);
 	const isTalent = useSelector(getIsAuth);
 
 	const skills = talent.skills

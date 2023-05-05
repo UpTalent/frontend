@@ -109,9 +109,10 @@ const EditTalent = ({ user, edit }) => {
 						</Button>
 						<DeleteProfile
 							userId={user.id}
-							message={
-								'Are you sure you want to delete your profile? (It`s permanent!)'
-							}
+							message={{
+								title:
+									'Are you sure you want to delete your profile? (It`s permanent!)',
+							}}
 							role={'talent'}
 						/>
 					</div>

@@ -1,4 +1,11 @@
-import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+} from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { profileAPI } from '../../../../api/profileAPI';
@@ -44,7 +51,8 @@ export const DeleteProfile = ({ userId, message, role }) => {
 				onClose={closeModal}
 				aria-labelledby='alert-dialog-title'
 			>
-				<DialogTitle id='alert-dialog-title'>{message}</DialogTitle>
+				<DialogTitle id='alert-dialog-title'>{message.title}</DialogTitle>
+				<DialogContent sx={{ color: '#797575' }}>{message.text}</DialogContent>
 				<DialogActions>
 					<Button variant='outlined' onClick={closeModal}>
 						Cancel

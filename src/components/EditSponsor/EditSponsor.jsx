@@ -103,8 +103,21 @@ const EditSponsor = ({ user, edit }) => {
 						</Button>
 						<DeleteProfile
 							userId={user.id}
-							message={`Are you sure you want to delete your profile? \n You can restore it in 7 days \n The recovery link was sent on your email - ${userEmail}`}
-							role={'talent'}
+							message={{
+								title: 'Are you sure you want to delete your profile?',
+								text: (
+									<>
+										<p>
+											You can restore it in <b>7 days</b>.
+										</p>
+										<p>
+											The recovery link will be sent on your email -{' '}
+											<b>{userEmail}</b>
+										</p>
+									</>
+								),
+							}}
+							role={'sponsor'}
 						/>
 					</div>
 				</Form>

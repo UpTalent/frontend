@@ -27,8 +27,8 @@ export const TalentInfo = ({ talent, isTalentProfile }) => {
 			info:
 				talent.skills.length > 0 ? (
 					<div className={styles.skills}>
-						{talent.skills.map((el, i) => (
-							<Skill skill={el} key={i} />
+						{talent.skills.map(el => (
+							<Skill skill={el.name} key={el.id} />
 						))}
 					</div>
 				) : null,
