@@ -20,7 +20,7 @@ export const Skill = memo(({ skill }) => {
 	const pickColor = colorList[Math.floor(Math.random() * colorList.length)];
 	return (
 		<div className={styles.Skill} style={{ backgroundColor: pickColor }}>
-			<p>{skill.name}</p>
+			<p>{skill}</p>
 		</div>
 	);
 });

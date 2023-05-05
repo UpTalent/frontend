@@ -5,7 +5,6 @@ import { FormField } from '../shared/FormField';
 import { validationSchema } from './validation';
 import styles from '../LoginForm/Forms.module.css';
 import { DeleteProfile } from './components/DeleteProfile';
-//import { skills } from '../../assets/static/skills';
 import { withEdit } from '../../service/HOC/withEdit';
 import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../redux/reducers/skills';

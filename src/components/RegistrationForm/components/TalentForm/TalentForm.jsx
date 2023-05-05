@@ -8,7 +8,6 @@ import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlin
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { validationSchema } from './validation';
 import { FormField } from '../../../shared/FormField';
-//import { skills } from '../../../../assets/static/skills';
 import { useStoreDispatch } from '../../../../redux/store';
 import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../../../redux/reducers/skills';

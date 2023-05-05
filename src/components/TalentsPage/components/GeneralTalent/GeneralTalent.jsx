@@ -13,7 +13,7 @@ export const GeneralTalent = ({ talent }) => {
 
 	const skills = talent.skills
 		.slice(0, 3)
-		.map((skill, index) => <Skill key={index} skill={skill} />);
+		.map((skill) => <Skill key={skill.id} skill={skill.name} />);
 
 	return (
 		<div className={styles.GeneralTalent}>
