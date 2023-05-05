@@ -9,7 +9,6 @@ export const getSkills = createAsyncThunk('getSkills', async thunkAPI => {
 	try {
 		const { data } = await skillsAPI.getSkills();
 		return data;
-		// thunkAPI.dispatch(updateSkills(data));
 	} catch (err) {
 		return thunkAPI.rejectWithValue(err.message);
 	}

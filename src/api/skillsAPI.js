@@ -17,6 +17,14 @@ export const skillsAPI = {
 		}
 	},
 
+	async getTalentSkills(talentId) {
+		try {
+			return await axiosInstance.get(`talents/${talentId}/skills`);
+		} catch (error) {
+			throw new Error(error.response.data);
+		}
+	},
+
 	async getListWithSkills(dataArr, kindOfEl) {
 		const dataWithSkills = await Promise.all(
 			dataArr.map(async el => {
