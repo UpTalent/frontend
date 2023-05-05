@@ -14,7 +14,6 @@ import { profileAPI } from '../../../../../api/profileAPI';
 import { useStoreDispatch } from '../../../../../redux/store';
 import { Markdown } from '../../../../shared/FormField/components/Markdown/Markdown';
 
-
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
@@ -139,41 +138,6 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 						</InputAdornment>
 					),
 				}}
-			/>
-			<Field
-				name='skills'
-				component={Autocomplete}
-				options={skills}
-				getOptionLabel={option => option.name}
-				renderInput={(params, i) => (
-					<TextField
-						label='Skills'
-						key={i}
-						{...params}
-						name='skill'
-						variant='outlined'
-					/>
-				)}
-				sx={{
-					'& .MuiAutocomplete-tag': {
-						backgroundColor: '#48bde2',
-						color: '#fff',
-					},
-					maxWidth: '500px',
-				}}
-				multiple
-				limitTags={3}
-				fullWidth
-				onChange={(event, value) => {
-					const selectedSkills = value.map(skill => ({
-						id: skill.id,
-						name: skill.name,
-					}));
-					setFieldValue('skills', selectedSkills);
-					saveProof({ ...proof, skills: selectedSkills });
-				}}
-				value={values.skills}
-				isOptionEqualToValue={(option, value) => option.id === value.id}
 			/>
 			<Field
 				name='skills'
