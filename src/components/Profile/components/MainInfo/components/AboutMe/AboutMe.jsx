@@ -5,12 +5,12 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 
 export const AboutMe = () => {
-	const { aboutMe } = useOutletContext();
+	const { about_me } = useOutletContext();
 	return (
 		<div className={styles.about}>
-			{aboutMe ? (
+			{about_me ? (
 				<ReactMarkdown remarkPlugins={[remarkGfm]} >
-					{aboutMe}
+					{about_me}
 				</ReactMarkdown>
 			) : (
 				<b className={styles.noData}>No data provided</b>

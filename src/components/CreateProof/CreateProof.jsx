@@ -42,11 +42,7 @@ export const CreateProof = () => {
 
 	const tabLabels = ['WRITE', 'PREVIEW'];
 	const tabContent = [
-		<ProofForm
-			proof={proof}
-			updateTempProof={setProof}
-			mode={mode}
-		/>,
+		<ProofForm updateTempProof={setProof} {...{ proof, mode }} />,
 		<Proof
 			proof={proof}
 			withContent={true}
@@ -57,11 +53,7 @@ export const CreateProof = () => {
 
 	return (
 		<>
-			<Dialog
-				open={open}
-				onClose={handleClose}
-				scroll='paper'
-			>
+			<Dialog open={open} onClose={handleClose} scroll='paper'>
 				{fetchingProgress ? (
 					<div className='loaderContainer'>
 						<CircularProgress />

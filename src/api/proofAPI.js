@@ -1,5 +1,4 @@
 import { axiosInstance } from './index';
-import { skillsAPI } from './skillsAPI';
 
 export const proofAPI = {
 	async getProof(talent_Id, proof_Id) {
@@ -38,18 +37,13 @@ export const proofAPI = {
 		pageSize = 3,
 	) {
 		try {
-			const { data } = await axiosInstance.get(`talents/${talent_Id}/proofs`, {
+			return await axiosInstance.get(`talents/${talent_Id}/proofs`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
 					status: status,
 				},
 			});
-			const content = await skillsAPI.getListWithSkills(
-				data.content,
-				'Proof',
-			);
-			return { data: { ...data, content } };
 		} catch (error) {
 			throw new Error(error.response.data.error);
 		}
@@ -57,18 +51,13 @@ export const proofAPI = {
 
 	async getAllProofs(currentPage = 0, sorting = 'desc', pageSize = 9) {
 		try {
-			const { data } = await axiosInstance.get(`proofs`, {
+			return await axiosInstance.get(`proofs`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
 					sort: sorting,
 				},
 			});
-			const content = await skillsAPI.getListWithSkills(
-				data.content,
-				'Proof',
-			);
-			return { data: { ...data, content } };
 		} catch (error) {
 			throw new Error(error.response.data.error);
 		}
