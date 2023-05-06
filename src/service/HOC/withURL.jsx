@@ -48,7 +48,7 @@ export const withURL = (Component, getList, nameList) => () => {
 					<CircularProgress />
 				</div>
 			) : (
-				<Component total_pages={total_pages} getProofs={getList} />
+				<Component {...{total_pages, getList, urlPage}} />
 			)}
 		</>
 	);

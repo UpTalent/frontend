@@ -37,7 +37,7 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 
 	const handleChange = e => {
 		const current = e.target.value;
-		if (current < balance && current < MAX_KUDOS) {
+		if (current <= balance && current <= MAX_KUDOS) {
 			setValue(Number(current));
 		} else if (current > balance || current > MAX_KUDOS) {
 			setValue(balance);

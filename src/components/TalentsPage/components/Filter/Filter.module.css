@@ -1,0 +1,21 @@
+.filterBox {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 20px;
+    align-items: center;
+    gap: 20px;
+    max-width: 80%;
+}
+
+.controlls {
+    display: flex;
+    gap: 30px;
+    align-items: flex-end;
+}
+
+.selected {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px
+}

@@ -35,7 +35,7 @@ export const SortButtons = ({ getProofs }) => {
 				onClick={handleAlignment}
 				value={alignment}
 				sx={{ borderRadius: '4px', gap: '5px', mt: '15px' }}
-				variant='outlined'
+				variant='contained'
 			>
 				Sort by date
 				{controlls.buttonIcon}

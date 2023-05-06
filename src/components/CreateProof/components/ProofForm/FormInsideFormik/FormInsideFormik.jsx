@@ -1,25 +1,25 @@
-import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Autocomplete, Button, Checkbox, InputAdornment, TextField } from '@mui/material';
+import React, { useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import {
 	createDraftProof,
 	editProof,
 	publishDraftProof,
 } from '../../../../../redux/reducers/proof';
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
-import { profileAPI } from '../../../../../api/profileAPI';
 import { useStoreDispatch } from '../../../../../redux/store';
 import { Markdown } from '../../../../shared/FormField/components/Markdown/Markdown';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
+	const { skills } = useOutletContext();
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
 	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
-	const [skills, setSkills] = useState([]);
+
 	const { talentId } = useParams();
 	const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -81,12 +81,6 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 			navigate(`/profile/talent/${talentId}/proofs?page=1&filter=PUBLISHED`);
 		}
 	};
-
-	useEffect(() => {
-		if (skills.length === 0) {
-			getSkills();
-		}
-	}, []);
 
 	return (
 		<Form className={styles.registrationForm}>
@@ -152,6 +146,13 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 						name='skill'
 						variant='outlined'
 					/>
+				)}
+				disableCloseOnSelect
+				renderOption={(props, option, { selected }) => (
+					<li {...props}>
+						<Checkbox style={{ marginRight: 8 }} checked={selected} />
+						{option.name}
+					</li>
 				)}
 				sx={{
 					'& .MuiAutocomplete-tag': {

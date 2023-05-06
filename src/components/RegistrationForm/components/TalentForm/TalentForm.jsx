@@ -1,4 +1,4 @@
-import { Autocomplete, Button, TextField, Typography } from '@mui/material';
+import { Autocomplete, Button, Checkbox, TextField, Typography } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import styles from '../../../LoginForm/Forms.module.css';
 import React from 'react';
@@ -77,6 +77,13 @@ export const TalentForm = ({ register }) => {
 						component={Autocomplete}
 						options={skills}
 						getOptionLabel={option => option.name}
+						disableCloseOnSelect
+						renderOption={(props, option, { selected }) => (
+							<li {...props}>
+								<Checkbox style={{ marginRight: 8 }} checked={selected} />
+								{option.name}
+							</li>
+						)}
 						renderInput={(params, i) => (
 							<TextField
 								key={i}
