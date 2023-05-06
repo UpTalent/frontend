@@ -1,4 +1,4 @@
-import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
+import { Autocomplete, Button, Checkbox, InputAdornment, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
@@ -136,6 +136,13 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 						name='skill'
 						variant='outlined'
 					/>
+				)}
+				disableCloseOnSelect
+				renderOption={(props, option, { selected }) => (
+					<li {...props}>
+						<Checkbox style={{ marginRight: 8 }} checked={selected} />
+						{option.name}
+					</li>
 				)}
 				sx={{
 					'& .MuiAutocomplete-tag': {

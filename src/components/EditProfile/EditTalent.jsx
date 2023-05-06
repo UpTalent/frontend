@@ -1,4 +1,10 @@
-import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
+import {
+	Autocomplete,
+	Button,
+	Checkbox,
+	InputAdornment,
+	TextField,
+} from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { FormField } from '../shared/FormField';
@@ -57,6 +63,13 @@ const EditTalent = ({ user, edit }) => {
 								name='skill'
 								variant='outlined'
 							/>
+						)}
+						disableCloseOnSelect
+						renderOption={(props, option, { selected }) => (
+							<li {...props}>
+								<Checkbox style={{ marginRight: 8 }} checked={selected} />
+								{option.name}
+							</li>
 						)}
 						sx={{
 							'& .MuiAutocomplete-tag': {

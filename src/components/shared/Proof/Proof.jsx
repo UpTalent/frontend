@@ -15,11 +15,15 @@ export const Proof = ({
 }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
 
-	const formatSliderText = text => {
-		return text.length > 50 ? text.substring(0, 50) + '...' : text;
+	const formatSliderText = (text, maxNum) => {
+		return text.length > maxNum ? text.substring(0, maxNum) + '...' : text;
 	};
-	const summaryForSlider = formatSliderText(proof.summary);
-	const titleForSlider = formatSliderText(proof.title);
+	const summaryForSlider = formatSliderText(proof.summary, 50);
+	const titleForSlider = formatSliderText(proof.title, 60);
+	const skillsForSlider = proof.skills.map(el => ({
+		...el,
+		name: formatSliderText(el.name, 10),
+	}));
 
 	const handleAccordionClick = () => {
 		setIsAccordionOpen(!isAccordionOpen);
@@ -68,7 +72,7 @@ export const Proof = ({
 						summary={summaryForSlider}
 						withKudos={true}
 						kudos={proof.kudos}
-						skills={proof.skills}
+						skills={skillsForSlider}
 						proofId={proof.id}
 						sum_kudos_from_me={proof.sum_kudos_from_me}
 					/>
