@@ -3,6 +3,7 @@
 	display: flex;
 	align-items: center;
 	gap: 30px;
+	flex-direction: row-reverse;
 }
 
 .wrapper {
@@ -14,15 +15,16 @@
 
 .wrapper .arrow {
 	position: absolute;
-	width: 50px;
-	left: -40px;
-	top: 40px;
-	transform: rotate(-40deg);
+    width: 50px;
+    left: -30px;
+    top: 50px;
+    transform: rotate(-50deg);
 }
 
 .wrapper button {
 	width: 50%;
 	font-size: 18px;
+	margin-left: 25px;
 }
 
 .wrapper .title {
