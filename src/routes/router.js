@@ -14,6 +14,7 @@ import { AboutMe } from '../components/Profile/components/MainInfo/components/Ab
 import { SponsorProfile } from '../components/Profile/components/SponsorProfile';
 import { TalentProfile } from '../components/Profile/components/TalentProfile/TalentProfile';
 import { KudosHistory } from '../components/Profile/components/MainInfo/components/KudosHistory';
+import { RestoreProfile } from '../components/RestoreProfile';
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -86,6 +87,10 @@ export const router = createBrowserRouter([
 						],
 					},
 				],
+			},
+			{
+				path: 'sponsors/restore/*',
+				element: <RestoreProfile />,
 			},
 		],
 	},

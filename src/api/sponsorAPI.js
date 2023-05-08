@@ -49,11 +49,18 @@ export const sponsorApi = {
 	},
 
 	async deleteProfile(sponsorId) {
-		// try {
-		// 	return await axiosInstance.delete(`sponsors/${sponsorId}`);
-		// } catch (error) {
-		// 	throw new Error(error.response.data.message);
-		// }
-		alert('Hello there ' + sponsorId);
+		try {
+			return await axiosInstance.delete(`sponsors/${sponsorId}`);
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
 	},
+
+	async restoreProfile(token) {
+		try {
+			await axiosInstance.post(`sponsors/restore?token=${token}`);
+		} catch (error) {
+			throw new Error(error.response.data.message);
+		}
+	}
 };
