@@ -1,0 +1,30 @@
+.NothingToDisplay{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    background: url('../../../assets/notFoundBackground.svg') no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.NothingToDisplay img {
+    width: 500px;
+    height: 500px;
+}
+
+.text {
+    width: 40%;
+    word-spacing: 5px;
+}
+
+@media screen and (max-width: 700px) {
+    .NothingToDisplay{
+        flex-direction: column-reverse;
+        gap: 0;
+    }
+    .text{
+        text-align: center;
+        width: 80%;
+    }
+}

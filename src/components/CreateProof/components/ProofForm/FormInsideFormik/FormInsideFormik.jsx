@@ -23,15 +23,6 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { talentId } = useParams();
 	const [openConfirm, setOpenConfirm] = useState(false);
 
-	const getSkills = async () => {
-		try {
-			const { data } = await profileAPI.getUser('talent', talentId);
-			setSkills(data.skills);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const handleKeyDown = e => {
 		if (e.key === 'Enter') {
 			e.preventDefault();
