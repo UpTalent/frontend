@@ -10,13 +10,7 @@ import { NothingToDisplay } from '../shared/NothingToDisplay';
 
 const TalentsPage = ({ total_pages, filterHandler, filterItems }) => {
 	const talentList = useSelector(getGridList);
-	const filterItems = useSelector(getFilter).skills;
-	const dispatch = useStoreDispatch();
 
-	const filterHandler = async () => {
-		const filter = filterItems.map(el => el.name);
-		dispatch(getTalentsList({ page: urlPage - 1, filter }));
-	};
 	let talentsList = talentList.map(talent => (
 		<Grid item sm={12} lg={6} xl={4} key={talent.id}>
 			<GeneralTalent talent={talent} />
