@@ -62,5 +62,5 @@ export const sponsorApi = {
 		} catch (error) {
 			throw new Error(error.response.data.message);
 		}
-	}
+	},
 };
