@@ -19,8 +19,18 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 		useFormikContext();
 	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
+
 	const { talentId } = useParams();
 	const [openConfirm, setOpenConfirm] = useState(false);
+
+	const getSkills = async () => {
+		try {
+			const { data } = await profileAPI.getUser('talent', talentId);
+			setSkills(data.skills);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const handleKeyDown = e => {
 		if (e.key === 'Enter') {
