@@ -15,6 +15,12 @@ const ProofPage = ({ total_pages, filterHandler, filterItems }) => {
 	const role = useSelector(getRole);
 
 	const proofList = useSelector(getGridList);
+	const filterItems = useSelector(getFilter).skills;
+
+	const filterHandler = async () => {
+		const filter = filterItems.map(el => el.name);
+		dispatch(getProofsList({ page: urlPage - 1, alignment, filter }));
+	};
 
 	let proofsList = proofList.map(proof => (
 		<Grid item md={12} sm={12} lg={12} key={proof.id}>
