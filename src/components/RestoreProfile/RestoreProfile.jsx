@@ -5,8 +5,8 @@ import { sponsorApi } from '../../api/sponsorAPI';
 import { useDispatch } from 'react-redux';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import styles from './RestoreProfile.module.css';
-import recover from '../../assets/recover.png';
-import recover1 from '../../assets/recover1.jpg';
+import recover from '../../assets/recover.jpg';
+import arrow from '../../assets/arrow.png';
 
 export const RestoreProfile = () => {
 	const [searchParams] = useSearchParams();
@@ -30,12 +30,13 @@ export const RestoreProfile = () => {
 	};
 	return (
 		<div className={styles.container}>
-			<img src={recover1} alt='recover account' className={styles.recoverImg} />
-			<div>
+			<img src={recover} alt='recover account' className={styles.recoverImg} />
+			<div className={styles.wrapper}>
+				<img src={arrow} alt='arrow' className={styles.arrow} />
 				<Typography className={styles.title}>
 					Click here to restore account
 				</Typography>
-				<Button onClick={restore} variant='contained' size='large'>
+				<Button onClick={restore} variant='contained'>
 					Restore account
 				</Button>
 			</div>
