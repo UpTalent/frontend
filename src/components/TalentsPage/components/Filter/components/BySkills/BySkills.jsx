@@ -2,7 +2,6 @@ import {
 	Badge,
 	Button,
 	Checkbox,
-	FormControlLabel,
 	Menu,
 	MenuItem,
 } from '@mui/material';
@@ -13,7 +12,7 @@ import { getSkills } from '../../../../../../redux/reducers/skills';
 import { useStoreDispatch } from '../../../../../../redux/store';
 import { getAllSkills } from '../../../../../../redux/reducers/skills';
 
-export const BySkills = ({ setFilterItems, filterItems }) => {
+export const BySkills = ({ setFilterItems, filterItems, handleDelete }) => {
 	const skillList = useSelector(getAllSkills);
 	const dispatch = useStoreDispatch();
 	const [openMenu, setOpenMenu] = useState(null);
@@ -23,9 +22,11 @@ export const BySkills = ({ setFilterItems, filterItems }) => {
 	};
 	const addSkill = skill => {
 		if (!filterItems.includes(skill)) {
-			setFilterItems([...filterItems, skill]);
+			return setFilterItems([...filterItems, skill]);
 		}
+		handleDelete(skill.id);
 	};
+
 	const handleClose = () => {
 		setOpenMenu(null);
 	};
@@ -57,10 +58,8 @@ export const BySkills = ({ setFilterItems, filterItems }) => {
 			>
 				{skillList.map((el, i) => (
 					<MenuItem key={i} onClick={() => addSkill(el)}>
-						<FormControlLabel
-							control={<Checkbox checked={filterItems.includes(el)} />}
-							label={el.name}
-						/>
+						<Checkbox checked={filterItems.includes(el)} />
+						{el.name}
 					</MenuItem>
 				))}
 			</Menu>

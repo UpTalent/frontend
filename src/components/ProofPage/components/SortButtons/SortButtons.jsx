@@ -4,13 +4,14 @@ import MoveUpIcon from '@mui/icons-material/MoveUp';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
 import { useSearchParams } from 'react-router-dom';
 
-export const SortButtons = ({ getProofs }) => {
+export const SortButtons = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const value = searchParams.get('sort') || 'desc';
 
 	const [alignment, setAlignment] = useState(value);
-	const controlls = alignment === 'desc'
+	const controlls =
+		alignment === 'desc'
 			? {
 					title: 'from newest to oldest',
 					change: 'asc',
@@ -25,8 +26,11 @@ export const SortButtons = ({ getProofs }) => {
 	const handleAlignment = () => {
 		const newAlignment = controlls.change;
 		setAlignment(newAlignment);
-		getProofs(0, newAlignment);
-		setSearchParams({ page: '1', sort: newAlignment });
+		setSearchParams({
+			...Object.fromEntries([...searchParams]),
+			page: '1',
+			sort: newAlignment,
+		});
 	};
 
 	return (

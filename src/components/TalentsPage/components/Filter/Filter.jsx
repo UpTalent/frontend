@@ -5,37 +5,35 @@ import { BySkills } from './components/BySkills/BySkills';
 import { setFilter } from '../../../../redux/reducers/dataList';
 import { useDispatch } from 'react-redux';
 import { SortButtons } from '../../../ProofPage/components/SortButtons/SortButtons';
+import { useSearchParams } from 'react-router-dom';
 
-export const Filter = ({
-	filterItems,
-	alignment,
-	filterHandler,
-	setAlignment,
-	setSearchParams,
-	urlPage,
-	getProofs,
-	showFilter,
-}) => {
+export const Filter = ({ filterItems, filterHandler, showFilter }) => {
 	const dispatch = useDispatch();
+	const [, setSearchParams] = useSearchParams();
+
 	const setFilterItems = filterItem => {
 		dispatch(setFilter('skills', filterItem));
 	};
+
 	const handleDelete = id => {
 		setFilterItems(filterItems.filter(el => el.id !== id));
+	};
+
+	const reset = () => {
+		setFilterItems([]);
+		setSearchParams({ page: 1 });
 	};
 
 	const filters = [
 		{
 			filter: 'sortByDate',
-			element: (
-				<SortButtons
-					{...{ alignment, setAlignment, setSearchParams, urlPage, getProofs }}
-				/>
-			),
+			element: <SortButtons key={0} />,
 		},
 		{
 			filter: 'skills',
-			element: <BySkills {...{ setFilterItems, filterItems }} />,
+			element: (
+				<BySkills key={1} {...{ setFilterItems, filterItems, handleDelete }} />
+			),
 		},
 	];
 	return (
@@ -44,6 +42,14 @@ export const Filter = ({
 				{filters.map(el => showFilter.includes(el.filter) && el.element)}
 				<Button variant='contained' onClick={filterHandler}>
 					Add filter
+				</Button>
+				<Button
+					variant='contained'
+					sx={{ background: '#aba9a7' }}
+					color='warning'
+					onClick={reset}
+				>
+					Reset All
 				</Button>
 			</div>
 			<div>
