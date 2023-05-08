@@ -13,9 +13,7 @@ import { NothingToDisplay } from '../shared/NothingToDisplay';
 
 const ProofPage = ({ total_pages, filterHandler, filterItems }) => {
 	const role = useSelector(getRole);
-
 	const proofList = useSelector(getGridList);
-	const filterItems = useSelector(getFilter).skills;
 
 	let proofsList = proofList.map(proof => (
 		<Grid item md={12} sm={12} lg={12} key={proof.id}>
