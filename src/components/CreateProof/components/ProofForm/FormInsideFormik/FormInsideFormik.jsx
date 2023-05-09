@@ -1,9 +1,15 @@
-import { Autocomplete, Button, Checkbox, InputAdornment, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import {
+	Autocomplete,
+	Button,
+	Checkbox,
+	InputAdornment,
+	TextField,
+} from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
-import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
 	createDraftProof,
 	editProof,
@@ -12,12 +18,15 @@ import {
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
 import { useStoreDispatch } from '../../../../../redux/store';
 import { Markdown } from '../../../../shared/FormField/components/Markdown/Markdown';
+import { useSelector } from 'react-redux';
+import { getAllSkills, getSkills } from '../../../../../redux/reducers/skills';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
-	const { skills } = useOutletContext();
 	const { isValid, touched, errors, setFieldValue, values } =
 		useFormikContext();
+
 	const navigate = useNavigate();
+	const skills = useSelector(getAllSkills);
 	const dispatch = useStoreDispatch();
 
 	const { talentId } = useParams();
@@ -28,6 +37,12 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 			e.preventDefault();
 		}
 	};
+
+	useEffect(() => {
+		if (!skills.length) {
+			dispatch(getSkills());
+		}
+	}, [skills.length]);
 
 	const handleChangesInFields = event => {
 		const { name, value } = event.target;

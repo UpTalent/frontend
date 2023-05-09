@@ -6,6 +6,7 @@ import { setFilter } from '../../../../redux/reducers/dataList';
 import { useDispatch } from 'react-redux';
 import { SortButtons } from '../../../ProofPage/components/SortButtons/SortButtons';
 import { useSearchParams } from 'react-router-dom';
+import { FilterList } from '@mui/icons-material';
 
 export const Filter = ({ filterItems, filterHandler, showFilter }) => {
 	const dispatch = useDispatch();
@@ -40,8 +41,12 @@ export const Filter = ({ filterItems, filterHandler, showFilter }) => {
 		<div className={styles.filterBox}>
 			<div className={styles.controlls}>
 				{filters.map(el => showFilter.includes(el.filter) && el.element)}
-				<Button variant='contained' onClick={filterHandler}>
-					Add filter
+				<Button
+					variant='contained'
+					onClick={filterHandler}
+					endIcon={<FilterList />}
+				>
+					Apply filter
 				</Button>
 				<Button
 					variant='contained'
