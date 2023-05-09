@@ -5,6 +5,7 @@ import cat from '../../../assets/notFoundCat.svg';
 export const NothingToDisplay = ({ searchData }) => {
 	const [filteredData] = useState(searchData)
 	const viewSearch = filteredData?.map(el => el.name).join(', ');
+  
 	return (
 		<div className={styles.NothingToDisplay}>
             <img src={cat} alt={cat} />
