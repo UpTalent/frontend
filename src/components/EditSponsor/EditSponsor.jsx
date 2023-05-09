@@ -32,7 +32,7 @@ const EditSponsor = ({ user, edit }) => {
 
 	const handleSubmit = async values => {
 		try {
-			kudosValue > 1 &&
+			kudosValue >= 1 &&
 				(await sponsorApi.updateKudosQuantity(user.id, kudosValue));
 			edit(values);
 		} catch (err) {
