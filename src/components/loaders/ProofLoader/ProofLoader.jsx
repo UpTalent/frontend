@@ -1,7 +1,7 @@
 import { Card, CardHeader, Skeleton } from '@mui/material';
 import React from 'react';
 
-export const ProofLoader = ({ amount }) => {
+export const ProofLoader = ({ amount = 3}) => {
 	const amountOfProofs = Array.from({ length: amount }, (_, index) => index);
 	return (
 		<>

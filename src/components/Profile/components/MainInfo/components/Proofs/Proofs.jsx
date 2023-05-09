@@ -96,7 +96,7 @@ export const Proofs = () => {
 						))}
 					</div>
 				) : (
-					<ProofLoader amount={3} />
+					<ProofLoader />
 				)}
 				{Boolean(proofs.length) && (
 					<Pagination
