@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Proof } from '../../../../../shared/Proof';
 import styles from '../../MainInfo.module.css';
-import { Fab, LinearProgress, Pagination } from '@mui/material';
+import { Fab, Pagination } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import {
 	Outlet,
@@ -21,6 +21,7 @@ import {
 } from '../../../../../../redux/reducers/talentsProof';
 import { useStoreDispatch } from '../../../../../../redux/store';
 import { useModalPathname } from '../../../../../../service/hooks/useModalPathname';
+import { ProofLoader } from '../../../../../loaders/ProofLoader/ProofLoader';
 
 export const Proofs = () => {
 	const { isTalentProfile, skills } = useOutletContext();
@@ -46,7 +47,7 @@ export const Proofs = () => {
 	useEffect(() => {
 		const page = urlPage - 1;
 		getProofs(filter, page);
-		
+
 		return () => {
 			dispatch(resetList());
 		};
@@ -95,7 +96,7 @@ export const Proofs = () => {
 						))}
 					</div>
 				) : (
-					<LinearProgress />
+					<ProofLoader amount={3} />
 				)}
 				{Boolean(proofs.length) && (
 					<Pagination
@@ -113,7 +114,7 @@ export const Proofs = () => {
 					/>
 				)}
 			</div>
-			<Outlet context={{skills}} />
+			<Outlet context={{ skills }} />
 		</>
 	);
 };
