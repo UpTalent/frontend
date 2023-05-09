@@ -46,6 +46,7 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 	const putKudos = () => {
 		if (value > 0 && Number.isInteger(value)) {
 			addKudos(value);
+			setValue(0);
 		} else {
 			setError(true);
 			setTimeout(() => setError(false), 3000);
