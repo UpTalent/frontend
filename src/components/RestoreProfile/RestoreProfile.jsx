@@ -1,5 +1,5 @@
 import { Button, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { sponsorApi } from '../../api/sponsorAPI';
 import { useDispatch } from 'react-redux';
@@ -12,10 +12,13 @@ export const RestoreProfile = () => {
 	const [searchParams] = useSearchParams();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const [isFetching, setIsFetching] = useState(false);
 
 	const restore = async () => {
 		try {
+			setIsFetching(true);
 			await sponsorApi.restoreProfile(searchParams.get('token'));
+			setIsFetching(false);
 			dispatch(
 				setSystemMessage(
 					true,
@@ -36,7 +39,7 @@ export const RestoreProfile = () => {
 				<Typography className={styles.title}>
 					Click here to restore account
 				</Typography>
-				<Button onClick={restore} variant='contained'>
+				<Button onClick={restore} variant='contained' disabled={isFetching}>
 					Restore account
 				</Button>
 			</div>
