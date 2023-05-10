@@ -19,10 +19,13 @@ export const DeleteProfile = ({ userId, message, role }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [modal, toggleModal] = useState(false);
+	const [isFetching, setIsFetching] = useState(false);
 
 	const deleteProfile = async () => {
 		try {
+			setIsFetching(true);
 			await apiHandler.deleteProfile(userId);
+			setIsFetching(false);
 			dispatch(logOut());
 			dispatch(setSystemMessage(true, 'Your profile was deleted', 'info'));
 			navigate('/home');
@@ -56,7 +59,12 @@ export const DeleteProfile = ({ userId, message, role }) => {
 					<Button variant='outlined' onClick={closeModal}>
 						Cancel
 					</Button>
-					<Button variant='outlined' onClick={deleteProfile} color='error'>
+					<Button
+						variant='outlined'
+						onClick={deleteProfile}
+						color='error'
+						disabled={isFetching}
+					>
 						Delete
 					</Button>
 				</DialogActions>

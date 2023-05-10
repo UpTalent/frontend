@@ -56,14 +56,6 @@ export const Filter = ({ filterItems, filterHandler, showFilter }) => {
 				>
 					Reset All
 				</Button>
-				<Button
-					variant='contained'
-					sx={{ background: '#aba9a7' }}
-					color='warning'
-					onClick={reset}
-				>
-					Reset All
-				</Button>
 			</div>
 			<div>
 				<div className={styles.selected}>

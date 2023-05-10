@@ -89,7 +89,7 @@ export const router = createBrowserRouter([
 				],
 			},
 			{
-				path: '/api/v1/sponsors/:sponsorId/restore',
+				path: '/restore',
 				element: <RestoreProfile />,
 			},
 		],
