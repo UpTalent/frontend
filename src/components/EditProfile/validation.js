@@ -19,12 +19,12 @@ export const validationSchema = Yup.object({
 		.max(255, 'Must be less than 255 characters')
 		.nullable(),
 	birthday: Yup.date()
-		.max(new Date().getFullYear() - 10, 'Call your mommy sweetheart ;)')
+		.nullable()
+		.max(new Date().getFullYear() - 14, 'Call your mommy sweetheart ;)')
 		.min(
 			new Date().getFullYear() - 100,
 			'You are not a Jesus brother, aren`t you?',
-		)
-		.nullable(),
+		),
 	about_me: Yup.string()
 		.max(2250, 'Must be less than 2250 characters')
 		.nullable(),
