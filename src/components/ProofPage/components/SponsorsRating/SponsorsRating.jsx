@@ -6,6 +6,7 @@ import { setSystemMessage } from '../../../../redux/reducers/systemMessages';
 import { useEffect } from 'react';
 import { SponsorItem } from './SponsorItem';
 import styles from '../../ProofPage.module.css';
+import sadCat from '../../../../assets/sadcat.png';
 
 export const SponsorsRating = () => {
 	const [sponsorList, setSponsorList] = useState(null);
@@ -34,7 +35,14 @@ export const SponsorsRating = () => {
 	return (
 		<div className={styles.sponsorBox}>
 			<h2>YOUR TOP SPONSORS:</h2>
-			{sponsorItems}
+			{sponsorItems?.length ? (
+				sponsorItems
+			) : (
+				<div className={styles.emptyList}>
+					<img src={sadCat} alt="Kitty" />
+					<p>Will be here in future...hopefully</p>
+				</div>
+			)}
 		</div>
 	);
 };
