@@ -21,10 +21,10 @@ export const Kudos = memo(
 		openMenu,
 		setOpenMenu,
 		clickOnKudos,
+		messageForUser
 	}) => {
 		const [isPres, setIsPres] = useState(Boolean(sum_kudos_from_me));
 		const [isActive, setIsActive] = useState(false);
-		const disabled = isDisabled ? styles.disabled : null;
 		const [confetti, setConfetti] = useState({ fire: false, reset: false });
 
 		const [count, setCount] = useState(kudos);
@@ -52,8 +52,8 @@ export const Kudos = memo(
 					arrow
 				>
 					<div
-						className={`${styles.background} ${disabled}`}
-						onClick={disabled ? null : clickOnKudos}
+						className={styles.background}
+						onClick={isDisabled ? messageForUser : clickOnKudos}
 					>
 						<div className={styles.kitty}>
 							<NotPresCat

@@ -17,6 +17,16 @@ export const KudosContainer = memo(
 		const dispatch = useDispatch();
 		const isDisabled = useSelector(getRole) !== 'sponsor' && !my_proof;
 
+		const messageForUser = () => {
+			dispatch(
+				setSystemMessage(
+					true,
+					'This feature is available only for sponsors',
+					'warning',
+				),
+			);
+		};
+
 		const getKudoList = async () => {
 			try {
 				const { data } = await kudosAPI.getProofsKudos(proofId);
@@ -59,6 +69,7 @@ export const KudosContainer = memo(
 					openMenu,
 					setOpenMenu,
 					clickOnKudos,
+					messageForUser,
 				}}
 			/>
 		);

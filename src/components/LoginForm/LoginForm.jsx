@@ -40,7 +40,7 @@ export const LoginForm = () => {
 
 	useEffect(() => {
 		if (id && role) {
-			navigate(`profile/${role}/${id}`);
+			navigate(`profile/${role.toLowerCase()}/${id}`);
 		}
 
 		if (authError) {
