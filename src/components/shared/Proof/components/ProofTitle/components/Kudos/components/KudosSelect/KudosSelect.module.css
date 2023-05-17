@@ -1,0 +1,66 @@
+.selectKudos {
+	padding: 13px;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+	position: relative;
+	border-radius: 10px;
+	height: 60%;
+}
+
+.listItem {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+    width: 100%;
+}
+
+.listItem svg {
+	cursor: pointer;
+}
+
+.selectKudos p {
+	font-size: large;
+	font-weight: 200;
+	text-align: center;
+	max-width: 150px;
+}
+
+.slider {
+	width: 75% !important;
+}
+
+.selectCat {
+	width: 100%;
+	height: 100px;
+}
+
+.inputs svg {
+	width: 20px;
+	height: 20px;
+}
+.inputs {
+	display: flex;
+	align-items: flex-end;
+}
+
+.TotalKudos{
+    border-top: 1px solid var(--dark) ;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.currentTotal, .balance{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.KudosAmount {
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
