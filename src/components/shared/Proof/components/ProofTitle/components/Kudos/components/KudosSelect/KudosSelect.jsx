@@ -1,5 +1,5 @@
 import { Button, Dialog } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styles from './KudosSelect.module.css';
 import kitty from '../../../../../../../../../assets/kudosKitty.png';
@@ -14,6 +14,8 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 	const [totalKudos, setTotalKudos] = useState(0);
 	const [error, setError] = useState(false);
 	const balance = useSelector(getUserKudos);
+
+	const [list, setList] = useState([{ name: '', kudos: 0, id: 0 }]);
 
 	const marks = [
 		{
@@ -37,7 +39,25 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 	];
 
 	const updateKudosTotal = additionalKudos => {
-		setTotalKudos(totalKudos + Number(additionalKudos));
+		//setTotalKudos(totalKudos + Number(additionalKudos));
+	};
+
+	useEffect(() => {
+		var sum = 0;
+		list.map(el => (sum += el.kudos));
+		setTotalKudos(sum);
+	}, [list]);
+
+	const checkValidKudos = kudos => {
+		return Number.isInteger(kudos) && kudos <= balance && kudos <= MAX_KUDOS;
+
+		// try
+
+		// return (
+		// 	Number.isInteger(kudos) &&
+		// 	kudos <= balance &&
+		// 	kudos <= balance - totalKudos
+		// );
 	};
 
 	// const handleKudosChange = additionalKudos => {
@@ -57,10 +77,6 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 	// 		setTimeout(() => setError(false), 3000);
 	// 	}
 	// };
-
-	const checkValidKudos = kudos => {
-		return Number.isInteger(kudos) && kudos <= balance && kudos <= MAX_KUDOS;
-	};
 
 	return (
 		<>
@@ -82,28 +98,13 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 							error,
 							skills,
 							checkValidKudos,
-							updateKudosTotal
+							updateKudosTotal,
+							list,
+							setList,
 						}}
 					/>
-
-					{/* <TextField
-						value={value}
-						onChange={handleChange}
-						error={error}
-						inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-						helperText={error && 'Kudos number must be positive integer'}
-					/>
-
-					<Slider
-						className={styles.slider}
-						marks={marks}
-						value={value}
-						onChange={handleChange}
-						max={balance}
-						aria-labelledby='input-slider'
-					/> */}
 					<TotalKudos {...{ balance, totalKudos }} />
-					<Button onClick={()=>{}} variant='outlined'>
+					<Button onClick={() => {}} variant='outlined'>
 						Put kudos
 					</Button>
 				</div>
@@ -111,3 +112,16 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 		</>
 	);
 };
+
+{
+	/* 
+
+	<Slider
+		className={styles.slider}
+		marks={marks}
+		value={value}
+		onChange={handleChange}
+		max={balance}
+		aria-labelledby='input-slider'
+	/> */
+}

@@ -17,9 +17,9 @@ export const SelectSkills = ({
 	error,
 	checkValidKudos,
 	updateKudosTotal,
+	list,
+	setList,
 }) => {
-	const [list, setList] = useState([{ name: '', kudos: 0, id: 0 }]);
-
 	const handleDeleteItem = value => {
 		setList(
 			list.filter(el => {
