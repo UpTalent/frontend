@@ -73,6 +73,16 @@
 	position: relative;
 	border-radius: 10px;
 }
+/*  */
+.listItem {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+.listItem svg {
+	cursor: pointer;
+}
 
 .selectKudos p {
 	font-size: large;

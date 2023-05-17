@@ -1,5 +1,13 @@
-import { Button, Dialog, Slider, TextField } from '@mui/material';
-import React from 'react';
+import {
+	Autocomplete,
+	Button,
+	Dialog,
+	Slider,
+	SpeedDial,
+	SpeedDialIcon,
+	TextField,
+} from '@mui/material';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styles from '../../Kudo.module.css';
 import kitty from '../../../../../../../../../assets/kudosKitty.png';
@@ -7,12 +15,14 @@ import { ReactComponent as NotPresCat } from '../../../../../../../../../assets/
 import { useSelector } from 'react-redux';
 import { getUserKudos } from '../../../../../../../../../redux/reducers/authentification';
 import { MAX_KUDOS } from '../../../../../../../../../service/constants';
+import ClearIcon from '@mui/icons-material/Clear';
 
-export const KudosSelect = ({ open, close, addKudos }) => {
+export const KudosSelect = ({ open, close, addKudos, skills }) => {
 	const [value, setValue] = useState(0);
 	const [error, setError] = useState(false);
-
 	const balance = useSelector(getUserKudos);
+	const [skillsList, setSkillList] = useState(skills.map(el => el.name));
+	const [list, setList] = useState([{ name: '', kudos: 0 }]);
 
 	const marks = [
 		{
@@ -52,6 +62,33 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 			setTimeout(() => setError(false), 3000);
 		}
 	};
+
+	// useEffect(() => {
+	// 	setSkillList(prev =>
+	// 		prev.filter(skill => !list.some(item => item.name === skill.name)),
+	// 	);
+	// 	//console.log('useEffect', skillsList);
+	// 	// const skillNames = skillsList.map(skill => skill.name);
+
+	// 	// const updatedSkillsList = skillsList.filter(
+	// 	// 	skill => !list.some(item => item.name === skill.name),
+	// 	// );
+
+	// 	// list.forEach(item => {
+	// 	// 	if (!skillNames.includes(item.name)) {
+	// 	// 		updatedSkillsList.push(item);
+	// 	// 	}
+	// 	// });
+
+	// 	// setSkillList(updatedSkillsList);
+	// 	// console.log('SkillsList:', skillsList);
+	// }, [list]);
+
+	// useEffect(() => {
+	// 	setSkillList(skills);
+	// 	setList([{ name: '', kudos: 0 }]);
+	// }, [open]);
+
 	return (
 		<>
 			<Dialog
@@ -67,8 +104,55 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 				<img src={kitty} alt='kitten' className={styles.selectCat} />
 				<div className={styles.selectKudos}>
 					<p>How many kudos you want to give?</p>
+					{list.length &&
+						list.map((el, id) => (
+							<div className={styles.listItem} key={id}>
+								<Autocomplete
+									disablePortal
+									id='choose-skill'
+									options={skillsList}
+									renderInput={params => (
+										<TextField {...params} label='Skills' />
+									)}
+									fullWidth
+									onChange={(event, value) => {
+										setSkillList(prev => prev.filter(skill => skill !== value));
+										setList(prev => [...prev, (prev[id].name = value)]);
+										console.log(list);
+									}}
+								/>
+								<TextField
+									value={el.kudos}
+									// onChange={handleChange}
+									error={error}
+									inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+									helperText={error && 'Kudos number must be positive integer'}
+								/>
+								<ClearIcon
+									onClick={() => {
+										setList(prev =>
+											prev.filter(skill => skill.name !== el.name),
+										);
 
-					<TextField
+										setSkillList(prev => prev.push(el.name));
+										console.log(el);
+										console.log('list: ', list);
+										console.log('skillList', skillsList);
+									}}
+								/>
+							</div>
+						))}
+					{skills.length > list.length && (
+						<SpeedDial
+							ariaLabel='add item'
+							icon={<SpeedDialIcon />}
+							onClick={() =>
+								setList(prev => prev.concat({ name: '', kudos: '' }))
+							}
+						/>
+					)}
+
+					{/* <TextField
 						value={value}
 						onChange={handleChange}
 						error={error}
@@ -83,7 +167,7 @@ export const KudosSelect = ({ open, close, addKudos }) => {
 						onChange={handleChange}
 						max={balance}
 						aria-labelledby='input-slider'
-					/>
+					/> */}
 
 					<Button onClick={putKudos} variant='outlined'>
 						Put kudos

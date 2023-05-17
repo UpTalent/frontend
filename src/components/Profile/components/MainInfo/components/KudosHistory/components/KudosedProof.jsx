@@ -26,13 +26,14 @@ export const KudosedProof = ({ proofInfo }) => {
 						},
 					}}
 				>
-					<ProofTitle
+					{/* <ProofTitle
 						openContent={handleAccordionClick}
 						{...proofInfo}
 						kudos={proofInfo.total_sum_kudos}
 						withContent={true}
 						id={proofInfo.proof_id}
-					/>
+						inSlider={false}
+					/> */}
 				</AccordionSummary>
 				<AccordionDetails>
 					{isAccordionOpen && <KudosedProofItem id={proofInfo.proof_id} />}

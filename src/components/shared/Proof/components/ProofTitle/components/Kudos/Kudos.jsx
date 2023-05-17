@@ -21,7 +21,8 @@ export const Kudos = memo(
 		openMenu,
 		setOpenMenu,
 		clickOnKudos,
-		messageForUser
+		messageForUser,
+		skills
 	}) => {
 		const [isPres, setIsPres] = useState(Boolean(sum_kudos_from_me));
 		const [isActive, setIsActive] = useState(false);
@@ -88,6 +89,7 @@ export const Kudos = memo(
 					open={openMenu}
 					addKudos={handelClick}
 					close={setOpenMenu}
+					skills={skills}
 				/>
 			</div>
 		);
