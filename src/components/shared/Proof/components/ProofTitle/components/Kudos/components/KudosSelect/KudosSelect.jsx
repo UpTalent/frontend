@@ -123,10 +123,6 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 							Put kudos
 						</Button>
 					</DisabledText>
-
-					{balance < totalKudos && (
-						<p className={styles.error}>You do not have enough kudos</p>
-					)}
 				</div>
 				<img
 					src={kittyTail}
