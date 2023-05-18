@@ -21,7 +21,8 @@ export const Kudos = memo(
 		openMenu,
 		setOpenMenu,
 		clickOnKudos,
-		messageForUser
+		messageForUser,
+		skills,
 	}) => {
 		const [isPres, setIsPres] = useState(Boolean(sum_kudos_from_me));
 		const [isActive, setIsActive] = useState(false);
@@ -30,9 +31,9 @@ export const Kudos = memo(
 		const [count, setCount] = useState(kudos);
 		const [totalSposorKudos, setTotalSposorKudos] = useState(sum_kudos_from_me);
 
-		const handelClick = async kudosAmount => {
+		const handelClick = async kudosedSkills => {
 			setConfetti(prev => ({ ...prev, reset: {} }));
-			const data = await addingKudos(kudosAmount);
+			const data = await addingKudos(kudosedSkills);
 			if (data.status !== 200) return;
 
 			setIsPres(true);
@@ -88,6 +89,7 @@ export const Kudos = memo(
 					open={openMenu}
 					addKudos={handelClick}
 					close={setOpenMenu}
+					skills={skills}
 				/>
 			</div>
 		);

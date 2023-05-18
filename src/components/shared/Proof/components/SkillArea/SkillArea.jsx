@@ -6,7 +6,7 @@ import { KudosContainer } from '../ProofTitle/components/Kudos/KudosContainer';
 export const SkillArea = ({ skills, kudos, additionalStyle }) => {
 	return (
 		<div className={`${styles.skillArea} ${additionalStyle}`}>
-			<KudosContainer {...kudos} />
+			<KudosContainer {...kudos} skills={skills} />
 			<div className={styles.skillBox}>
 				{skills?.map(skill => (
 					<Skill skill={skill.name} key={skill.id} />

@@ -1,10 +1,10 @@
 import { axiosInstance } from './index';
 
 export const kudosAPI = {
-	async addKudos(proof_Id, kudosAmount = 1) {
+	async addKudos(proof_Id, kudosedSkills) {
 		try {
 			return await axiosInstance.post(`proofs/${proof_Id}/kudos`, {
-				kudos: kudosAmount,
+				post_kudos_skills: kudosedSkills,
 			});
 		} catch (error) {
 			throw new Error(error.response.data.message);

@@ -9,7 +9,7 @@ import {
 } from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
-	({ sum_kudos_from_me, kudos, proofId, my_proof, talentView }) => {
+	({ sum_kudos_from_me, kudos, proofId, my_proof, talentView, skills }) => {
 		const [kudosList, setKudosList] = useState([]);
 		const [openList, setOpenList] = useState(false);
 		const [openMenu, setOpenMenu] = useState(false);
@@ -36,10 +36,13 @@ export const KudosContainer = memo(
 				dispatch(setSystemMessage(true, error.message, 'error'));
 			}
 		};
-		const addingKudos = async kudosAmount => {
+		const addingKudos = async kudosedSkills => {
 			try {
 				setOpenMenu(false);
-				const { data, status } = await kudosAPI.addKudos(proofId, kudosAmount);
+				const { data, status } = await kudosAPI.addKudos(
+					proofId,
+					kudosedSkills,
+				);
 				const currentKudos = !isNaN(talentView)
 					? data.current_count_kudos
 					: data.current_sum_kudos_by_sponsor;
@@ -70,6 +73,7 @@ export const KudosContainer = memo(
 					setOpenMenu,
 					clickOnKudos,
 					messageForUser,
+					skills,
 				}}
 			/>
 		);
