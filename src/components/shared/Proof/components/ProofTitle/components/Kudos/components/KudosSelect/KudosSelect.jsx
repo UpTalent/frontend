@@ -5,28 +5,29 @@ import styles from './KudosSelect.module.css';
 import kitty from '../../../../../../../../../assets/kudosKitty.png';
 import kittyPaw from '../../../../../../../../../assets/kudosKittyPaw.png';
 import kittyTail from '../../../../../../../../../assets/kudosKittyTail.png';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getUserKudos } from '../../../../../../../../../redux/reducers/authentification';
 import { SelectSkills } from './components/SelectSkills';
 import { TotalKudos } from './components/TotalKudos/TotalKudos';
 import { DisabledText } from '../../../../../../../DisabledText/DisabledText';
 
 export const KudosSelect = ({ open, close, addKudos, skills }) => {
+	const [list, setList] = useState([{ name: '', kudos: 0, id: 0 }]);
 	const [totalKudos, setTotalKudos] = useState(0);
 	const [kudosedAll, setKudosAll] = useState(false);
 	const [value, setValue] = useState(0);
-	const [list, setList] = useState([{ name: '', kudos: 0, id: 0 }]);
 	const balance = useSelector(getUserKudos);
-	const dispatch = useDispatch();
 
 	const disableButton = {
 		condition: balance < totalKudos || totalKudos === 0,
-		helperText: 'Add at least 1 kudos',
+		helperText1: 'Add at least 1 kudos',
+		helperText2: "You don't have enough kudos",
 	};
 
 	const checkValidKudos = kudos => {
 		return (
-			Number.isInteger(kudos) && kudos + totalKudos <= balance && kudos >= 0
+			//Number.isInteger(kudos) && kudos + totalKudos < balance + 2 && kudos >= 0
+			Number.isInteger(kudos) && kudos <= balance && kudos >= 0
 		);
 	};
 
@@ -45,19 +46,15 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 	}, [open]);
 
 	const putKudos = async () => {
-		try {
-			const kudosedSkillArray =
-				list.length === 0
-					? skills.map(el => {
-							return { kudos: value, skill_id: el.id };
-					  })
-					: list.map(el => {
-							return { kudos: el.kudos, skill_id: el.id };
-					  });
-			await addKudos(kudosedSkillArray);
-		} catch (error) {
-			dispatch(true, error.message, 'error');
-		}
+		const kudosedSkillArray =
+			list.length === 0
+				? skills.map(el => {
+						return { kudos: value, skill_id: el.id };
+				  })
+				: list.map(el => {
+						return { kudos: el.kudos, skill_id: el.id };
+				  });
+		await addKudos(kudosedSkillArray);
 	};
 
 	return (
@@ -111,8 +108,11 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 					/>
 					<DisabledText
 						{...{
-							helperText: disableButton.helperText,
-							condition: totalKudos === 0,
+							helperText:
+								totalKudos === 0
+									? disableButton.helperText1
+									: disableButton.helperText2,
+							condition: balance < totalKudos || totalKudos === 0,
 						}}
 					>
 						<Button

@@ -16,7 +16,7 @@ export const AddToAll = ({
 		const current = e.target.value;
 		if (current <= max && current <= MAX_KUDOS) {
 			setValue(Number(current));
-		} else if (current > max || current > MAX_KUDOS) {
+		} else if (current >= max || current >= MAX_KUDOS) {
 			setValue(max);
 		}
 	};
