@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../KudosSelect.module.css';
 import {
+	Button,
 	FormControl,
 	InputLabel,
 	MenuItem,
 	Select,
-	SpeedDial,
 	SpeedDialIcon,
 	TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useState } from 'react';
+import { AddToAll } from '../AddToAll/AddToAll';
 
 export const SelectSkills = ({
 	skills,
-	error,
 	checkValidKudos,
-	updateKudosTotal,
+	list,
+	setList,
+	balance,
+	setTotalKudos,
+	value,
+	setValue,
 }) => {
-	const [list, setList] = useState([{ name: '', kudos: 0, id: 0 }]);
-
+	const [kudosedAll, setKudosAll] = useState(false);
 	const handleDeleteItem = value => {
 		setList(
 			list.filter(el => {
@@ -48,12 +51,12 @@ export const SelectSkills = ({
 		const kudosAmount = { kudos: Number(event.target.value) };
 		if (checkValidKudos(kudosAmount.kudos)) {
 			changeItemInList(id, kudosAmount);
-			updateKudosTotal(kudosAmount.kudos);
 		}
 	};
+
 	return (
-		<>
-			{list.length &&
+		<div className={styles.selectedSkillsList}>
+			{list.length > 0 &&
 				list.map((el, id) => (
 					<div className={styles.listItem} key={id}>
 						<FormControl fullWidth>
@@ -83,9 +86,7 @@ export const SelectSkills = ({
 							value={el.kudos}
 							onChange={event => addKudos(event, id)}
 							label='Kudos'
-							error={error}
 							inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-							helperText={error && 'Kudos number must be positive integer'}
 						/>
 						<ClearIcon
 							onClick={() => {
@@ -94,15 +95,31 @@ export const SelectSkills = ({
 						/>
 					</div>
 				))}
-			{skills.length > list.length && (
-				<SpeedDial
-					ariaLabel='add item'
-					icon={<SpeedDialIcon />}
-					onClick={() =>
-						setList(prev => prev.concat({ name: '', kudos: '', id: 0 }))
-					}
-				/>
+			{kudosedAll && (
+				<AddToAll {...{ balance, skills, setTotalKudos, value, setValue }} />
 			)}
-		</>
+			<div className={styles.selectButtons}>
+				{skills.length > list.length && (
+					<Button
+						variant='contained'
+						onClick={() => {
+							setList(prev => prev.concat({ name: '', kudos: '', id: 0 }));
+							setKudosAll(false);
+						}}
+					>
+						<SpeedDialIcon />
+					</Button>
+				)}
+				<Button
+					onClick={() => {
+						setKudosAll(true);
+						setList([]);
+					}}
+					variant='contained'
+				>
+					Add to all
+				</Button>
+			</div>
+		</div>
 	);
 };

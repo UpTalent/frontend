@@ -3,33 +3,58 @@
 	background-color: #fff;
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 5px;
 	align-items: center;
 	position: relative;
 	border-radius: 10px;
 	height: 60%;
 }
 
+.selectKudos p {
+	font-size: large;
+	font-weight: 200;
+	text-align: center;
+}
+
+.selectedSkillsList {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	max-height: 340px;
+	overflow-y: auto;
+	padding: 10px 0;
+	width: 100%;
+	align-items: center;
+}
+
 .listItem {
 	display: flex;
-	gap: 5px;
+	gap: 10px;
 	align-items: center;
-    width: 100%;
+	width: 470px;
 }
 
 .listItem svg {
 	cursor: pointer;
 }
 
-.selectKudos p {
-	font-size: large;
-	font-weight: 200;
-	text-align: center;
-	max-width: 150px;
+.selectButtons {
+	margin: 0 auto;
 }
 
-.slider {
-	width: 75% !important;
+.selectButtons button {
+	margin: 0 10px;
+}
+
+.selectKudos .error {
+	color: rgb(187, 52, 52);
+	font-size: 15px;
+}
+
+.AddToAll {
+	width: 350px;
+	display: flex;
+	flex-direction: column;
 }
 
 .selectCat {
@@ -52,10 +77,11 @@
     padding: 10px 0;
 }
 
-.currentTotal, .balance{
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+.currentTotal,
+.balance {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
 }
 
 .KudosAmount, .balanceAmount {
