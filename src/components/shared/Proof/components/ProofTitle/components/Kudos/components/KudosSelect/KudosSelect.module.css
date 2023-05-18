@@ -47,7 +47,7 @@
 }
 
 .TotalKudos{
-    border-top: 1px solid var(--dark) ;
+    border-top: 2px solid var(--primary) ;
     width: 100%;
     padding: 10px 0;
 }
@@ -58,9 +58,20 @@
     align-items: baseline;
 }
 
-.KudosAmount {
-    font-size: larger;
+.KudosAmount, .balanceAmount {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.KudosAmount{
+    font-size: larger;
+}
+
+.balanceAmount{
+    font-size: small;
+}
+
+.balanceAmount svg{
+    width: 10px;
 }

@@ -15,8 +15,9 @@ export const TotalKudos = ({ balance, totalKudos }) => {
 			</div>
 			<div className={styles.balance}>
 				<p>Your balance: </p>
-				<div>
-					{balance}
+				<div className={styles.balanceAmount}>
+					<KudosCat />
+					<b>{balance}</b>
 					<p>Kudos</p>
 				</div>
 			</div>
