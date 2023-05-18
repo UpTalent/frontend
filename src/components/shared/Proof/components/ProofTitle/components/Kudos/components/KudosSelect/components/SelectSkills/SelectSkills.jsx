@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../../KudosSelect.module.css';
 import {
 	Button,
@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { AddToAll } from '../AddToAll/AddToAll';
+import { DisabledText } from '../../../../../../../../../DisabledText/DisabledText';
 
 export const SelectSkills = ({
 	skills,
@@ -21,14 +22,11 @@ export const SelectSkills = ({
 	setTotalKudos,
 	value,
 	setValue,
+	kudosedAll,
+	setKudosAll,
 }) => {
-	const [kudosedAll, setKudosAll] = useState(false);
 	const handleDeleteItem = value => {
-		setList(
-			list.filter(el => {
-				return el.name !== value.name;
-			}),
-		);
+		setList(list.filter(el => el.name !== value.name));
 	};
 
 	const changeItemInList = (id, changedFiled) => {
@@ -56,45 +54,55 @@ export const SelectSkills = ({
 
 	return (
 		<div className={styles.selectedSkillsList}>
-			{list.length > 0 &&
-				list.map((el, id) => (
-					<div className={styles.listItem} key={id}>
-						<FormControl fullWidth>
-							<InputLabel id='select-label'>Skills</InputLabel>
-							<Select
-								labelId='select-label'
-								label='Skills'
-								value={el.name}
-								renderValue={selected => el.name}
-								onChange={event => {
-									addItemToList(id, event.target.value);
+			<p className={styles.infoText}>
+				{kudosedAll
+					? 'Some amount to all skills on this proof'
+					: 'At some on skills of your choice'}
+			</p>
+
+			<div className={styles.listOfSkills}>
+				{list.length > 0 &&
+					list.map((el, id) => (
+						<div className={styles.listItem} key={id}>
+							<FormControl fullWidth>
+								<InputLabel id='select-label'>Skills</InputLabel>
+								<Select
+									labelId='select-label'
+									label='Skills'
+									value={el.name}
+									renderValue={selected => el.name}
+									onChange={event => {
+										addItemToList(id, event.target.value);
+									}}
+								>
+									{skills?.map(skill => (
+										<MenuItem
+											value={skill.name}
+											key={skill.id}
+											disabled={!!list.find(item => item.id === skill.id)}
+										>
+											{skill.name}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+							<DisabledText condition={!el.name} helperText={'Please choose skill first'}>
+								<TextField
+									disabled={!el.name}
+									value={el.kudos}
+									onChange={event => addKudos(event, id)}
+									label='Kudos'
+									inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+								/>
+							</DisabledText>
+							<ClearIcon
+								onClick={() => {
+									handleDeleteItem(el);
 								}}
-							>
-								{skills?.map(skill => (
-									<MenuItem
-										value={skill.name}
-										key={skill.id}
-										disabled={!!list.find(item => item.id === skill.id)}
-									>
-										{skill.name}
-									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
-						<TextField
-							disabled={!el.name}
-							value={el.kudos}
-							onChange={event => addKudos(event, id)}
-							label='Kudos'
-							inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-						/>
-						<ClearIcon
-							onClick={() => {
-								handleDeleteItem(el);
-							}}
-						/>
-					</div>
-				))}
+							/>
+						</div>
+					))}
+			</div>
 			{kudosedAll && (
 				<AddToAll {...{ balance, skills, setTotalKudos, value, setValue }} />
 			)}
@@ -103,7 +111,7 @@ export const SelectSkills = ({
 					<Button
 						variant='contained'
 						onClick={() => {
-							setList(prev => prev.concat({ name: '', kudos: '', id: 0 }));
+							setList(prev => prev.concat({ name: '', kudos: 0, id: 0 }));
 							setKudosAll(false);
 						}}
 					>
@@ -116,6 +124,7 @@ export const SelectSkills = ({
 						setList([]);
 					}}
 					variant='contained'
+					disabled={kudosedAll}
 				>
 					Add to all
 				</Button>

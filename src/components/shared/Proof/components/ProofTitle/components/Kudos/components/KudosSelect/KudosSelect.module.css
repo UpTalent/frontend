@@ -1,5 +1,5 @@
 .selectKudos {
-	padding: 13px;
+	padding: 14px 50px;
 	background-color: #fff;
 	display: flex;
 	flex-direction: column;
@@ -16,15 +16,19 @@
 	text-align: center;
 }
 
-.selectedSkillsList {
+.selectedSkillsList,
+.listOfSkills {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	max-height: 340px;
-	overflow-y: auto;
 	padding: 10px 0;
 	width: 100%;
 	align-items: center;
+}
+
+.listOfSkills {
+	overflow-y: auto;
+	max-height: 270px;
 }
 
 .listItem {
@@ -59,7 +63,33 @@
 
 .selectCat {
 	width: 100%;
-	height: 100px;
+	height: 130px;
+	position: absolute;
+	top: -126px;
+	object-fit: contain;
+}
+
+.kittyParts {
+	position: absolute;
+	object-fit: contain;
+	z-index: 1;
+}
+
+.paw {
+	width: 50px;
+	height: 120px;
+	top: 30%;
+}
+
+.tail{
+	top: 70%;
+	right: -199px;
+	width: 200px;
+}
+
+.Right {
+	right: 0;
+	transform: scaleX(-1);
 }
 
 .inputs svg {
@@ -71,33 +101,40 @@
 	align-items: flex-end;
 }
 
-.TotalKudos{
-    border-top: 2px solid var(--primary) ;
-    width: 100%;
-    padding: 10px 0;
+.TotalKudos {
+	border-top: 2px solid var(--primary);
+	width: 100%;
+	padding: 10px 0;
+}
+
+.TotalKudos > div {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	padding-bottom: 5px;
 }
 
 .currentTotal,
 .balance {
 	display: flex;
 	justify-content: space-between;
-	align-items: baseline;
+	align-items: center;
 }
 
-.KudosAmount, .balanceAmount {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.KudosAmount,
+.balanceAmount {
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
-.KudosAmount{
-    font-size: larger;
+.KudosAmount {
+	font-size: larger;
 }
 
-.balanceAmount{
-    font-size: small;
+.balanceAmount {
+	font-size: small;
+	align-items: center;
 }
 
-.balanceAmount svg{
-    width: 10px;
+.balanceAmount svg {
+	width: 10px;
 }
