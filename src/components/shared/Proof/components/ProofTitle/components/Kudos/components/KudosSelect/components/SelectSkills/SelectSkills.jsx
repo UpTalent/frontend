@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../KudosSelect.module.css';
 import {
 	Button,
-	FormControl,
-	InputLabel,
+	Menu,
 	MenuItem,
-	Select,
 	SpeedDialIcon,
 	TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { AddToAll } from '../AddToAll/AddToAll';
-import { DisabledText } from '../../../../../../../../../DisabledText/DisabledText';
 
 export const SelectSkills = ({
 	skills,
@@ -25,6 +22,7 @@ export const SelectSkills = ({
 	kudosedAll,
 	setKudosAll,
 }) => {
+	const [openSkillList, setOpenSkillList] = useState(null);
 	const handleDeleteItem = value => {
 		setList(list.filter(el => el.name !== value.name));
 	};
@@ -40,11 +38,6 @@ export const SelectSkills = ({
 		);
 	};
 
-	const addItemToList = (id, value) => {
-		const selected = skills.find(skill => skill.name === value);
-		changeItemInList(id, selected);
-	};
-
 	const addKudos = (event, id) => {
 		const kudosAmount = { kudos: Number(event.target.value) };
 		if (checkValidKudos(kudosAmount.kudos)) {
@@ -52,49 +45,33 @@ export const SelectSkills = ({
 		}
 	};
 
+	const handleClose = () => setOpenSkillList(null);
+
 	return (
 		<div className={styles.selectedSkillsList}>
 			<p className={styles.infoText}>
 				{kudosedAll
 					? 'Some amount to all skills on this proof'
-					: 'At some on skills of your choice'}
+					: 'Choose skills you want to put kudos on'}
 			</p>
 
 			<div className={styles.listOfSkills}>
 				{list.length > 0 &&
 					list.map((el, id) => (
 						<div className={styles.listItem} key={id}>
-							<FormControl fullWidth>
-								<InputLabel id='select-label'>Skills</InputLabel>
-								<Select
-									labelId='select-label'
-									label='Skills'
-									value={el.name}
-									renderValue={selected => el.name}
-									onChange={event => {
-										addItemToList(id, event.target.value);
-									}}
-								>
-									{skills?.map(skill => (
-										<MenuItem
-											value={skill.name}
-											key={skill.id}
-											disabled={!!list.find(item => item.id === skill.id)}
-										>
-											{skill.name}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-							<DisabledText condition={!el.name} helperText={'Please choose skill first'}>
-								<TextField
-									disabled={!el.name}
-									value={el.kudos}
-									onChange={event => addKudos(event, id)}
-									label='Kudos'
-									inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-								/>
-							</DisabledText>
+							<TextField
+								label='Skills'
+								value={el.name}
+								InputProps={{
+									readOnly: true,
+								}}
+							/>
+							<TextField
+								value={el.kudos}
+								onChange={event => addKudos(event, id)}
+								label='Kudos'
+								inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+							/>
 							<ClearIcon
 								onClick={() => {
 									handleDeleteItem(el);
@@ -108,15 +85,43 @@ export const SelectSkills = ({
 			)}
 			<div className={styles.selectButtons}>
 				{skills.length > list.length && (
-					<Button
-						variant='contained'
-						onClick={() => {
-							setList(prev => prev.concat({ name: '', kudos: 0, id: 0 }));
-							setKudosAll(false);
-						}}
-					>
-						<SpeedDialIcon />
-					</Button>
+					<>
+						<Button
+							variant='contained'
+							onClick={event => {
+								setOpenSkillList(event.currentTarget);
+							}}
+						>
+							<SpeedDialIcon />
+						</Button>
+						<Menu
+							anchorEl={openSkillList}
+							open={Boolean(openSkillList)}
+							onClose={handleClose}
+							PaperProps={{
+								style: {
+									maxHeight: '350px',
+								},
+							}}
+						>
+							{skills?.map(skill => (
+								<MenuItem
+									value={skill.name}
+									key={skill.id}
+									disabled={!!list.find(item => item.id === skill.id)}
+									onClick={event => {
+										setList(prev =>
+											prev.concat({ name: skill.name, kudos: 0, id: skill.id }),
+										);
+										setKudosAll(false);
+										handleClose();
+									}}
+								>
+									{skill.name}
+								</MenuItem>
+							))}
+						</Menu>
+					</>
 				)}
 				<Button
 					onClick={() => {

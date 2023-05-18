@@ -19,16 +19,20 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 	const balance = useSelector(getUserKudos);
 
 	const disableButton = {
-		condition: balance < totalKudos || totalKudos === 0,
-		helperText1: 'Add at least 1 kudos',
-		helperText2: "You don't have enough kudos",
+		condition: [
+			balance < totalKudos,
+			totalKudos === 0,
+			list.some(el => el.kudos === 0),
+		],
+		helperText: [
+			"You don't have enough kudos",
+			'Add at least 1 kudos',
+			'Put kudos on all chosen skills',
+		],
 	};
 
 	const checkValidKudos = kudos => {
-		return (
-			//Number.isInteger(kudos) && kudos + totalKudos < balance + 2 && kudos >= 0
-			Number.isInteger(kudos) && kudos <= balance && kudos >= 0
-		);
+		return Number.isInteger(kudos) && kudos <= balance && kudos >= 0;
 	};
 
 	useEffect(() => {
@@ -109,16 +113,14 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 					<DisabledText
 						{...{
 							helperText:
-								totalKudos === 0
-									? disableButton.helperText1
-									: disableButton.helperText2,
-							condition: balance < totalKudos || totalKudos === 0,
+								disableButton.helperText[disableButton.condition.indexOf(true)],
+							condition: disableButton.condition.some(el => el),
 						}}
 					>
 						<Button
 							onClick={putKudos}
 							variant='outlined'
-							disabled={disableButton.condition}
+							disabled={disableButton.condition.some(el => el)}
 						>
 							Put kudos
 						</Button>
