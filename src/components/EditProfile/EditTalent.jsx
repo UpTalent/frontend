@@ -62,6 +62,8 @@ const EditTalent = ({ user, edit }) => {
 								{...params}
 								name='skill'
 								variant='outlined'
+								error={errors.skills}
+								helperText={errors.skills}
 							/>
 						)}
 						disableCloseOnSelect

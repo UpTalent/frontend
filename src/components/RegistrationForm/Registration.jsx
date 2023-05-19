@@ -38,7 +38,7 @@ export const RegistrationForm = () => {
 
 	useEffect(() => {
 		if (id) {
-			navigate(`profile/${role}/${id}`);
+			navigate(`profile/${role.toLowerCase()}/${id}`);
 		}
 
 		if (authError) {

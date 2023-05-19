@@ -151,6 +151,8 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 						{...params}
 						name='skill'
 						variant='outlined'
+						error={errors.skills}
+						helperText={errors.skills}
 					/>
 				)}
 				disableCloseOnSelect

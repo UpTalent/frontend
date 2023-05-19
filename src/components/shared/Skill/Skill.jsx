@@ -1,26 +1,31 @@
 import React, { memo } from 'react';
 import styles from './Skill.module.css';
+import { Badge } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { getAllSkills } from '../../../redux/reducers/skills';
+import { DisabledText } from '../DisabledText/DisabledText';
 
-export const Skill = memo(({ skill }) => {
-	const colorList = [
-		'#FFBF5B',
-		'#449DD1',
-		'#F4AFB4',
-		'#FE5F55',
-		'#12BA60',
-		'#9000B3',
-		'#E3655B',
-		'#C84630',
-		'#09E85E',
-		'#D67AB1',
-		'#FFA938',
-		'#0D69FF',
-		'#A42CD6',
-	];
-	const pickColor = colorList[Math.floor(Math.random() * colorList.length)];
-	return (
-		<div className={styles.Skill} style={{ backgroundColor: pickColor }}>
-			<p>{skill}</p>
+export const Skill = memo(({ skill, kudos, id, inSlider }) => {
+	const skillColor = useSelector(getAllSkills).find(el => el.id === id)?.color;
+
+	const mainInfo = (
+		<div className={styles.Skill} style={{ backgroundColor: skillColor }}>
+			<DisabledText condition={kudos} helperText={`${kudos} Kudos`}>
+				<p>{skill}</p>
+				{/* <span className={styles.kudosAmount}>{kudos}</span> */}
+			</DisabledText>
 		</div>
+	);
+
+	return (
+		<>
+			{inSlider ? (
+				mainInfo
+			) : (
+				<Badge badgeContent={kudos} color='info'>
+					{mainInfo}
+				</Badge>
+			)}
+		</>
 	);
 });

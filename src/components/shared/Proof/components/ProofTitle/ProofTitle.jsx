@@ -20,6 +20,8 @@ export const ProofTitle = ({
 	withContent,
 	my_proof,
 	inSlider,
+	localSkills,
+	setLocalSkills,
 }) => {
 	return (
 		<div className={styles.ProofTitle}>
@@ -40,17 +42,18 @@ export const ProofTitle = ({
 			</div>
 			<div className={styles.bottomPanel}>
 				{!inSlider && (
-						<SkillArea
-							skills={skills}
-							kudos={{
-								sum_kudos_from_me,
-								kudos,
-								my_proof,
-								talentView: sum_kudos_from_me,
-								proofId: id,
-							}}
-							additionalStyle={!withContent && styles.proofPageView}
-						/>
+					<SkillArea
+						skills={localSkills}
+						setLocalSkills={setLocalSkills}
+						kudos={{
+							sum_kudos_from_me,
+							kudos,
+							my_proof,
+							talentView: sum_kudos_from_me,
+							proofId: id,
+						}}
+						additionalStyle={!withContent && styles.proofPageView}
+					/>
 				)}
 				{withContent && showControlls && (
 					<div className={`${styles.status} ${styles[status]}`}>

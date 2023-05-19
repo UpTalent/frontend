@@ -7,10 +7,16 @@ import { useDispatch } from 'react-redux';
 import { SortButtons } from '../../../ProofPage/components/SortButtons/SortButtons';
 import { useSearchParams } from 'react-router-dom';
 import { FilterList } from '@mui/icons-material';
+import { DisabledText } from '../../../shared/DisabledText/DisabledText';
 
 export const Filter = ({ filterItems, filterHandler, showFilter }) => {
 	const dispatch = useDispatch();
 	const [, setSearchParams] = useSearchParams();
+
+	const disableButton = {
+		condition: filterItems.length === 0,
+		helperText: 'Please select filter options',
+	};
 
 	const setFilterItems = filterItem => {
 		dispatch(setFilter('skills', filterItem));
@@ -41,13 +47,16 @@ export const Filter = ({ filterItems, filterHandler, showFilter }) => {
 		<div className={styles.filterBox}>
 			<div className={styles.controlls}>
 				{filters.map(el => showFilter.includes(el.filter) && el.element)}
-				<Button
-					variant='contained'
-					onClick={filterHandler}
-					endIcon={<FilterList />}
-				>
-					Apply filter
-				</Button>
+				<DisabledText {...disableButton}>
+					<Button
+						variant='contained'
+						onClick={filterHandler}
+						endIcon={<FilterList />}
+						disabled={disableButton.condition}
+					>
+						Apply filter
+					</Button>
+				</DisabledText>
 				<Button
 					variant='contained'
 					sx={{ background: '#aba9a7' }}
