@@ -3,13 +3,25 @@ import { Skill } from '../../../Skill';
 import styles from './SkillArea.module.css';
 import { KudosContainer } from '../ProofTitle/components/Kudos/KudosContainer';
 
-export const SkillArea = ({ skills, kudos, additionalStyle }) => {
+export const SkillArea = ({
+	skills,
+	kudos,
+	additionalStyle,
+	setLocalSkills,
+	inSlider,
+}) => {
 	return (
 		<div className={`${styles.skillArea} ${additionalStyle}`}>
-			<KudosContainer {...kudos} skills={skills} />
+			<KudosContainer {...{ ...kudos, skills, setLocalSkills }} />
 			<div className={styles.skillBox}>
 				{skills?.map(skill => (
-					<Skill skill={skill.name} key={skill.id} />
+					<Skill
+						skill={skill.name}
+						inSlider={inSlider}
+						id={skill.id}
+						key={skill.id}
+						kudos={skill.kudos}
+					/>
 				))}
 			</div>
 		</div>

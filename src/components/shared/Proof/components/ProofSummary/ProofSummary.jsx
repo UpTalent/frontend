@@ -19,7 +19,7 @@ export const ProofSummary = ({
 			</ReactFitty>
 			{withKudos && (
 				<SkillArea
-					skills={skills.slice(0,3)}
+					skills={skills.slice(0, 3)}
 					kudos={{
 						sum_kudos_from_me,
 						kudos,
@@ -27,6 +27,7 @@ export const ProofSummary = ({
 						talentView: sum_kudos_from_me,
 						proofId,
 					}}
+					inSlider={true}
 					additionalStyle={styles.skillsSlider}
 				/>
 			)}

@@ -9,7 +9,15 @@ import {
 } from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
-	({ sum_kudos_from_me, kudos, proofId, my_proof, talentView, skills }) => {
+	({
+		sum_kudos_from_me,
+		kudos,
+		proofId,
+		my_proof,
+		talentView,
+		skills,
+		setLocalSkills,
+	}) => {
 		const [kudosList, setKudosList] = useState([]);
 		const [openList, setOpenList] = useState(false);
 		const [openMenu, setOpenMenu] = useState(false);
@@ -24,6 +32,22 @@ export const KudosContainer = memo(
 					'This feature is available only for sponsors',
 					'warning',
 				),
+			);
+		};
+
+		//temp
+		const updateSkills = newSkills => {
+			debugger;
+			setLocalSkills(
+				skills.map(skill => {
+					const foundKudos = newSkills.find(
+						el => el.skill_id === skill.id,
+					)?.kudos;
+					return {
+						...skill,
+						kudos: foundKudos ? skill.kudos + foundKudos : skill.kudos,
+					};
+				}),
 			);
 		};
 
@@ -43,6 +67,9 @@ export const KudosContainer = memo(
 					proofId,
 					kudosedSkills,
 				);
+				//temp
+				updateSkills(kudosedSkills);
+
 				const currentKudos = !isNaN(talentView)
 					? data.current_count_kudos
 					: data.current_sum_kudos_by_sponsor;
