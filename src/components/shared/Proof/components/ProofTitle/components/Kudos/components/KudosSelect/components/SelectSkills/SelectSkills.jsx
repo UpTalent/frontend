@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { AddToAll } from '../AddToAll/AddToAll';
+import { MAX_KUDOS } from '../../../../../../../../../../../service/constants';
 
 export const SelectSkills = ({
 	skills,
@@ -39,6 +40,27 @@ export const SelectSkills = ({
 	};
 
 	const addKudos = (event, id) => {
+		const current = event.target.value;
+		if (current <= balance && current <= MAX_KUDOS) {
+			setList(prev =>
+				prev.map((el, index) => {
+					if (index === id) {
+						return { ...el, kudos: Number(current) };
+					}
+					return el;
+				}),
+			);
+		} else if (current >= balance || current >= MAX_KUDOS) {
+			setList(prev =>
+				prev.map((el, index) => {
+					if (index === id) {
+						return { ...el, kudos: balance };
+					}
+					return el;
+				}),
+			);
+		}
+
 		const kudosAmount = { kudos: Number(event.target.value) };
 		if (checkValidKudos(kudosAmount.kudos)) {
 			changeItemInList(id, kudosAmount);
