@@ -5,14 +5,13 @@ import { formatNumber } from '../../../../../../service/hooks/formatNumber';
 
 export const TopSkills = ({ skills }) => {
 	return (
-		<div >
+		<div className={styles.skillArea}>
 			<h3>Your top skills:</h3>
 			<div className={styles.skills}>
 				{skills?.map((skill, index) => (
-					<div>
+					<div className={styles.skillItem} key={index}>
 						<Skill
 							skill={skill.name}
-							key={index}
 							inSlider={true}
 							additionalStyle={styles[`top${index}`]}
 						/>

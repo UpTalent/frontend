@@ -19,11 +19,6 @@ export const SkillArea = ({
 						key={id}
 						skill={skill.name}
 						inSlider={inSlider}
-<<<<<<< HEAD
-						key={skill.id}
-=======
-						id={skill.id}
->>>>>>> origin
 						kudos={skill.kudos}
 					/>
 				))}
