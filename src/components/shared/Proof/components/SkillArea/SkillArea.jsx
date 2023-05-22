@@ -18,7 +18,6 @@ export const SkillArea = ({
 					<Skill
 						skill={skill.name}
 						inSlider={inSlider}
-						id={skill.id}
 						key={skill.id}
 						kudos={skill.kudos}
 					/>

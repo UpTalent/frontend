@@ -1,0 +1,43 @@
+.skills{
+    display: flex;
+    gap: 20px;
+}
+
+.top0,
+.top1,
+.top2 {
+  background-clip: padding-box; 
+  border: solid 5px transparent; 
+  border-radius: 100px;
+  position: relative;
+}
+
+.top0::before,
+.top1::before,
+.top2::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    margin: -4px; 
+    border-radius: inherit; 
+  }
+
+.top0::before {
+	background: linear-gradient(
+		97.59deg,
+		#f9e389 15.65%,
+		#eaa849 98.59%
+	);
+}
+.top1::before {
+	background: linear-gradient(97.59deg, #ddedfa 15.65%, #7284ac 98.59%);
+}
+.top2::before {
+	background: linear-gradient(
+		274.53deg,
+		#efb39e -5.7%,
+		#e89266 -5.7%,
+		#efb39e 91.55%
+	);
+}
