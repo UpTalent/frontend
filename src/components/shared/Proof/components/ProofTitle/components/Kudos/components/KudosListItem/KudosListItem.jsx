@@ -2,7 +2,7 @@ import { Avatar, TableCell, TableRow } from '@mui/material';
 import React from 'react';
 import cat from '../../../../../../../../../assets/cat.png';
 
-export const KudosListItem = ({ avatar, fullname, sent, kudos }) => {
+export const KudosListItem = ({ avatar, fullname, sent, kudos, skills }) => {
 	const formatDate = dateString => {
 		const date = new Date(dateString);
 		const year = date.getFullYear();
@@ -23,6 +23,13 @@ export const KudosListItem = ({ avatar, fullname, sent, kudos }) => {
 			</TableCell>
 			<TableCell>{fullname}</TableCell>
 			<TableCell align='center'>{kudos}</TableCell>
+			<TableCell>
+				{skills.map((el, id) => (
+					<p key={id} style={{ fontWeight: '300' }}>
+						{el.name}: {el.kudos}
+					</p>
+				))}
+			</TableCell>
 			<TableCell>{formatDate(sent)}</TableCell>
 		</TableRow>
 	);

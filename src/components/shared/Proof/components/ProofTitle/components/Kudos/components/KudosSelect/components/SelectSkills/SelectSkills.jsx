@@ -47,6 +47,17 @@ export const SelectSkills = ({
 
 	const handleClose = () => setOpenSkillList(null);
 
+	const handleClick = skill => {
+		const preparedSkill = {
+			name: skill.name,
+			kudos: 0,
+			id: skill.id,
+		};
+		setList(prev => prev.concat(preparedSkill));
+		setKudosAll(false);
+		handleClose();
+	};
+
 	return (
 		<div className={styles.selectedSkillsList}>
 			<p className={styles.infoText}>
@@ -109,13 +120,7 @@ export const SelectSkills = ({
 									value={skill.name}
 									key={skill.id}
 									disabled={!!list.find(item => item.id === skill.id)}
-									onClick={event => {
-										setList(prev =>
-											prev.concat({ name: skill.name, kudos: 0, id: skill.id }),
-										);
-										setKudosAll(false);
-										handleClose();
-									}}
+									onClick={() => handleClick(skill)}
 								>
 									{skill.name}
 								</MenuItem>
