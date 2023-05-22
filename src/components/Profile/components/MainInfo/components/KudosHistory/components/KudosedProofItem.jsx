@@ -64,7 +64,8 @@ export const KudosedProofItem = ({ id }) => {
 				<Table stickyHeader>
 					<TableHead>
 						<TableRow>
-							<TableCell>KUDOS</TableCell>
+							<TableCell>TOTAL KUDOS</TableCell>
+							<TableCell>SKILLS</TableCell>
 							<TableCell>DATE/TIME</TableCell>
 						</TableRow>
 					</TableHead>
@@ -72,6 +73,13 @@ export const KudosedProofItem = ({ id }) => {
 						{history.map((el, id) => (
 							<TableRow key={id}>
 								<TableCell>{el.kudos}</TableCell>
+								<TableCell>
+									{el.skills.map((el, id) => (
+										<p key={id} style={{ fontWeight: '300' }}>
+											{el.name}: {el.kudos}
+										</p>
+									))}
+								</TableCell>
 								<TableCell>{formatDate(el.sent)}</TableCell>
 							</TableRow>
 						))}

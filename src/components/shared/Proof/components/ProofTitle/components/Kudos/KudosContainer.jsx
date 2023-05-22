@@ -34,10 +34,7 @@ export const KudosContainer = memo(
 				),
 			);
 		};
-
-		//temp
 		const updateSkills = newSkills => {
-			debugger;
 			setLocalSkills(
 				skills.map(skill => {
 					const foundKudos = newSkills.find(
@@ -50,7 +47,6 @@ export const KudosContainer = memo(
 				}),
 			);
 		};
-
 		const getKudoList = async () => {
 			try {
 				const { data } = await kudosAPI.getProofsKudos(proofId);
@@ -67,9 +63,7 @@ export const KudosContainer = memo(
 					proofId,
 					kudosedSkills,
 				);
-				//temp
 				updateSkills(kudosedSkills);
-
 				const currentKudos = !isNaN(talentView)
 					? data.current_count_kudos
 					: data.current_sum_kudos_by_sponsor;
