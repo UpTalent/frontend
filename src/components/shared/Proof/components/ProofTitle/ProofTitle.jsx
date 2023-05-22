@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../Proof.module.css';
 import { ProofIcons } from '../../../../../assets/static/ProofIcons';
 import { TimeStapm } from './components/TimeStamp';
@@ -20,9 +20,8 @@ export const ProofTitle = ({
 	withContent,
 	my_proof,
 	inSlider,
-	localSkills,
-	setLocalSkills,
 }) => {
+	const [localSkills, setLocalSkills] = useState(skills);
 	return (
 		<div className={styles.ProofTitle}>
 			<div className={styles.controls}>

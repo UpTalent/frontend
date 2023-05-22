@@ -7,19 +7,19 @@ export const SkillArea = ({
 	skills,
 	kudos,
 	additionalStyle,
-	setLocalSkills,
 	inSlider,
+	setLocalSkills,
 }) => {
 	return (
 		<div className={`${styles.skillArea} ${additionalStyle}`}>
 			<KudosContainer {...{ ...kudos, skills, setLocalSkills }} />
 			<div className={styles.skillBox}>
-				{skills?.map(skill => (
+				{skills?.map((skill, id) => (
 					<Skill
+						key={id}
 						skill={skill.name}
 						inSlider={inSlider}
 						id={skill.id}
-						key={skill.id}
 						kudos={skill.kudos}
 					/>
 				))}
