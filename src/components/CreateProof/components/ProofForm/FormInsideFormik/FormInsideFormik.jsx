@@ -20,9 +20,10 @@ import { useStoreDispatch } from '../../../../../redux/store';
 import { Markdown } from '../../../../shared/FormField/components/Markdown/Markdown';
 import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../../../../redux/reducers/skills';
+import { DisabledText } from '../../../../shared/DisabledText/DisabledText';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
-	const { isValid, touched, errors, setFieldValue, values } =
+	const { isValid, touched, errors, setFieldValue, values, validateForm } =
 		useFormikContext();
 
 	const navigate = useNavigate();
@@ -43,6 +44,10 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 			dispatch(getSkills());
 		}
 	}, [skills.length]);
+
+	useEffect(() => {
+		validateForm();
+	}, []);
 
 	const handleChangesInFields = event => {
 		const { name, value } = event.target;
@@ -193,14 +198,21 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 					{mode === 'create' ? 'SAVE AS DRAFT' : 'SAVE CHANGES'}
 				</Button>
 
-				<Button
-					variant='contained'
-					className={`${isValid && styles.publishButton}`}
-					disabled={!isValid}
-					onClick={() => setOpenConfirm(true)}
+				<DisabledText
+					helperText={'All fields must be set up'}
+					condition={!isValid || proof.skills.length === 0}
 				>
-					Publish
-				</Button>
+					<Button
+						variant='contained'
+						className={`${
+							isValid && proof.skills.length && styles.publishButton
+						}`}
+						disabled={!isValid || proof.skills.length === 0}
+						onClick={() => setOpenConfirm(true)}
+					>
+						Publish
+					</Button>
+				</DisabledText>
 				{openConfirm && (
 					<ConfirmationMessage
 						action={'PUBLISH'}

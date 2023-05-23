@@ -30,7 +30,7 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 			'Put kudos on all chosen skills',
 		],
 	};
-	
+
 	useEffect(() => {
 		var sum = 0;
 		list.map(el => (sum += el.kudos));
@@ -42,6 +42,7 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 			setList([]);
 			setTotalKudos(0);
 			setKudosAll(false);
+			setValue(0);
 		};
 	}, [open]);
 
