@@ -21,6 +21,5 @@ export const validationSchema = Yup.object({
 		.max(5000, 'Must be 5000 characters or less'),
 	icon_number: Yup.number().typeError('Choose icon'),
 	skills: Yup.array()
-		.min(1, 'Skills is required')
 		.max(30, 'Max number of skills is 30'),
 });

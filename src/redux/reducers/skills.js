@@ -23,7 +23,6 @@ const colorList = [
 	'#FF4500',
 	'#FF69B4',
 	'#00FA9A',
-	'#00BFFF',
 	'#9400D3',
 	'#FF00FF',
 	'#008080',

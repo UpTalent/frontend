@@ -1,8 +1,34 @@
 .container {
+	--gold: #eaa849;
+	--silver: #7284ac;
+	--bronze: #d1704e;
 	margin: 20px 0;
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	grid-column-gap: 30px;
 }
 
-.skillArea,
+.container > div:nth-child(3) {
+	grid-column: 1 / span 2;
+}
+
+.statsConatiner {
+	flex-direction: column;
+	gap: 30px;
+	margin: 30px 0;
+	padding: 15px;
+	box-shadow: 1px 3px 7px 2px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+}
+
+.statsConatiner h3 {
+	text-transform: uppercase;
+	font-weight: 200;
+	text-align: left;
+	width: 100%;
+}
+
+.statsConatiner,
 .skills,
 .skillItem {
 	display: flex;
@@ -19,21 +45,54 @@
 .skillItem {
 	flex-direction: column;
 	justify-content: center;
+	gap: 10px;
+}
+
+.skill {
+	transition: all 0.3s;
+}
+
+.skill:hover {
+	transform: translateY(-5px);
+}
+
+.top0:hover {
+	box-shadow: 1px 3px 7px 2px var(--gold);
+}
+.top1:hover {
+	box-shadow: 1px 3px 7px 2px var(--silver);
+}
+.top2:hover {
+	box-shadow: 1px 3px 7px 2px var(--bronze);
 }
 
 .top0 {
-	background: linear-gradient(94.23deg, #f9e389 1.1%, #eaa849 99.17%);
+	background: linear-gradient(94.23deg, #f1d563 1.1%, var(--gold) 99.17%);
 }
 
 .top1 {
-	background: linear-gradient(97.59deg, #b5ccde 15.65%, #7284ac 98.59%);
+	background: linear-gradient(97.59deg, #b5ccde 15.65%, var(--silver) 98.59%);
 }
 
 .top2 {
 	background: linear-gradient(
 		274.53deg,
-		#d1704e -5.7%,
+		var(--bronze) -5.7%,
 		#e89266 -5.7%,
 		#efb39e 91.55%
 	);
+}
+
+.progressBar {
+	width: 100%;
+	border: 1px solid var(--dark);
+	border-radius: 10px;
+}
+
+.progressBar > div {
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	font-weight: 200;
+	background-color: var(--gold);
 }
