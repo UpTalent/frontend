@@ -30,11 +30,7 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 			'Put kudos on all chosen skills',
 		],
 	};
-
-	const checkValidKudos = kudos => {
-		return Number.isInteger(kudos) && kudos <= balance && kudos >= 0;
-	};
-
+	
 	useEffect(() => {
 		var sum = 0;
 		list.map(el => (sum += el.kudos));
@@ -95,7 +91,6 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 					<SelectSkills
 						{...{
 							skills,
-							checkValidKudos,
 							list,
 							setList,
 							balance,
