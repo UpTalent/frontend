@@ -15,7 +15,9 @@ import { SponsorProfile } from '../components/Profile/components/SponsorProfile'
 import { TalentProfile } from '../components/Profile/components/TalentProfile/TalentProfile';
 import { KudosHistory } from '../components/Profile/components/MainInfo/components/KudosHistory';
 import { RestoreProfile } from '../components/RestoreProfile';
+import { Statistics } from '../components/Profile/components/Statistics/Statistics';
 import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
+
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -82,6 +84,10 @@ export const router = createBrowserRouter([
 												element: <CreateProof />,
 											},
 										],
+									},
+									{
+										path: 'statistics',
+										element: <Statistics />,
 									},
 								],
 							},

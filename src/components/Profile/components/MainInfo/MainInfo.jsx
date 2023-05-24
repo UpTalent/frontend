@@ -7,7 +7,9 @@ export const MainInfo = () => {
 	const { tabLabels, user, isUserProfile } = useOutletContext();
 
 	const location = useLocation();
-	const currentLocation = location.pathname.endsWith('proofs') ? 1 : 0;
+	const currentLocation = tabLabels.findIndex(
+		el => el.key === location.pathname.split('/').at(-1),
+	);
 	const [value, setValue] = useState(currentLocation);
 
 	const handleChange = (event, newValue) => {
@@ -16,11 +18,11 @@ export const MainInfo = () => {
 
 	useEffect(() => {
 		setValue(currentLocation);
-	}, [currentLocation]);
+	}, [location.pathname]);
 
 	return (
 		<div className={styles.mainInfo}>
-			<Tabs value={value} onChange={handleChange}>
+			<Tabs value={value !== -1 ? value : 0} onChange={handleChange}>
 				{tabLabels?.map((item, index) => (
 					<Tab
 						key={index}

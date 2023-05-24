@@ -19,7 +19,6 @@ export const SkillArea = ({
 						key={id}
 						skill={skill.name}
 						inSlider={inSlider}
-						id={skill.id}
 						kudos={skill.kudos}
 					/>
 				))}
