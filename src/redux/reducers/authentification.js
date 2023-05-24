@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { parseJwt, setAuthToken } from '../../api';
 import { authAPI } from '../../api/authAPI';
 import { profileAPI } from '../../api/profileAPI';
+import { setSystemMessage } from './systemMessages';
 
 const initialState = {
 	isAuth: false,
@@ -71,6 +72,13 @@ const authSlice = createSlice({
 				state.role = action.payload.role;
 				state.email = action.payload.sub;
 			})
+			.addCase(saveUser.fulfilled, (state, action) => {
+				state.isAuth = true;
+				state.id = action.payload.id;
+				state.name = action.payload.name;
+				state.role = action.payload.role;
+				state.email = action.payload.sub;
+			})
 			.addCase(authentificateTalent.rejected, (state, action) => {
 				state.error = action.payload;
 			});
@@ -87,6 +95,26 @@ export const authentificateTalent = createAsyncThunk(
 			setAuthToken(data.jwt_token);
 
 			const { name, id, role, sub } = parseJwt(data.jwt_token);
+
+			localStorage.setItem('userName', name);
+			if (role === 'sponsor') {
+				thunkAPI.dispatch(getKudos(id));
+			}
+			return { name, id, role, sub };
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.message);
+		}
+	},
+);
+
+export const saveUser = createAsyncThunk(
+	'saveUser',
+	async (params, thunkAPI) => {
+		try {
+			const { token } = params;
+			setAuthToken(token);
+
+			const { name, id, role, sub } = parseJwt(token);
 
 			localStorage.setItem('userName', name);
 			if (role === 'sponsor') {

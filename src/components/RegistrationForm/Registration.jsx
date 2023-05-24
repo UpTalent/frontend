@@ -16,6 +16,8 @@ import { TalentForm } from './components/TalentForm';
 import { SponsorForm } from './components/SponsorForm';
 import photo1 from '../../assets/photo1.png';
 import { RoleRadio } from './components/RoleRadio/RoleRadio';
+import { authAPI } from '../../api/authAPI';
+import { setSystemMessage } from '../../redux/reducers/systemMessages';
 
 export const RegistrationForm = () => {
 	const [modal, setModal] = useState(true);
@@ -47,12 +49,19 @@ export const RegistrationForm = () => {
 	}, [id]);
 
 	const register = async formData => {
-		const registerData = { ...formData };
-		delete registerData.confirmPassword;
+		// const registerData = { ...formData };
+		// delete registerData.confirmPassword;
 
-		const data = { userInfo: registerData, userRole: role };
+		// const data = { userInfo: registerData, userRole: role };
 
-		dispatch(authentificateTalent(data));
+		// dispatch(authentificateTalent(data));
+		try {
+			const registerData = { ...formData };
+			delete registerData.confirmPassword;
+			await authAPI.authentificate(registerData, role);
+		} catch (error) {
+			dispatch(setSystemMessage(true, error.message, 'error'));
+		}
 	};
 
 	return (
