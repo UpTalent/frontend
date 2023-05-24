@@ -5,12 +5,7 @@ import styles from './Registration.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useStoreDispatch } from '../../redux/store';
-import {
-	authentificateTalent,
-	clearError,
-	getAuthId,
-	getErrors,
-} from '../../redux/reducers/authentification';
+import { clearError, getErrors } from '../../redux/reducers/authentification';
 import { useSelector } from 'react-redux';
 import { TalentForm } from './components/TalentForm';
 import { SponsorForm } from './components/SponsorForm';
@@ -24,7 +19,6 @@ export const RegistrationForm = () => {
 	const [role, setRole] = useState(null);
 
 	const dispatch = useStoreDispatch();
-	const id = useSelector(getAuthId);
 	const authError = useSelector(getErrors);
 
 	const navigate = useNavigate();
@@ -39,26 +33,27 @@ export const RegistrationForm = () => {
 	};
 
 	useEffect(() => {
-		if (id) {
-			navigate(`profile/${role.toLowerCase()}/${id}`);
-		}
-
 		if (authError) {
 			dispatch(clearError());
 		}
-	}, [id]);
+	}, [authError]);
 
 	const register = async formData => {
-		// const registerData = { ...formData };
-		// delete registerData.confirmPassword;
-
-		// const data = { userInfo: registerData, userRole: role };
-
-		// dispatch(authentificateTalent(data));
 		try {
 			const registerData = { ...formData };
 			delete registerData.confirmPassword;
+
 			await authAPI.authentificate(registerData, role);
+			localStorage.setItem('email', formData.email);
+			
+			dispatch(
+				setSystemMessage(
+					true,
+					`The email verification letter was sent on ${formData.email}, please confirm your email in 24 hours to activite profile`,
+					'info',
+				),
+			);
+			handleClose();
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}

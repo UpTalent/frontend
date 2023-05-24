@@ -11,7 +11,6 @@ export const authAPI = {
 		}
 	},
 
-	//new
 	async restoreProfile(token) {
 		try {
 			await axiosInstance.post(`email/restore?token=${token}`);
