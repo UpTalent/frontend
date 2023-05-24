@@ -3,6 +3,8 @@ import { StatsElement } from '../StatsElement/StatsElement';
 import { formatNumber } from '../../../../../../service/hooks/formatNumber';
 import styles from '../../Statistics.module.css';
 import { talentRank } from '../../../../../../assets/static/talentRank';
+import { Rank } from './components/Rank/Rank';
+import { Tooltip } from '@mui/material';
 
 export const TotalKudos = ({ kudos }) => {
 	let rank = '';
@@ -11,19 +13,22 @@ export const TotalKudos = ({ kudos }) => {
 		if (kudos < talentRank[i].kudos) {
 			rankProgress = Math.floor((kudos * 100) / talentRank[i].kudos);
 			rank = talentRank[i - 1]?.rank || 'Trainee';
-			return;
+			break;
 		}
 		rank = talentRank.at(-1).rank;
 	}
 
-	console.log(rankProgress);
 	rankProgress = rankProgress > 100 ? '100%' : `${rankProgress}%`;
+
 	return (
 		<StatsElement title={'Total kudos count:'}>
-			<p>Rank: {rank}</p>
-			<div className={styles.progressBar}>
-				<div style={{ width: rankProgress }}>{rankProgress}</div>
-			</div>
+			<Rank rank={rank} />
+			<Tooltip title={`${kudos} kudos`} arrow>
+				<div className={styles.progressBar}>
+					<div style={{ width: rankProgress }} className={styles.filling}></div>
+					{rankProgress}
+				</div>
+			</Tooltip>
 			{formatNumber(kudos)} Kudos
 		</StatsElement>
 	);

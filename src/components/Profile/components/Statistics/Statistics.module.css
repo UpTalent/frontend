@@ -28,6 +28,23 @@
 	width: 100%;
 }
 
+.statsConatiner > div {
+	flex: 1;
+	width: 100%;
+	justify-content: center;
+}
+
+.NothingToShow {
+	display: flex;
+	align-items: center;
+	min-height: 100px;
+  gap: 20px;
+}
+
+.NothingToShow img {
+  width: 40px;
+}
+
 .statsConatiner,
 .skills,
 .skillItem {
@@ -46,6 +63,14 @@
 	flex-direction: column;
 	justify-content: center;
 	gap: 10px;
+	position: relative;
+  animation: showSkills 1s ease-in-out backwards;
+}
+
+.skillItem img {
+	width: 70px;
+	height: 70px;
+	object-fit: contain;
 }
 
 .skill {
@@ -85,14 +110,39 @@
 
 .progressBar {
 	width: 100%;
-	border: 1px solid var(--dark);
-	border-radius: 10px;
+	max-height: 20px;
+	font-weight: 200;
+	border-radius: 5px;
+	text-align: center;
+	position: relative;
+	border: 1px solid rgb(134, 129, 129);
 }
 
-.progressBar > div {
-	border-radius: 10px;
-	display: flex;
-	justify-content: center;
-	font-weight: 200;
-	background-color: var(--gold);
+.filling {
+	border-radius: 5px;
+	z-index: -1;
+	position: absolute;
+	height: 100%;
+	background: linear-gradient(94.23deg, #f1d563 1.1%, var(--gold) 99.17%);
+	animation: fillingProggres 2s linear;
+}
+
+@keyframes fillingProggres {
+	from {
+		width: 0;
+	}
+	to {
+		width: calc(width);
+	}
+}
+
+@keyframes showSkills {
+	from {
+		opacity: 0;
+		transform: translateY(15px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }

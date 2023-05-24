@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { LinearProgress } from '@mui/material';
 import { useEffect } from 'react';
 import { profileAPI } from '../../../../api/profileAPI';
-import { TopSkills } from './components/TopSkills/TopSkills';
+import { TopSkills } from './components/TopSkills';
 import { useParams } from 'react-router-dom';
-import { TopProof } from './components/TopProof/TopProof';
-import { TotalKudos } from './components/TotalKudos/TotalKudos';
+import { TopProof } from './components/TopProof';
+import { TotalKudos } from './components/TotalKudos';
 
 export const Statistics = () => {
 	const [statisticData, setStatisticData] = useState(null);
@@ -27,7 +27,7 @@ export const Statistics = () => {
 			{statisticData ? (
 				<>
 					<TopSkills skills={statisticData.most_kudosed_skills} />
-					<TotalKudos kudos={statisticData.total_count_kudos}/>
+					<TotalKudos kudos={statisticData.total_count_kudos} />
 					<TopProof proof={statisticData.most_kudosed_proof} />
 				</>
 			) : (

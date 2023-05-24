@@ -1,1 +1,1 @@
-export { TotalKudos } from './TotalKudos'
+export { TotalKudos } from './TotalKudos';

@@ -1,0 +1,25 @@
+.container {
+    padding: 20px;
+    border: 3px solid var(--primary);
+    margin: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-weight: 300;
+}
+
+.container h3 {
+    text-align: center;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.container ol {
+    margin-left: 10px;
+}
+
+.container li {
+    display: flex;
+    justify-content: space-between;
+}
