@@ -20,6 +20,7 @@ export const SkillArea = ({
 						skill={skill.name}
 						inSlider={inSlider}
 						kudos={skill.kudos}
+						id={skill.id}
 					/>
 				))}
 			</div>

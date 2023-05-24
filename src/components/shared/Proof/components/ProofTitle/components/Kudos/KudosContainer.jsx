@@ -47,6 +47,7 @@ export const KudosContainer = memo(
 				}),
 			);
 		};
+		
 		const getKudoList = async () => {
 			try {
 				const { data } = await kudosAPI.getProofsKudos(proofId);
