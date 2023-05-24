@@ -59,6 +59,7 @@
 	width: 350px;
 	display: flex;
 	flex-direction: column;
+	gap: 25px;
 }
 
 .selectCat {
@@ -81,7 +82,7 @@
 	top: 30%;
 }
 
-.tail{
+.tail {
 	top: 70%;
 	right: -199px;
 	width: 200px;
