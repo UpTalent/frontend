@@ -31,10 +31,6 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 		],
 	};
 
-	const checkValidKudos = kudos => {
-		return Number.isInteger(kudos) && kudos <= balance && kudos >= 0;
-	};
-
 	useEffect(() => {
 		var sum = 0;
 		list.map(el => (sum += el.kudos));
@@ -46,6 +42,7 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 			setList([]);
 			setTotalKudos(0);
 			setKudosAll(false);
+			setValue(0);
 		};
 	}, [open]);
 
@@ -53,7 +50,10 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 		const kudosedSkillArray =
 			list.length === 0
 				? skills.map(el => {
-						return { kudos: value, skill_id: el.id };
+						return {
+							kudos: value,
+							skill_id: el.id,
+						};
 				  })
 				: list.map(el => {
 						return { kudos: el.kudos, skill_id: el.id };
@@ -92,7 +92,6 @@ export const KudosSelect = ({ open, close, addKudos, skills }) => {
 					<SelectSkills
 						{...{
 							skills,
-							checkValidKudos,
 							list,
 							setList,
 							balance,

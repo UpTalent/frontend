@@ -7,10 +7,7 @@ export const ProofForm = ({ proof, updateTempProof, mode }) => {
 	return (
 		<>
 			<Formik initialValues={proof} validationSchema={validationSchema}>
-				<FormInsideFormik
-					{...{ proof, mode }}
-					saveProof={updateTempProof}
-				/>
+				<FormInsideFormik {...{ proof, mode }} saveProof={updateTempProof} />
 			</Formik>
 		</>
 	);

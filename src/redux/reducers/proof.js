@@ -50,7 +50,7 @@ export const publishDraftProof = createAsyncThunk(
 
 			return proofId;
 		} catch (error) {
-			return thunkAPI.rejectWithValue(error.message);
+			thunkAPI.dispatch(setSystemMessage(true, error.message, 'error'));
 		}
 	},
 );

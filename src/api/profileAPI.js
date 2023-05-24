@@ -33,4 +33,12 @@ export const profileAPI = {
 			throw new Error(error.response.data.message);
 		}
 	},
+
+	async getStatistics (id) {
+		try {
+			return await axiosInstance.get(`talents/${id}/statistic`);
+		} catch(error) {
+			throw new Error(error.response.data.message)
+		}
+	}
 };

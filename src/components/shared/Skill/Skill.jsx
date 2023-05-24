@@ -5,14 +5,18 @@ import { useSelector } from 'react-redux';
 import { getAllSkills } from '../../../redux/reducers/skills';
 import { DisabledText } from '../DisabledText/DisabledText';
 
-export const Skill = memo(({ skill, kudos, id, inSlider }) => {
-	const skillColor = useSelector(getAllSkills).find(el => el.id === id)?.color;
+export const Skill = memo(({ skill, kudos, inSlider, additionalStyle, id }) => {
+	const skillColor = useSelector(getAllSkills).find(
+		el => el.name === skill || el.id === id,
+	)?.color;
 
 	const mainInfo = (
-		<div className={styles.Skill} style={{ backgroundColor: skillColor }}>
+		<div
+			className={`${styles.Skill} ${additionalStyle}`}
+			style={{ backgroundColor: skillColor }}
+		>
 			<DisabledText condition={kudos} helperText={`${kudos} Kudos`}>
 				<p>{skill}</p>
-				{/* <span className={styles.kudosAmount}>{kudos}</span> */}
 			</DisabledText>
 		</div>
 	);

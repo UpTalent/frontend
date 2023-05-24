@@ -55,12 +55,4 @@ export const sponsorApi = {
 			throw new Error(error.response.data.message);
 		}
 	},
-
-	async restoreProfile(token) {
-		try {
-			await axiosInstance.post(`sponsors/restore?token=${token}`);
-		} catch (error) {
-			throw new Error(error.response.data.message);
-		}
-	},
 };

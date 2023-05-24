@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { AddToAll } from '../AddToAll/AddToAll';
+import { MAX_KUDOS } from '../../../../../../../../../../../service/constants';
 
 export const SelectSkills = ({
 	skills,
-	checkValidKudos,
 	list,
 	setList,
 	balance,
@@ -27,25 +27,35 @@ export const SelectSkills = ({
 		setList(list.filter(el => el.name !== value.name));
 	};
 
-	const changeItemInList = (id, changedFiled) => {
+	const addKudos = (event, id) => {
+		const current = event.target.value;
+		const kudosAmount = { kudos: Number(current) };
+		if (current >= balance || current >= MAX_KUDOS) {
+			kudosAmount.kudos = balance;
+		}
+
 		setList(prev =>
 			prev.map((el, index) => {
 				if (index === id) {
-					return { ...el, ...changedFiled };
+					return { ...el, ...kudosAmount };
 				}
 				return el;
 			}),
 		);
 	};
 
-	const addKudos = (event, id) => {
-		const kudosAmount = { kudos: Number(event.target.value) };
-		if (checkValidKudos(kudosAmount.kudos)) {
-			changeItemInList(id, kudosAmount);
-		}
-	};
-
 	const handleClose = () => setOpenSkillList(null);
+
+	const handleClick = skill => {
+		const preparedSkill = {
+			name: skill.name,
+			kudos: 0,
+			id: skill.id,
+		};
+		setList(prev => prev.concat(preparedSkill));
+		setKudosAll(false);
+		handleClose();
+	};
 
 	return (
 		<div className={styles.selectedSkillsList}>
@@ -109,13 +119,7 @@ export const SelectSkills = ({
 									value={skill.name}
 									key={skill.id}
 									disabled={!!list.find(item => item.id === skill.id)}
-									onClick={event => {
-										setList(prev =>
-											prev.concat({ name: skill.name, kudos: 0, id: skill.id }),
-										);
-										setKudosAll(false);
-										handleClose();
-									}}
+									onClick={() => handleClick(skill)}
 								>
 									{skill.name}
 								</MenuItem>

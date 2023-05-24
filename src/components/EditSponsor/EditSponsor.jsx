@@ -9,10 +9,7 @@ import { validationSchema } from './validation';
 import { withEdit } from '../../service/HOC/withEdit';
 import { sponsorApi } from '../../api/sponsorAPI';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	getUserEmail,
-	getUserKudos,
-} from '../../redux/reducers/authentification';
+import { getUserKudos } from '../../redux/reducers/authentification';
 import { ButtonGroup } from './components/AddBtn/ButtonGroup';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import { MAX_KUDOS } from '../../service/constants';
@@ -25,7 +22,6 @@ const EditSponsor = ({ user, edit }) => {
 	};
 
 	const currentKudos = useSelector(getUserKudos);
-	const userEmail = useSelector(getUserEmail);
 	const dispatch = useDispatch();
 
 	const [kudosValue, setKudosValue] = useState(0);
@@ -98,24 +94,7 @@ const EditSponsor = ({ user, edit }) => {
 						>
 							SAVE
 						</Button>
-						<DeleteProfile
-							userId={user.id}
-							message={{
-								title: 'Are you sure you want to delete your profile?',
-								text: (
-									<>
-										<p>
-											You can restore it in <b>7 days</b>.
-										</p>
-										<p>
-											The recovery link will be sent on your email -{' '}
-											<b>{userEmail}</b>
-										</p>
-									</>
-								),
-							}}
-							role={'sponsor'}
-						/>
+						<DeleteProfile userId={user.id} role={'sponsor'} />
 					</div>
 				</Form>
 			)}

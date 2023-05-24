@@ -15,9 +15,6 @@ export const Proof = ({
 }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
 
-	// until back doesn't send kudos on skill
-	const [localSkills, setLocalSkills] = useState(proof.skills);
-
 	const formatSliderText = (text, maxNum) => {
 		return text.length > maxNum ? text.substring(0, maxNum) + '...' : text;
 	};
@@ -58,7 +55,12 @@ export const Proof = ({
 					>
 						<ProofTitle
 							openContent={handleAccordionClick}
-							{...{ ...proof, withContent, inSlider, showControlls, localSkills, setLocalSkills }}
+							{...{
+								...proof,
+								withContent,
+								inSlider,
+								showControlls,
+							}}
 						/>
 					</AccordionSummary>
 					<AccordionDetails>

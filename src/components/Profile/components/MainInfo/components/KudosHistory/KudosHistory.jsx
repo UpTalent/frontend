@@ -45,15 +45,15 @@ export const KudosHistory = () => {
 
 	return (
 		<div className={styles.proofContainer}>
-			{/* {!isFetching ? (
+			{!isFetching ? (
 				<div className={styles.proofs}>
 					{proofs.map(el => (
 						<KudosedProof key={el.proof_id} proofInfo={el} />
 					))}
 				</div>
-			) : ( */}
-			<ProofLoader />
-			{/* )} */}
+			) : (
+				<ProofLoader />
+			)}
 			{Boolean(proofs.length) && (
 				<Pagination
 					page={currentPage}
