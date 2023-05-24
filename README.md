@@ -1,7 +1,7 @@
 # UpTalent
 #### Open hours - 11AM - 11PM every day without weekends 
-[Prod](http://uptalent.pepega.cloud/)
-[Dev](http://dev.uptalent.pepega.cloud/)
+#### [Production](http://uptalent.pepega.cloud/)
+#### [Develompent](http://dev.uptalent.pepega.cloud/)
 
 Frontend team repository for UpTalent project
 The UpTalent app that is a professional networking platform that also allows content creators to monetize their content.

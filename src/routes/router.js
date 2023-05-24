@@ -16,6 +16,8 @@ import { TalentProfile } from '../components/Profile/components/TalentProfile/Ta
 import { KudosHistory } from '../components/Profile/components/MainInfo/components/KudosHistory';
 import { RestoreProfile } from '../components/RestoreProfile';
 import { Statistics } from '../components/Profile/components/Statistics/Statistics';
+import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
+
 export const router = createBrowserRouter([
 	{
 		path: '/',
@@ -94,8 +96,12 @@ export const router = createBrowserRouter([
 				],
 			},
 			{
-				path: '/restore',
+				path: 'restore/*',
 				element: <RestoreProfile />,
+			},
+			{
+				path: 'verify/*',
+				element: <VerifyEmail />,
 			},
 		],
 	},
