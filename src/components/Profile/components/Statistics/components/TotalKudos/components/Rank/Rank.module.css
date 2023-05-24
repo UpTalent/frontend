@@ -15,11 +15,16 @@
     text-transform: uppercase;
 }
 
-.container ol {
-    margin-left: 10px;
+.container h3  b {
+    color: var(--primary);
+    font-weight: 400;
 }
 
-.container li {
+.rankItem {
     display: flex;
+    gap: 10px;
     justify-content: space-between;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--secondary);
+    margin-bottom: 5px;
 }
