@@ -1,12 +1,12 @@
 import { Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { sponsorApi } from '../../api/sponsorAPI';
 import { useDispatch } from 'react-redux';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import styles from './RestoreProfile.module.css';
 import recover from '../../assets/recover.jpg';
 import arrow from '../../assets/arrow.png';
+import { authAPI } from '../../api/authAPI';
 
 export const RestoreProfile = () => {
 	const [searchParams] = useSearchParams();
@@ -17,7 +17,7 @@ export const RestoreProfile = () => {
 	const restore = async () => {
 		try {
 			setIsFetching(true);
-			await sponsorApi.restoreProfile(searchParams.get('token'));
+			await authAPI.restoreProfile(searchParams.get('token'));
 			setIsFetching(false);
 			dispatch(
 				setSystemMessage(
