@@ -39,6 +39,7 @@ export const SelectSkills = ({
 	const addKudos = (event, id) => {
 		const current = event.target.value;
 		let kudosAmount = 0;
+    
 		if (isKudosValid(current, balance)) {
 			kudosAmount = Number(current);
 		} else if (current >= balance || current >= MAX_KUDOS) {
