@@ -21,10 +21,10 @@ const EditTalent = ({ user, edit }) => {
 	let initialEditData = {
 		lastname: user.lastname,
 		firstname: user.firstname,
-		location: user.location,
-		birthday: user.birthday,
+		location: user.location || '',
+		birthday: user.birthday || '',
 		skills: user.skills,
-		about_me: user.about_me,
+		about_me: user.about_me || '',
 	};
 	const dispatch = useStoreDispatch();
 	const skills = useSelector(getAllSkills);

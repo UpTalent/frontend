@@ -10,15 +10,18 @@ export const TotalKudos = ({ kudos }) => {
 	let rank = '';
 	let rankProgress = 100;
 	for (let i = 0; i < talentRank.length; i++) {
-		if (kudos < talentRank[i].kudos) {
-			rankProgress = Math.floor((kudos * 100) / talentRank[i].kudos);
+		if (kudos <= talentRank[i].kudos) {
+			rankProgress = Math.floor(
+				((kudos - talentRank[i - 1]?.kudos) * 100) /
+					(talentRank[i].kudos - talentRank[i - 1]?.kudos),
+			);
 			rank = talentRank[i - 1]?.rank || 'Trainee';
 			break;
 		}
 		rank = talentRank.at(-1).rank;
 	}
 
-	rankProgress = rankProgress > 100 ? '100%' : `${rankProgress}%`;
+	rankProgress = rankProgress > 100 ? '100%' : `${rankProgress || 0}%`;
 
 	return (
 		<StatsElement title={'Total kudos count:'}>
