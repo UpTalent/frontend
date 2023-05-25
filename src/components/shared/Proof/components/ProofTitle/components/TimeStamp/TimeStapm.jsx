@@ -1,36 +1,25 @@
 import React from 'react';
 import styles from '../../../../Proof.module.css';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import Moment from 'react-moment';
+import { Tooltip } from '@mui/material';
+import moment from 'moment';
 
 export const TimeStapm = ({ published }) => {
-	const month = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December',
-	];
-
-	const date = new Date(published);
-	const formatedDate = `${
-		month[date.getMonth()]
-	}, ${date.getDate()}, ${date.getFullYear()}`;
+	const week = 604800000;
 
 	return (
-		<div className={styles.timeStamp}>
-			{published && (
-				<>
-					<AccessTimeIcon color='action' sx={{ fontSize: 'inherit' }} />
-					{formatedDate}
-				</>
-			)}
-		</div>
+		<Tooltip title={moment(published).format('MMMM Do YYYY, HH:mm')} arrow placement='top'>
+			<div className={styles.timeStamp}>
+				{published && (
+					<>
+						<AccessTimeIcon color='action' sx={{ fontSize: 'inherit' }} />
+						<Moment format='MMM, DD, YYYY' fromNowDuring={week}>
+							{published}
+						</Moment>
+					</>
+				)}
+			</div>
+		</Tooltip>
 	);
 };

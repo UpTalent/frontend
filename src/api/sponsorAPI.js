@@ -10,7 +10,8 @@ export const sponsorApi = {
 				},
 			});
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			const field = Object.keys(error.response.data)[0];
+			throw new Error(`${error.response.data[field]}`);
 		}
 	},
 
@@ -31,7 +32,8 @@ export const sponsorApi = {
 				},
 			);
 		} catch (error) {
-			throw new Error(error.response.data.message);
+			const field = Object.keys(error.response.data)[0];
+			throw new Error(`${error.response.data[field]}`);
 		}
 	},
 
@@ -40,6 +42,15 @@ export const sponsorApi = {
 			return await axiosInstance.put(`sponsors/${sponsorId}/kudos`, {
 				balance,
 			});
+		} catch (error) {
+			const field = Object.keys(error.response.data)[0];
+			throw new Error(`${error.response.data[field]}`);
+		}
+	},
+
+	async deleteProfile(sponsorId) {
+		try {
+			return await axiosInstance.delete(`sponsors/${sponsorId}`);
 		} catch (error) {
 			throw new Error(error.response.data.message);
 		}

@@ -1,0 +1,1 @@
+export { TotalKudos } from './TotalKudos';

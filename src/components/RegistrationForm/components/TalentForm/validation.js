@@ -26,5 +26,4 @@ export const validationSchema = Yup.object({
 			/^[a-zA-Z]+(-[a-zA-Z]+)?[a-zA-Z]*$/,
 			'Only English letters and one "-" character in the middle allowed ',
 		),
-	skills: Yup.array().min(1, 'This filed is required'),
 });

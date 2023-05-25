@@ -6,19 +6,22 @@ import { useSearchParams } from 'react-router-dom';
 export const PagesGrid = ({ gridItems, total_pages }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	const page = Number(searchParams.get('page')) > 0 ? Number(searchParams.get('page')) : 1;
-	const sort = searchParams.get('sort');
+	const page =
+		Number(searchParams.get('page')) > 0 ? Number(searchParams.get('page')) : 1;
 
 	const [currentPage, setCurrentPage] = useState(page);
 
 	const changePage = (e, page) => {
-		sort ? setSearchParams({ page, sort }) : setSearchParams({ page });
+		setSearchParams({
+			...Object.fromEntries([...searchParams]),
+			page,
+		});
 		setCurrentPage(page);
 	};
 
 	return (
 		<div className={styles.Grid}>
-			<Grid container rowSpacing={4} align='center'>
+			<Grid container rowSpacing={4} columnSpacing={3} align='center'>
 				{gridItems}
 			</Grid>
 			<Pagination

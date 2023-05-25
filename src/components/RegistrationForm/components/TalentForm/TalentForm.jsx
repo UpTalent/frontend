@@ -1,4 +1,4 @@
-import { Autocomplete, Button, TextField, Typography } from '@mui/material';
+import { Autocomplete, Button, Checkbox, TextField, Typography } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import styles from '../../../LoginForm/Forms.module.css';
 import React from 'react';
@@ -8,11 +8,17 @@ import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlin
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { validationSchema } from './validation';
 import { FormField } from '../../../shared/FormField';
-import { skills } from '../../../../assets/static/skills';
+import { useStoreDispatch } from '../../../../redux/store';
+import { useSelector } from 'react-redux';
+import { getAllSkills, getSkills } from '../../../../redux/reducers/skills';
+import { useEffect } from 'react';
 
 export const TalentForm = ({ register }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
+
+	const dispatch = useStoreDispatch();
+	const skills = useSelector(getAllSkills);
 
 	let initialRegistartionData = {
 		email: '',
@@ -22,23 +28,19 @@ export const TalentForm = ({ register }) => {
 		confirmPassword: '',
 		skills: [],
 	};
+
+	useEffect(() => {
+		if (skills.length === 0) {
+			dispatch(getSkills());
+		}
+	}, []);
 	return (
 		<Formik
 			initialValues={initialRegistartionData}
 			validationSchema={validationSchema}
-			validateOnChange={true}
-			validateOnBlur={true}
-			validateOnMount={true}
 			onSubmit={register}
 		>
-			{({
-				isValid,
-				setFieldValue,
-				setFieldTouched,
-				errors,
-				setFieldError,
-				touched,
-			}) => (
+			{({ isValid, setFieldValue }) => (
 				<Form className={styles.registrationForm}>
 					<Typography className={styles.formTitle}>
 						Join our team!
@@ -74,14 +76,21 @@ export const TalentForm = ({ register }) => {
 						name='skills'
 						component={Autocomplete}
 						options={skills}
-						getOptionLabel={option => option}
+						getOptionLabel={option => option.name}
+						disableCloseOnSelect
+						renderOption={(props, option, { selected }) => (
+							<li {...props}>
+								<Checkbox style={{ marginRight: 8 }} checked={selected} />
+								{option.name}
+							</li>
+						)}
 						renderInput={(params, i) => (
 							<TextField
 								key={i}
 								{...params}
 								name='skill'
-								label='Tell us what you can...'
-								variant='standard'
+								label='Skills'
+								variant='outlined'
 							/>
 						)}
 						sx={{
@@ -94,17 +103,15 @@ export const TalentForm = ({ register }) => {
 						multiple
 						limitTags={3}
 						fullWidth
-						onChange={(e, value) => {
-							setFieldValue('skills', value);
-							setFieldTouched('skills', true, false);
+						onChange={(event, value) => {
+							const selectedSkills = value.map(skill => ({
+								id: skill.id,
+								name: skill.name,
+							}));
+							setFieldValue('skills', selectedSkills);
 						}}
-						onClick={() => {
-							setFieldError('skills');
-						}}
+						isOptionEqualToValue={(option, value) => option.id === value.id}
 					/>
-					{touched.skills && errors.skills ? (
-						<div className={styles.skilsError}>{errors.skills}</div>
-					) : null}
 					<Button
 						type='submit'
 						variant='contained'

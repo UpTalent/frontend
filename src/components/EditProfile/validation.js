@@ -15,7 +15,6 @@ export const validationSchema = Yup.object({
 			/^[a-zA-Z]+(-[a-zA-Z]+)?[a-zA-Z]*$/,
 			'Only English letters and one "-" character in the middle allowed ',
 		),
-	skills: Yup.array().min(1, 'This filed is required'),
 	location: Yup.string()
 		.max(255, 'Must be less than 255 characters')
 		.nullable(),
@@ -27,6 +26,8 @@ export const validationSchema = Yup.object({
 		)
 		.nullable(),
 	about_me: Yup.string()
-		.max(255, 'Must be less than 255 characters')
+		.max(2250, 'Must be less than 2250 characters')
 		.nullable(),
+	skills: Yup.array()
+			.max(38, 'Max number of skills is 38')
 });

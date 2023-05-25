@@ -2,14 +2,18 @@
 
 .Proof {
 	margin: 10px 0;
-	max-width: 730px;
+	max-width: 1000px;
+	background: none;
+	border-radius: 10px;
 }
 
 .Proof p {
-	white-space: pre-wrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	white-space: pre-line;
 	word-break: break-word;
+}
+
+.myProof {
+	box-shadow: 0 5px 25px -5px #534bf2;
 }
 
 .General {
@@ -19,14 +23,13 @@
 	height: 400px;
 	gap: 20px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 10px;
 	background-color: #ffffff;
 	border-radius: 10px;
 }
 
 .ProofTitle {
 	background-color: var(--primary);
-	border-radius: 10px 10px 0 0;
+	border-radius: 8px;
 	height: 40%;
 	padding: 10px;
 	display: flex;
@@ -61,6 +64,7 @@
 
 .summary > div:last-child {
 	align-self: flex-end;
+	width: 100%;
 }
 
 .timeStamp {
@@ -106,9 +110,31 @@
 	font-weight: 200;
 }
 
+.content img {
+	max-width: 100%;
+	object-fit: cover;
+}
+
 .bottomPanel {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin: 10px 10px 0 10px;
+	cursor: default;
+}
+
+.proofPageView {
+	width: 100% !important;
+}
+
+.skillsSlider {
+	flex-direction: column-reverse;
+	gap: 10px !important;
+	align-items: flex-end !important;
+}
+.skillsSlider > div p {
+	font-size: 0.4rem;
+}
+.skillsSlider > div:last-child > div {
+	padding: 2px 8px;
 }

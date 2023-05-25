@@ -3,6 +3,15 @@ import { proofAPI } from '../../api/proofAPI';
 import { setSystemMessage } from './systemMessages';
 import { deleteProofFromList, getTalentsProofs } from './talentsProof';
 
+const prepareProof = proof => {
+	if (proof.skills) {
+		const formatSkills = proof.skills.map(el => el?.id);
+		delete proof.skills;
+		proof.skillIds = formatSkills;
+	}
+	return proof;
+};
+
 const initialState = {
 	proof: {
 		id: 0,
@@ -12,6 +21,7 @@ const initialState = {
 		content: '',
 		published: null,
 		status: '',
+		skills: [],
 	},
 	isFetching: false,
 	error: null,
@@ -23,7 +33,10 @@ export const publishDraftProof = createAsyncThunk(
 		try {
 			const { talentId, draftProof } = params;
 
-			const { headers } = await proofAPI.createProof(talentId, draftProof);
+			const { headers } = await proofAPI.createProof(
+				talentId,
+				prepareProof(draftProof),
+			);
 
 			const proofId = Number(headers.get('Location').split('/').splice(-1)[0]);
 			thunkAPI.dispatch(
@@ -37,7 +50,7 @@ export const publishDraftProof = createAsyncThunk(
 
 			return proofId;
 		} catch (error) {
-			return thunkAPI.rejectWithValue(error.message);
+			thunkAPI.dispatch(setSystemMessage(true, error.message, 'error'));
 		}
 	},
 );
@@ -47,7 +60,7 @@ export const createDraftProof = createAsyncThunk(
 	async (params, thunkAPI) => {
 		try {
 			let { talentId, data } = params;
-			await proofAPI.createProof(talentId, data);
+			await proofAPI.createProof(talentId, prepareProof(data));
 			thunkAPI.dispatch(
 				setSystemMessage(true, 'Proof was successfully created'),
 			);
@@ -77,7 +90,11 @@ export const editProof = createAsyncThunk(
 				draftProof = { ...draftProof, status };
 			}
 
-			const { data } = await proofAPI.editProof(talentId, proofId, draftProof);
+			const { data } = await proofAPI.editProof(
+				talentId,
+				proofId,
+				prepareProof(draftProof),
+			);
 			await thunkAPI.dispatch(getTalentsProofs({ talentId, status }));
 			thunkAPI.dispatch(
 				setSystemMessage(true, `Proof was successfully ${action}`),

@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../Proof.module.css';
 import { ProofIcons } from '../../../../../assets/static/ProofIcons';
 import { TimeStapm } from './components/TimeStamp';
 import { TalentsControl } from './components/TalentsControl';
 import { ReactFitty } from 'react-fitty';
-import { KudosContainer } from './components/Kudos/KudosContainer';
+import { SkillArea } from '../SkillArea/SkillArea';
 
 export const ProofTitle = ({
 	title,
 	published,
+	skills,
 	icon_number,
 	status,
 	showControlls,
 	openContent,
 	id,
-	kudosed_by_me,
+	sum_kudos_from_me,
 	kudos,
 	withContent,
 	my_proof,
+	inSlider,
 }) => {
+	const [localSkills, setLocalSkills] = useState(skills);
 	return (
 		<div className={styles.ProofTitle}>
 			<div className={styles.controls}>
@@ -37,10 +40,18 @@ export const ProofTitle = ({
 				</ReactFitty>
 			</div>
 			<div className={styles.bottomPanel}>
-				{withContent && (
-					<KudosContainer
-						{...{ kudosed_by_me, kudos, my_proof, talentView: status }}
-						proofId={id}
+				{!inSlider && (
+					<SkillArea
+						skills={localSkills}
+						setLocalSkills={setLocalSkills}
+						kudos={{
+							sum_kudos_from_me,
+							kudos,
+							my_proof,
+							talentView: sum_kudos_from_me,
+							proofId: id,
+						}}
+						additionalStyle={!withContent && styles.proofPageView}
 					/>
 				)}
 				{withContent && showControlls && (

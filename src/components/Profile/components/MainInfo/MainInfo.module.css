@@ -7,6 +7,11 @@
 	font-size: 20px;
 }
 
+.mainInfo img {
+	max-width: 100%;
+	object-fit: contain;
+}
+
 .proofContainer {
 	display: flex;
 	flex-direction: column;
@@ -36,5 +41,9 @@
 @media screen and (max-width: 1000px) {
 	.mainInfo > div > div > div {
 		justify-content: center;
+	}
+
+	.proofContolls{
+		width: 50%;
 	}
 }

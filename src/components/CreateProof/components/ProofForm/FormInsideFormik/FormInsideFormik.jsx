@@ -1,22 +1,35 @@
-import { Button, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import {
+	Autocomplete,
+	Button,
+	Checkbox,
+	InputAdornment,
+	TextField,
+} from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
 import { IconList } from './IconList/IconList';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useStoreDispatch } from '../../../../../redux/store';
 import {
 	createDraftProof,
 	editProof,
 	publishDraftProof,
 } from '../../../../../redux/reducers/proof';
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
+import { useStoreDispatch } from '../../../../../redux/store';
+import { Markdown } from '../../../../shared/FormField/components/Markdown/Markdown';
+import { useSelector } from 'react-redux';
+import { getAllSkills, getSkills } from '../../../../../redux/reducers/skills';
+import { DisabledText } from '../../../../shared/DisabledText/DisabledText';
 
-export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
-	const { isValid, touched, errors, setFieldValue, values } =
+export const FormInsideFormik = ({ proof, saveProof, mode }) => {
+	const { isValid, touched, errors, setFieldValue, values, validateForm } =
 		useFormikContext();
+
 	const navigate = useNavigate();
+	const skills = useSelector(getAllSkills);
 	const dispatch = useStoreDispatch();
+
 	const { talentId } = useParams();
 	const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -25,6 +38,16 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 			e.preventDefault();
 		}
 	};
+
+	useEffect(() => {
+		if (!skills.length) {
+			dispatch(getSkills());
+		}
+	}, [skills.length]);
+
+	useEffect(() => {
+		validateForm();
+	}, []);
 
 	const handleChangesInFields = event => {
 		const { name, value } = event.target;
@@ -95,6 +118,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 				label='Add some annotation, what your proof is about?'
 				name='summary'
 				multiline
+				fullWidth
 				rows={4}
 				onKeyDown={handleKeyDown}
 				as={TextField}
@@ -106,11 +130,63 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 				label='Content of proof'
 				name='content'
 				multiline
+				fullWidth
 				rows={4}
 				as={TextField}
 				error={touched.content && Boolean(errors.content)}
 				helperText={touched.content && errors.content}
 				onChange={handleChangesInFields}
+				InputProps={{
+					startAdornment: (
+						<InputAdornment position='start'>
+							<Markdown />
+						</InputAdornment>
+					),
+				}}
+			/>
+			<Field
+				name='skills'
+				component={Autocomplete}
+				options={skills}
+				getOptionLabel={option => option.name}
+				renderInput={(params, i) => (
+					<TextField
+						label='Skills'
+						key={i}
+						{...params}
+						name='skill'
+						variant='outlined'
+						error={errors.skills}
+						helperText={errors.skills}
+					/>
+				)}
+				disableCloseOnSelect
+				renderOption={(props, option, { selected }) => (
+					<li {...props}>
+						<Checkbox style={{ marginRight: 8 }} checked={selected} />
+						{option.name}
+					</li>
+				)}
+				sx={{
+					'& .MuiAutocomplete-tag': {
+						backgroundColor: '#48bde2',
+						color: '#fff',
+					},
+					maxWidth: '500px',
+				}}
+				multiple
+				limitTags={3}
+				fullWidth
+				onChange={(event, value) => {
+					const selectedSkills = value.map(skill => ({
+						id: skill.id,
+						name: skill.name,
+					}));
+					setFieldValue('skills', selectedSkills);
+					saveProof({ ...proof, skills: selectedSkills });
+				}}
+				value={values.skills}
+				isOptionEqualToValue={(option, value) => option.id === value.id}
 			/>
 			<div className={styles.buttonGroup}>
 				<Button
@@ -122,14 +198,21 @@ export const FormInsideFormik = ({ proof, saveProof, mode, setError }) => {
 					{mode === 'create' ? 'SAVE AS DRAFT' : 'SAVE CHANGES'}
 				</Button>
 
-				<Button
-					variant='contained'
-					className={`${isValid && styles.publishButton}`}
-					disabled={!isValid}
-					onClick={() => setOpenConfirm(true)}
+				<DisabledText
+					helperText={'All fields must be set up'}
+					condition={!isValid || proof.skills.length === 0}
 				>
-					Publish
-				</Button>
+					<Button
+						variant='contained'
+						className={`${
+							isValid && proof.skills.length && styles.publishButton
+						}`}
+						disabled={!isValid || proof.skills.length === 0}
+						onClick={() => setOpenConfirm(true)}
+					>
+						Publish
+					</Button>
+				</DisabledText>
 				{openConfirm && (
 					<ConfirmationMessage
 						action={'PUBLISH'}

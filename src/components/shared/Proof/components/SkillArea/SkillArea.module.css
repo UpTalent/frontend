@@ -1,0 +1,15 @@
+.skillArea {
+	display: flex;
+	flex-wrap: wrap;
+	border-radius: 10px;
+	align-items: center;
+	gap: 20px;
+	padding: 5px;
+	width: 80%;
+}
+
+.skillBox {
+	display: flex;
+	gap: 15px;
+    flex-wrap: wrap;
+}

@@ -1,41 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../LoginForm/Forms.module.css';
 import { Form, Formik } from 'formik';
-import { Button } from '@mui/material';
+import { Button, InputAdornment, TextField } from '@mui/material';
 import { FormField } from '../shared/FormField';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { validationSchema } from './validation';
 import { withEdit } from '../../service/HOC/withEdit';
 import { sponsorApi } from '../../api/sponsorAPI';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserKudos } from '../../redux/reducers/authentification';
 import { ButtonGroup } from './components/AddBtn/ButtonGroup';
+import { setSystemMessage } from '../../redux/reducers/systemMessages';
+import { MAX_KUDOS } from '../../service/constants';
+import { DeleteProfile } from '../EditProfile/components/DeleteProfile';
 
 const EditSponsor = ({ user, edit }) => {
 	const initialEditData = {
 		id: user.id,
 		fullname: user.fullname,
-		kudos: 0,
 	};
 
 	const currentKudos = useSelector(getUserKudos);
+	const dispatch = useDispatch();
+
+	const [kudosValue, setKudosValue] = useState(0);
 
 	const handleSubmit = async values => {
-		await sponsorApi.updateKudosQuantity(user.id, values.kudos);
-		edit(values);
+		try {
+			kudosValue >= 1 &&
+				(await sponsorApi.updateKudosQuantity(user.id, kudosValue));
+			edit(values);
+		} catch (err) {
+			dispatch(setSystemMessage(true, err.message, 'error'));
+		}
+	};
+
+	const handleChange = e => {
+		const current = e.target.value;
+		if (current < MAX_KUDOS - currentKudos) {
+			setKudosValue(Number(current));
+		} else if (current > MAX_KUDOS - currentKudos) {
+			setKudosValue(MAX_KUDOS - currentKudos);
+		}
 	};
 
 	return (
 		<Formik
 			initialValues={initialEditData}
 			validationSchema={validationSchema}
-			validateOnChange={true}
-			validateOnBlur={true}
-			validateOnMount={true}
 			onSubmit={handleSubmit}
 		>
-			{({ isValid, setFieldValue, values }) => (
+			{({ isValid }) => (
 				<Form className={styles.registrationForm}>
 					<div className={styles.editTitle}>Personal information</div>
 					<FormField
@@ -49,29 +65,37 @@ const EditSponsor = ({ user, edit }) => {
 							Balance: <b>{currentKudos} </b>KUDOS
 						</p>
 						<div className={styles.controls}>
-							<FormField
+							<TextField
 								label='Add Kudos'
-								name='kudos'
-								type='number'
-								step={10}
-								required={true}
-								icon={<PetsOutlinedIcon />}
+								value={kudosValue}
+								inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+								InputProps={{
+									startAdornment: (
+										<InputAdornment position='start'>
+											<PetsOutlinedIcon />
+										</InputAdornment>
+									),
+								}}
+								onChange={handleChange}
 							/>
 							<ButtonGroup
-								kudosCurrent={values.kudos}
-								setFieldValue={setFieldValue}
+								prevValue={kudosValue}
+								setValue={setKudosValue}
+								currentKudos={currentKudos}
 							/>
 						</div>
 					</div>
-
-					<Button
-						type='submit'
-						variant='contained'
-						className={styles.logInButton}
-						disabled={!isValid}
-					>
-						SAVE
-					</Button>
+					<div className={styles.buttonGroup}>
+						<Button
+							type='submit'
+							variant='contained'
+							className={styles.logInButton}
+							disabled={!isValid}
+						>
+							SAVE
+						</Button>
+						<DeleteProfile userId={user.id} role={'sponsor'} />
+					</div>
 				</Form>
 			)}
 		</Formik>

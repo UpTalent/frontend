@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { sponsorApi } from '../../../../../../api/sponsorAPI';
 import styles from '../../MainInfo.module.css';
 import { KudosedProof } from './components/KudosedProof';
-import { LinearProgress, Pagination } from '@mui/material';
+import { Pagination } from '@mui/material';
+import { ProofLoader } from '../../../../../loaders/ProofLoader/ProofLoader';
 
 export const KudosHistory = () => {
 	const { sponsorId } = useParams();
@@ -51,7 +52,7 @@ export const KudosHistory = () => {
 					))}
 				</div>
 			) : (
-				<LinearProgress />
+				<ProofLoader />
 			)}
 			{Boolean(proofs.length) && (
 				<Pagination

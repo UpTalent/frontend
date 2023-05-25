@@ -1,12 +1,31 @@
-import { Skeleton } from '@mui/material';
+import { Card, CardHeader, Skeleton } from '@mui/material';
 import React from 'react';
 
-export const ProofLoader = () => {
+export const ProofLoader = ({ amount = 3}) => {
+	const amountOfProofs = Array.from({ length: amount }, (_, index) => index);
 	return (
-		<div>
-			<Skeleton variant='circular' width={40} height={40} />
-			<Skeleton variant='rectangular' width={210} height={60} />
-			<Skeleton variant='rounded' width={210} height={60} />
-		</div>
+		<>
+			{amountOfProofs.map((el, id) => (
+				<Card
+					key={id}
+					sx={{
+						height: 180,
+						marginY: '15px',
+					}}
+				>
+					<CardHeader
+						avatar={
+							<Skeleton
+								animation='wave'
+								variant='circular'
+								width={100}
+								height={100}
+							/>
+						}
+						title={<Skeleton animation='wave' height={120} />}
+					/>
+				</Card>
+			))}
+		</>
 	);
 };

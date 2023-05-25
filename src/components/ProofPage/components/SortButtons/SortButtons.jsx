@@ -1,41 +1,49 @@
 import React, { useState } from 'react';
-import { ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import MoveUpIcon from '@mui/icons-material/MoveUp';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
 import { useSearchParams } from 'react-router-dom';
 
-export const SortButtons = ({ getProofs }) => {
+export const SortButtons = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const value = searchParams.get('sort') || 'desc';
 
 	const [alignment, setAlignment] = useState(value);
+	const controlls =
+		alignment === 'desc'
+			? {
+					title: 'from newest to oldest',
+					change: 'asc',
+					buttonIcon: <MoveDownIcon />,
+			  }
+			: {
+					title: 'from oldest to newest',
+					change: 'desc',
+					buttonIcon: <MoveUpIcon />,
+			  };
 
-	const handleAlignment = (event, newAlignment) => {
+	const handleAlignment = () => {
+		const newAlignment = controlls.change;
 		setAlignment(newAlignment);
-		getProofs(0, newAlignment);
-		setSearchParams({ page: '1', sort: newAlignment });
+		setSearchParams({
+			...Object.fromEntries([...searchParams]),
+			page: '1',
+			sort: newAlignment,
+		});
 	};
 
 	return (
-		<ToggleButtonGroup
-			value={alignment}
-			exclusive
-			onChange={handleAlignment}
-			aria-label='sort by date'
-			sx={{ mt: '15px' }}
-		>
-			<ToggleButton value='desc' aria-label='sort by desc'>
-				<Tooltip title='from newest to oldest'>
-					<MoveUpIcon />
-				</Tooltip>
-			</ToggleButton>
-
-			<ToggleButton value='asc' aria-label='sort by asc'>
-				<Tooltip title='from oldest to newest'>
-					<MoveDownIcon />
-				</Tooltip>
-			</ToggleButton>
-		</ToggleButtonGroup>
+		<Tooltip title={controlls.title} arrow>
+			<Button
+				onClick={handleAlignment}
+				value={alignment}
+				sx={{ borderRadius: '4px', gap: '5px', mt: '15px' }}
+				variant='contained'
+			>
+				Sort by date
+				{controlls.buttonIcon}
+			</Button>
+		</Tooltip>
 	);
 };

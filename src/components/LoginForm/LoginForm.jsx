@@ -14,17 +14,17 @@ import {
 	clearError,
 	getAuthId,
 	getErrors,
+	getRole,
 } from '../../redux/reducers/authentification';
 import { useSelector } from 'react-redux';
 import { useStoreDispatch } from '../../redux/store';
-import { RoleRadio } from '../RegistrationForm/components/RoleRadio/RoleRadio';
 
 export const LoginForm = () => {
 	const [open, setOpen] = useState(true);
-	const [role, setRole] = useState(null);
 
 	const dispatch = useStoreDispatch();
 	const id = useSelector(getAuthId);
+	const role = useSelector(getRole);
 	const authError = useSelector(getErrors);
 
 	const navigate = useNavigate();
@@ -39,17 +39,17 @@ export const LoginForm = () => {
 	};
 
 	useEffect(() => {
-		if (id) {
-			navigate(`profile/${role}/${id}`);
+		if (id && role) {
+			navigate(`profile/${role.toLowerCase()}/${id}`);
 		}
 
 		if (authError) {
 			dispatch(clearError());
 		}
-	}, [id]);
+	}, [id, role]);
 
 	const tryToLogin = async formData => {
-		const data = { method: 'login', userInfo: formData, role };
+		const data = { method: 'login', userInfo: formData };
 		dispatch(authentificateTalent(data));
 	};
 
@@ -59,9 +59,6 @@ export const LoginForm = () => {
 				<Formik
 					initialValues={{ email: '', password: '' }}
 					validationSchema={validationSchema}
-					validateOnChange={true}
-					validateOnBlur={true}
-					validateOnMount={true}
 					onSubmit={tryToLogin}
 				>
 					{({ isValid }) => (
@@ -83,10 +80,6 @@ export const LoginForm = () => {
 								type='password'
 								required={true}
 								icon={<LockOutlinedIcon />}
-							/>
-							<RoleRadio
-								handleSponsor={() => setRole('sponsor')}
-								handleTalent={() => setRole('talent')}
 							/>
 							<Button
 								type='submit'

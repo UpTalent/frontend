@@ -2,8 +2,8 @@
 	width: 250px;
 }
 
-.sliderProof p:last-child {
-	font-size: smaller;
+.sliderProof p{
+	font-size: x-small;
 }
 
 .sliderProof img:first-child {
@@ -16,6 +16,10 @@
 	box-shadow: none;
 }
 
+.sliderProof > div > div:first-child{
+	border-radius: 10px 10px 0 0;
+}
+
 .sliderProof > div > div > div > div {
-	font-size: smaller;
+	font-size: xx-small;
 }

@@ -9,7 +9,15 @@ import {
 } from '../../../../../../../redux/reducers/authentification';
 
 export const KudosContainer = memo(
-	({ kudosed_by_me, kudos, proofId, my_proof, talentView }) => {
+	({
+		sum_kudos_from_me,
+		kudos,
+		proofId,
+		my_proof,
+		talentView,
+		skills,
+		setLocalSkills,
+	}) => {
 		const [kudosList, setKudosList] = useState([]);
 		const [openList, setOpenList] = useState(false);
 		const [openMenu, setOpenMenu] = useState(false);
@@ -17,6 +25,29 @@ export const KudosContainer = memo(
 		const dispatch = useDispatch();
 		const isDisabled = useSelector(getRole) !== 'sponsor' && !my_proof;
 
+		const messageForUser = () => {
+			dispatch(
+				setSystemMessage(
+					true,
+					'This feature is available only for sponsors',
+					'warning',
+				),
+			);
+		};
+		const updateSkills = newSkills => {
+			setLocalSkills(
+				skills.map(skill => {
+					const foundKudos = newSkills.find(
+						el => el.skill_id === skill.id,
+					)?.kudos;
+					return {
+						...skill,
+						kudos: foundKudos ? skill.kudos + foundKudos : skill.kudos,
+					};
+				}),
+			);
+		};
+		
 		const getKudoList = async () => {
 			try {
 				const { data } = await kudosAPI.getProofsKudos(proofId);
@@ -26,16 +57,24 @@ export const KudosContainer = memo(
 				dispatch(setSystemMessage(true, error.message, 'error'));
 			}
 		};
-		const addingKudos = async kudosAmount => {
+		const addingKudos = async kudosedSkills => {
 			try {
 				setOpenMenu(false);
-				const { data, status } = await kudosAPI.addKudos(proofId, kudosAmount);
-				const currentKudos = talentView
+				const { data, status } = await kudosAPI.addKudos(
+					proofId,
+					kudosedSkills,
+				);
+				updateSkills(kudosedSkills);
+				const currentKudos = !isNaN(talentView)
 					? data.current_count_kudos
 					: data.current_sum_kudos_by_sponsor;
 
 				dispatch(setKudos(data.current_sponsor_balance));
-				return { currentKudos, status };
+				return {
+					currentKudos,
+					status,
+					sponsorKudos: data.current_sum_kudos_by_sponsor,
+				};
 			} catch (error) {
 				dispatch(setSystemMessage(true, error.message, 'error'));
 			}
@@ -45,7 +84,7 @@ export const KudosContainer = memo(
 		return (
 			<Kudos
 				{...{
-					kudosed_by_me,
+					sum_kudos_from_me,
 					kudos,
 					addingKudos,
 					isDisabled,
@@ -55,6 +94,8 @@ export const KudosContainer = memo(
 					openMenu,
 					setOpenMenu,
 					clickOnKudos,
+					messageForUser,
+					skills,
 				}}
 			/>
 		);

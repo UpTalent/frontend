@@ -42,12 +42,7 @@ export const CreateProof = () => {
 
 	const tabLabels = ['WRITE', 'PREVIEW'];
 	const tabContent = [
-		<ProofForm
-			proof={proof}
-			updateTempProof={setProof}
-			mode={mode}
-			setError={value => dispatch(setError(value))}
-		/>,
+		<ProofForm updateTempProof={setProof} {...{ proof, mode }} />,
 		<Proof
 			proof={proof}
 			withContent={true}
@@ -58,12 +53,7 @@ export const CreateProof = () => {
 
 	return (
 		<>
-			<Dialog
-				open={open}
-				onClose={handleClose}
-				scroll='paper'
-				sx={{ '& .MuiDialog-paper': { padding: '20px' } }}
-			>
+			<Dialog open={open} onClose={handleClose} scroll='paper'>
 				{fetchingProgress ? (
 					<div className='loaderContainer'>
 						<CircularProgress />

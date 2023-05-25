@@ -14,6 +14,7 @@ import {
 } from './redux/reducers/authentification';
 import { Loader } from './components/shared/Loader';
 import { PopUpMessage } from './components/shared/PopUpMessage';
+import { getSkills } from './redux/reducers/skills';
 
 const App = () => {
 	const location = useLocation();
@@ -26,6 +27,7 @@ const App = () => {
 		if (role === 'sponsor') {
 			dispatch(getKudos());
 		}
+		dispatch(getSkills());
 	}, [role]);
 
 	return (
