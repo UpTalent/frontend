@@ -27,15 +27,20 @@ export const SelectSkills = ({
 		setList(list.filter(el => el.name !== value.name));
 	};
 
+	const isKudosValid = (kudos, maxValue) => {
+		return (
+			kudos <= maxValue &&
+			kudos <= MAX_KUDOS &&
+			Number.isInteger(Number(kudos)) &&
+			kudos >= 0
+		);
+	};
+
 	const addKudos = (event, id) => {
 		const current = event.target.value;
 		let kudosAmount = 0;
-		if (
-			current <= balance &&
-			current <= MAX_KUDOS &&
-			Number.isInteger(Number(current)) &&
-			current >= 0
-		) {
+    
+		if (isKudosValid(current, balance)) {
 			kudosAmount = Number(current);
 		} else if (current >= balance || current >= MAX_KUDOS) {
 			kudosAmount = balance;
@@ -98,7 +103,7 @@ export const SelectSkills = ({
 					))}
 			</div>
 			{kudosedAll && (
-				<AddToAll {...{ balance, skills, setTotalKudos, value, setValue }} />
+				<AddToAll {...{ balance, skills, setTotalKudos, value, setValue, isKudosValid }} />
 			)}
 			<div className={styles.selectButtons}>
 				{skills.length > list.length && (
