@@ -3,18 +3,10 @@ import React from 'react';
 import { GeneralTalent } from './components/GeneralTalent';
 import { PagesGrid } from '../shared/Grid';
 import { useSelector } from 'react-redux';
-<<<<<<< HEAD
-import {
-	getGridList,
-	getTalentsList,
-} from '../../redux/reducers/dataList';
-import { withURL } from '../../service/HOC/withURL';
-=======
 import { getGridList, getTalentsList } from '../../redux/reducers/dataList';
 import { withURL } from '../../service/HOC/withURL';
 import { Filter } from './components/Filter/Filter';
 import { NothingToDisplay } from '../shared/NothingToDisplay';
->>>>>>> a06e41fa14f61724325e3acec0a05615e05104b0
 
 const TalentsPage = ({ total_pages, filterHandler, filterItems }) => {
 	const talentList = useSelector(getGridList);
