@@ -19,14 +19,13 @@ export const TalentsControl = ({ status, proofId }) => {
 	const [action, setAction] = useState({ action: '', buttonHandler: null });
 	const [searchParams, setSearchParams] = useSearchParams();
 
-
 	const dispatch = useStoreDispatch();
 	const talentId = useSelector(getAuthId);
 
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	useEffect(() => {
+	const changeAction = status => {
 		switch (status) {
 			case 'HIDDEN':
 				setAction({
@@ -43,10 +42,15 @@ export const TalentsControl = ({ status, proofId }) => {
 			default:
 				break;
 		}
+	};
+
+	useEffect(() => {
+		changeAction(status);
 	}, []);
 
 	const handleControllClick = () => {
 		if (status !== 'DRAFT') {
+			changeAction(status);
 			setOpenConfirm(true);
 		} else {
 			dispatch(fetchProof({ talentId, proofId }));
@@ -76,11 +80,11 @@ export const TalentsControl = ({ status, proofId }) => {
 			<Tooltip
 				title='Delete proof'
 				onClick={() => {
-					setOpenConfirm(true);
 					setAction({
 						action: 'DELETE',
 						buttonHandler: deleteTalentProof,
 					});
+					setOpenConfirm(true);
 				}}
 			>
 				<IconButton>

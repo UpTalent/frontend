@@ -29,15 +29,22 @@ export const SelectSkills = ({
 
 	const addKudos = (event, id) => {
 		const current = event.target.value;
-		const kudosAmount = { kudos: Number(current) };
-		if (current >= balance || current >= MAX_KUDOS) {
-			kudosAmount.kudos = balance;
+		let kudosAmount = 0;
+		if (
+			current <= balance &&
+			current <= MAX_KUDOS &&
+			Number.isInteger(Number(current)) &&
+			current >= 0
+		) {
+			kudosAmount = Number(current);
+		} else if (current >= balance || current >= MAX_KUDOS) {
+			kudosAmount = balance;
 		}
 
 		setList(prev =>
 			prev.map((el, index) => {
 				if (index === id) {
-					return { ...el, ...kudosAmount };
+					return { ...el, kudos: kudosAmount };
 				}
 				return el;
 			}),
