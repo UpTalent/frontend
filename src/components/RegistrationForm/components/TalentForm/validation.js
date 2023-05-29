@@ -26,4 +26,5 @@ export const validationSchema = Yup.object({
 			/^[a-zA-Z]+(-[a-zA-Z]+)?[a-zA-Z]*$/,
 			'Only English letters and one "-" character in the middle allowed ',
 		),
+	skills: Yup.array().max(62, 'Max number of skills is 62'),
 });
