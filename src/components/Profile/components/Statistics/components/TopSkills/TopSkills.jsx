@@ -20,7 +20,6 @@ export const TopSkills = ({ skills }) => {
 			<img src={medals[index]} alt='medal' />
 			<Skill
 				skill={skill.name}
-				inSlider={true}
 				additionalStyle={styles[`top${index}`] + ` ${styles.skill}`}
 			/>
 			<p>{formatNumber(skill.kudos)} Kudos</p>

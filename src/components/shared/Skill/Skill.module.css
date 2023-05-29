@@ -1,6 +1,6 @@
 .Skill {
 	border-radius: 100px;
-	width: fit-content;
+	width: max-content;
 	padding: 12px;
 	display: flex;
 	align-items: center;
@@ -10,21 +10,29 @@
 
 .Skill p {
 	text-align: center;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 	font-size: 10px;
 	color: white;
 	text-transform: uppercase;
 	font-weight: 400;
 }
 
-/* .kudosAmount {
-	background-color: beige;
-	border-radius: 50%;
-	margin: 0px 3px;
-	min-width: 15px;
-	min-height: 15px;
-	padding: 2px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: x-small;
+/* .showFull {
+	width: 120px;
+}
+.showFull > div {
+	max-width: 120px;
+	transition: all 0.3s ease-in;
+}
+
+.showFull:hover > div {
+	overflow: visible;
+	max-width: max-content;
+	transform: scale(1.1) translateY(-5px) translateX(-5px);
+}
+
+.showFull:hover p {
+	overflow: visible;
 } */
