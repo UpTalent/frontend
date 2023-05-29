@@ -28,6 +28,5 @@ export const validationSchema = Yup.object({
 	about_me: Yup.string()
 		.max(2250, 'Must be less than 2250 characters')
 		.nullable(),
-	skills: Yup.array()
-			.max(38, 'Max number of skills is 38')
+	skills: Yup.array().max(62, 'Max number of skills is 62'),
 });
