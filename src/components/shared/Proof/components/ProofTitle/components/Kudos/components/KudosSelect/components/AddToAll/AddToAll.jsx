@@ -10,11 +10,12 @@ export const AddToAll = ({
 	setTotalKudos,
 	value,
 	setValue,
+	isKudosValid,
 }) => {
 	const [max] = useState(Math.floor(balance / skills.length));
 	const handleChange = e => {
 		const current = e.target.value;
-		if (current <= max && current <= MAX_KUDOS) {
+		if (isKudosValid(current, max)) {
 			setValue(Number(current));
 		} else if (current >= max || current >= MAX_KUDOS) {
 			setValue(max);
