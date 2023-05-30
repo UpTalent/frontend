@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './SliderTalent.module.css';
 import { Skill } from '../../Skill';
 import { TalentAvatar } from '../../TalentAvatar';
+import { formatSliderText } from '../../Proof/Proof';
 
 export const SliderTalent = ({ talent }) => {
 	const bannerStyle = {
@@ -17,11 +18,7 @@ export const SliderTalent = ({ talent }) => {
 		.map(skill => (
 			<Skill
 				key={skill.id}
-				skill={
-					skill.name.length > 12
-						? skill.name.substring(0, 12) + '...'
-						: skill.name
-				}
+				skill={formatSliderText(skill.name, 12)}
 				id={skill.id}
 			/>
 		));

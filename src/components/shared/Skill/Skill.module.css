@@ -4,7 +4,6 @@
 	padding: 12px;
 	display: flex;
 	align-items: center;
-	white-space: nowrap;
 	height: 15px;
 }
 
@@ -19,20 +18,6 @@
 	font-weight: 400;
 }
 
-/* .showFull {
-	width: 120px;
-}
-.showFull > div {
+.showFull p{
 	max-width: 120px;
-	transition: all 0.3s ease-in;
 }
-
-.showFull:hover > div {
-	overflow: visible;
-	max-width: max-content;
-	transform: scale(1.1) translateY(-5px) translateX(-5px);
-}
-
-.showFull:hover p {
-	overflow: visible;
-} */

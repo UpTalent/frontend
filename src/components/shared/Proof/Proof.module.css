@@ -135,6 +135,6 @@
 .skillsSlider > div p {
 	font-size: 0.4rem;
 }
-.skillsSlider > div:last-child > div {
+.skillsSlider > div:last-child > div > div {
 	padding: 2px 8px;
 }
