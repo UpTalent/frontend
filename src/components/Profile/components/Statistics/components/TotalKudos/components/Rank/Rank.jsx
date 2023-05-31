@@ -11,9 +11,14 @@ export const Rank = ({ rank }) => {
 				<IconButton onClick={() => setShowInfo(true)}>
 					<InfoOutlined fontSize='small' />
 				</IconButton>
-				Rank: {rank}
+				Rank: {rank.rank}
 			</p>
 			<RankInfoModal {...{ showInfo, setShowInfo }} />
+			<img
+				src={rank.icon}
+				alt={rank}
+				style={{ width: '100px', height: '100px' }}
+			/>
 		</>
 	);
 };
