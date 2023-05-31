@@ -46,6 +46,7 @@
 	width: 40px;
 }
 
+.totalKudos,
 .statsConatiner,
 .skills,
 .skillItem {
@@ -55,6 +56,11 @@
 
 .skillArea {
 	gap: 50px;
+}
+
+.totalKudos{
+	flex-direction: column;
+	gap: 20px;
 }
 
 .skills {

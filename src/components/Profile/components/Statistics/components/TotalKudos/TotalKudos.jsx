@@ -15,24 +15,29 @@ export const TotalKudos = ({ kudos }) => {
 				((kudos - talentRank[i - 1]?.kudos) * 100) /
 					(talentRank[i].kudos - talentRank[i - 1]?.kudos),
 			);
-			rank = talentRank[i - 1]?.rank || 'Trainee';
+			rank = talentRank[i - 1] || 'Trainee Kitten';
 			break;
 		}
-		rank = talentRank.at(-1).rank;
+		rank = talentRank.at(-1);
 	}
 
 	rankProgress = rankProgress > 100 ? '100%' : `${rankProgress || 0}%`;
 
 	return (
 		<StatsElement title={'Total kudos count:'}>
-			<Rank rank={rank} />
-			<Tooltip title={`${kudos} kudos`} arrow>
-				<div className={styles.progressBar}>
-					<div style={{ width: rankProgress }} className={styles.filling}></div>
-					{rankProgress}
-				</div>
-			</Tooltip>
-			{formatNumber(kudos)} Kudos
+			<div className={styles.totalKudos}>
+				<Rank rank={rank} />
+				<Tooltip title={`${kudos} kudos`} arrow>
+					<div className={styles.progressBar}>
+						<div
+							style={{ width: rankProgress }}
+							className={styles.filling}
+						></div>
+						{rankProgress}
+					</div>
+				</Tooltip>
+				{formatNumber(kudos)} Kudos
+			</div>
 		</StatsElement>
 	);
 };

@@ -5,6 +5,10 @@ import { ProofTitle } from './components/ProofTitle';
 import { ProofSummary } from './components/ProofSummary/ProofSummary';
 import { ProofBody } from './components/ProofBody/ProofBody';
 
+export const formatSliderText = (text, maxNum) => {
+	return text.length > maxNum ? text.substring(0, maxNum) + '...' : text;
+};
+
 export const Proof = ({
 	proof,
 	withContent,
@@ -15,9 +19,6 @@ export const Proof = ({
 }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
 
-	const formatSliderText = (text, maxNum) => {
-		return text.length > maxNum ? text.substring(0, maxNum) + '...' : text;
-	};
 	const summaryForSlider = formatSliderText(proof.summary, 50);
 	const titleForSlider = formatSliderText(proof.title, 60);
 	const skillsForSlider = proof.skills.map(el => ({
