@@ -14,7 +14,10 @@ export const RankInfoModal = ({ showInfo, setShowInfo }) => {
 				<div>
 					{talentRank.map((rank, index) => (
 						<div className={styles.rankItem} key={index}>
-							<h3>{rank.rank}</h3>
+							<div className={styles.rank}>
+								<img src={rank.icon} alt={rank.rank} />
+								<h3>{rank.rank}</h3>
+							</div>
 							<b>
 								{rank.kudos + 1} - {talentRank[index + 1]?.kudos || 'and more'}{' '}
 								Kudos

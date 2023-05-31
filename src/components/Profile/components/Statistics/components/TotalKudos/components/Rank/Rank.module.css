@@ -1,30 +1,41 @@
 .container {
-    padding: 20px;
-    border: 3px solid var(--primary);
-    margin: 10px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    font-weight: 300;
+	padding: 20px;
+	border: 3px solid var(--primary);
+	margin: 10px;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	font-weight: 300;
 }
 
 .container h3 {
-    text-align: center;
-    font-weight: 300;
-    text-transform: uppercase;
+	text-align: center;
+	font-weight: 300;
+	text-transform: uppercase;
 }
 
-.container h3  b {
-    color: var(--primary);
-    font-weight: 400;
+.container h3 b {
+	color: var(--primary);
+	font-weight: 400;
 }
 
 .rankItem {
+	display: flex;
+	gap: 10px;
+	justify-content: space-between;
+	padding-bottom: 5px;
+	border-bottom: 2px solid var(--secondary);
+	margin-bottom: 5px;
+}
+
+.rank {
     display: flex;
-    gap: 10px;
-    justify-content: space-between;
-    padding-bottom: 5px;
-    border-bottom: 2px solid var(--secondary);
-    margin-bottom: 5px;
+    gap: 15px;
+    align-items: center;
+}
+
+.rank img {
+	width: 30px;
+	height: 30px;
 }

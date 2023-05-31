@@ -15,10 +15,10 @@ export const TotalKudos = ({ kudos }) => {
 				((kudos - talentRank[i - 1]?.kudos) * 100) /
 					(talentRank[i].kudos - talentRank[i - 1]?.kudos),
 			);
-			rank = talentRank[i - 1]?.rank || 'Trainee Kitten';
+			rank = talentRank[i - 1] || 'Trainee Kitten';
 			break;
 		}
-		rank = talentRank.at(-1).rank;
+		rank = talentRank.at(-1);
 	}
 
 	rankProgress = rankProgress > 100 ? '100%' : `${rankProgress || 0}%`;
