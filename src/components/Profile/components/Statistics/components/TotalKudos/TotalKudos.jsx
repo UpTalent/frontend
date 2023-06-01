@@ -15,7 +15,7 @@ export const TotalKudos = ({ kudos }) => {
 				((kudos - talentRank[i - 1]?.kudos) * 100) /
 					(talentRank[i].kudos - talentRank[i - 1]?.kudos),
 			);
-			rank = talentRank[i - 1] || 'Trainee Kitten';
+			rank = talentRank[i - 1] || talentRank[0];
 			break;
 		}
 		rank = talentRank.at(-1);
