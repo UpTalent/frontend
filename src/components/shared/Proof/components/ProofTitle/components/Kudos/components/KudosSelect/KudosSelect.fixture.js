@@ -1,9 +1,9 @@
 import React from 'react';
 import { KudosSelect } from './KudosSelect';
-import { forCosmos } from '../../../../../../../../../service/HOC/forCosmos';
 
-const Kudosselect = () => {
-	return (
+export default {
+	KudosSelectWithoutProps: <KudosSelect open={true} skills={[]} />,
+	KudosSelectWithProps: (
 		<KudosSelect
 			open={true}
 			skills={[
@@ -12,7 +12,5 @@ const Kudosselect = () => {
 				{ id: 3, name: 'Js' },
 			]}
 		/>
-	);
+	),
 };
-
-export default forCosmos(Kudosselect);
