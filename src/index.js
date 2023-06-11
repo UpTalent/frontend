@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material'
 import { router } from './routes/router'
 
-const theme = createTheme({
+export const theme = createTheme({
 	palette: {
 		primary: {
 			main: '#48BDE2',
