@@ -1,0 +1,23 @@
+{
+    "routes": [
+      {
+        "route": "/*.{css,js}"
+      },
+      {
+        "route": "/*.{png,svg,webp,jpg,gif,ico}"
+      },
+      {
+        "route": "/*.{txt,json,map}"
+      },
+      {
+        "route": "/favicon/*.{json}"
+      },
+      {
+        "route": "/*.{ttf,otf,ps,woff,eot}"
+      },
+      {
+        "route": "/*",
+        "rewrite": "/index.html"
+      }
+    ]
+  }
