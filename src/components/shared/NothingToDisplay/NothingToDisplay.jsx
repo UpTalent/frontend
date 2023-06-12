@@ -10,7 +10,7 @@ export const NothingToDisplay = ({ searchData }) => {
 		<div className={styles.NothingToDisplay}>
             <img src={cat} alt={cat} />
 			<p className={styles.text}>
-				No results matching <b>{viewSearch}</b>
+				No results matching <b>{viewSearch || 'your request'}</b>
 			</p>
 		</div>
 	);

@@ -22,7 +22,7 @@ const TalentsPage = ({ total_pages, filterHandler, filterItems }) => {
 			{talentList.length ? (
 				<PagesGrid gridItems={talentsList} {...{ total_pages }} />
 			) : (
-				<NothingToDisplay />
+				<NothingToDisplay searchData={filterItems} />
 			)}
 		</>
 	);
