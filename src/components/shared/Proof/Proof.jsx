@@ -4,6 +4,9 @@ import styles from './Proof.module.css';
 import { ProofTitle } from './components/ProofTitle';
 import { ProofSummary } from './components/ProofSummary/ProofSummary';
 import { ProofBody } from './components/ProofBody/ProofBody';
+import { useSelector } from 'react-redux';
+import { getIsAuth } from '../../../redux/reducers/authentification';
+import { Author } from './components/ProofTitle/components/Author';
 
 export const formatSliderText = (text, maxNum) => {
 	return text.length > maxNum ? text.substring(0, maxNum) + '...' : text;
@@ -18,7 +21,7 @@ export const Proof = ({
 	inSlider,
 }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(inForm);
-
+	const isAuth = useSelector(getIsAuth);
 	const summaryForSlider = formatSliderText(proof.summary, 50);
 	const titleForSlider = formatSliderText(proof.title, 60);
 	const skillsForSlider = proof.skills.map(el => ({
@@ -66,6 +69,9 @@ export const Proof = ({
 					</AccordionSummary>
 					<AccordionDetails>
 						<ProofSummary summary={proof.summary} />
+						{isAuth && !showControlls && proof.author && (
+							<Author {...proof.author} />
+						)}
 						{withContent && <ProofBody content={proof.content} />}
 					</AccordionDetails>
 				</Accordion>
