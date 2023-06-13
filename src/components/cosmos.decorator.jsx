@@ -4,11 +4,14 @@ import '../App.css';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '../index.js';
 import { store } from '../redux/store';
+import { Router } from 'react-router-dom';
 
 const decorator = ({ children }) => {
 	return (
 		<ThemeProvider theme={theme}>
-			<Provider store={store}>{children}</Provider>
+			{/* <Router> */}
+				<Provider store={store}>{children}</Provider>
+			{/* </Router> */}
 		</ThemeProvider>
 	);
 };
