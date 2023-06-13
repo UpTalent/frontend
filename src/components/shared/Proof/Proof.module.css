@@ -83,9 +83,11 @@
 .authorBlock {
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
 	gap: 10px;
 	cursor: pointer;
+	max-width: max-content;
+	float: right;
+	margin-bottom: 10px;
 }
 
 .authorBlock:hover {

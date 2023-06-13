@@ -6,7 +6,7 @@ import { ProofSummary } from './components/ProofSummary/ProofSummary';
 import { ProofBody } from './components/ProofBody/ProofBody';
 import { useSelector } from 'react-redux';
 import { getIsAuth } from '../../../redux/reducers/authentification';
-import { Author } from './components/ProofTitle/components/Author';
+import { Author } from './components/Author';
 
 export const formatSliderText = (text, maxNum) => {
 	return text.length > maxNum ? text.substring(0, maxNum) + '...' : text;
