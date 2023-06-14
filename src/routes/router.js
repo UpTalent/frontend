@@ -103,6 +103,10 @@ export const router = createBrowserRouter([
 				path: 'verify/*',
 				element: <VerifyEmail />,
 			},
+			{
+				path: 'vacancy/:vacancyId',
+				element: <div>Vacancy</div>
+			}
 		],
 	},
 ]);

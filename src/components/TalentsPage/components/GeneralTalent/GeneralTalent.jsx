@@ -7,13 +7,10 @@ import { Banner } from '../../../shared/Banner';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getIsAuth } from '../../../../redux/reducers/authentification';
+import { SkillBox } from '../../../shared/SkillBox';
 
 export const GeneralTalent = ({ talent }) => {
 	const isTalent = useSelector(getIsAuth);
-
-	const skills = talent.skills
-		.slice(0, 3)
-		.map(skill => <Skill key={skill.id} skill={skill.name} id={skill.id} inSlider={true} />);
 
 	return (
 		<div className={styles.GeneralTalent}>
@@ -24,7 +21,11 @@ export const GeneralTalent = ({ talent }) => {
 			/>
 			<div className={styles.talentInfo}>
 				<h4>{`${talent.firstname} ${talent.lastname}`}</h4>
-				<div className={styles.skillBox}>{skills}</div>
+				<SkillBox
+					inSlider={true}
+					skills={talent.skills.slice(0, 3)}
+					additionalStyle={styles.skillBox}
+				/>
 				{isTalent && (
 					<Button
 						component={Link}
