@@ -80,6 +80,20 @@
 	font-size: 15px;
 }
 
+.authorBlock {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	max-width: max-content;
+	float: right;
+	margin-bottom: 10px;
+}
+
+.authorBlock:hover {
+	color: var(--primary);
+}
+
 .talentsControls {
 	display: flex;
 	gap: 10px;
