@@ -10,7 +10,8 @@ export const Author = ({ id, name, avatar }) => {
 	const navigate = useNavigate();
 	const role = useSelector(getRole);
 	const handleClick = () => {
-		role === 'talent' && navigate(`/profile/talent/${id}`);
+		// role === 'talent' && navigate(`/profile/talent/${id}`);
+		navigate(`/profile/talent/${id}`);
 	};
 	return (
 		<div className={styles.authorBlock} onClick={handleClick}>
