@@ -1,19 +1,21 @@
 import React from 'react';
 import styles from '../../Vacancy.module.css';
 import { Author } from '../../../shared/Proof/components/Author';
-import { TimeStapm } from '../../../shared/Proof/components/ProofTitle/components/TimeStamp';
+import { SkillBox } from '../../../shared/SkillBox';
+import { useNavigate } from 'react-router-dom';
 
-export const VacancyGeneral = ({ title, published, author, skills }) => {
+export const VacancyGeneral = ({ title, published, author, skills, id }) => {
+	const navigate = useNavigate();
+	
 	return (
-		<div className={styles.vacancyGeneral}>
+		<div className={styles.vacancyGeneral} >
 			<div className={styles.authorBlock}>
-				<Author {...author} />
-				<TimeStapm published={published} />
+				<Author {...author} timestamp={published} authorRole={'sponsor'} />
 			</div>
-            <div className={styles.mainInfo}>
-                <h3>{title}</h3>
-                
-            </div>
+			<div className={styles.mainInfo} onClick={() => navigate(`/vacancy/${id}`)}>
+				<h3>{title}</h3>
+				<SkillBox skills={skills} />
+			</div>
 		</div>
 	);
 };

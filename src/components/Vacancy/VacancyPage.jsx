@@ -5,8 +5,11 @@ import styles from './Vacancy.module.css';
 import { CircularProgress } from '@mui/material';
 import { Author } from '../shared/Proof/components/Author';
 import { TimeStapm } from '../shared/Proof/components/ProofTitle/components/TimeStamp';
+import { vacancy } from './Vacancy.fixture';
+import { VacancyGeneral } from './components/VacancyGeneral/VacancyGeneral';
+import { SkillBox } from '../shared/SkillBox';
 
-export const VacancyPage = vacancy => {
+export const VacancyPage = () => {
 	// const { vacancyId } = useParams();
 	// const [vacancy, setVacancy] = useState(null);
 
@@ -22,9 +25,19 @@ export const VacancyPage = vacancy => {
 			{vacancy ? (
 				<>
 					<h1>{vacancy.title}</h1>
-					<Author {...vacancy.author} />
-					<TimeStapm published={vacancy.published} />
-					<div className={styles.content}>{vacancy.content}</div>
+					<div className={styles.author}>
+						<Author {...vacancy.author} authorRole={'sponsor'} />
+						<TimeStapm published={vacancy.published} />
+					</div>
+					<div className={styles.content}>
+						<aside className={styles.extraBlock}>
+							<div className={styles.extraItem}>
+								<p>Required: </p>
+								<SkillBox skills={vacancy.skills} />
+							</div>
+						</aside>
+						<div>{vacancy.content}</div>
+					</div>
 				</>
 			) : (
 				<CircularProgress />

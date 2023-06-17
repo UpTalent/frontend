@@ -90,8 +90,12 @@
 	margin-bottom: 10px;
 }
 
-.authorBlock:hover {
+.authorName:hover h4{
 	color: var(--primary);
+}
+
+.authorBlock time {
+	font-weight: 200;
 }
 
 .talentsControls {

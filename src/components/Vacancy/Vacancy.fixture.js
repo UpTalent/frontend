@@ -1,7 +1,7 @@
 import React from 'react';
 import { VacancyPage } from './VacancyPage';
 
-const vacancy = {
+export const vacancy = {
 	id: 0,
 	title: 'Required designer for new social media',
 	content: `Required skills
@@ -45,5 +45,5 @@ const vacancy = {
 };
 
 export default {
-	VacancyPage: <VacancyPage vacancy={vacancy} />,
+	// VacancyPage: <VacancyPage vacancy={vacancy} />,
 };

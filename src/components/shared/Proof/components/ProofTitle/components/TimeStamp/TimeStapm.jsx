@@ -4,22 +4,28 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Moment from 'react-moment';
 import { Tooltip } from '@mui/material';
 import moment from 'moment';
+import { DisabledText } from '../../../../../DisabledText/DisabledText';
 
-export const TimeStapm = ({ published }) => {
+export const TimeStapm = ({ published, justTime }) => {
 	const week = 604800000;
 
 	return (
-		<Tooltip title={moment(published).format('MMMM Do YYYY, HH:mm')} arrow placement='top'>
+		<DisabledText
+			condition={!justTime}
+			helperText={moment(published).format('MMMM Do YYYY, HH:mm')}
+		>
 			<div className={styles.timeStamp}>
 				{published && (
 					<>
-						<AccessTimeIcon color='action' sx={{ fontSize: 'inherit' }} />
+						{!justTime && (
+							<AccessTimeIcon color='action' sx={{ fontSize: 'inherit' }} />
+						)}
 						<Moment format='MMM, DD, YYYY' fromNowDuring={week}>
 							{published}
 						</Moment>
 					</>
 				)}
 			</div>
-		</Tooltip>
+		</DisabledText>
 	);
 };
