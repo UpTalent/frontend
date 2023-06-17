@@ -5,20 +5,18 @@ import styles from './Vacancy.module.css';
 import { CircularProgress } from '@mui/material';
 import { Author } from '../shared/Proof/components/Author';
 import { TimeStapm } from '../shared/Proof/components/ProofTitle/components/TimeStamp';
-import { vacancy } from './Vacancy.fixture';
-import { VacancyGeneral } from './components/VacancyGeneral/VacancyGeneral';
 import { SkillBox } from '../shared/SkillBox';
 
 export const VacancyPage = () => {
-	// const { vacancyId } = useParams();
-	// const [vacancy, setVacancy] = useState(null);
+	const { vacancyId } = useParams();
+	const [vacancy, setVacancy] = useState(null);
 
-	// const fetchVacancy = async () => {
-	// 	const { data } = await vacancAPI.getVacancy(vacancyId);
-	// 	setVacancy(data);
-	// };
+	const fetchVacancy = async () => {
+		const { data } = await vacancAPI.getVacancy(vacancyId);
+		setVacancy(data);
+	};
 	useEffect(() => {
-		// fetchVacancy();
+		fetchVacancy();
 	}, []);
 	return (
 		<div className={styles.vacancyContainer}>
