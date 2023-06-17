@@ -1,0 +1,74 @@
+.vacancyContainer {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	margin: 20px;
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	justify-content: center;
+    width: 80%;
+}
+
+.vacancyContainer h1,
+p {
+	font-weight: 300;
+}
+
+.author {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.content {
+	display: flex;
+	gap: 30px;
+}
+.extraBlock {
+	border: 1px solid #c8c4c4;
+	border-radius: 20px;
+	min-width: 300px;
+	padding: 15px;
+	height: fit-content;
+}
+
+.extraItem {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.vacancyGeneral {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 15px;
+	padding: 20px;
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+}
+
+.authorBlock {
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid #817979;
+}
+
+.vacancyGeneral:hover {
+	box-shadow: 0px 4px 4px var(--primary);
+}
+.vacancyGeneral:hover .mainInfo{
+    cursor: pointer;
+}
+
+.mainInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media screen and (max-width: 700px) {
+	.content {
+		flex-direction: column;
+	}
+}

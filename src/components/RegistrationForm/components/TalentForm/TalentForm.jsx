@@ -1,5 +1,5 @@
-import { Autocomplete, Button, Checkbox, TextField, Typography } from '@mui/material';
-import { Field, Form, Formik } from 'formik';
+import { Button, Typography } from '@mui/material';
+import { Form, Formik } from 'formik';
 import styles from '../../../LoginForm/Forms.module.css';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { useStoreDispatch } from '../../../../redux/store';
 import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../../../redux/reducers/skills';
 import { useEffect } from 'react';
+import { FieldForSkills } from '../../../shared/FieldForSkills/FieldForSkills';
 
 export const TalentForm = ({ register }) => {
 	const navigate = useNavigate();
@@ -72,46 +73,7 @@ export const TalentForm = ({ register }) => {
 						required={true}
 						icon={<LockOutlinedIcon />}
 					/>
-					<Field
-						name='skills'
-						component={Autocomplete}
-						options={skills}
-						getOptionLabel={option => option.name}
-						disableCloseOnSelect
-						renderOption={(props, option, { selected }) => (
-							<li {...props}>
-								<Checkbox style={{ marginRight: 8 }} checked={selected} />
-								{option.name}
-							</li>
-						)}
-						renderInput={(params, i) => (
-							<TextField
-								key={i}
-								{...params}
-								name='skill'
-								label='Skills'
-								variant='outlined'
-							/>
-						)}
-						sx={{
-							'& .MuiAutocomplete-tag': {
-								backgroundColor: '#48bde2',
-								color: '#fff',
-							},
-							maxWidth: '470px',
-						}}
-						multiple
-						limitTags={3}
-						fullWidth
-						onChange={(event, value) => {
-							const selectedSkills = value.map(skill => ({
-								id: skill.id,
-								name: skill.name,
-							}));
-							setFieldValue('skills', selectedSkills);
-						}}
-						isOptionEqualToValue={(option, value) => option.id === value.id}
-					/>
+					<FieldForSkills setFieldValue={setFieldValue} />
 					<Button
 						type='submit'
 						variant='contained'

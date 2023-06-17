@@ -5,17 +5,21 @@ import defaultAvatar from '../../../../../assets/defaultTalent.png';
 import styles from '../../Proof.module.css';
 import { useSelector } from 'react-redux';
 import { getRole } from '../../../../../redux/reducers/authentification';
+import { TimeStapm } from '../ProofTitle/components/TimeStamp';
 
-export const Author = ({ id, name, avatar }) => {
+export const Author = ({ id, name, avatar, timestamp, authorRole }) => {
 	const navigate = useNavigate();
 	const role = useSelector(getRole);
 	const handleClick = () => {
-		role === 'talent' && navigate(`/profile/talent/${id}`);
+		authorRole === 'talent' && navigate(`/profile/talent/${id}`);
 	};
 	return (
 		<div className={styles.authorBlock} onClick={handleClick}>
 			<Avatar src={avatar || defaultAvatar} sx={{ width: 40, height: 40 }} />
-			<div>{name}</div>
+			<div className={authorRole && styles.authorName}>
+				<h4>{name}</h4>
+				<TimeStapm published={timestamp} justTime={true} />
+			</div>
 		</div>
 	);
 };

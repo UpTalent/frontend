@@ -1,10 +1,4 @@
-import {
-	Autocomplete,
-	Button,
-	Checkbox,
-	InputAdornment,
-	TextField,
-} from '@mui/material';
+import { Button, InputAdornment, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import styles from './FormInsideFormik.module.css';
 import { Form, Field, useFormikContext } from 'formik';
@@ -21,6 +15,7 @@ import { Markdown } from '../../../../shared/FormField/components/Markdown/Markd
 import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../../../../redux/reducers/skills';
 import { DisabledText } from '../../../../shared/DisabledText/DisabledText';
+import { FieldForSkills } from '../../../../shared/FieldForSkills/FieldForSkills';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { isValid, touched, errors, setFieldValue, values, validateForm } =
@@ -144,49 +139,8 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 					),
 				}}
 			/>
-			<Field
-				name='skills'
-				component={Autocomplete}
-				options={skills}
-				getOptionLabel={option => option.name}
-				renderInput={(params, i) => (
-					<TextField
-						label='Skills'
-						key={i}
-						{...params}
-						name='skill'
-						variant='outlined'
-						error={errors.skills}
-						helperText={errors.skills}
-					/>
-				)}
-				disableCloseOnSelect
-				renderOption={(props, option, { selected }) => (
-					<li {...props}>
-						<Checkbox style={{ marginRight: 8 }} checked={selected} />
-						{option.name}
-					</li>
-				)}
-				sx={{
-					'& .MuiAutocomplete-tag': {
-						backgroundColor: '#48bde2',
-						color: '#fff',
-					},
-					maxWidth: '500px',
-				}}
-				multiple
-				limitTags={3}
-				fullWidth
-				onChange={(event, value) => {
-					const selectedSkills = value.map(skill => ({
-						id: skill.id,
-						name: skill.name,
-					}));
-					setFieldValue('skills', selectedSkills);
-					saveProof({ ...proof, skills: selectedSkills });
-				}}
-				value={values.skills}
-				isOptionEqualToValue={(option, value) => option.id === value.id}
+			<FieldForSkills
+				{...{ setFieldValue, values, proof, saveProof, errors }}
 			/>
 			<div className={styles.buttonGroup}>
 				<Button

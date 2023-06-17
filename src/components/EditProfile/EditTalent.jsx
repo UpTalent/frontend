@@ -1,10 +1,4 @@
-import {
-	Autocomplete,
-	Button,
-	Checkbox,
-	InputAdornment,
-	TextField,
-} from '@mui/material';
+import { Button, InputAdornment, TextField } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { FormField } from '../shared/FormField';
@@ -16,6 +10,7 @@ import { Markdown } from '../shared/FormField/components/Markdown/Markdown';
 import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../redux/reducers/skills';
 import { useStoreDispatch } from '../../redux/store';
+import { FieldForSkills } from '../shared/FieldForSkills/FieldForSkills';
 
 const EditTalent = ({ user, edit }) => {
 	let initialEditData = {
@@ -50,49 +45,7 @@ const EditTalent = ({ user, edit }) => {
 					</div>
 					<FormField label='Location' name='location' type='text' />
 					<FormField label='Birthday' name='birthday' type='date' />
-					<Field
-						name='skills'
-						component={Autocomplete}
-						options={skills}
-						getOptionLabel={option => option.name}
-						renderInput={(params, i) => (
-							<TextField
-								label='Skills'
-								key={i}
-								{...params}
-								name='skill'
-								variant='outlined'
-								error={errors.skills}
-								helperText={errors.skills}
-							/>
-						)}
-						disableCloseOnSelect
-						renderOption={(props, option, { selected }) => (
-							<li {...props}>
-								<Checkbox style={{ marginRight: 8 }} checked={selected} />
-								{option.name}
-							</li>
-						)}
-						sx={{
-							'& .MuiAutocomplete-tag': {
-								backgroundColor: '#48bde2',
-								color: '#fff',
-							},
-							maxWidth: '500px',
-						}}
-						multiple
-						limitTags={3}
-						fullWidth
-						onChange={(event, value) => {
-							const selectedSkills = value.map(skill => ({
-								id: skill.id,
-								name: skill.name,
-							}));
-							setFieldValue('skills', selectedSkills);
-						}}
-						value={values.skills}
-						isOptionEqualToValue={(option, value) => option.id === value.id}
-					/>
+					<FieldForSkills {...{ setFieldValue, values, errors }} />
 					<Field
 						label='About me'
 						name='about_me'
@@ -119,10 +72,7 @@ const EditTalent = ({ user, edit }) => {
 						>
 							SAVE
 						</Button>
-						<DeleteProfile
-							userId={user.id}
-							role={'talent'}
-						/>
+						<DeleteProfile userId={user.id} role={'talent'} />
 					</div>
 				</Form>
 			)}
