@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import React from 'react';
-import styles from './ConfirmationMessage.module.css';
-import { proofActions } from '../../../../../assets/static/proofActions';
+import styles from '../../../../CreateProof/components/ProofForm/FormInsideFormik/FormInsideFormik.module.css';
+import { Actions } from '../../../../../assets/static/Actions';
 
 export const ConfirmationMessage = ({
 	action,
@@ -9,7 +9,7 @@ export const ConfirmationMessage = ({
 	handleConfim,
 	buttonHandler,
 }) => {
-	const proofAction = proofActions.find(item => item.action === action);
+	const proofAction = Actions.find(item => item.action === action);
 	const color = proofAction.action === 'DELETE' ? 'secondary' : 'primary';
 
 	const closeConfirm = () => {

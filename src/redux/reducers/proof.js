@@ -3,7 +3,7 @@ import { proofAPI } from '../../api/proofAPI';
 import { setSystemMessage } from './systemMessages';
 import { deleteProofFromList, getTalentsProofs } from './talentsProof';
 
-const prepareProof = proof => {
+export const prepareProof = proof => {
 	if (proof.skills) {
 		const formatSkills = proof.skills.map(el => el?.id);
 		delete proof.skills;

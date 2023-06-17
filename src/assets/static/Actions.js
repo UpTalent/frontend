@@ -1,7 +1,7 @@
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
-export const proofActions = [
+export const Actions = [
 	{
 		action: 'DELETE',
 		icon: <ErrorOutlineIcon color='secondary' />,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from './CreateVacancy.module.css';
 import { Button, Dialog, InputAdornment, TextField } from '@mui/material';
@@ -11,8 +11,14 @@ import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../redux/reducers/skills';
 import { useStoreDispatch } from '../../redux/store';
 import { validationSchema } from './validation';
+import { prepareProof } from '../../redux/reducers/proof';
+import { setSystemMessage } from '../../redux/reducers/systemMessages';
+import { vacancyAPI } from '../../api/vacancyAPI';
+import { ConfirmationMessage } from '../shared/Proof/components/ConfirmationMessage';
 export const CreateVacancy = () => {
+	const { mode, vacancy } = useOutletContext();
 	const [open, setOpen] = useState(true);
+	const [openConfirm, setOpenConfirm] = useState(false);
 	const navigate = useNavigate();
 	const skills = useSelector(getAllSkills);
 	const dispatch = useStoreDispatch();
@@ -20,20 +26,41 @@ export const CreateVacancy = () => {
 	const handleClose = () => {
 		setOpen(false);
 		navigate(-1);
-		// dispatch(clearProof());
-	};
-	const vacancies = {
-		title: 'Title',
-		content: "It's vacancy's content",
-		skills: [
-			{
-				id: 4,
-				name: 'Python',
-			},
-		],
 	};
 
-	// const submitHandler = () => {};
+	const submitHandler = async values => {
+		values = prepareProof(values);
+		const action = mode === 'create' ? 'created' : 'edited';
+		try {
+			if (mode === 'create') {
+				await vacancyAPI.createVacancy({ ...values, status: 'DRAFT' });
+			} else {
+				await vacancyAPI.editVacancy(values.id, values);
+			}
+			dispatch(setSystemMessage(true, `Vacancy was successfully ${action}`));
+			navigate(-1);
+		} catch (error) {
+			dispatch(setSystemMessage(true, error.message, 'error'));
+		}
+	};
+
+	const publishHandler = async values => {
+		try {
+			values = prepareProof(values);
+			if (mode === 'create') {
+				await vacancyAPI.createVacancy({ ...values, status: 'PUBLISHED' });
+			} else {
+				await vacancyAPI.editVacancy(values.id, {
+					...values,
+					status: 'PUBLISHED',
+				});
+			}
+			dispatch(setSystemMessage(true, 'Vacancy was successfully published'));
+			navigate(-1);
+		} catch (error) {
+			dispatch(setSystemMessage(true, error.message, 'error'));
+		}
+	};
 
 	useEffect(() => {
 		if (!skills.length) {
@@ -44,7 +71,12 @@ export const CreateVacancy = () => {
 	return (
 		<>
 			<Dialog open={open} onClose={handleClose} fullWidth>
-				<Formik initialValues={vacancies} validationSchema={validationSchema}>
+				<Formik
+					initialValues={vacancy}
+					validationSchema={validationSchema}
+					validateOnBlur={true}
+					validateOnMount={true}
+				>
 					{({ isValid, values, touched, errors, setFieldValue }) => (
 						<Form className={styles.form}>
 							<FormField
@@ -72,16 +104,34 @@ export const CreateVacancy = () => {
 								}}
 							/>
 							<FieldForSkills {...{ values, setFieldValue, errors }} />
-							<Button
-								variant='contained'
-								// className={`${isValid && styles.saveButton}`}
-								disabled={!isValid}
-								// onClick={submitHandler}
-								onClick={() => console.log(values)}
-							>
-								SAVE CHANGES
-								{/* {mode === 'create' ? 'SAVE AS DRAFT' : 'SAVE CHANGES'} */}
-							</Button>
+							<div className={styles.buttonGroup}>
+								<Button
+									variant='contained'
+									className={`${isValid && styles.saveButton}`}
+									disabled={!isValid}
+									onClick={() => submitHandler(values)}
+								>
+									{mode === 'create' ? 'SAVE AS DRAFT' : 'SAVE CHANGES'}
+								</Button>
+								<Button
+									variant='contained'
+									className={`${
+										isValid && values.skills.length && styles.publishButton
+									}`}
+									disabled={!isValid || values.skills.length === 0}
+									onClick={() => setOpenConfirm(true)}
+								>
+									Publish
+								</Button>
+							</div>
+							{openConfirm && (
+								<ConfirmationMessage
+									action={'PUBLISH'}
+									handleConfim={setOpenConfirm}
+									confirmMessage={openConfirm}
+									buttonHandler={() => publishHandler(values)}
+								/>
+							)}
 						</Form>
 					)}
 				</Formik>
