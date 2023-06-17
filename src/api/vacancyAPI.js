@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import { axiosInstance } from "."
-
-export const vacancyAPI = {
-    async getVacancy(vacancyId) {
-        try {
-            return await axiosInstance.get(`vacancies/${vacancyId}`);
-        } catch (error) {
-            throw new Error(error.response.data);
-        }
-    }
-}
-=======
 import { axiosInstance } from './index';
 
 export const vacancyAPI = {
@@ -52,4 +39,3 @@ export const vacancyAPI = {
 		}
 	},
 };
->>>>>>> 040541ad4b3114efe9b851743329c0636b634ed0
