@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import React from 'react';
-import styles from '../../../../CreateProof/components/ProofForm/FormInsideFormik/FormInsideFormik.module.css';
+import styles from './ConfirmationMessage.module.css';
 import { Actions } from '../../../../../assets/static/Actions';
 
 export const ConfirmationMessage = ({

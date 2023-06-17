@@ -5,21 +5,21 @@ export const Actions = [
 	{
 		action: 'DELETE',
 		icon: <ErrorOutlineIcon color='secondary' />,
-		text: 'Proof will be impossible to recover',
+		text: 'You won\'t be able to recover it',
 	},
 	{
 		action: 'SHOW',
 		icon: <AssignmentIcon color='primary' />,
-		text: 'Do you want to make a proof visible to everyone ?',
+		text: 'Do you want to make this item visible to everyone?',
 	},
 	{
 		action: 'HIDE',
 		icon: <AssignmentIcon color='primary' />,
-		text: 'Do you want to hide a proof?',
+		text: 'Do you want to hide this item?',
 	},
 	{
 		action: 'PUBLISH',
 		icon: <AssignmentIcon color='primary' />,
-		text: 'Do you want to publish a proof? You won`t be able to edit it',
+		text: 'Do you want to publish this item? You won`t be able to edit it',
 	},
 ];

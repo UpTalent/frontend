@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
-import styles from './CreateVacancy.module.css';
-import { Button, Dialog, InputAdornment, TextField } from '@mui/material';
+import styles from '../CreateProof/components/ProofForm/FormInsideFormik/FormInsideFormik.module.css';
+import stylesForTitle from '../LoginForm/Forms.module.css';
+import {
+	Button,
+	Dialog,
+	InputAdornment,
+	TextField,
+	Typography,
+} from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { FormField } from '../shared/FormField';
 import { Markdown } from '../shared/FormField/components/Markdown/Markdown';
@@ -15,6 +22,8 @@ import { prepareProof } from '../../redux/reducers/proof';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import { vacancyAPI } from '../../api/vacancyAPI';
 import { ConfirmationMessage } from '../shared/Proof/components/ConfirmationMessage';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+
 export const CreateVacancy = () => {
 	const { mode, vacancy } = useOutletContext();
 	const [open, setOpen] = useState(true);
@@ -74,11 +83,14 @@ export const CreateVacancy = () => {
 				<Formik
 					initialValues={vacancy}
 					validationSchema={validationSchema}
-					validateOnBlur={true}
 					validateOnMount={true}
 				>
 					{({ isValid, values, touched, errors, setFieldValue }) => (
-						<Form className={styles.form}>
+						<Form className={styles.registrationForm}>
+							<h1 className={styles.formTitle}>
+								{mode === 'create' ? 'Create new vacancy' : 'Edit vacancy'}
+								<AutoAwesomeIcon color='secondary' fontSize='large' />
+							</h1>
 							<FormField
 								label='Title'
 								name='title'
