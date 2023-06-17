@@ -1,6 +1,6 @@
 import { axiosInstance } from "."
 
-export const vacancAPI = {
+export const vacancyAPI = {
     async getVacancy(vacancyId) {
         try {
             return await axiosInstance.get(`vacancies/${vacancyId}`);

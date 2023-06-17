@@ -25,6 +25,7 @@ p {
 	display: flex;
 	gap: 30px;
 }
+
 .extraBlock {
 	border: 1px solid #c8c4c4;
 	border-radius: 20px;
@@ -57,6 +58,7 @@ p {
 .vacancyGeneral:hover {
 	box-shadow: 0px 4px 4px var(--primary);
 }
+
 .vacancyGeneral:hover .mainInfo{
     cursor: pointer;
 }

@@ -1,29 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../../../Proof.module.css';
+import styles from '../Proof/Proof.module.css';
 import { ControllButton } from './ControllButton';
-import { ConfirmationMessage } from '../../../ConfirmationMessage';
+import { ConfirmationMessage } from '../Proof/components/ConfirmationMessage';
 import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useStoreDispatch } from '../../../../../../../redux/store';
-import { useSelector } from 'react-redux';
-import { getAuthId } from '../../../../../../../redux/reducers/authentification';
-import {
-	deleteProof,
-	editProof,
-	fetchProof,
-} from '../../../../../../../redux/reducers/proof';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
-export const TalentsControl = ({ status, proofId }) => {
+export const PostControl = ({
+	status,
+	id,
+	deleteHandler,
+	changeVisabilityHandler,
+	editHandler,
+}) => {
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [action, setAction] = useState({ action: '', buttonHandler: null });
 	const [searchParams, setSearchParams] = useSearchParams();
-
-	const dispatch = useStoreDispatch();
-	const talentId = useSelector(getAuthId);
-
-	const navigate = useNavigate();
-	const location = useLocation();
 
 	const changeAction = status => {
 		switch (status) {
@@ -53,24 +45,16 @@ export const TalentsControl = ({ status, proofId }) => {
 			changeAction(status);
 			setOpenConfirm(true);
 		} else {
-			dispatch(fetchProof({ talentId, proofId }));
-			navigate({
-				pathname: `${location.pathname}/createProof`,
-				search: location.search,
-			});
+			editHandler();
 		}
-	};
-	const deleteTalentProof = () => {
-		dispatch(deleteProof({ talentId, proofId, status }));
 	};
 
 	const changeVisibility = status => {
-		const data = { talentId, proofId, status };
 		setSearchParams({
 			...Object.fromEntries([...searchParams]),
 			filter: status,
 		});
-		dispatch(editProof(data));
+		changeVisabilityHandler(status);
 		setOpenConfirm(false);
 	};
 
@@ -82,7 +66,7 @@ export const TalentsControl = ({ status, proofId }) => {
 				onClick={() => {
 					setAction({
 						action: 'DELETE',
-						buttonHandler: deleteTalentProof,
+						buttonHandler: () => deleteHandler(id),
 					});
 					setOpenConfirm(true);
 				}}

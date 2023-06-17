@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styles from '../../Proof.module.css';
 import { ProofIcons } from '../../../../../assets/static/ProofIcons';
 import { TimeStapm } from './components/TimeStamp';
-import { TalentsControl } from './components/TalentsControl';
 import { ReactFitty } from 'react-fitty';
 import { SkillArea } from '../SkillArea/SkillArea';
+import { TalentContainer } from '../../../PostControl/TalentContainer';
 
 export const ProofTitle = ({
 	title,
@@ -27,7 +27,7 @@ export const ProofTitle = ({
 			<div className={styles.controls}>
 				<TimeStapm published={published} />
 				{withContent && showControlls && (
-					<TalentsControl status={status} proofId={id} />
+					<TalentContainer {...{status, id}} />
 				)}
 			</div>
 			<div className={styles.title} onClick={openContent}>
