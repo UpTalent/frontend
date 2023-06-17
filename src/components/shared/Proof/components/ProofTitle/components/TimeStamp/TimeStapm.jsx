@@ -2,7 +2,6 @@ import React from 'react';
 import styles from '../../../../Proof.module.css';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Moment from 'react-moment';
-import { Tooltip } from '@mui/material';
 import moment from 'moment';
 import { DisabledText } from '../../../../../DisabledText/DisabledText';
 

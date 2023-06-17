@@ -24,7 +24,7 @@ export const VacancyPage = () => {
 				<>
 					<h1>{vacancy.title}</h1>
 					<div className={styles.author}>
-						<Author {...vacancy.author} authorRole={'sponsor'} />
+						<Author {...vacancy.author} />
 						<TimeStapm published={vacancy.published} />
 					</div>
 					<div className={styles.content}>
@@ -38,7 +38,9 @@ export const VacancyPage = () => {
 					</div>
 				</>
 			) : (
-				<CircularProgress />
+				<div className='loaderContainer'>
+					<CircularProgress />
+				</div>
 			)}
 		</div>
 	);
