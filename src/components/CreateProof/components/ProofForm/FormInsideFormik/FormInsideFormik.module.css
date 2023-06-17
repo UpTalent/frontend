@@ -1,37 +1,52 @@
 .registrationForm {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
-    align-items: center;
-    padding: 35px;
-    overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	position: relative;
+	align-items: center;
+	padding: 35px;
+	overflow: hidden;
 }
 
-.iconTitle{
-    display:flex;
-    height: 90px;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+ .formTitle {
+    font-family: 'Rubik';
+	font-weight: 400;
+	font-size: 40px;
+	display: flex;
+	align-items: center;
 }
 
-.iconTitle div{
-    width: 100%;
+.iconTitle {
+	display: flex;
+	height: 90px;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
 }
 
-.buttonGroup{
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly
+.iconTitle div {
+	width: 100%;
+}
+
+.buttonGroup {
+	display: flex;
+	width: 100%;
+	justify-content: space-evenly;
 }
 
 .publishButton {
-    color: white !important;
-    background: var(--primary) !important;
+	color: white !important;
+	background: var(--primary) !important;
 }
 
 .saveButton {
-    color: white !important;
-    background: var(--secondary) !important;
+	color: white !important;
+	background: var(--secondary) !important;
+}
+
+.closeIcon {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
 }

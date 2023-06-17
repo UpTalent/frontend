@@ -11,7 +11,10 @@ import { formatNumber } from '../../../../service/hooks/formatNumber';
 
 export const SponsorProfile = () => {
 	const { user, isUserProfile } = useOutletContext();
-	const tabLabels = [{ label: 'History', link: '', key:`${user.id}` }];
+	const tabLabels = [
+		{ label: 'History', link: '', key: `${user.id}` },
+		{ label: 'Vacancies', link: 'vacancies', key: 'vacancies' },
+	];
 	const sponsorKudos = useSelector(getUserKudos);
 	const dispatch = useDispatch();
 
