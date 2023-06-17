@@ -67,6 +67,7 @@
 	},
 	"devDependencies": {
 		"react-cosmos": "^6.0.0-beta.3",
-		"react-cosmos-plugin-webpack": "^6.0.0-beta.3"
+		"react-cosmos-plugin-webpack": "^6.0.0-beta.3",
+		"react-cosmos-router-proxy": "^4.8.2"
 	}
 }

@@ -1,0 +1,1 @@
+export { VacancyGeneral } from './VacancyGeneral';

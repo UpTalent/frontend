@@ -17,8 +17,10 @@ import { KudosHistory } from '../components/Profile/components/MainInfo/componen
 import { RestoreProfile } from '../components/RestoreProfile';
 import { Statistics } from '../components/Profile/components/Statistics/Statistics';
 import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
+import { VacancyPage } from '../components/Vacancy';
 import { Vacancies } from '../components/Profile/components/MainInfo/components/Vacancies';
 import { CreateVacancy } from '../components/CreateVacancy/CreateVacancy';
+
 
 export const router = createBrowserRouter([
 	{
@@ -115,6 +117,10 @@ export const router = createBrowserRouter([
 				path: 'verify/*',
 				element: <VerifyEmail />,
 			},
+			{
+				path: 'vacancy/:vacancyId/*',
+				element: <VacancyPage />
+			}
 		],
 	},
 ]);
