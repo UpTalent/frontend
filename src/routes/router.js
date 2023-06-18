@@ -8,7 +8,7 @@ import App from '../App';
 import TalentsPage from '../components/TalentsPage/TalentsPage';
 import ProofPage from '../components/ProofPage/ProofPage';
 import { CreateProof } from '../components/CreateProof';
-import { Proofs } from '../components/Profile/components/MainInfo/components/Proofs';
+import Proofs from '../components/Profile/components/MainInfo/components/Proofs/Proofs';
 import { MainInfo } from '../components/Profile/components/MainInfo';
 import { AboutMe } from '../components/Profile/components/MainInfo/components/AboutMe';
 import { SponsorProfile } from '../components/Profile/components/SponsorProfile';
@@ -18,9 +18,8 @@ import { RestoreProfile } from '../components/RestoreProfile';
 import { Statistics } from '../components/Profile/components/Statistics/Statistics';
 import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
 import { VacancyPage } from '../components/Vacancy';
-import { Vacancies } from '../components/Profile/components/MainInfo/components/Vacancies';
+import Vacancies from '../components/Profile/components/MainInfo/components/Vacancies/Vacancies';
 import { CreateVacancy } from '../components/CreateVacancy/CreateVacancy';
-
 
 export const router = createBrowserRouter([
 	{
@@ -119,8 +118,8 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'vacancy/:vacancyId/*',
-				element: <VacancyPage />
-			}
+				element: <VacancyPage />,
+			},
 		],
 	},
 ]);

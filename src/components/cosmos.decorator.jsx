@@ -9,9 +9,9 @@ import { Router } from 'react-router-dom';
 const decorator = ({ children }) => {
 	return (
 		<ThemeProvider theme={theme}>
-			{/* <Router> */}
+			<Router>
 				<Provider store={store}>{children}</Provider>
-			{/* </Router> */}
+			</Router>
 		</ThemeProvider>
 	);
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './GeneralTalent.module.css';
 import Button from '@mui/material/Button';
-import { Skill } from '../../../shared/Skill';
 import { TalentAvatar } from '../../../shared/TalentAvatar';
 import { Banner } from '../../../shared/Banner';
 import { Link } from 'react-router-dom';

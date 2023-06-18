@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from '../CreateProof/components/ProofForm/FormInsideFormik/FormInsideFormik.module.css';
-import stylesForTitle from '../LoginForm/Forms.module.css';
-import {
-	Button,
-	Dialog,
-	InputAdornment,
-	TextField,
-	Typography,
-} from '@mui/material';
+import { Button, Dialog, InputAdornment, TextField } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { FormField } from '../shared/FormField';
 import { Markdown } from '../shared/FormField/components/Markdown/Markdown';
@@ -31,6 +24,7 @@ export const CreateVacancy = () => {
 	const navigate = useNavigate();
 	const skills = useSelector(getAllSkills);
 	const dispatch = useStoreDispatch();
+	const { sponsorId } = useParams();
 
 	const handleClose = () => {
 		setOpen(false);
@@ -47,7 +41,7 @@ export const CreateVacancy = () => {
 				await vacancyAPI.editVacancy(values.id, values);
 			}
 			dispatch(setSystemMessage(true, `Vacancy was successfully ${action}`));
-			navigate(-1);
+			navigate(`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=DRAFT`);
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
@@ -65,7 +59,9 @@ export const CreateVacancy = () => {
 				});
 			}
 			dispatch(setSystemMessage(true, 'Vacancy was successfully published'));
-			navigate(-1);
+			navigate(
+				`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=PUBLISHED`,
+			);
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}

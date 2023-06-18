@@ -15,7 +15,7 @@ import {
 	setError,
 	updateProof,
 } from '../../redux/reducers/proof';
-import { getProofError } from '../../redux/reducers/talentsProof';
+import { getItemError } from '../../redux/reducers/userItems';
 
 export const CreateProof = () => {
 	const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const CreateProof = () => {
 	const [open, setOpen] = useState(true);
 	const [value, setValue] = useState(0);
 
-	const serverError = useSelector(getProofError);
+	const serverError = useSelector(getItemError);
 	const proof = useSelector(getProof);
 	const fetchingProgress = useSelector(isFetching);
 	const dispatch = useDispatch();

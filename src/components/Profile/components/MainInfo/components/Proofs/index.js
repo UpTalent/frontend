@@ -1,1 +1,0 @@
-export { Proofs } from './Proofs';
