@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { proofAPI } from '../../api/proofAPI';
 import { setSystemMessage } from './systemMessages';
-import { deleteItemFromList, getItemList } from './userItems';
+import { deleteItemFromList, getItemsList } from './userItems';
 
 export const prepareProof = proof => {
 	if (proof.skills) {
@@ -66,7 +66,7 @@ export const createDraftProof = createAsyncThunk(
 			);
 			thunkAPI.dispatch(clearProof());
 			thunkAPI.dispatch(
-				getItemList({ id: talentId, status: data.status, item: 'proofs' }),
+				getItemsList({ id: talentId, status: data.status, item: 'proofs' }),
 			);
 		} catch (err) {
 			thunkAPI.dispatch(setSystemMessage(true, err.message, 'error'));
@@ -98,7 +98,7 @@ export const editProof = createAsyncThunk(
 				prepareProof(draftProof),
 			);
 			await thunkAPI.dispatch(
-				getItemList({ id: talentId, status, item: 'proofs' }),
+				getItemsList({ id: talentId, status, item: 'proofs' }),
 			);
 			thunkAPI.dispatch(
 				setSystemMessage(true, `Proof was successfully ${action}`),
@@ -129,7 +129,7 @@ export const deleteProof = createAsyncThunk(
 				page -= 1;
 			}
 			thunkAPI.dispatch(
-				getItemList({ id: talentId, page, status, item: 'proofs' }),
+				getItemsList({ id: talentId, page, status, item: 'proofs' }),
 			);
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);

@@ -40,7 +40,7 @@ export const withList = (Component, item) => () => {
 		return () => {
 			dispatch(resetList());
 		};
-	}, [talentId, searchParams.get('filter'), urlPage]);
+	}, [talentId, sponsorId, searchParams.get('filter'), urlPage]);
 
 	useEffect(() => {
 		if (urlPage < 0 || (total_pages < urlPage && total_pages !== 0)) {

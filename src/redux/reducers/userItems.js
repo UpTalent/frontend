@@ -17,7 +17,6 @@ export const getItemsList = createAsyncThunk(
 		try {
 			const { id, page, status, item } = params;
 			const formatPage = page >= 0 ? page : 0;
-			console.log(item);
 			const { data } =
 				item === 'proofs'
 					? await proofAPI.getTalentProofs(id, formatPage, status)

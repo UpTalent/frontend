@@ -16,6 +16,7 @@ import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import { vacancyAPI } from '../../api/vacancyAPI';
 import { ConfirmationMessage } from '../shared/Proof/components/ConfirmationMessage';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import { getItemsList } from '../../redux/reducers/userItems';
 
 export const CreateVacancy = () => {
 	const { mode, vacancy } = useOutletContext();
@@ -41,6 +42,9 @@ export const CreateVacancy = () => {
 				await vacancyAPI.editVacancy(values.id, values);
 			}
 			dispatch(setSystemMessage(true, `Vacancy was successfully ${action}`));
+			dispatch(
+				getItemsList({ id: sponsorId, status: 'DRAFT', item: 'vacancies' }),
+			);
 			navigate(`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=DRAFT`);
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
@@ -59,6 +63,9 @@ export const CreateVacancy = () => {
 				});
 			}
 			dispatch(setSystemMessage(true, 'Vacancy was successfully published'));
+			dispatch(
+				getItemsList({ id: sponsorId, status: 'PUBLISHED', item: 'vacancies' }),
+			);
 			navigate(
 				`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=PUBLISHED`,
 			);
@@ -112,6 +119,7 @@ export const CreateVacancy = () => {
 								}}
 							/>
 							<FieldForSkills {...{ values, setFieldValue, errors }} />
+							
 							<div className={styles.buttonGroup}>
 								<Button
 									variant='contained'

@@ -12,8 +12,11 @@ export const vacancyAPI = {
 
 	async createVacancy(data) {
 		try {
-			console.log(data);
 			return await axiosInstance.post(`vacancies`, data);
+			// return await axiosInstance.post(`vacancies`, {
+			// 	...data,
+			// 	countMatchedSkills: 1,
+			// });
 		} catch (error) {
 			const field = Object.keys(error.response.data)[0];
 			throw new Error(`${error.response.data[field]}`);
@@ -22,7 +25,6 @@ export const vacancyAPI = {
 
 	async editVacancy(vacancyId, data) {
 		try {
-			console.log(data);
 			return await axiosInstance.patch(`vacancies/${vacancyId}`, data);
 		} catch (error) {
 			const field = Object.keys(error.response.data)[0];
