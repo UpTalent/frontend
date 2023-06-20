@@ -2,7 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from '../CreateProof/components/ProofForm/FormInsideFormik/FormInsideFormik.module.css';
-import { Button, Dialog, InputAdornment, TextField } from '@mui/material';
+import {
+	Button,
+	Dialog,
+	InputAdornment,
+	InputLabel,
+	Slider,
+	TextField,
+	Typography,
+} from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { FormField } from '../shared/FormField';
 import { Markdown } from '../shared/FormField/components/Markdown/Markdown';
@@ -94,16 +102,10 @@ export const CreateVacancy = () => {
 								{mode === 'create' ? 'Create new vacancy' : 'Edit vacancy'}
 								<AutoAwesomeIcon color='secondary' fontSize='large' />
 							</h1>
-							<FormField
-								label='Title'
-								name='title'
-								type='text'
-								required={true}
-							/>
+							<FormField label='Title' name='title' type='text' />
 							<Field
 								label='Content of vacancy'
 								name='content'
-								required={true}
 								multiline
 								fullWidth
 								rows={8}
@@ -118,8 +120,40 @@ export const CreateVacancy = () => {
 									),
 								}}
 							/>
-							<FieldForSkills {...{ values, setFieldValue, errors }} />
-							
+							<FieldForSkills {...{ values, setFieldValue, errors, touched }} />
+							{values.skills.length != 0 && (
+								<>
+									<InputLabel
+										id='input-slider'
+										sx={{ alignSelf: 'flex-start', fontSize: '0.75rem' }}
+									>
+										Matched skills
+									</InputLabel>
+									<Slider
+										name='countMatchedSkills'
+										value={
+											values.countMatchedSkills ||
+											Math.ceil(values.skills.length / 2)
+										}
+										max={values.skills.length}
+										aria-labelledby='input-slider'
+										valueLabelDisplay='auto'
+										marks={[
+											{
+												value: 0,
+												label: 0,
+											},
+											{
+												value: values.skills.length,
+												label: values.skills.length,
+											},
+										]}
+										onChange={event =>
+											setFieldValue('countMatchedSkills', event.target.value)
+										}
+									/>
+								</>
+							)}
 							<div className={styles.buttonGroup}>
 								<Button
 									variant='contained'

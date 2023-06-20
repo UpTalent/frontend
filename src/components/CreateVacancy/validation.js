@@ -12,5 +12,7 @@ export const validationSchema = Yup.object({
 		.trim()
 		.required('Content is required')
 		.max(5000, 'Must be 5000 characters or less'),
-	skills: Yup.array().max(30, 'Max number of skills is 30'),
+	skills: Yup.array()
+		.max(30, 'Max number of skills is 30')
+		.min(1, 'Skills are required'),
 });
