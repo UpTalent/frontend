@@ -9,7 +9,6 @@ import {
 	InputLabel,
 	Slider,
 	TextField,
-	Typography,
 } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { FormField } from '../shared/FormField';
@@ -121,7 +120,7 @@ export const CreateVacancy = () => {
 								}}
 							/>
 							<FieldForSkills {...{ values, setFieldValue, errors, touched }} />
-							{values.skills.length != 0 && (
+							{values.skills.length !== 0 && (
 								<>
 									<InputLabel
 										id='input-slider'
