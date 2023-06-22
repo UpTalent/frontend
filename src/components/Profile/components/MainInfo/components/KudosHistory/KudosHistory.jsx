@@ -46,7 +46,7 @@ export const KudosHistory = () => {
 	return (
 		<div className={styles.proofContainer}>
 			{!isFetching ? (
-				<div className={styles.proofs}>
+				<div className={styles.items}>
 					{proofs.map(el => (
 						<KudosedProof key={el.proof_id} proofInfo={el} />
 					))}

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Proof } from './Proof';
 import { KudosedProof } from '../../Profile/components/MainInfo/components/KudosHistory/components/KudosedProof';
+import { withRouter } from 'react-router-dom';
 
 const proof = {
 	id: 1,
 	icon_number: 0,
 	title: 'Title',
 	summary: 'Summary',
-    kudos: 0,
-    content: 'Hello world',
+	kudos: 0,
+	content: 'Hello world',
 	published: '2023-06-13T10:47:30.667Z',
 	skills: [
 		{
@@ -42,23 +43,30 @@ const kudosedProof = {
 	},
 };
 
-export default {
-	InPreview: (
-		<Proof
-			proof={proof}
-			withContent={true}
-			showControlls={false}
-			inForm={true}
-		/>
-	),
-	InSlider: <Proof proof={proof} inSlider={true} />,
-	InOwnTalentProfile: (
-		<Proof proof={proof} withContent={true} showControlls={true} />
-	),
-	InOtherTalentProfile: (
-		<Proof proof={proof} withContent={true} showControlls={false} />
-	),
-	InKudosHistory: <KudosedProof proofInfo={kudosedProof} />,
+const MyProof = () =>
+	withRouter(<Proof proof={proof} withContent={true} showControlls={true} />);
 
-	OnProofsPage: <Proof proof={proof} withContent={false} inForm={true} />,
+export default {
+	component: MyProof,
+	url: '/5',
+	route: '/:userId',
+	provideRouterProps: true,
+	// InPreview: (
+	// 	<Proof
+	// 		proof={proof}
+	// 		withContent={true}
+	// 		showControlls={false}
+	// 		inForm={true}
+	// 	/>
+	// ),
+	// InSlider: <Proof proof={proof} inSlider={true} />,
+	// InOwnTalentProfile: (
+	// 	<Proof proof={proof} withContent={true} showControlls={true} />
+	// ),
+	// InOtherTalentProfile: (
+	// 	<Proof proof={proof} withContent={true} showControlls={false} />
+	// ),
+	// InKudosHistory: <KudosedProof proofInfo={kudosedProof} />,
+
+	// OnProofsPage: <Proof proof={proof} withContent={false} inForm={true} />,
 };

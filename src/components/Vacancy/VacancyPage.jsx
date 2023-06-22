@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { vacancAPI } from '../../api/vacancyAPI';
+import { vacancyAPI } from '../../api/vacancyAPI';
 import styles from './Vacancy.module.css';
 import { CircularProgress } from '@mui/material';
 import { Author } from '../shared/Proof/components/Author';
@@ -12,7 +12,7 @@ export const VacancyPage = () => {
 	const [vacancy, setVacancy] = useState(null);
 
 	const fetchVacancy = async () => {
-		const { data } = await vacancAPI.getVacancy(vacancyId);
+		const { data } = await vacancyAPI.getVacancy(vacancyId);
 		setVacancy(data);
 	};
 	useEffect(() => {

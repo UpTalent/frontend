@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from '../CreateProof/components/ProofForm/FormInsideFormik/FormInsideFormik.module.css';
-import stylesForTitle from '../LoginForm/Forms.module.css';
 import {
 	Button,
 	Dialog,
 	InputAdornment,
+	InputLabel,
+	Slider,
 	TextField,
-	Typography,
 } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { FormField } from '../shared/FormField';
@@ -23,6 +23,7 @@ import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import { vacancyAPI } from '../../api/vacancyAPI';
 import { ConfirmationMessage } from '../shared/Proof/components/ConfirmationMessage';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import { getItemsList } from '../../redux/reducers/userItems';
 
 export const CreateVacancy = () => {
 	const { mode, vacancy } = useOutletContext();
@@ -31,6 +32,7 @@ export const CreateVacancy = () => {
 	const navigate = useNavigate();
 	const skills = useSelector(getAllSkills);
 	const dispatch = useStoreDispatch();
+	const { sponsorId } = useParams();
 
 	const handleClose = () => {
 		setOpen(false);
@@ -47,7 +49,10 @@ export const CreateVacancy = () => {
 				await vacancyAPI.editVacancy(values.id, values);
 			}
 			dispatch(setSystemMessage(true, `Vacancy was successfully ${action}`));
-			navigate(-1);
+			dispatch(
+				getItemsList({ id: sponsorId, status: 'DRAFT', item: 'vacancies' }),
+			);
+			navigate(`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=DRAFT`);
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
@@ -65,7 +70,12 @@ export const CreateVacancy = () => {
 				});
 			}
 			dispatch(setSystemMessage(true, 'Vacancy was successfully published'));
-			navigate(-1);
+			dispatch(
+				getItemsList({ id: sponsorId, status: 'PUBLISHED', item: 'vacancies' }),
+			);
+			navigate(
+				`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=PUBLISHED`,
+			);
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
@@ -91,16 +101,10 @@ export const CreateVacancy = () => {
 								{mode === 'create' ? 'Create new vacancy' : 'Edit vacancy'}
 								<AutoAwesomeIcon color='secondary' fontSize='large' />
 							</h1>
-							<FormField
-								label='Title'
-								name='title'
-								type='text'
-								required={true}
-							/>
+							<FormField label='Title' name='title' type='text' />
 							<Field
 								label='Content of vacancy'
 								name='content'
-								required={true}
 								multiline
 								fullWidth
 								rows={8}
@@ -115,7 +119,40 @@ export const CreateVacancy = () => {
 									),
 								}}
 							/>
-							<FieldForSkills {...{ values, setFieldValue, errors }} />
+							<FieldForSkills {...{ values, setFieldValue, errors, touched }} />
+							{values.skills.length !== 0 && (
+								<>
+									<InputLabel
+										id='input-slider'
+										sx={{ alignSelf: 'flex-start', fontSize: '0.75rem' }}
+									>
+										Matched skills
+									</InputLabel>
+									<Slider
+										name='countMatchedSkills'
+										value={
+											values.countMatchedSkills ||
+											Math.ceil(values.skills.length / 2)
+										}
+										max={values.skills.length}
+										aria-labelledby='input-slider'
+										valueLabelDisplay='auto'
+										marks={[
+											{
+												value: 0,
+												label: 0,
+											},
+											{
+												value: values.skills.length,
+												label: values.skills.length,
+											},
+										]}
+										onChange={event =>
+											setFieldValue('countMatchedSkills', event.target.value)
+										}
+									/>
+								</>
+							)}
 							<div className={styles.buttonGroup}>
 								<Button
 									variant='contained'
