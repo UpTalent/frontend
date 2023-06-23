@@ -15,11 +15,17 @@ export const VacancyPage = () => {
 		const { data } = await vacancyAPI.getVacancy(vacancyId);
 		setVacancy(data);
 	};
+<<<<<<< HEAD
 
 	useEffect(() => {
 		fetchVacancy();
 	}, []);
 	
+=======
+	useEffect(() => {
+		fetchVacancy();
+	}, []);
+>>>>>>> dev
 	return (
 		<div className={styles.vacancyContainer}>
 			{vacancy ? (

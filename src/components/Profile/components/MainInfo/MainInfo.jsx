@@ -33,7 +33,7 @@ export const MainInfo = () => {
 					/>
 				))}
 			</Tabs>
-			<Outlet context={{ ...user, isTalentProfile: isUserProfile }} />
+			<Outlet context={{ ...user, isUserProfile: isUserProfile }} />
 		</div>
 	);
 };

@@ -7,7 +7,10 @@ import { TimeStapm } from '../ProofTitle/components/TimeStamp';
 
 export const Author = ({ id, name, avatar, timestamp, authorRole }) => {
 	const navigate = useNavigate();
+<<<<<<< HEAD
 	
+=======
+>>>>>>> dev
 	const handleClick = () => {
 		authorRole === 'talent' && navigate(`/profile/talent/${id}`);
 	};

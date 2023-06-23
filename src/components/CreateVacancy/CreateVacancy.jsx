@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import { useNavigate, useOutletContext } from 'react-router-dom';
+=======
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
+>>>>>>> dev
 import CloseIcon from '@mui/icons-material/Close';
 import styles from '../CreateProof/components/ProofForm/FormInsideFormik/FormInsideFormik.module.css';
 import {
 	Button,
 	Dialog,
 	InputAdornment,
+<<<<<<< HEAD
+=======
+	InputLabel,
+	Slider,
+>>>>>>> dev
 	TextField,
 } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
@@ -21,6 +30,10 @@ import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import { vacancyAPI } from '../../api/vacancyAPI';
 import { ConfirmationMessage } from '../shared/Proof/components/ConfirmationMessage';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+<<<<<<< HEAD
+=======
+import { getItemsList } from '../../redux/reducers/userItems';
+>>>>>>> dev
 
 export const CreateVacancy = () => {
 	const { mode, vacancy } = useOutletContext();
@@ -29,6 +42,10 @@ export const CreateVacancy = () => {
 	const navigate = useNavigate();
 	const skills = useSelector(getAllSkills);
 	const dispatch = useStoreDispatch();
+<<<<<<< HEAD
+=======
+	const { sponsorId } = useParams();
+>>>>>>> dev
 
 	const handleClose = () => {
 		setOpen(false);
@@ -45,7 +62,14 @@ export const CreateVacancy = () => {
 				await vacancyAPI.editVacancy(values.id, values);
 			}
 			dispatch(setSystemMessage(true, `Vacancy was successfully ${action}`));
+<<<<<<< HEAD
 			navigate(-1);
+=======
+			dispatch(
+				getItemsList({ id: sponsorId, status: 'DRAFT', item: 'vacancies' }),
+			);
+			navigate(`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=DRAFT`);
+>>>>>>> dev
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
@@ -63,7 +87,16 @@ export const CreateVacancy = () => {
 				});
 			}
 			dispatch(setSystemMessage(true, 'Vacancy was successfully published'));
+<<<<<<< HEAD
 			navigate(-1);
+=======
+			dispatch(
+				getItemsList({ id: sponsorId, status: 'PUBLISHED', item: 'vacancies' }),
+			);
+			navigate(
+				`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=PUBLISHED`,
+			);
+>>>>>>> dev
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
@@ -89,6 +122,7 @@ export const CreateVacancy = () => {
 								{mode === 'create' ? 'Create new vacancy' : 'Edit vacancy'}
 								<AutoAwesomeIcon color='secondary' fontSize='large' />
 							</h1>
+<<<<<<< HEAD
 							<FormField
 								label='Title'
 								name='title'
@@ -99,6 +133,12 @@ export const CreateVacancy = () => {
 								label='Content of vacancy'
 								name='content'
 								required={true}
+=======
+							<FormField label='Title' name='title' type='text' />
+							<Field
+								label='Content of vacancy'
+								name='content'
+>>>>>>> dev
 								multiline
 								fullWidth
 								rows={8}
@@ -113,7 +153,44 @@ export const CreateVacancy = () => {
 									),
 								}}
 							/>
+<<<<<<< HEAD
 							<FieldForSkills {...{ values, setFieldValue, errors }} />
+=======
+							<FieldForSkills {...{ values, setFieldValue, errors, touched }} />
+							{values.skills.length !== 0 && (
+								<>
+									<InputLabel
+										id='input-slider'
+										sx={{ alignSelf: 'flex-start', fontSize: '0.75rem' }}
+									>
+										Matched skills
+									</InputLabel>
+									<Slider
+										name='countMatchedSkills'
+										value={
+											values.countMatchedSkills ||
+											Math.ceil(values.skills.length / 2)
+										}
+										max={values.skills.length}
+										aria-labelledby='input-slider'
+										valueLabelDisplay='auto'
+										marks={[
+											{
+												value: 0,
+												label: 0,
+											},
+											{
+												value: values.skills.length,
+												label: values.skills.length,
+											},
+										]}
+										onChange={event =>
+											setFieldValue('countMatchedSkills', event.target.value)
+										}
+									/>
+								</>
+							)}
+>>>>>>> dev
 							<div className={styles.buttonGroup}>
 								<Button
 									variant='contained'

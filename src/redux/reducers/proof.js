@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { proofAPI } from '../../api/proofAPI';
 import { setSystemMessage } from './systemMessages';
-import { deleteProofFromList, getTalentsProofs } from './talentsProof';
+import { deleteItemFromList, getItemsList } from './userItems';
 
 export const prepareProof = proof => {
 	if (proof.skills) {
@@ -65,7 +65,9 @@ export const createDraftProof = createAsyncThunk(
 				setSystemMessage(true, 'Proof was successfully created'),
 			);
 			thunkAPI.dispatch(clearProof());
-			thunkAPI.dispatch(getTalentsProofs({ talentId, status: data.status }));
+			thunkAPI.dispatch(
+				getItemsList({ id: talentId, status: data.status, item: 'proofs' }),
+			);
 		} catch (err) {
 			thunkAPI.dispatch(setSystemMessage(true, err.message, 'error'));
 		}
@@ -86,7 +88,7 @@ export const editProof = createAsyncThunk(
 			if (!draftProof) {
 				draftProof = thunkAPI
 					.getState()
-					.talentsProofs.proofsList.find(i => i.id === proofId);
+					.userItems.itemsList.find(i => i.id === proofId);
 				draftProof = { ...draftProof, status };
 			}
 
@@ -95,7 +97,9 @@ export const editProof = createAsyncThunk(
 				proofId,
 				prepareProof(draftProof),
 			);
-			await thunkAPI.dispatch(getTalentsProofs({ talentId, status }));
+			await thunkAPI.dispatch(
+				getItemsList({ id: talentId, status, item: 'proofs' }),
+			);
 			thunkAPI.dispatch(
 				setSystemMessage(true, `Proof was successfully ${action}`),
 			);
@@ -118,14 +122,15 @@ export const deleteProof = createAsyncThunk(
 			thunkAPI.dispatch(
 				setSystemMessage(true, 'Your proof was succesfully deleted'),
 			);
-			const amountOfProofs =
-				thunkAPI.getState().talentsProofs.proofsList.length;
-			let page = thunkAPI.getState().talentsProofs.currentPage - 1;
-			thunkAPI.dispatch(deleteProofFromList(proofId));
+			const amountOfProofs = thunkAPI.getState().userItems.itemsList.length;
+			let page = thunkAPI.getState().userItems.currentPage - 1;
+			thunkAPI.dispatch(deleteItemFromList(proofId));
 			if (amountOfProofs === 1) {
 				page -= 1;
 			}
-			thunkAPI.dispatch(getTalentsProofs({ talentId, page, status }));
+			thunkAPI.dispatch(
+				getItemsList({ id: talentId, page, status, item: 'proofs' }),
+			);
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
 		}
@@ -139,7 +144,7 @@ export const fetchProof = createAsyncThunk(
 			const { proofId } = params;
 			const data = thunkAPI
 				.getState()
-				.talentsProofs.proofsList.find(i => i.id === proofId);
+				.userItems.itemsList.find(i => i.id === proofId);
 			return data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
