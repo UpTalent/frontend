@@ -10,10 +10,8 @@ export const FieldForSkills = ({
 	proof,
 	saveProof,
 	errors,
-<<<<<<< HEAD
-=======
 	touched,
->>>>>>> dev
+	required
 }) => {
 	const skills = useSelector(getAllSkills);
 	return (
@@ -29,13 +27,9 @@ export const FieldForSkills = ({
 					{...params}
 					name='skills'
 					variant='outlined'
-<<<<<<< HEAD
-					error={errors?.skills}
-					helperText={errors?.skills}
-=======
+					required={required}
 					error={touched?.skills && Boolean(errors?.skills)}
 					helperText={touched?.skills && errors?.skills}
->>>>>>> dev
 				/>
 			)}
 			disableCloseOnSelect

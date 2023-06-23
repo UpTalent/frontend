@@ -12,16 +12,7 @@ export const vacancyAPI = {
 
 	async createVacancy(data) {
 		try {
-<<<<<<< HEAD
-			console.log(data);
 			return await axiosInstance.post(`vacancies`, data);
-=======
-			return await axiosInstance.post(`vacancies`, data);
-			// return await axiosInstance.post(`vacancies`, {
-			// 	...data,
-			// 	countMatchedSkills: 1,
-			// });
->>>>>>> dev
 		} catch (error) {
 			const field = Object.keys(error.response.data)[0];
 			throw new Error(`${error.response.data[field]}`);
@@ -30,10 +21,6 @@ export const vacancyAPI = {
 
 	async editVacancy(vacancyId, data) {
 		try {
-<<<<<<< HEAD
-			console.log(data);
-=======
->>>>>>> dev
 			return await axiosInstance.patch(`vacancies/${vacancyId}`, data);
 		} catch (error) {
 			const field = Object.keys(error.response.data)[0];
@@ -41,11 +28,6 @@ export const vacancyAPI = {
 		}
 	},
 
-<<<<<<< HEAD
-	async getVacancies() {
-		try {
-			return await axiosInstance.get(`vacancies`);
-=======
 	async getSponsorsVacancies(
 		id,
 		currentPage = 0,
@@ -60,10 +42,17 @@ export const vacancyAPI = {
 					status: status,
 				},
 			});
->>>>>>> dev
 		} catch (error) {
 			const field = Object.keys(error.response.data)[0];
 			throw new Error(`${error.response.data[field]}`);
+		}
+	},
+
+	async deleteVacancy(vacancyId) {
+		try {
+			return await axiosInstance.delete(`vacancies/${vacancyId}`);
+		} catch (error) {
+			throw new Error(error.response.data.message);
 		}
 	},
 };

@@ -15,6 +15,11 @@ p {
 	font-weight: 300;
 }
 
+.header {
+	display: flex;
+	justify-content: space-between;
+}
+
 .author {
 	display: flex;
 	justify-content: space-between;
@@ -25,10 +30,7 @@ p {
 	display: flex;
 	gap: 30px;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> dev
 .extraBlock {
 	border: 1px solid #c8c4c4;
 	border-radius: 20px;
@@ -54,17 +56,15 @@ p {
 
 .authorBlock {
 	display: flex;
-	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 	border-bottom: 1px solid #817979;
 }
 
 .vacancyGeneral:hover {
 	box-shadow: 0px 4px 4px var(--primary);
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> dev
 .vacancyGeneral:hover .mainInfo{
     cursor: pointer;
 }

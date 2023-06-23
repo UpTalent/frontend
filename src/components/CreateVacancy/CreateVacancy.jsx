@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from 'react';
-<<<<<<< HEAD
-import { useNavigate, useOutletContext } from 'react-router-dom';
-=======
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
->>>>>>> dev
 import CloseIcon from '@mui/icons-material/Close';
 import styles from '../CreateProof/components/ProofForm/FormInsideFormik/FormInsideFormik.module.css';
 import {
 	Button,
 	Dialog,
 	InputAdornment,
-<<<<<<< HEAD
-=======
 	InputLabel,
 	Slider,
->>>>>>> dev
 	TextField,
 } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
@@ -25,15 +18,12 @@ import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../redux/reducers/skills';
 import { useStoreDispatch } from '../../redux/store';
 import { validationSchema } from './validation';
-import { prepareProof } from '../../redux/reducers/proof';
+import { prepareItem } from '../../redux/reducers/proof';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import { vacancyAPI } from '../../api/vacancyAPI';
 import { ConfirmationMessage } from '../shared/Proof/components/ConfirmationMessage';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-<<<<<<< HEAD
-=======
 import { getItemsList } from '../../redux/reducers/userItems';
->>>>>>> dev
 
 export const CreateVacancy = () => {
 	const { mode, vacancy } = useOutletContext();
@@ -42,10 +32,7 @@ export const CreateVacancy = () => {
 	const navigate = useNavigate();
 	const skills = useSelector(getAllSkills);
 	const dispatch = useStoreDispatch();
-<<<<<<< HEAD
-=======
 	const { sponsorId } = useParams();
->>>>>>> dev
 
 	const handleClose = () => {
 		setOpen(false);
@@ -53,7 +40,7 @@ export const CreateVacancy = () => {
 	};
 
 	const submitHandler = async values => {
-		values = prepareProof(values);
+		values = prepareItem(values);
 		const action = mode === 'create' ? 'created' : 'edited';
 		try {
 			if (mode === 'create') {
@@ -62,14 +49,10 @@ export const CreateVacancy = () => {
 				await vacancyAPI.editVacancy(values.id, values);
 			}
 			dispatch(setSystemMessage(true, `Vacancy was successfully ${action}`));
-<<<<<<< HEAD
-			navigate(-1);
-=======
 			dispatch(
 				getItemsList({ id: sponsorId, status: 'DRAFT', item: 'vacancies' }),
 			);
 			navigate(`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=DRAFT`);
->>>>>>> dev
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
@@ -77,7 +60,7 @@ export const CreateVacancy = () => {
 
 	const publishHandler = async values => {
 		try {
-			values = prepareProof(values);
+			values = prepareItem(values);
 			if (mode === 'create') {
 				await vacancyAPI.createVacancy({ ...values, status: 'PUBLISHED' });
 			} else {
@@ -87,16 +70,12 @@ export const CreateVacancy = () => {
 				});
 			}
 			dispatch(setSystemMessage(true, 'Vacancy was successfully published'));
-<<<<<<< HEAD
-			navigate(-1);
-=======
 			dispatch(
 				getItemsList({ id: sponsorId, status: 'PUBLISHED', item: 'vacancies' }),
 			);
 			navigate(
 				`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=PUBLISHED`,
 			);
->>>>>>> dev
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
@@ -122,27 +101,15 @@ export const CreateVacancy = () => {
 								{mode === 'create' ? 'Create new vacancy' : 'Edit vacancy'}
 								<AutoAwesomeIcon color='secondary' fontSize='large' />
 							</h1>
-<<<<<<< HEAD
-							<FormField
-								label='Title'
-								name='title'
-								type='text'
-								required={true}
-							/>
+							<FormField label='Title' name='title' type='text' required />
 							<Field
 								label='Content of vacancy'
 								name='content'
-								required={true}
-=======
-							<FormField label='Title' name='title' type='text' />
-							<Field
-								label='Content of vacancy'
-								name='content'
->>>>>>> dev
 								multiline
 								fullWidth
 								rows={8}
 								as={TextField}
+								required
 								error={touched.content && Boolean(errors.content)}
 								helperText={touched.content && errors.content}
 								InputProps={{
@@ -153,10 +120,9 @@ export const CreateVacancy = () => {
 									),
 								}}
 							/>
-<<<<<<< HEAD
-							<FieldForSkills {...{ values, setFieldValue, errors }} />
-=======
-							<FieldForSkills {...{ values, setFieldValue, errors, touched }} />
+							<FieldForSkills
+								{...{ values, setFieldValue, errors, touched, required: true }}
+							/>
 							{values.skills.length !== 0 && (
 								<>
 									<InputLabel
@@ -190,7 +156,6 @@ export const CreateVacancy = () => {
 									/>
 								</>
 							)}
->>>>>>> dev
 							<div className={styles.buttonGroup}>
 								<Button
 									variant='contained'

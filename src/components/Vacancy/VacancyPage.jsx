@@ -6,31 +6,32 @@ import { CircularProgress } from '@mui/material';
 import { Author } from '../shared/Proof/components/Author';
 import { TimeStapm } from '../shared/Proof/components/ProofTitle/components/TimeStamp';
 import { SkillBox } from '../shared/SkillBox';
+import { useSelector } from 'react-redux';
+import { getAuthId } from '../../redux/reducers/authentification';
+import { SponsorContainer } from '../shared/PostControl/SponsorContainer';
 
 export const VacancyPage = () => {
 	const { vacancyId } = useParams();
 	const [vacancy, setVacancy] = useState(null);
+	const authId = useSelector(getAuthId);
 
 	const fetchVacancy = async () => {
 		const { data } = await vacancyAPI.getVacancy(vacancyId);
 		setVacancy(data);
 	};
-<<<<<<< HEAD
-
 	useEffect(() => {
 		fetchVacancy();
 	}, []);
-	
-=======
-	useEffect(() => {
-		fetchVacancy();
-	}, []);
->>>>>>> dev
 	return (
 		<div className={styles.vacancyContainer}>
 			{vacancy ? (
 				<>
-					<h1>{vacancy.title}</h1>
+					<div className={styles.header}>
+						<h1>{vacancy.title}</h1>
+						{authId === vacancy?.author?.id && vacancy &&  (
+							<SponsorContainer {...{vacancy, showControl:true}} />
+						)}
+					</div>
 					<div className={styles.author}>
 						<Author {...vacancy.author} />
 						<TimeStapm published={vacancy.published} />

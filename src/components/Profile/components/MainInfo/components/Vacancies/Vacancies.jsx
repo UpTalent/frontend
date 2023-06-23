@@ -1,13 +1,4 @@
 import { Fab } from '@mui/material';
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import { useModalPathname } from '../../../../../../service/hooks/useModalPathname';
-import { Outlet } from 'react-router-dom';
-import { vacancyAPI } from '../../../../../../api/vacancyAPI';
-
-export const Vacancies = () => {
-=======
 import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { useModalPathname } from '../../../../../../service/hooks/useModalPathname';
@@ -20,40 +11,10 @@ import { ProofLoader } from '../../../../../loaders/ProofLoader/ProofLoader';
 
 const Vacancies = ({ isFetching, items }) => {
 	const { isUserProfile } = useOutletContext();
->>>>>>> dev
 	const modalPathname = useModalPathname();
 	const [mode, setMode] = useState('create');
 	const [vacancy, setVacancy] = useState(initialVacancy);
 
-<<<<<<< HEAD
-	// delete
-
-	const trial = async () => {
-		const { data } = await vacancyAPI.getVacancies();
-		console.log(data);
-	};
-
-	useEffect(() => {
-		trial();
-	}, []);
-
-	//
-
-	return (
-		<>
-			<Fab
-				color='secondary'
-				aria-label='add'
-				onClick={() => {
-					modalPathname('createVacancy');
-					setVacancy(initialVacancy);
-					setMode('create');
-				}}
-			>
-				<AddIcon />
-			</Fab>
-			<div>Vacancies</div>
-=======
 	const handleAdding = () => {
 		modalPathname('createVacancy');
 		setVacancy(initialVacancy);
@@ -76,7 +37,15 @@ const Vacancies = ({ isFetching, items }) => {
 						<p className={styles.emptyList}>It's empty in here...for now</p>
 					)}
 					{items.map((el, id) => (
-						<VacancyGeneral {...el} key={id} />
+						<VacancyGeneral
+							vacancy={el}
+							key={id}
+							{...(isUserProfile && {
+								setVacancy,
+								setMode,
+								showControlls: true,
+							})}
+						/>
 					))}
 				</div>
 			) : (
@@ -84,7 +53,6 @@ const Vacancies = ({ isFetching, items }) => {
 				<ProofLoader />
 			)}
 
->>>>>>> dev
 			<Outlet context={{ mode, vacancy }} />
 		</>
 	);
@@ -96,8 +64,5 @@ const initialVacancy = {
 	status: '',
 	skills: [],
 };
-<<<<<<< HEAD
-=======
 
 export default withList(Vacancies, 'vacancies');
->>>>>>> dev

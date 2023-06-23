@@ -4,7 +4,7 @@ import { ControllButton } from './ControllButton';
 import { ConfirmationMessage } from '../Proof/components/ConfirmationMessage';
 import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 export const PostControl = ({
 	status,
@@ -15,7 +15,10 @@ export const PostControl = ({
 }) => {
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [action, setAction] = useState({ action: '', buttonHandler: null });
+
 	const [searchParams, setSearchParams] = useSearchParams();
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const changeAction = status => {
 		switch (status) {
@@ -45,7 +48,11 @@ export const PostControl = ({
 			changeAction(status);
 			setOpenConfirm(true);
 		} else {
-			editHandler();
+			const redirect = editHandler();
+			navigate({
+				pathname: `${location.pathname}/${redirect}`,
+				search: location.search,
+			});
 		}
 	};
 
@@ -62,7 +69,7 @@ export const PostControl = ({
 		<div className={styles.talentsControls}>
 			<ControllButton status={status} handleClick={handleControllClick} />
 			<Tooltip
-				title='Delete proof'
+				title='Delete item'
 				onClick={() => {
 					setAction({
 						action: 'DELETE',

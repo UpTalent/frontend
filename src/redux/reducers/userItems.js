@@ -29,11 +29,29 @@ export const getItemsList = createAsyncThunk(
 	},
 );
 
+export const deleteItemFromList = createAsyncThunk(
+	'deleteItemFromList',
+	async (params, thunkAPI) => {
+		try {
+			const { itemId, item, id, status } = params;
+			const amountOfItems = thunkAPI.getState().userItems.itemsList.length;
+			let page = thunkAPI.getState().userItems.currentPage - 1;
+			thunkAPI.dispatch(deleteItem(itemId));
+			if (amountOfItems === 1) {
+				page -= 1;
+			}
+			thunkAPI.dispatch(getItemsList({ id, page, status, item }));
+		} catch (error) {
+			thunkAPI.dispatch(setSystemMessage(true, error.message, 'error'));
+		}
+	},
+);
+
 const itemsSlice = createSlice({
 	name: 'userItems',
 	initialState,
 	reducers: {
-		deleteItemFromList: (state, action) => {
+		deleteItem: (state, action) => {
 			state.proofsList = state.itemsList.filter(
 				item => item.id !== action.payload,
 			);
@@ -70,6 +88,5 @@ export const getItemsCurrentPage = state => state.userItems.currentPage;
 export const itemsPendingStatus = state => state.userItems.isFetching;
 export const getItemError = state => state.userItems.error;
 
-export const { deleteItemFromList, setCurrentPage, resetList } =
-	itemsSlice.actions;
+export const { deleteItem, setCurrentPage, resetList } = itemsSlice.actions;
 export default itemsSlice.reducer;

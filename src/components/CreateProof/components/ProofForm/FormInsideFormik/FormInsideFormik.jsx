@@ -140,11 +140,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				}}
 			/>
 			<FieldForSkills
-<<<<<<< HEAD
-				{...{ setFieldValue, values, proof, saveProof, errors }}
-=======
 				{...{ setFieldValue, values, proof, saveProof, errors, touched }}
->>>>>>> dev
 			/>
 			<div className={styles.buttonGroup}>
 				<Button
