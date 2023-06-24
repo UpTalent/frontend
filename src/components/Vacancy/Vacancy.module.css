@@ -10,8 +10,7 @@
     width: 80%;
 }
 
-.vacancyContainer h1,
-p {
+.header h1, p {
 	font-weight: 300;
 }
 

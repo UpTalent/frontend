@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { vacancyAPI } from '../../api/vacancyAPI';
 import styles from './Vacancy.module.css';
 import { CircularProgress } from '@mui/material';
@@ -9,9 +9,14 @@ import { SkillBox } from '../shared/SkillBox';
 import { useSelector } from 'react-redux';
 import { getAuthId } from '../../redux/reducers/authentification';
 import { SponsorContainer } from '../shared/PostControl/SponsorContainer';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import remarkGfm from 'remark-gfm';
+import { CustomBreadcrumbs } from '../shared/CustomBreadcrumbs';
 
 export const VacancyPage = () => {
 	const { vacancyId } = useParams();
+	const location = useLocation();
+
 	const [vacancy, setVacancy] = useState(null);
 	const authId = useSelector(getAuthId);
 
@@ -19,17 +24,22 @@ export const VacancyPage = () => {
 		const { data } = await vacancyAPI.getVacancy(vacancyId);
 		setVacancy(data);
 	};
+	
 	useEffect(() => {
 		fetchVacancy();
 	}, []);
+
 	return (
 		<div className={styles.vacancyContainer}>
 			{vacancy ? (
 				<>
+					<CustomBreadcrumbs
+						relatedLinks={[...location?.state, { name: vacancy.title }]}
+					/>
 					<div className={styles.header}>
 						<h1>{vacancy.title}</h1>
-						{authId === vacancy?.author?.id && vacancy &&  (
-							<SponsorContainer {...{vacancy, showControl:true}} />
+						{authId === vacancy?.author?.id && vacancy && (
+							<SponsorContainer {...{ vacancy, showControl: true }} />
 						)}
 					</div>
 					<div className={styles.author}>
@@ -43,7 +53,11 @@ export const VacancyPage = () => {
 								<SkillBox skills={vacancy.skills} />
 							</div>
 						</aside>
-						<div>{vacancy.content}</div>
+						<div>
+							<ReactMarkdown remarkPlugins={[remarkGfm]}>
+								{vacancy.content}
+							</ReactMarkdown>
+						</div>
 					</div>
 				</>
 			) : (
