@@ -37,7 +37,15 @@ const Vacancies = ({ isFetching, items }) => {
 						<p className={styles.emptyList}>It's empty in here...for now</p>
 					)}
 					{items.map((el, id) => (
-						<VacancyGeneral {...el} key={id} />
+						<VacancyGeneral
+							vacancy={el}
+							key={id}
+							{...(isUserProfile && {
+								setVacancy,
+								setMode,
+								showControlls: true,
+							})}
+						/>
 					))}
 				</div>
 			) : (

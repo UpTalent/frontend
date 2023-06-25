@@ -11,7 +11,7 @@ export const withAuth =
 
 		useEffect(() => {
 			if (!isAuth) {
-				navigate('/home/login');
+				navigate('/home/register');
 			}
 		}, []);
 

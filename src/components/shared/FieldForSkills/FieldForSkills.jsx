@@ -11,6 +11,7 @@ export const FieldForSkills = ({
 	saveProof,
 	errors,
 	touched,
+	required
 }) => {
 	const skills = useSelector(getAllSkills);
 	return (
@@ -26,6 +27,7 @@ export const FieldForSkills = ({
 					{...params}
 					name='skills'
 					variant='outlined'
+					required={required}
 					error={touched?.skills && Boolean(errors?.skills)}
 					helperText={touched?.skills && errors?.skills}
 				/>

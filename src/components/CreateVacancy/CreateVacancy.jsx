@@ -18,21 +18,24 @@ import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../redux/reducers/skills';
 import { useStoreDispatch } from '../../redux/store';
 import { validationSchema } from './validation';
-import { prepareProof } from '../../redux/reducers/proof';
+import { prepareItem } from '../../redux/reducers/proof';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
 import { vacancyAPI } from '../../api/vacancyAPI';
 import { ConfirmationMessage } from '../shared/Proof/components/ConfirmationMessage';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { getItemsList } from '../../redux/reducers/userItems';
+import { PUBLISH } from '../../service/constants';
 
 export const CreateVacancy = () => {
-	const { mode, vacancy } = useOutletContext();
+	const { mode, vacancy, setVacancy, vacancyFull } = useOutletContext();
+	const navigate = useNavigate();
+	const { sponsorId } = useParams();
+
 	const [open, setOpen] = useState(true);
 	const [openConfirm, setOpenConfirm] = useState(false);
-	const navigate = useNavigate();
+
 	const skills = useSelector(getAllSkills);
 	const dispatch = useStoreDispatch();
-	const { sponsorId } = useParams();
 
 	const handleClose = () => {
 		setOpen(false);
@@ -40,19 +43,24 @@ export const CreateVacancy = () => {
 	};
 
 	const submitHandler = async values => {
-		values = prepareProof(values);
+		const newValues = prepareItem(values);
 		const action = mode === 'create' ? 'created' : 'edited';
 		try {
 			if (mode === 'create') {
-				await vacancyAPI.createVacancy({ ...values, status: 'DRAFT' });
+				await vacancyAPI.createVacancy({ ...newValues, status: 'DRAFT' });
 			} else {
-				await vacancyAPI.editVacancy(values.id, values);
+				await vacancyAPI.editVacancy(values.id, newValues);
 			}
 			dispatch(setSystemMessage(true, `Vacancy was successfully ${action}`));
 			dispatch(
 				getItemsList({ id: sponsorId, status: 'DRAFT', item: 'vacancies' }),
 			);
-			navigate(`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=DRAFT`);
+			if (vacancyFull) {
+				setVacancy(values);
+				navigate(-1);
+			} else {
+				navigate(`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=DRAFT`);
+			}
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
@@ -60,12 +68,12 @@ export const CreateVacancy = () => {
 
 	const publishHandler = async values => {
 		try {
-			values = prepareProof(values);
+			const newValues = prepareItem(values);
 			if (mode === 'create') {
-				await vacancyAPI.createVacancy({ ...values, status: 'PUBLISHED' });
+				await vacancyAPI.createVacancy({ ...newValues, status: 'PUBLISHED' });
 			} else {
 				await vacancyAPI.editVacancy(values.id, {
-					...values,
+					...newValues,
 					status: 'PUBLISHED',
 				});
 			}
@@ -73,9 +81,14 @@ export const CreateVacancy = () => {
 			dispatch(
 				getItemsList({ id: sponsorId, status: 'PUBLISHED', item: 'vacancies' }),
 			);
-			navigate(
-				`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=PUBLISHED`,
-			);
+			if (vacancyFull) {
+				setVacancy({ ...values, status: 'PUBLISHED', published: Date.now() });
+				navigate(-1);
+			} else {
+				navigate(
+					`/profile/sponsor/${sponsorId}/vacancies?page=1&filter=PUBLISHED`,
+				);
+			}
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
 		}
@@ -101,7 +114,7 @@ export const CreateVacancy = () => {
 								{mode === 'create' ? 'Create new vacancy' : 'Edit vacancy'}
 								<AutoAwesomeIcon color='secondary' fontSize='large' />
 							</h1>
-							<FormField label='Title' name='title' type='text' />
+							<FormField label='Title' name='title' type='text' required />
 							<Field
 								label='Content of vacancy'
 								name='content'
@@ -109,6 +122,7 @@ export const CreateVacancy = () => {
 								fullWidth
 								rows={8}
 								as={TextField}
+								required
 								error={touched.content && Boolean(errors.content)}
 								helperText={touched.content && errors.content}
 								InputProps={{
@@ -119,7 +133,9 @@ export const CreateVacancy = () => {
 									),
 								}}
 							/>
-							<FieldForSkills {...{ values, setFieldValue, errors, touched }} />
+							<FieldForSkills
+								{...{ values, setFieldValue, errors, touched, required: true }}
+							/>
 							{values.skills.length !== 0 && (
 								<>
 									<InputLabel
@@ -175,7 +191,7 @@ export const CreateVacancy = () => {
 							</div>
 							{openConfirm && (
 								<ConfirmationMessage
-									action={'PUBLISH'}
+									action={PUBLISH}
 									handleConfim={setOpenConfirm}
 									confirmMessage={openConfirm}
 									buttonHandler={() => publishHandler(values)}

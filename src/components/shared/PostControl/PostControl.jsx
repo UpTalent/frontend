@@ -1,42 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../../../Proof.module.css';
+import styles from '../Proof/Proof.module.css';
 import { ControllButton } from './ControllButton';
-import { ConfirmationMessage } from '../../../ConfirmationMessage';
+import { ConfirmationMessage } from '../Proof/components/ConfirmationMessage';
 import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useStoreDispatch } from '../../../../../../../redux/store';
-import { useSelector } from 'react-redux';
-import { getAuthId } from '../../../../../../../redux/reducers/authentification';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
-	deleteProof,
-	editProof,
-	fetchProof,
-} from '../../../../../../../redux/reducers/proof';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+	DELETE,
+	DRAFT,
+	HIDDEN,
+	HIDE,
+	PUBLISHED,
+	SHOW,
+} from '../../../service/constants';
 
-export const TalentsControl = ({ status, proofId }) => {
+export const PostControl = ({
+	status,
+	id,
+	deleteHandler,
+	changeVisabilityHandler,
+	editHandler,
+}) => {
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [action, setAction] = useState({ action: '', buttonHandler: null });
-	const [searchParams, setSearchParams] = useSearchParams();
-
-	const dispatch = useStoreDispatch();
-	const talentId = useSelector(getAuthId);
 
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const changeAction = status => {
 		switch (status) {
-			case 'HIDDEN':
+			case HIDDEN:
 				setAction({
-					action: 'SHOW',
-					buttonHandler: () => changeVisibility('PUBLISHED'),
+					action: SHOW,
+					buttonHandler: () => changeVisibility(PUBLISHED),
 				});
 				break;
-			case 'PUBLISHED':
+			case PUBLISHED:
 				setAction({
-					action: 'HIDE',
-					buttonHandler: () => changeVisibility('HIDDEN'),
+					action: HIDE,
+					buttonHandler: () => changeVisibility(HIDDEN),
 				});
 				break;
 			default:
@@ -49,28 +51,20 @@ export const TalentsControl = ({ status, proofId }) => {
 	}, []);
 
 	const handleControllClick = () => {
-		if (status !== 'DRAFT') {
+		if (status !== DRAFT) {
 			changeAction(status);
 			setOpenConfirm(true);
 		} else {
-			dispatch(fetchProof({ talentId, proofId }));
+			const redirect = editHandler();
 			navigate({
-				pathname: `${location.pathname}/createProof`,
+				pathname: `${location.pathname}/${redirect}`,
 				search: location.search,
 			});
 		}
 	};
-	const deleteTalentProof = () => {
-		dispatch(deleteProof({ talentId, proofId, status }));
-	};
 
 	const changeVisibility = status => {
-		const data = { talentId, proofId, status };
-		setSearchParams({
-			...Object.fromEntries([...searchParams]),
-			filter: status,
-		});
-		dispatch(editProof(data));
+		changeVisabilityHandler(status);
 		setOpenConfirm(false);
 	};
 
@@ -78,11 +72,11 @@ export const TalentsControl = ({ status, proofId }) => {
 		<div className={styles.talentsControls}>
 			<ControllButton status={status} handleClick={handleControllClick} />
 			<Tooltip
-				title='Delete proof'
+				title='Delete item'
 				onClick={() => {
 					setAction({
-						action: 'DELETE',
-						buttonHandler: deleteTalentProof,
+						action: DELETE,
+						buttonHandler: () => deleteHandler(id),
 					});
 					setOpenConfirm(true);
 				}}

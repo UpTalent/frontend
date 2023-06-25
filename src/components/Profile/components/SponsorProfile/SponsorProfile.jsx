@@ -13,7 +13,7 @@ export const SponsorProfile = () => {
 	const { user, isUserProfile } = useOutletContext();
 	const tabLabels = [
 		{ label: 'History', link: '', key: `${user.id}` },
-		{ label: 'Vacancies', link: 'vacancies', key: 'vacancies' },
+		{ label: 'Vacancies', link: 'vacancies?page=1&filter=PUBLISHED', key: 'vacancies' },
 	];
 	const sponsorKudos = useSelector(getUserKudos);
 	const dispatch = useDispatch();

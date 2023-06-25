@@ -13,10 +13,6 @@ export const vacancyAPI = {
 	async createVacancy(data) {
 		try {
 			return await axiosInstance.post(`vacancies`, data);
-			// return await axiosInstance.post(`vacancies`, {
-			// 	...data,
-			// 	countMatchedSkills: 1,
-			// });
 		} catch (error) {
 			const field = Object.keys(error.response.data)[0];
 			throw new Error(`${error.response.data[field]}`);
@@ -49,6 +45,14 @@ export const vacancyAPI = {
 		} catch (error) {
 			const field = Object.keys(error.response.data)[0];
 			throw new Error(`${error.response.data[field]}`);
+		}
+	},
+
+	async deleteVacancy(vacancyId) {
+		try {
+			return await axiosInstance.delete(`vacancies/${vacancyId}`);
+		} catch (error) {
+			throw new Error(error.response.data.message);
 		}
 	},
 };

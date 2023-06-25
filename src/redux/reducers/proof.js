@@ -3,13 +3,17 @@ import { proofAPI } from '../../api/proofAPI';
 import { setSystemMessage } from './systemMessages';
 import { deleteItemFromList, getItemsList } from './userItems';
 
-export const prepareProof = proof => {
-	if (proof.skills) {
-		const formatSkills = proof.skills.map(el => el?.id);
-		delete proof.skills;
-		proof.skillIds = formatSkills;
+export const prepareItem = item => {
+	const updatedItem = { ...item };
+
+	if (item.skills) {
+		const formatSkills = item.skills.map(el => el?.id);
+
+		delete updatedItem.skills;
+
+		updatedItem.skillIds = formatSkills;
 	}
-	return proof;
+	return updatedItem;
 };
 
 const initialState = {
@@ -35,7 +39,7 @@ export const publishDraftProof = createAsyncThunk(
 
 			const { headers } = await proofAPI.createProof(
 				talentId,
-				prepareProof(draftProof),
+				prepareItem(draftProof),
 			);
 
 			const proofId = Number(headers.get('Location').split('/').splice(-1)[0]);
@@ -60,7 +64,7 @@ export const createDraftProof = createAsyncThunk(
 	async (params, thunkAPI) => {
 		try {
 			let { talentId, data } = params;
-			await proofAPI.createProof(talentId, prepareProof(data));
+			await proofAPI.createProof(talentId, prepareItem(data));
 			thunkAPI.dispatch(
 				setSystemMessage(true, 'Proof was successfully created'),
 			);
@@ -95,7 +99,7 @@ export const editProof = createAsyncThunk(
 			const { data } = await proofAPI.editProof(
 				talentId,
 				proofId,
-				prepareProof(draftProof),
+				prepareItem(draftProof),
 			);
 			await thunkAPI.dispatch(
 				getItemsList({ id: talentId, status, item: 'proofs' }),
@@ -122,14 +126,14 @@ export const deleteProof = createAsyncThunk(
 			thunkAPI.dispatch(
 				setSystemMessage(true, 'Your proof was succesfully deleted'),
 			);
-			const amountOfProofs = thunkAPI.getState().userItems.itemsList.length;
-			let page = thunkAPI.getState().userItems.currentPage - 1;
-			thunkAPI.dispatch(deleteItemFromList(proofId));
-			if (amountOfProofs === 1) {
-				page -= 1;
-			}
+
 			thunkAPI.dispatch(
-				getItemsList({ id: talentId, page, status, item: 'proofs' }),
+				deleteItemFromList({
+					status,
+					itemId: proofId,
+					id: talentId,
+					item: 'proofs',
+				}),
 			);
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.message);
