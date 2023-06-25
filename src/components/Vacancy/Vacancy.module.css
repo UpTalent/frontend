@@ -7,22 +7,25 @@
 	flex-direction: column;
 	gap: 30px;
 	justify-content: center;
-    width: 80%;
+	width: 80%;
 }
 
-.header h1, p {
+.header h1,
+p {
 	font-weight: 300;
 }
 
-.header {
+.header,
+.footer {
 	display: flex;
 	justify-content: space-between;
+	gap: 40px;
 }
 
-.author {
+.leftSide {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	flex-direction: column;
+	gap: 30px;
 }
 
 .content {
@@ -34,6 +37,7 @@
 	border: 1px solid #c8c4c4;
 	border-radius: 20px;
 	min-width: 300px;
+	max-width: 40%;
 	padding: 15px;
 	height: fit-content;
 }
@@ -64,14 +68,21 @@
 	box-shadow: 0px 4px 4px var(--primary);
 }
 
-.vacancyGeneral:hover .mainInfo{
-    cursor: pointer;
+.vacancyGeneral:hover .mainInfo {
+	cursor: pointer;
 }
 
 .mainInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.controllBlock{
+	display: flex;	
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 15px;
 }
 
 @media screen and (max-width: 700px) {

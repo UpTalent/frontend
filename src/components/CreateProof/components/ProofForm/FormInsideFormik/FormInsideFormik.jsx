@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import { getAllSkills, getSkills } from '../../../../../redux/reducers/skills';
 import { DisabledText } from '../../../../shared/DisabledText/DisabledText';
 import { FieldForSkills } from '../../../../shared/FieldForSkills/FieldForSkills';
+import { DRAFT, PUBLISH } from '../../../../../service/constants';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const { isValid, touched, errors, setFieldValue, values, validateForm } =
@@ -53,14 +54,14 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 	const submitHandler = () => {
 		if (mode === 'create') {
 			dispatch(
-				createDraftProof({ talentId, data: { ...values, status: 'DRAFT' } }),
+				createDraftProof({ talentId, data: { ...values, status: DRAFT } }),
 			);
 		} else if (mode === 'edit') {
 			const data = {
 				talentId,
 				draftProof: { ...values },
 				proofId: proof.id,
-				status: 'DRAFT',
+				status: DRAFT,
 			};
 			dispatch(editProof(data));
 		}
@@ -169,7 +170,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				</DisabledText>
 				{openConfirm && (
 					<ConfirmationMessage
-						action={'PUBLISH'}
+						action={PUBLISH}
 						handleConfim={setOpenConfirm}
 						confirmMessage={openConfirm}
 						buttonHandler={publishHandler}

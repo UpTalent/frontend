@@ -4,7 +4,15 @@ import { ControllButton } from './ControllButton';
 import { ConfirmationMessage } from '../Proof/components/ConfirmationMessage';
 import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {
+	DELETE,
+	DRAFT,
+	HIDDEN,
+	HIDE,
+	PUBLISHED,
+	SHOW,
+} from '../../../service/constants';
 
 export const PostControl = ({
 	status,
@@ -16,22 +24,21 @@ export const PostControl = ({
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [action, setAction] = useState({ action: '', buttonHandler: null });
 
-	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const changeAction = status => {
 		switch (status) {
-			case 'HIDDEN':
+			case HIDDEN:
 				setAction({
-					action: 'SHOW',
-					buttonHandler: () => changeVisibility('PUBLISHED'),
+					action: SHOW,
+					buttonHandler: () => changeVisibility(PUBLISHED),
 				});
 				break;
-			case 'PUBLISHED':
+			case PUBLISHED:
 				setAction({
-					action: 'HIDE',
-					buttonHandler: () => changeVisibility('HIDDEN'),
+					action: HIDE,
+					buttonHandler: () => changeVisibility(HIDDEN),
 				});
 				break;
 			default:
@@ -44,7 +51,7 @@ export const PostControl = ({
 	}, []);
 
 	const handleControllClick = () => {
-		if (status !== 'DRAFT') {
+		if (status !== DRAFT) {
 			changeAction(status);
 			setOpenConfirm(true);
 		} else {
@@ -57,10 +64,6 @@ export const PostControl = ({
 	};
 
 	const changeVisibility = status => {
-		setSearchParams({
-			...Object.fromEntries([...searchParams]),
-			filter: status,
-		});
 		changeVisabilityHandler(status);
 		setOpenConfirm(false);
 	};
@@ -72,7 +75,7 @@ export const PostControl = ({
 				title='Delete item'
 				onClick={() => {
 					setAction({
-						action: 'DELETE',
+						action: DELETE,
 						buttonHandler: () => deleteHandler(id),
 					});
 					setOpenConfirm(true);

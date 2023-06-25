@@ -4,6 +4,7 @@ import { Author } from '../../../shared/Proof/components/Author';
 import { SkillBox } from '../../../shared/SkillBox';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SponsorContainer } from '../../../shared/PostControl/SponsorContainer';
+import { Status } from '../../../shared/Proof/components/ProofTitle/components/Status/Status';
 
 export const VacancyGeneral = ({ vacancy, showControlls, ...props }) => {
 	const navigate = useNavigate();
@@ -16,7 +17,7 @@ export const VacancyGeneral = ({ vacancy, showControlls, ...props }) => {
 			name:
 				linkTitle[0].toUpperCase() + linkTitle.substring(1, linkTitle.length),
 		};
-		navigate(`/vacancy/${vacancy.id}`, {
+		navigate(`/vacancy/${vacancy.author.id}/${vacancy.id}`, {
 			state: [currentPath],
 		});
 	};
@@ -29,7 +30,10 @@ export const VacancyGeneral = ({ vacancy, showControlls, ...props }) => {
 			</div>
 			<div className={styles.mainInfo} onClick={redirectToFull}>
 				<h3>{vacancy.title}</h3>
-				<SkillBox skills={vacancy.skills} />
+				<div className={styles.footer}>
+					<SkillBox skills={vacancy.skills} />
+					{showControlls && <Status status={vacancy.status} />}
+				</div>
 			</div>
 		</div>
 	);

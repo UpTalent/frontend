@@ -33,6 +33,11 @@
 	flex: 1;
 }
 
+.proofContainer{
+	display: flex;
+	flex-direction: column;
+}
+
 @media screen and (max-width: 1000px) {
 	.mainInfo > div > div > div {
 		justify-content: center;

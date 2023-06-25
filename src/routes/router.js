@@ -117,8 +117,14 @@ export const router = createBrowserRouter([
 				element: <VerifyEmail />,
 			},
 			{
-				path: 'vacancy/:vacancyId/*',
+				path: 'vacancy/:sponsorId/:vacancyId/*',
 				element: <VacancyPage />,
+				children: [
+					{
+						path: 'createVacancy',
+						element: <CreateVacancy />,
+					},
+				],
 			},
 		],
 	},

@@ -1,6 +1,7 @@
 import { Breadcrumbs, Link, Typography } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const CustomBreadcrumbs = ({ relatedLinks }) => {
 	const breadcrumbs = relatedLinks?.map((el, i) => {
@@ -12,7 +13,13 @@ export const CustomBreadcrumbs = ({ relatedLinks }) => {
 			);
 		} else {
 			return (
-				<Link key={i} underline='hover' color='inherit' href={el?.link || '#'}>
+				<Link
+					key={i}
+					underline='hover'
+					color='inherit'
+					to={el?.link}
+					component={RouterLink}
+				>
 					{el?.name}
 				</Link>
 			);

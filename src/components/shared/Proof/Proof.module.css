@@ -109,6 +109,8 @@
 	border-radius: 30px;
 	padding: 5px 10px;
 	color: rgba(97, 97, 97, 1);
+	width: fit-content;
+	height: fit-content;
 }
 
 .HIDDEN {
