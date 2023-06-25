@@ -23,6 +23,7 @@ export const ProofTitle = ({
 	inSlider,
 }) => {
 	const [localSkills, setLocalSkills] = useState(skills);
+
 	return (
 		<div className={styles.ProofTitle}>
 			<div className={styles.controls}>
