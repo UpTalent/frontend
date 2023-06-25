@@ -7,7 +7,7 @@ import { withList } from '../../../../../../service/HOC/withList';
 import { VacancyGeneral } from '../../../../../Vacancy/components/VacancyGeneral/VacancyGeneral';
 import styles from '../../MainInfo.module.css';
 import { FilterStatus } from '../Proofs/components/FilterStatus';
-import { ProofLoader } from '../../../../../loaders/ProofLoader/ProofLoader';
+import { VacancyLoader } from '../../../../../loaders/VacancyLoader';
 
 const Vacancies = ({ isFetching, items }) => {
 	const { isUserProfile } = useOutletContext();
@@ -49,8 +49,7 @@ const Vacancies = ({ isFetching, items }) => {
 					))}
 				</div>
 			) : (
-				//зробити інший лоадер
-				<ProofLoader />
+				<VacancyLoader />
 			)}
 
 			<Outlet context={{ mode, vacancy }} />

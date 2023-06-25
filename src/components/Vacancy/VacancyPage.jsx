@@ -43,7 +43,7 @@ export const VacancyPage = () => {
 							<Author {...vacancy.author} />
 						</div>
 						<div className={styles.controllBlock}>
-							{authId === vacancy?.author?.id && vacancy && (
+							{authId === vacancy?.author?.id && (
 								<>
 									<Status status={vacancy.status} />
 									<SponsorContainer
