@@ -10,6 +10,27 @@ export const vacancyAPI = {
 		}
 	},
 
+	async getAllVacancies(
+		currentPage = 0,
+		sorting = 'desc',
+		skills = [],
+		pageSize = 9,
+	) {
+		try {
+			return await axiosInstance.get(`vacancies`, {
+				params: {
+					page: currentPage,
+					size: pageSize,
+					sort: sorting,
+					skills,
+				},
+				paramsSerializer: { indexes: null },
+			});
+		} catch (error) {
+			throw new Error(error.response.data.error);
+		}
+	},
+
 	async createVacancy(data) {
 		try {
 			return await axiosInstance.post(`vacancies`, data);

@@ -15,11 +15,12 @@ import { SponsorProfile } from '../components/Profile/components/SponsorProfile'
 import { TalentProfile } from '../components/Profile/components/TalentProfile/TalentProfile';
 import { KudosHistory } from '../components/Profile/components/MainInfo/components/KudosHistory';
 import { RestoreProfile } from '../components/RestoreProfile';
-import { Statistics } from '../components/Profile/components/Statistics/Statistics';
+import { Statistics } from '../components/Profile/components/Statistics';
 import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
 import { VacancyPage } from '../components/Vacancy';
 import Vacancies from '../components/Profile/components/MainInfo/components/Vacancies/Vacancies';
-import { CreateVacancy } from '../components/CreateVacancy/CreateVacancy';
+import { CreateVacancy } from '../components/CreateVacancy';
+import VacanciesPage from '../components/VacanciesPage/VacanciesPage';
 
 export const router = createBrowserRouter([
 	{
@@ -125,6 +126,10 @@ export const router = createBrowserRouter([
 						element: <CreateVacancy />,
 					},
 				],
+			},
+			{
+				path: 'vacancies',
+				element: <VacanciesPage />,
 			},
 		],
 	},
