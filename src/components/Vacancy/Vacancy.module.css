@@ -8,6 +8,7 @@
 	gap: 30px;
 	justify-content: center;
 	width: 80%;
+	word-break: break-all;
 }
 
 .header h1,
@@ -34,6 +35,11 @@ p {
 	gap: 30px;
 }
 
+.content img {
+	max-width: 20em;
+	object-fit: contain;
+}
+
 .extraBlock {
 	border: 1px solid #c8c4c4;
 	border-radius: 20px;
@@ -56,6 +62,8 @@ p {
 	display: flex;
 	gap: 10px;
 	flex-direction: column;
+	max-width: 800px;
+	word-break: break-all;
 }
 
 .authorBlock {
@@ -80,15 +88,16 @@ p {
 	text-align: left;
 }
 
-.controllBlock{
-	display: flex;	
+.controllBlock {
+	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 	gap: 15px;
 }
 
-@media screen and (max-width: 700px) {
-	.content {
+@media screen and (max-width: 900px) {
+	.content,
+	.header {
 		flex-direction: column;
 	}
 }

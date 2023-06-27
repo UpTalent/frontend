@@ -22,8 +22,9 @@
 .talentInfo {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-around;
 	text-align: center;
+	height: 50%;
 }
 
 .talentName {
@@ -31,9 +32,9 @@
 	color: #000000;
 	font-family: 'Sarabun';
 	font-weight: 500;
-	font-size: 20px;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	font-size: 15px;
+	margin-top: 15px;
+	margin-bottom: 10px;
 }
 
 .skillBox {
@@ -42,6 +43,10 @@
 	flex-wrap: wrap;
 	gap: 10px;
 	margin-bottom: 10px;
+}
+
+.skills > p{
+	font-size: xx-small !important;
 }
 
 .default {

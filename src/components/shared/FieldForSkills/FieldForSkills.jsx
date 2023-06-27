@@ -6,12 +6,13 @@ import { Field } from 'formik';
 
 export const FieldForSkills = ({
 	setFieldValue,
+	setFieldTouched,
 	values,
 	proof,
 	saveProof,
 	errors,
 	touched,
-	required
+	required,
 }) => {
 	const skills = useSelector(getAllSkills);
 	return (
@@ -25,11 +26,10 @@ export const FieldForSkills = ({
 					label='Skills'
 					key={i}
 					{...params}
-					name='skills'
 					variant='outlined'
 					required={required}
 					error={touched?.skills && Boolean(errors?.skills)}
-					helperText={touched?.skills && errors?.skills}
+					helperText={errors?.skills && errors?.skills}
 				/>
 			)}
 			disableCloseOnSelect
@@ -56,6 +56,7 @@ export const FieldForSkills = ({
 				setFieldValue('skills', selectedSkills);
 				proof && saveProof({ ...proof, skills: selectedSkills });
 			}}
+			onBlur={() => setFieldTouched('skills', true)}
 			value={values?.skills}
 			isOptionEqualToValue={(option, value) => option.id === value.id}
 		/>

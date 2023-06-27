@@ -66,7 +66,7 @@ export const VacancyPage = () => {
 								<SkillBox skills={vacancy.skills} />
 							</div>
 						</aside>
-						<div>
+						<div className={styles.vacancyText}>
 							<ReactMarkdown remarkPlugins={[remarkGfm]}>
 								{vacancy.content}
 							</ReactMarkdown>
