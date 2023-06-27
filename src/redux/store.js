@@ -15,6 +15,7 @@ export const store = configureStore({
 		proof,
 		skills,
 		userItems,
+		
 	},
 	devTools: true,
 });

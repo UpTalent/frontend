@@ -15,7 +15,6 @@ export const getTalentsList = createAsyncThunk('getTalents', async page => {
 const talentsSlice = createSlice({
 	name: 'talents',
 	initialState,
-	reducers: {},
 	extraReducers: builder => {
 		builder.addCase(getTalentsList.fulfilled, (state, action) => {
 			state.talentsList = action.payload.content;

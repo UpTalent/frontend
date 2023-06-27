@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { talentsAPI } from '../../api/talentsAPI';
 import { proofAPI } from '../../api/proofAPI';
+import { vacancyAPI } from '../../api/vacancyAPI';
 
 const initialState = {
 	listWithData: [],
@@ -32,6 +33,20 @@ export const getProofsList = createAsyncThunk(
 		try {
 			const { page, alignment, filter } = params;
 			const { data } = await proofAPI.getAllProofs(page, alignment, filter);
+			thunkAPI.dispatch(updateList(data));
+			return data;
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err.message);
+		}
+	},
+);
+
+export const getVacanciesList = createAsyncThunk(
+	'getVacancies',
+	async (params, thunkAPI) => {
+		try {
+			const { page, alignment, filter } = params;
+			const { data } = await vacancyAPI.getAllVacancies(page, alignment, filter);
 			thunkAPI.dispatch(updateList(data));
 			return data;
 		} catch (err) {
@@ -75,6 +90,9 @@ const dataListSlice = createSlice({
 			})
 			.addCase(getProofsList.fulfilled, state => {
 				state.content = 'proofs';
+			})
+			.addCase(getVacanciesList.fulfilled, state => {
+				state.content = 'vacancies';
 			})
 			.addCase(getProofsList.pending, state => {
 				state.isFetching = true;

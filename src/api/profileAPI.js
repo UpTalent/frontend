@@ -1,16 +1,16 @@
-import { axiosInstance } from './index';
+import { axiosInstance, baseRequest } from './index';
 
 export const profileAPI = {
 	async getUser(role = 'talent', id) {
-		try {
-			return await axiosInstance.get(`${role}s/${id}`);
-		} catch (error) {
-			throw new Error(error.response.data.message);
-		}
+		return baseRequest(() => axiosInstance.get(`${role}s/${id}`));
+	},
+
+	async edit(id, data, role) {
+		return baseRequest(() => axiosInstance.patch(`${role}s/${id}`, data));
 	},
 
 	async uplaodPhoto(id, photo, operation) {
-		try {
+		const makePhotoRequest = async () => {
 			const formData = new FormData();
 			formData.append('image', photo);
 			formData.append('operation', operation);
@@ -20,25 +20,15 @@ export const profileAPI = {
 					'Content-Type': 'multipart/form-data',
 				},
 			});
-		} catch (error) {
-			const message = error.response.data.message || error.response.data.error;
-			throw new Error(message);
-		}
+		};
+		return baseRequest(makePhotoRequest);
 	},
 
 	async deleteProfile(id) {
-		try {
-			return await axiosInstance.delete(`talents/${id}`);
-		} catch (error) {
-			throw new Error(error.response.data.message);
-		}
+		return baseRequest(() => axiosInstance.delete(`talents/${id}`));
 	},
 
-	async getStatistics (id) {
-		try {
-			return await axiosInstance.get(`talents/${id}/statistic`);
-		} catch(error) {
-			throw new Error(error.response.data.message)
-		}
-	}
+	async getStatistics(id) {
+		return baseRequest(() => axiosInstance.get(`talents/${id}/statistic`));
+	},
 };

@@ -22,7 +22,7 @@
 	height: max-content;
 }
 
-.statsConatiner h3 {
+.statsConatiner > h3 {
 	text-transform: uppercase;
 	font-weight: 200;
 	text-align: left;

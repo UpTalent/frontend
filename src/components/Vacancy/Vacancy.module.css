@@ -26,6 +26,7 @@ p {
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
+	max-width: 80%;
 }
 
 .content {
@@ -65,7 +66,7 @@ p {
 }
 
 .vacancyGeneral:hover {
-	box-shadow: 0px 4px 4px var(--primary);
+	box-shadow: 0px 4px 7px var(--primary);
 }
 
 .vacancyGeneral:hover .mainInfo {
@@ -76,6 +77,7 @@ p {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+	text-align: left;
 }
 
 .controllBlock{

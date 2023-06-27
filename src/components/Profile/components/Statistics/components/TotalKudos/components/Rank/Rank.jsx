@@ -16,7 +16,7 @@ export const Rank = ({ rank }) => {
 			<RankInfoModal {...{ showInfo, setShowInfo }} />
 			<img
 				src={rank.icon}
-				alt={rank}
+				alt={rank.rank}
 				style={{ width: '100px', height: '100px' }}
 			/>
 		</>

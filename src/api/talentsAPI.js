@@ -1,34 +1,20 @@
-import { axiosInstance } from './index';
+import { axiosInstance, baseRequest } from './index';
 
 export const talentsAPI = {
 	async getTalents(currentPage = 0, pageSize = 9, skills = []) {
-		try {
-			return await axiosInstance.get(`talents`, {
+		return baseRequest(() =>
+			axiosInstance.get(`talents`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
 					skills,
 				},
 				paramsSerializer: { indexes: null },
-			});
-		} catch (error) {
-			throw new Error(error.response.data.message);
-		}
-	},
-
-	async edit(id, data, role) {
-		try {
-			return await axiosInstance.patch(`${role}s/${id}`, data);
-		} catch (error) {
-			throw new Error(error.response.data.message);
-		}
+			}),
+		);
 	},
 
 	async getTopSponsors() {
-		try {
-			return await axiosInstance.get('sponsors/rating');
-		} catch (error) {
-			throw new Error(error.response.data.message);
-		}
+		return baseRequest(() => axiosInstance.get('sponsors/rating'));
 	},
 };
