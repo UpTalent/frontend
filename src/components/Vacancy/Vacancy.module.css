@@ -27,7 +27,6 @@ p {
 	flex-direction: column;
 	gap: 30px;
 	max-width: 80%;
-	overflow-wrap: break-word;
 }
 
 .content {
@@ -79,7 +78,6 @@ p {
 	flex-direction: column;
 	gap: 20px;
 	text-align: left;
-	overflow-wrap: break-word;
 }
 
 .controllBlock{
