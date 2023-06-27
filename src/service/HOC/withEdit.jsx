@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../../components/LoginForm/Forms.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
-import { talentsAPI } from '../../api/talentsAPI';
 import {
 	getRole,
 	updateFirstName,
 } from '../../redux/reducers/authentification';
 import { setSystemMessage } from '../../redux/reducers/systemMessages';
+import { profileAPI } from '../../api/profileAPI';
 
 export const withEdit =
 	Component =>
@@ -28,7 +28,7 @@ export const withEdit =
 		const edit = async formData => {
 			const editData = { ...formData };
 			try {
-				const { data } = await talentsAPI.edit(user.id, editData, role);
+				const { data } = await profileAPI.edit(user.id, editData, role);
 				setUser(data);
 				const name = role === 'talent' ? data.firstname : data.fullname;
 				dispatch(updateFirstName(name));

@@ -1,13 +1,8 @@
-import { axiosInstance } from './index';
+import { axiosInstance, baseRequest } from './index';
 
 export const vacancyAPI = {
 	async getVacancy(vacancyId) {
-		try {
-			return await axiosInstance.get(`vacancies/${vacancyId}`);
-		} catch (error) {
-			const field = Object.keys(error.response.data)[0];
-			throw new Error(`${error.response.data[field]}`);
-		}
+		return baseRequest(() => axiosInstance.get(`vacancies/${vacancyId}`));
 	},
 
 	async getAllVacancies(
@@ -16,8 +11,8 @@ export const vacancyAPI = {
 		skills = [],
 		pageSize = 9,
 	) {
-		try {
-			return await axiosInstance.get(`vacancies`, {
+		return baseRequest(() =>
+			axiosInstance.get(`vacancies`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
@@ -25,28 +20,18 @@ export const vacancyAPI = {
 					skills,
 				},
 				paramsSerializer: { indexes: null },
-			});
-		} catch (error) {
-			throw new Error(error.response.data.error);
-		}
+			}),
+		);
 	},
 
 	async createVacancy(data) {
-		try {
-			return await axiosInstance.post(`vacancies`, data);
-		} catch (error) {
-			const field = Object.keys(error.response.data)[0];
-			throw new Error(`${error.response.data[field]}`);
-		}
+		return baseRequest(() => axiosInstance.post(`vacancies`, data));
 	},
 
 	async editVacancy(vacancyId, data) {
-		try {
-			return await axiosInstance.patch(`vacancies/${vacancyId}`, data);
-		} catch (error) {
-			const field = Object.keys(error.response.data)[0];
-			throw new Error(`${error.response.data[field]}`);
-		}
+		return baseRequest(() =>
+			axiosInstance.patch(`vacancies/${vacancyId}`, data),
+		);
 	},
 
 	async getSponsorsVacancies(
@@ -55,25 +40,18 @@ export const vacancyAPI = {
 		status = 'PUBLISHED',
 		pageSize = 3,
 	) {
-		try {
-			return await axiosInstance.get(`vacancies/sponsors/${id}`, {
+		return baseRequest(() =>
+			axiosInstance.get(`vacancies/sponsors/${id}`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
 					status: status,
 				},
-			});
-		} catch (error) {
-			const field = Object.keys(error.response.data)[0];
-			throw new Error(`${error.response.data[field]}`);
-		}
+			}),
+		);
 	},
 
 	async deleteVacancy(vacancyId) {
-		try {
-			return await axiosInstance.delete(`vacancies/${vacancyId}`);
-		} catch (error) {
-			throw new Error(error.response.data.message);
-		}
+		return baseRequest(() => axiosInstance.delete(`vacancies/${vacancyId}`));
 	},
 };

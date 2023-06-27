@@ -27,6 +27,10 @@
 	border-radius: 10px;
 }
 
+.General > div > div div {
+	font-size: xx-small;
+}
+
 .ProofTitle {
 	background-color: var(--primary);
 	border-radius: 8px;

@@ -1,33 +1,22 @@
-import { axiosInstance } from './index';
+import { axiosInstance, baseRequest } from './index';
 
 export const proofAPI = {
 	async getProof(talent_Id, proof_Id) {
-		try {
-			return await axiosInstance.get(`talents/${talent_Id}/proofs/${proof_Id}`);
-		} catch (error) {
-			throw new Error(error.response.data);
-		}
+		return baseRequest(() =>
+			axiosInstance.get(`talents/${talent_Id}/proofs/${proof_Id}`),
+		);
 	},
 
 	async createProof(talent_Id, data) {
-		try {
-			return await axiosInstance.post(`talents/${talent_Id}/proofs`, data);
-		} catch (error) {
-			const field = Object.keys(error.response.data)[0];
-			throw new Error(`${error.response.data[field]}`);
-		}
+		return baseRequest(() =>
+			axiosInstance.post(`talents/${talent_Id}/proofs`, data),
+		);
 	},
 
 	async editProof(talent_Id, proof_Id, data) {
-		try {
-			return await axiosInstance.patch(
-				`talents/${talent_Id}/proofs/${proof_Id}`,
-				data,
-			);
-		} catch (error) {
-			const field = Object.keys(error.response.data)[0];
-			throw new Error(`${error.response.data[field]}`);
-		}
+		return baseRequest(() =>
+			axiosInstance.patch(`talents/${talent_Id}/proofs/${proof_Id}`, data),
+		);
 	},
 
 	async getTalentProofs(
@@ -36,17 +25,15 @@ export const proofAPI = {
 		status = 'PUBLISHED',
 		pageSize = 3,
 	) {
-		try {
-			return await axiosInstance.get(`talents/${talent_Id}/proofs`, {
+		return baseRequest(() =>
+			axiosInstance.get(`talents/${talent_Id}/proofs`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
 					status: status,
 				},
-			});
-		} catch (error) {
-			throw new Error(error.response.data.error);
-		}
+			}),
+		);
 	},
 
 	async getAllProofs(
@@ -55,8 +42,8 @@ export const proofAPI = {
 		skills = [],
 		pageSize = 9,
 	) {
-		try {
-			return await axiosInstance.get(`proofs`, {
+		return baseRequest(() =>
+			axiosInstance.get(`proofs`, {
 				params: {
 					page: currentPage,
 					size: pageSize,
@@ -64,19 +51,13 @@ export const proofAPI = {
 					skills,
 				},
 				paramsSerializer: { indexes: null },
-			});
-		} catch (error) {
-			throw new Error(error.response.data.error);
-		}
+			}),
+		);
 	},
 
 	async deleteProof(talent_Id, proof_Id) {
-		try {
-			return await axiosInstance.delete(
-				`talents/${talent_Id}/proofs/${proof_Id}`,
-			);
-		} catch (error) {
-			throw new Error(error.response.data.error);
-		}
+		return baseRequest(() =>
+			axiosInstance.delete(`talents/${talent_Id}/proofs/${proof_Id}`),
+		);
 	},
 };

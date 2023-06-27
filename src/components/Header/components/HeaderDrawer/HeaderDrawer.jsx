@@ -32,13 +32,13 @@ export const HeaderDrawer = ({mobileOpen, setMobileOpen}) => {
 				aria-label='open drawer'
 				edge='end'
 				onClick={handleDrawerToggle}
-				sx={{ mr: 2, display: { sm: 'none' } }}
+				sx={{ mr: 2, display: { md: 'none' } }}
 			>
 				<MenuIcon color='primary'/>
 			</IconButton>
 			<Box
 				component='nav'
-				sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+				sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
 				aria-label='mailbox folders'
 			>
 				<Drawer
@@ -49,7 +49,7 @@ export const HeaderDrawer = ({mobileOpen, setMobileOpen}) => {
 						keepMounted: true,
 					}}
 					sx={{
-						display: { xs: 'block', sm: 'none' },
+						display: { sm: 'block', md: 'none' },
 						'& .MuiDrawer-paper': {
 							boxSizing: 'border-box',
 							width: drawerWidth,

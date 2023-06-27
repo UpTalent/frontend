@@ -8,12 +8,14 @@ import { useMediaQuery } from '@mui/material';
 
 export const Header = () => {
 	const [mobileOpen, setMobileOpen] = useState(false);
-	const mobile = useMediaQuery(theme => theme.breakpoints.up('sm'));
+	const mobile = useMediaQuery(theme => theme.breakpoints.up('md'));
 	return (
 		<header className={styles.header}>
 			<Logo />
 			{!mobile ? (
-				<HeaderDrawer {...{ mobileOpen, setMobileOpen }} />
+				<div>
+					<HeaderDrawer {...{ mobileOpen, setMobileOpen }} />
+				</div>
 			) : (
 				<>
 					<Navbar />
