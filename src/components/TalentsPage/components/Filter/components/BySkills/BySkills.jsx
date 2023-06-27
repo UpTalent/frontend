@@ -1,10 +1,4 @@
-import {
-	Badge,
-	Button,
-	Checkbox,
-	Menu,
-	MenuItem,
-} from '@mui/material';
+import { Badge, Button, Checkbox, Menu, MenuItem } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import styles from '../../Filter.module.css';
 import { useSelector } from 'react-redux';
@@ -58,7 +52,11 @@ export const BySkills = ({ setFilterItems, filterItems, handleDelete }) => {
 			>
 				{skillList.map((el, i) => (
 					<MenuItem key={i} onClick={() => addSkill(el)}>
-						<Checkbox checked={filterItems.includes(el)} />
+						<Checkbox
+							checked={Boolean(
+								filterItems.find(skill => skill.name === el.name),
+							)}
+						/>
 						{el.name}
 					</MenuItem>
 				))}

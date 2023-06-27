@@ -152,6 +152,11 @@
 	gap: 10px !important;
 	align-items: flex-end !important;
 }
+
+.skillsSlider > div:nth-child(2) {
+	align-self: flex-start;
+}
+
 .skillsSlider > div p {
 	font-size: 0.4rem;
 }

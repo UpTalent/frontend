@@ -20,6 +20,7 @@ export const SliderTalent = ({ talent }) => {
 				key={skill.id}
 				skill={formatSliderText(skill.name, 12)}
 				id={skill.id}
+				additionalStyle={styles.skills}
 			/>
 		));
 	return (

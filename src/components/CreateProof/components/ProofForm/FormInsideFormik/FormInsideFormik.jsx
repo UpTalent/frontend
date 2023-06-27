@@ -19,7 +19,7 @@ import { FieldForSkills } from '../../../../shared/FieldForSkills/FieldForSkills
 import { DRAFT, PUBLISH } from '../../../../../service/constants';
 
 export const FormInsideFormik = ({ proof, saveProof, mode }) => {
-	const { isValid, touched, errors, setFieldValue, values, validateForm } =
+	const { isValid, touched, errors, setFieldValue, values, validateForm, setFieldTouched } =
 		useFormikContext();
 
 	const navigate = useNavigate();
@@ -141,7 +141,7 @@ export const FormInsideFormik = ({ proof, saveProof, mode }) => {
 				}}
 			/>
 			<FieldForSkills
-				{...{ setFieldValue, values, proof, saveProof, errors, touched }}
+				{...{ setFieldValue, values, proof, saveProof, errors, touched, setFieldTouched }}
 			/>
 			<div className={styles.buttonGroup}>
 				<Button

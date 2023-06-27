@@ -27,7 +27,7 @@ export const SortButtons = () => {
 		const newAlignment = controlls.change;
 		setAlignment(newAlignment);
 		setSearchParams({
-			...Object.fromEntries([...searchParams]),
+			filter: searchParams.getAll('filter'),
 			page: '1',
 			sort: newAlignment,
 		});

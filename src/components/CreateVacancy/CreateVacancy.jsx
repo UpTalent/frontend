@@ -108,7 +108,7 @@ export const CreateVacancy = () => {
 					validationSchema={validationSchema}
 					validateOnMount={true}
 				>
-					{({ isValid, values, touched, errors, setFieldValue }) => (
+					{({ isValid, values, touched, errors, setFieldValue, setFieldTouched }) => (
 						<Form className={styles.registrationForm}>
 							<h1 className={styles.formTitle}>
 								{mode === 'create' ? 'Create new vacancy' : 'Edit vacancy'}
@@ -134,7 +134,7 @@ export const CreateVacancy = () => {
 								}}
 							/>
 							<FieldForSkills
-								{...{ values, setFieldValue, errors, touched, required: true }}
+								{...{ values, setFieldValue, setFieldTouched, errors, touched, required: true }}
 							/>
 							{values.skills.length !== 0 && (
 								<>

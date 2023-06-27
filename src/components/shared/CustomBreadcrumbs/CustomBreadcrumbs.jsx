@@ -7,7 +7,7 @@ export const CustomBreadcrumbs = ({ relatedLinks }) => {
 	const breadcrumbs = relatedLinks?.map((el, i) => {
 		if (i === relatedLinks.length - 1) {
 			return (
-				<Typography key={i} color={'primary'}>
+				<Typography key={i} color={'primary'} sx={{ wordBreak: 'break-all' }}>
 					{el.name}
 				</Typography>
 			);
