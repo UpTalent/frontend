@@ -44,3 +44,7 @@
 .swiperButtonNext {
 	right: 30px;
 }
+
+.sliderLoader {
+	position: absolute;
+}

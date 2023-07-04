@@ -6,12 +6,10 @@ import { sponsorApi } from '../../../../../../api/sponsorAPI';
 import styles from '../../MainInfo.module.css';
 import { KudosedProof } from './components/KudosedProof';
 import { Pagination } from '@mui/material';
-import { ProofLoader } from '../../../../../loaders/ProofLoader/ProofLoader';
 
 export const KudosHistory = () => {
 	const { sponsorId } = useParams();
 	const [proofs, setProofs] = useState([]);
-	const [isFetching, setIsFetching] = useState(false);
 	const [total_pages, setTotalPages] = useState(1);
 	const [searchParams, setSearchParams] = useSearchParams();
 
@@ -20,11 +18,9 @@ export const KudosHistory = () => {
 
 	const getProofs = async page => {
 		try {
-			setIsFetching(true);
 			const { data } = await sponsorApi.getKudosedProofs(sponsorId, page);
 			setProofs(data.content);
 			setTotalPages(data.total_pages);
-			setIsFetching(false);
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -45,15 +41,12 @@ export const KudosHistory = () => {
 
 	return (
 		<div className={styles.proofContainer}>
-			{!isFetching ? (
-				<div className={styles.items}>
-					{proofs.map(el => (
-						<KudosedProof key={el.proof_id} proofInfo={el}/>
-					))}
-				</div>
-			) : (
-				<ProofLoader />
-			)}
+			<div className={styles.items}>
+				{proofs.map(el => (
+					<KudosedProof key={el.proof_id} proofInfo={el} />
+				))}
+			</div>
+
 			{Boolean(proofs.length) && (
 				<Pagination
 					page={currentPage}
