@@ -1,3 +1,4 @@
+import moment from 'moment';
 import * as Yup from 'yup';
 
 export const validationSchema = Yup.object({
@@ -19,9 +20,13 @@ export const validationSchema = Yup.object({
 		.max(255, 'Must be less than 255 characters')
 		.nullable(),
 	birthday: Yup.date()
-		.max(new Date().getFullYear() - 10, 'Call your mommy sweetheart ;)')
+		.transform((value, rawValue) => {
+			const correctDate = moment(rawValue, ['yyyy-mm-dd']).toDate();
+			return correctDate
+		})
+		.max(moment().subtract(14, 'year'), 'Call your mommy sweetheart ;)')
 		.min(
-			new Date().getFullYear() - 100,
+			moment().subtract(100, 'year'),
 			'You are not a Jesus brother, aren`t you?',
 		)
 		.nullable(),

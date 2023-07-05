@@ -25,6 +25,7 @@ import { ConfirmationMessage } from '../shared/Proof/components/ConfirmationMess
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { getItemsList } from '../../redux/reducers/userItems';
 import { PUBLISH } from '../../service/constants';
+import { MatchedSkillsInfo } from './components/MatchedSkillsInfo/MatchedSkillsInfo';
 
 export const CreateVacancy = () => {
 	const { mode, vacancy, setVacancy, vacancyFull } = useOutletContext();
@@ -108,7 +109,14 @@ export const CreateVacancy = () => {
 					validationSchema={validationSchema}
 					validateOnMount={true}
 				>
-					{({ isValid, values, touched, errors, setFieldValue, setFieldTouched }) => (
+					{({
+						isValid,
+						values,
+						touched,
+						errors,
+						setFieldValue,
+						setFieldTouched,
+					}) => (
 						<Form className={styles.registrationForm}>
 							<h1 className={styles.formTitle}>
 								{mode === 'create' ? 'Create new vacancy' : 'Edit vacancy'}
@@ -134,7 +142,14 @@ export const CreateVacancy = () => {
 								}}
 							/>
 							<FieldForSkills
-								{...{ values, setFieldValue, setFieldTouched, errors, touched, required: true }}
+								{...{
+									values,
+									setFieldValue,
+									setFieldTouched,
+									errors,
+									touched,
+									required: true,
+								}}
 							/>
 							{values.skills.length !== 0 && (
 								<>
@@ -142,7 +157,7 @@ export const CreateVacancy = () => {
 										id='input-slider'
 										sx={{ alignSelf: 'flex-start', fontSize: '0.75rem' }}
 									>
-										Matched skills
+										<MatchedSkillsInfo /> Matched skills
 									</InputLabel>
 									<Slider
 										name='countMatchedSkills'

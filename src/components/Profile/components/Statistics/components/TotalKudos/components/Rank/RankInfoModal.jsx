@@ -1,11 +1,11 @@
-import { Dialog } from '@mui/material';
 import React from 'react';
 import styles from './Rank.module.css';
 import { talentRank } from '../../../../../../../../assets/static/talentRank';
+import { InfoModal } from '../../../../../../../shared/InfoModal/InfoModal';
 
-export const RankInfoModal = ({ showInfo, setShowInfo }) => {
+export const RankInfoModal = () => {
 	return (
-		<Dialog open={showInfo} onClose={() => setShowInfo(false)}>
+		<InfoModal withClose={false}>
 			<div className={styles.container}>
 				<h3>
 					On our site we have <b> rank system</b> which is based on talent's
@@ -26,6 +26,6 @@ export const RankInfoModal = ({ showInfo, setShowInfo }) => {
 					))}
 				</div>
 			</div>
-		</Dialog>
+		</InfoModal>
 	);
 };
