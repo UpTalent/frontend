@@ -12,7 +12,7 @@ export const Slider = ({ sliderElements, viewAll, isLoading, item }) => {
 	return (
 		<div className='slider'>
 			{isLoading ? (
-				<div className='loaderContainer'>
+				<div className='loaderContainer sliderLoader'>
 					<CircularProgress />
 				</div>
 			) : (

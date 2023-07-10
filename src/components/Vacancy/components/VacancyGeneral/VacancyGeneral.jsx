@@ -17,7 +17,7 @@ export const VacancyGeneral = ({ vacancy, showControlls, ...props }) => {
 			name:
 				linkTitle[0].toUpperCase() + linkTitle.substring(1, linkTitle.length),
 		};
-		navigate(`/vacancy/${vacancy.author.id}/${vacancy.id}`, {
+		navigate(`/vacancy/${vacancy.id}`, {
 			state: [currentPath],
 		});
 	};
@@ -31,7 +31,7 @@ export const VacancyGeneral = ({ vacancy, showControlls, ...props }) => {
 			<div className={styles.mainInfo} onClick={redirectToFull}>
 				<h3>{vacancy.title}</h3>
 				<div className={styles.footer}>
-					<SkillBox skills={vacancy.skills} />
+					<SkillBox skills={vacancy.skills} additionalStyle={styles.skills}/>
 					{showControlls && <Status status={vacancy.status} />}
 				</div>
 			</div>

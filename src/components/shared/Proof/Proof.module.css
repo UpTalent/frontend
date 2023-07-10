@@ -113,7 +113,7 @@
 	border-radius: 30px;
 	padding: 5px 10px;
 	color: rgba(97, 97, 97, 1);
-	width: fit-content;
+	min-width: max-content;
 	height: fit-content;
 }
 

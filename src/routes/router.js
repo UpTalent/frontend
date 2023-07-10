@@ -118,7 +118,7 @@ export const router = createBrowserRouter([
 				element: <VerifyEmail />,
 			},
 			{
-				path: 'vacancy/:sponsorId/:vacancyId/*',
+				path: 'vacancy/:vacancyId/*',
 				element: <VacancyPage />,
 				children: [
 					{

@@ -4,6 +4,7 @@ import { ProofTitle } from '../../../../../../shared/Proof/components/ProofTitle
 import styles from '../../../../../../shared/Proof/Proof.module.css';
 import { KudosedProofItem } from './KudosedProofItem';
 import { proofAPI } from '../../../../../../../api/proofAPI';
+import { ProofLoader } from '../../../../../../loaders/ProofLoader/ProofLoader';
 
 export const KudosedProof = ({ proofInfo }) => {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -31,7 +32,7 @@ export const KudosedProof = ({ proofInfo }) => {
 	
 	return (
 		<>
-			{proofSkills.length && (
+			{proofSkills.length ? (
 				<div className={styles.Proof}>
 					<Accordion expanded={isAccordionOpen}>
 						<AccordionSummary
@@ -61,7 +62,7 @@ export const KudosedProof = ({ proofInfo }) => {
 						</AccordionDetails>
 					</Accordion>
 				</div>
-			)}
+			): <ProofLoader amount={1} />}
 		</>
 	);
 };

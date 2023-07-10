@@ -53,6 +53,7 @@ p {
 	display: flex;
 	gap: 10px;
 	align-items: center;
+	flex-wrap: wrap;
 }
 
 .vacancyGeneral {
@@ -81,6 +82,10 @@ p {
 	cursor: pointer;
 }
 
+.mainInfo:hover h3{
+	color: var(--primary);
+}
+
 .mainInfo {
 	display: flex;
 	flex-direction: column;
@@ -93,6 +98,10 @@ p {
 	flex-direction: column;
 	align-items: flex-end;
 	gap: 15px;
+}
+
+.skills{
+	max-width: 80%;
 }
 
 @media screen and (max-width: 900px) {

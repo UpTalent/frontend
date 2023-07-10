@@ -29,7 +29,7 @@ export const FieldForSkills = ({
 					variant='outlined'
 					required={required}
 					error={touched?.skills && Boolean(errors?.skills)}
-					helperText={errors?.skills && errors?.skills}
+					helperText={touched?.skills && errors?.skills}
 				/>
 			)}
 			disableCloseOnSelect
