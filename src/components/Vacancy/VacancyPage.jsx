@@ -13,6 +13,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { CustomBreadcrumbs } from '../shared/CustomBreadcrumbs';
 import { Status } from '../shared/Proof/components/ProofTitle/components/Status/Status';
+import { ResponseBlock } from './components/ResponseBlock';
 
 export const VacancyPage = () => {
 	const { vacancyId } = useParams();
@@ -60,18 +61,19 @@ export const VacancyPage = () => {
 						</div>
 					</div>
 					<div className={styles.content}>
+						<div className={styles.vacancyText}>
+							<ReactMarkdown remarkPlugins={[remarkGfm]}>
+								{vacancy.content}
+							</ReactMarkdown>
+						</div>
 						<aside className={styles.extraBlock}>
 							<div className={styles.extraItem}>
 								<p>Required: </p>
 								<SkillBox skills={vacancy.skills} />
 							</div>
 						</aside>
-						<div className={styles.vacancyText}>
-							<ReactMarkdown remarkPlugins={[remarkGfm]}>
-								{vacancy.content}
-							</ReactMarkdown>
-						</div>
 					</div>
+					<ResponseBlock isDisabled={false} />
 				</>
 			) : (
 				<div className='loaderContainer'>

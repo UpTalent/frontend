@@ -54,4 +54,10 @@ export const vacancyAPI = {
 	async deleteVacancy(vacancyId) {
 		return baseRequest(() => axiosInstance.delete(`vacancies/${vacancyId}`));
 	},
+
+	async vacancyResponse(vacancyId, data) {
+		return baseRequest(() =>
+			axiosInstance.post(`vacancies/${vacancyId}/submissions`, data),
+		);
+	},
 };
