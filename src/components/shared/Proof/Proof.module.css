@@ -117,18 +117,6 @@
 	height: fit-content;
 }
 
-.HIDDEN {
-	background-color: rgba(203, 203, 203, 0.87);
-}
-
-.DRAFT {
-	background-color: rgba(255, 191, 91, 0.87);
-}
-
-.PUBLISHED {
-	background-color: rgba(185, 255, 196, 0.87);
-}
-
 .content {
 	padding: 10px;
 	font-weight: 200;

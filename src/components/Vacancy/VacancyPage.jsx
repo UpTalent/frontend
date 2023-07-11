@@ -7,7 +7,7 @@ import { Author } from '../shared/Proof/components/Author';
 import { TimeStapm } from '../shared/Proof/components/ProofTitle/components/TimeStamp';
 import { SkillBox } from '../shared/SkillBox';
 import { useSelector } from 'react-redux';
-import { getAuthId } from '../../redux/reducers/authentification';
+import { getAuthId, getRole } from '../../redux/reducers/authentification';
 import { SponsorContainer } from '../shared/PostControl/SponsorContainer';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -21,6 +21,7 @@ export const VacancyPage = () => {
 
 	const [vacancy, setVacancy] = useState(null);
 	const authId = useSelector(getAuthId);
+	const userRole = useSelector(getRole);
 
 	const fetchVacancy = async () => {
 		const { data } = await vacancyAPI.getVacancy(vacancyId);
@@ -44,7 +45,7 @@ export const VacancyPage = () => {
 							<Author {...vacancy.author} />
 						</div>
 						<div className={styles.controllBlock}>
-							{authId === vacancy?.author?.id && (
+							{authId === vacancy?.author?.id && userRole === 'sponsor'&&  (
 								<>
 									<Status status={vacancy.status} />
 									<SponsorContainer
@@ -73,7 +74,7 @@ export const VacancyPage = () => {
 							</div>
 						</aside>
 					</div>
-					<ResponseBlock isDisabled={false} />
+					<ResponseBlock canRespond={vacancy.can_submit}/>
 				</>
 			) : (
 				<div className='loaderContainer'>

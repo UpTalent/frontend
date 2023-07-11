@@ -1,19 +1,20 @@
 import { Field, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../ResponseBlock.module.css';
-import { useSelector } from 'react-redux';
-import { getUserEmail } from '../../../../../redux/reducers/authentification';
 import { validationSchema } from './validation';
 import { FormField } from '../../../../shared/FormField';
 import { Button, InputAdornment, TextField } from '@mui/material';
+import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
 
 export const ResponseForm = ({
 	setIsOpen,
 	handleSubmit,
 	withContacts = true,
 	isFetching,
+	initialValues,
+	action,
 }) => {
-	const userEmail = useSelector(getUserEmail);
+	const [openSubmit, setOpenSubmit] = useState(false);
 
 	const submitForm = async values => {
 		await handleSubmit(values);
@@ -22,9 +23,9 @@ export const ResponseForm = ({
 
 	return (
 		<Formik
-			initialValues={{ contactInfo: userEmail, message: '' }}
+			initialValues={initialValues}
 			validationSchema={validationSchema}
-			onSubmit={submitForm}
+			onSubmit={() => setOpenSubmit(true)}
 			validateOnMount={true}
 		>
 			{({ isValid, errors, touched, values }) => (
@@ -73,6 +74,12 @@ export const ResponseForm = ({
 						>
 							Apply
 						</Button>
+						<ConfirmationMessage
+							confirmMessage={openSubmit}
+							handleConfim={setOpenSubmit}
+							buttonHandler={() => submitForm(values)}
+							action={action}
+						/>
 					</div>
 				</Form>
 			)}

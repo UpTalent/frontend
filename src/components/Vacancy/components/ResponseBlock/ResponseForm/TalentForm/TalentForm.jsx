@@ -5,14 +5,19 @@ import { setSystemMessage } from '../../../../../../redux/reducers/systemMessage
 import { vacancyAPI } from '../../../../../../api/vacancyAPI';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { DisabledText } from '../../../../../shared/DisabledText/DisabledText';
+import { Button } from '@mui/material';
 
-export const TalentForm = ({ setIsOpen }) => {
+export const TalentForm = ({ canRespond, userEmail }) => {
+	const [isOpen, setIsOpen] = useState(false);
 	const [isFetching, setIsFetching] = useState(false);
+
 	const dispatch = useDispatch();
 	const { vacancyId } = useParams();
 
+	const initialValues = { contactInfo: userEmail, message: '' };
+
 	const handleSubmit = async responseInfo => {
-        
 		try {
 			setIsFetching(true);
 			const { data } = await vacancyAPI.vacancyResponse(
@@ -27,15 +32,40 @@ export const TalentForm = ({ setIsOpen }) => {
 				),
 			);
 			setIsFetching(false);
-
 		} catch (error) {
 			dispatch(setSystemMessage(true, error.message, 'error'));
+			setIsFetching(false);
 		}
 	};
 	return (
-		<ResponseForm
-			withContacts={true}
-			{...{ handleSubmit, setIsOpen, isFetching }}
-		/>
+		<>
+			{!isOpen && (
+				<DisabledText
+					condition={!canRespond}
+					helperText={'You don`t have enough skills to apply'}
+				>
+					<Button
+						variant='contained'
+						onClick={() => setIsOpen(true)}
+						disabled={!canRespond}
+						sx={{ borderRadius: '5px', width: '160px', fontSize: 'large' }}
+					>
+						Apply
+					</Button>
+				</DisabledText>
+			)}
+			{isOpen && (
+				<ResponseForm
+					withContacts={true}
+					{...{
+						handleSubmit,
+						setIsOpen,
+						isFetching,
+						initialValues,
+						action: 'APPLY',
+					}}
+				/>
+			)}
+		</>
 	);
 };
