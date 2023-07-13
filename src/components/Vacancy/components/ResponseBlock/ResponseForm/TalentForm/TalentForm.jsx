@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { DisabledText } from '../../../../../shared/DisabledText/DisabledText';
 import { Button } from '@mui/material';
 
-export const TalentForm = ({ canRespond, userEmail }) => {
+export const TalentForm = ({ canRespond, userEmail, setTalentReponse }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isFetching, setIsFetching] = useState(false);
 
@@ -16,6 +16,15 @@ export const TalentForm = ({ canRespond, userEmail }) => {
 	const { vacancyId } = useParams();
 
 	const initialValues = { contactInfo: userEmail, message: '' };
+	const fieldNames = [
+		{ name: 'contactInfo', label: 'Contact info' },
+		{
+			name: 'message',
+			label: 'Cover letter',
+			placeholder:
+				'Introduce yourself and tell us what interests you about this vacancy',
+		},
+	];
 
 	const handleSubmit = async responseInfo => {
 		try {
@@ -24,6 +33,8 @@ export const TalentForm = ({ canRespond, userEmail }) => {
 				vacancyId,
 				responseInfo,
 			);
+
+			setTalentReponse(data);
 
 			dispatch(
 				setSystemMessage(
@@ -63,6 +74,7 @@ export const TalentForm = ({ canRespond, userEmail }) => {
 						isFetching,
 						initialValues,
 						action: 'APPLY',
+						fieldNames
 					}}
 				/>
 			)}

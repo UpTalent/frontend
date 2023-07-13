@@ -45,7 +45,7 @@ export const VacancyPage = () => {
 							<Author {...vacancy.author} />
 						</div>
 						<div className={styles.controllBlock}>
-							{authId === vacancy?.author?.id && userRole === 'sponsor'&&  (
+							{authId === vacancy?.author?.id && userRole === 'sponsor' && (
 								<>
 									<Status status={vacancy.status} />
 									<SponsorContainer
@@ -74,7 +74,11 @@ export const VacancyPage = () => {
 							</div>
 						</aside>
 					</div>
-					<ResponseBlock canRespond={vacancy.can_submit}/>
+					<ResponseBlock
+						canRespond={vacancy.can_submit}
+						talentSubmission={vacancy.my_submission}
+						sponsorSubmissions={vacancy.submissions}
+					/>
 				</>
 			) : (
 				<div className='loaderContainer'>

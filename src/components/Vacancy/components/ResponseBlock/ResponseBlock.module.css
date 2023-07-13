@@ -27,6 +27,7 @@
 	width: 50%;
     white-space: pre-wrap;
     word-break: normal;
+	margin: 15px 0;
 }
 
 .authorResponse {
@@ -42,6 +43,13 @@
 .mainInfo{
     display: flex;
     gap: 15px;
+	justify-content: space-between;
+}
+
+.sponsorBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 @media screen and (max-width: 900px) {

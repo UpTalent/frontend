@@ -13,6 +13,7 @@ export const ResponseForm = ({
 	isFetching,
 	initialValues,
 	action,
+	fieldNames,
 }) => {
 	const [openSubmit, setOpenSubmit] = useState(false);
 
@@ -32,28 +33,26 @@ export const ResponseForm = ({
 				<Form className={styles.responseForm}>
 					{withContacts && (
 						<FormField
-							label='Contact info'
-							name='contactInfo'
+							label={fieldNames[0].label}
+							name={fieldNames[0].name}
 							required={true}
 						/>
 					)}
 					<Field
-						label='Cover letter'
-						name='message'
+						label={fieldNames[1].label}
+						name={fieldNames[1].name}
 						required={true}
 						as={TextField}
 						multiline
 						minRows={5}
-						placeholder={
-							'Introduce yourself and tell us what interests you about this vacancy'
-						}
-						error={touched.message && Boolean(errors.message)}
-						helperText={touched.message && errors.message}
+						placeholder={fieldNames[1].placeholder}
+						error={touched[fieldNames[1].name] && Boolean(errors[fieldNames[1].name])}
+						helperText={touched[fieldNames[1].name] && errors[fieldNames[1].name]}
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position='end'>
 									<p className={styles.symbolCounter}>
-										{values.message.length}/1000
+										{values[fieldNames[1].name]?.length}/1000
 									</p>
 								</InputAdornment>
 							),
