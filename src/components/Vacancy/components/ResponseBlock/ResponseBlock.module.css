@@ -1,0 +1,60 @@
+.responseForm {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	width: 50%;
+}
+
+.controllButtons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.symbolCounter {
+	position: absolute;
+	bottom: 0;
+	right: 10px;
+	font-size: small;
+}
+
+.reponseFull {
+	border: 1px solid rgb(179, 176, 176);
+	border-radius: 10px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	width: 50%;
+    white-space: pre-wrap;
+    word-break: normal;
+	margin: 15px 0;
+}
+
+.authorResponse {
+	display: flex;
+	justify-content: space-between;
+}
+.authorResponse b,
+.authorResponse time,
+.authorResponse p {
+	color: rgb(141, 141, 141);
+}
+
+.mainInfo{
+    display: flex;
+    gap: 15px;
+	justify-content: space-between;
+}
+
+.sponsorBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+@media screen and (max-width: 900px) {
+	.responseForm,
+	.reponseFull {
+		width: 100%;
+	}
+}

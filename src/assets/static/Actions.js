@@ -23,4 +23,9 @@ export const Actions = [
 		icon: <AssignmentIcon color='primary' />,
 		text: 'Do you want to publish this item? You won`t be able to edit it',
 	},
+	{
+		action: 'APPLY',
+		icon: <AssignmentIcon color='primary' />,
+		text: 'You can apply to vacancy only once, be sure to double check your response',
+	}
 ];

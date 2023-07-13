@@ -9,8 +9,8 @@ export const ConfirmationMessage = ({
 	handleConfim,
 	buttonHandler,
 }) => {
-	const proofAction = Actions.find(item => item.action === action);
-	const color = proofAction.action === 'DELETE' ? 'secondary' : 'primary';
+	const itemAction = Actions.find(item => item.action === action);
+	const color = itemAction.action === 'DELETE' ? 'secondary' : 'primary';
 
 	const closeConfirm = () => {
 		handleConfim(false);
@@ -31,16 +31,16 @@ export const ConfirmationMessage = ({
 				}}
 			>
 				<DialogTitle id='alert-dialog-title' className={styles.title}>
-					{proofAction.icon}
+					{itemAction.icon}
 					<p>ARE YOU SURE?</p>
-					{proofAction.text}
+					{itemAction.text}
 				</DialogTitle>
 				<DialogActions className={styles.controlls}>
 					<Button variant='contained' onClick={closeConfirm} color='inherit'>
 						Cancel
 					</Button>
 					<Button variant='contained' color={color} onClick={buttonHandler}>
-						{proofAction.action.toLowerCase()}
+						{itemAction.action.toLowerCase()}
 					</Button>
 				</DialogActions>
 			</Dialog>
