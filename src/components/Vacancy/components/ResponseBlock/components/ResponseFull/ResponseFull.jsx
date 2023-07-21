@@ -5,7 +5,7 @@ import { Status } from '../../../../../shared/Proof/components/ProofTitle/compon
 
 export const ResponseFull = ({ message, contact_info, status, sent }) => {
 	return (
-		<div className={styles.reponseFull}>
+		<div className={`${styles.reponseContainer} ${styles.responseFull}`}>
 			<div className={styles.mainInfo}>
 				<p>{message}</p>
 				<Status status={status} />

@@ -2,21 +2,16 @@ import React from 'react';
 import styles from '../../Vacancy.module.css';
 import { Author } from '../../../shared/Proof/components/Author';
 import { SkillBox } from '../../../shared/SkillBox';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SponsorContainer } from '../../../shared/PostControl/SponsorContainer';
 import { Status } from '../../../shared/Proof/components/ProofTitle/components/Status/Status';
+import { useHistory } from '../../../../service/hooks/useHistory';
 
 export const VacancyGeneral = ({ vacancy, showControlls, ...props }) => {
 	const navigate = useNavigate();
-	const location = useLocation();
+	const currentPath = useHistory();
 
 	const redirectToFull = () => {
-		const linkTitle = location.pathname.split('/').at(-1);
-		const currentPath = {
-			link: location.pathname + location.search,
-			name:
-				linkTitle[0].toUpperCase() + linkTitle.substring(1, linkTitle.length),
-		};
 		navigate(`/vacancy/${vacancy.id}`, {
 			state: [currentPath],
 		});
@@ -31,7 +26,7 @@ export const VacancyGeneral = ({ vacancy, showControlls, ...props }) => {
 			<div className={styles.mainInfo} onClick={redirectToFull}>
 				<h3>{vacancy.title}</h3>
 				<div className={styles.footer}>
-					<SkillBox skills={vacancy.skills} additionalStyle={styles.skills}/>
+					<SkillBox skills={vacancy.skills} additionalStyle={styles.skills} />
 					{showControlls && <Status status={vacancy.status} />}
 				</div>
 			</div>

@@ -1,0 +1,1 @@
+export { ResponseGeneral } from './ResponseGeneral';

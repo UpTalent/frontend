@@ -21,6 +21,7 @@ import { VacancyPage } from '../components/Vacancy';
 import Vacancies from '../components/Profile/components/MainInfo/components/Vacancies/Vacancies';
 import { CreateVacancy } from '../components/CreateVacancy';
 import VacanciesPage from '../components/VacanciesPage/VacanciesPage';
+import ResponsePage  from '../components/ResponsePage/ResponsePage';
 
 export const router = createBrowserRouter([
 	{
@@ -130,6 +131,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'vacancies',
 				element: <VacanciesPage />,
+			},
+			{
+				path: 'talent/:talentId/responses',
+				element: <ResponsePage />,
 			},
 		],
 	},
