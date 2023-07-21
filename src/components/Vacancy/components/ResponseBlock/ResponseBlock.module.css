@@ -49,6 +49,10 @@
 	box-shadow: 2px 2px 2px var(--primary);
 }
 
+.vacancyTitle {
+	flex: 1;
+}
+
 .authorBlock,
 .vacancyTitle {
 	display: flex;
