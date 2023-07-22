@@ -17,17 +17,47 @@
 	font-size: small;
 }
 
-.reponseFull {
+.reponseContainer {
 	border: 1px solid rgb(179, 176, 176);
 	border-radius: 10px;
 	padding: 20px;
 	display: flex;
-	flex-direction: column;
 	gap: 30px;
-	width: 50%;
-    white-space: pre-wrap;
-    word-break: normal;
+	flex-direction: column;
+}
+
+.responseFull {
+	max-width: 600px;
+	white-space: pre-wrap;
+	word-break: normal;
 	margin: 15px 0;
+}
+
+.responseGeneral {
+	width: 700px;
+	word-break: break-all;
+	justify-content: flex-start;
+	text-align: start;
+	max-width: 80%;
+}
+
+.vacancyTitle:hover {
+	color: var(--primary);
+	cursor: pointer;
+}
+
+.responseGeneral:hover {
+	box-shadow: 2px 2px 2px var(--primary);
+}
+
+.vacancyTitle {
+	flex: 1;
+}
+
+.authorBlock,
+.vacancyTitle {
+	display: flex;
+	justify-content: space-between;
 }
 
 .authorResponse {
@@ -40,9 +70,9 @@
 	color: rgb(141, 141, 141);
 }
 
-.mainInfo{
-    display: flex;
-    gap: 15px;
+.mainInfo {
+	display: flex;
+	gap: 15px;
 	justify-content: space-between;
 }
 
@@ -56,5 +86,12 @@
 	.responseForm,
 	.reponseFull {
 		width: 100%;
+	}
+}
+
+
+@media screen and (max-width: 700px) {
+	.responseGeneral {
+		width:350px;
 	}
 }

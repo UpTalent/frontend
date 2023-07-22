@@ -19,7 +19,7 @@ export const getTalentsList = createAsyncThunk(
 		try {
 			const { page, filter } = params;
 			const { data } = await talentsAPI.getTalents(page, null, filter);
-			thunkAPI.dispatch(updateList(data));
+			thunkAPI.dispatch(updateList('talents', data));
 			return data;
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err.message);
@@ -33,7 +33,7 @@ export const getProofsList = createAsyncThunk(
 		try {
 			const { page, alignment, filter } = params;
 			const { data } = await proofAPI.getAllProofs(page, alignment, filter);
-			thunkAPI.dispatch(updateList(data));
+			thunkAPI.dispatch(updateList('proofs', data));
 			return data;
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err.message);
@@ -46,8 +46,26 @@ export const getVacanciesList = createAsyncThunk(
 	async (params, thunkAPI) => {
 		try {
 			const { page, alignment, filter } = params;
-			const { data } = await vacancyAPI.getAllVacancies(page, alignment, filter);
-			thunkAPI.dispatch(updateList(data));
+			const { data } = await vacancyAPI.getAllVacancies(
+				page,
+				alignment,
+				filter,
+			);
+			thunkAPI.dispatch(updateList('vacancies', data));
+			return data;
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err.message);
+		}
+	},
+);
+
+export const getResponsesList = createAsyncThunk(
+	'getResponses',
+	async (params, thunkAPI) => {
+		try {
+			const { page } = params;
+			const { data } = await talentsAPI.getTalentResponses(page);
+			thunkAPI.dispatch(updateList('responses', data));
 			return data;
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err.message);
@@ -59,10 +77,16 @@ const dataListSlice = createSlice({
 	name: 'dataList',
 	initialState,
 	reducers: {
-		updateList: (state, action) => {
-			state.listWithData = action.payload.content;
-			state.total_pages = action.payload.total_pages;
-			state.isFetching = false;
+		updateList: {
+			reducer: (state, action) => {
+				state.listWithData = action.payload.content;
+				state.total_pages = action.payload.total_pages;
+				state.isFetching = false;
+				state.content = action.payload.listName;
+			},
+			prepare: (listName, data) => ({
+				payload: { listName, ...data },
+			}),
 		},
 		clearList: state => {
 			Object.keys(state).forEach(key => {
@@ -85,16 +109,16 @@ const dataListSlice = createSlice({
 			.addCase(getTalentsList.pending, state => {
 				state.isFetching = true;
 			})
-			.addCase(getTalentsList.fulfilled, state => {
-				state.content = 'talents';
-			})
-			.addCase(getProofsList.fulfilled, state => {
-				state.content = 'proofs';
-			})
-			.addCase(getVacanciesList.fulfilled, state => {
-				state.content = 'vacancies';
-			})
+
 			.addCase(getProofsList.pending, state => {
+				state.isFetching = true;
+			})
+
+			.addCase(getVacanciesList.pending, state => {
+				state.isFetching = true;
+			})
+
+			.addCase(getResponsesList.pending, state => {
 				state.isFetching = true;
 			});
 	},

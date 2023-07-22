@@ -33,8 +33,6 @@ export const Footer = () => {
 					<h3>FRONTEND</h3>
 					<p>Anastasiia Bahinska</p>
 					<p>Iryna Bibik</p>
-					<p>Artem Burakov</p>
-					<p>Glieb Lytvynenko</p>
 				</div>
 
 				<div className={`${styles.smallflex} ${styles.names}`}>
@@ -48,7 +46,6 @@ export const Footer = () => {
 					<h3>QA</h3>
 					<p>Artem Shulak</p>
 					<p>Myroslav Shashkin</p>
-					<p>Liliia Bozhenko</p>
 					<p>Anton Romanenko</p>
 					<p>Anton Masalov</p>
 				</div>

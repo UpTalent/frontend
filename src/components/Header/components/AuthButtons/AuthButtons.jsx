@@ -13,7 +13,7 @@ import {
 export const AuthButtons = () => {
 	const dispatch = useDispatch();
 	const authUser = useSelector(getAuthUser);
-    
+
 	const modalPathname = useModalPathname();
 	const navigate = useNavigate();
 
@@ -35,9 +35,11 @@ export const AuthButtons = () => {
 						<Button
 							component={Link}
 							onClick={handleClick}
-							sx={{ textAlign: 'center' , alignItems: 'center'}}
+							sx={{ textAlign: 'center', alignItems: 'center' }}
 						>
-							<ReactFitty maxSize={20} minSize={5}>{authUser.name}</ReactFitty>
+							<ReactFitty maxSize={20} minSize={5}>
+								{authUser.name}
+							</ReactFitty>
 						</Button>
 						<Menu
 							anchorEl={dropdownMenu}
@@ -65,6 +67,16 @@ export const AuthButtons = () => {
 									<p>Your profile</p>
 								</Link>
 							</MenuItem>
+							{authUser.role === 'talent' && (
+								<MenuItem onClick={handleClose}>
+									<Link
+										to={`talent/${authUser.id}/responses`}
+										className={styles.menuItem}
+									>
+										<p>Responses</p>
+									</Link>
+								</MenuItem>
+							)}
 							<MenuItem onClick={handleClose}>
 								<div
 									className={styles.menuItem}

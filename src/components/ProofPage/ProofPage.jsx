@@ -15,7 +15,7 @@ const ProofPage = ({ total_pages, filterHandler, filterItems }) => {
 	const role = useSelector(getRole);
 	const proofList = useSelector(getGridList);
 
-	let proofsList = proofList.map(proof => (
+	let proofsList = proofList?.map(proof => (
 		<Grid item md={12} sm={12} lg={12} key={proof.id}>
 			<Proof proof={proof} withContent={false} inForm={true} />
 		</Grid>
@@ -29,7 +29,7 @@ const ProofPage = ({ total_pages, filterHandler, filterItems }) => {
 					showFilter: ['skills', 'sortByDate'],
 				}}
 			/>
-			{proofList.length ? (
+			{proofList?.length ? (
 				<div className={styles.gridContainer}>
 					<PagesGrid gridItems={proofsList} total_pages={total_pages} />
 					{role === 'talent' && <SponsorsRating />}
