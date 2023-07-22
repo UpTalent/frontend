@@ -18,9 +18,14 @@ export const talentsAPI = {
 		return baseRequest(() => axiosInstance.get('sponsors/rating'));
 	},
 
-	async getTalentResponses(page = 0, size = 9) {
+	async getTalentResponses(currentPage = 0, pageSize = 9) {
 		return baseRequest(() =>
-			axiosInstance.get(`vacancies/submissions/my`, { params: page, size }),
+			axiosInstance.get(`vacancies/submissions/my`, {
+				params: {
+					page: currentPage,
+					size: pageSize,
+				},
+			}),
 		);
 	},
 };

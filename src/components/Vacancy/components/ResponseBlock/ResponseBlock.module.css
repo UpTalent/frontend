@@ -38,6 +38,7 @@
 	word-break: break-all;
 	justify-content: flex-start;
 	text-align: start;
+	max-width: 80%;
 }
 
 .vacancyTitle:hover {
@@ -85,5 +86,12 @@
 	.responseForm,
 	.reponseFull {
 		width: 100%;
+	}
+}
+
+
+@media screen and (max-width: 700px) {
+	.responseGeneral {
+		width:350px;
 	}
 }

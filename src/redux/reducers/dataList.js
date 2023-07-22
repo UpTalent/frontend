@@ -68,7 +68,6 @@ export const getResponsesList = createAsyncThunk(
 			thunkAPI.dispatch(updateList('responses', data));
 			return data;
 		} catch (err) {
-			console.log(err);
 			return thunkAPI.rejectWithValue(err.message);
 		}
 	},

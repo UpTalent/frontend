@@ -38,7 +38,7 @@ export const baseRequest = async (requestFunction) => {
 	try {
 		return await requestFunction();
 	} catch (error) {
-		const field = Object.keys(error.response.data)[0];
-		throw new Error(error.response.data.messsage || error.response.data[field]);
+		const field = Object.keys(error.response?.data)[0];
+		throw new Error(error.response?.data.messsage || error.response?.data[field]);
 	}
 };
