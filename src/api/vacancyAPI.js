@@ -60,4 +60,13 @@ export const vacancyAPI = {
 			axiosInstance.post(`vacancies/${vacancyId}/submissions`, data),
 		);
 	},
+
+	async sponsorResponse(vacancyId, submissionId, data) {
+		return baseRequest(() =>
+			axiosInstance.post(
+				`vacancies/${vacancyId}/submissions/${submissionId}`,
+				data,
+			),
+		);
+	},
 };

@@ -5,17 +5,22 @@ import { validationSchema } from './validation';
 import { FormField } from '../../../../shared/FormField';
 import { Button, InputAdornment, TextField } from '@mui/material';
 import { ConfirmationMessage } from '../../../../shared/Proof/components/ConfirmationMessage';
+import { useSelector } from 'react-redux';
+import { getUserEmail } from '../../../../../redux/reducers/authentification';
 
 export const ResponseForm = ({
 	setIsOpen,
 	handleSubmit,
 	withContacts = true,
 	isFetching,
-	initialValues,
 	action,
 	fieldNames,
 }) => {
 	const [openSubmit, setOpenSubmit] = useState(false);
+	const userEmail = useSelector(getUserEmail);
+
+	const initialValues = { contactInfo: userEmail, message: '' };
+
 
 	const submitForm = async values => {
 		await handleSubmit(values);
@@ -33,26 +38,26 @@ export const ResponseForm = ({
 				<Form className={styles.responseForm}>
 					{withContacts && (
 						<FormField
-							label={fieldNames[0].label}
-							name={fieldNames[0].name}
+							label={'Contact info'}
+							name={'contactInfo'}
 							required={true}
 						/>
 					)}
 					<Field
-						label={fieldNames[1].label}
-						name={fieldNames[1].name}
+						label={fieldNames.label}
+						name={'message'}
 						required={true}
 						as={TextField}
 						multiline
 						minRows={5}
-						placeholder={fieldNames[1].placeholder}
-						error={touched[fieldNames[1].name] && Boolean(errors[fieldNames[1].name])}
-						helperText={touched[fieldNames[1].name] && errors[fieldNames[1].name]}
+						placeholder={fieldNames.placeholder}
+						error={touched.message && Boolean(errors.message)}
+						helperText={touched.message && errors.message}
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position='end'>
 									<p className={styles.symbolCounter}>
-										{values[fieldNames[1].name]?.length}/1000
+										{values.message?.length}/1000
 									</p>
 								</InputAdornment>
 							),

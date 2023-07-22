@@ -7,6 +7,7 @@ import {
 } from '../../../../redux/reducers/authentification';
 import { TalentForm } from './ResponseForm/TalentForm/TalentForm';
 import { ResponseFull } from './components/ResponseFull';
+import { SponsorForm } from './ResponseForm/SponsorForm/SponsorForm';
 
 export const ResponseBlock = ({
 	canRespond,
@@ -14,11 +15,10 @@ export const ResponseBlock = ({
 	sponsorSubmissions,
 }) => {
 	const userRole = useSelector(getRole);
-	const userEmail = useSelector(getUserEmail);
 	const [talentResponse, setTalentReponse] = useState(talentSubmission);
 
 	const talentBlock = !talentResponse ? (
-		<TalentForm {...{ canRespond, userEmail, setTalentReponse }} />
+		<TalentForm {...{ canRespond, setTalentReponse }} />
 	) : (
 		<ResponseFull {...talentResponse} />
 	);
@@ -28,7 +28,10 @@ export const ResponseBlock = ({
 			<hr />
 			<h3>Responses to this vacancy:</h3>
 			{sponsorSubmissions?.map((response, index) => (
-				<ResponseFull {...response} key={index} />
+				<div className={styles.sponsorContainer} key={index}>
+					<ResponseFull {...response} />
+					<SponsorForm />
+				</div>
 			))}
 		</>
 	);
