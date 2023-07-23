@@ -13,7 +13,7 @@ export const Author = ({ id, name, avatar, timestamp, authorRole }) => {
 	return (
 		<div className={styles.authorBlock} onClick={handleClick}>
 			<Avatar src={avatar || defaultAvatar} sx={{ width: 40, height: 40 }} />
-			<div className={authorRole && styles.authorName}>
+			<div className={`${authorRole && styles.authorName} ${styles.nameBlock}`}>
 				<h4>{name}</h4>
 				<TimeStapm published={timestamp} justTime={true} />
 			</div>

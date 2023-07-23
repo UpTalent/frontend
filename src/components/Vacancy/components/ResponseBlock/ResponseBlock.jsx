@@ -3,7 +3,6 @@ import styles from './ResponseBlock.module.css';
 import { useSelector } from 'react-redux';
 import {
 	getRole,
-	getUserEmail,
 } from '../../../../redux/reducers/authentification';
 import { TalentForm } from './ResponseForm/TalentForm/TalentForm';
 import { ResponseFull } from './components/ResponseFull';
@@ -30,7 +29,7 @@ export const ResponseBlock = ({
 			{sponsorSubmissions?.map((response, index) => (
 				<div className={styles.sponsorContainer} key={index}>
 					<ResponseFull {...response} />
-					<SponsorForm />
+					<SponsorForm responseId = {response.id} />
 				</div>
 			))}
 		</>

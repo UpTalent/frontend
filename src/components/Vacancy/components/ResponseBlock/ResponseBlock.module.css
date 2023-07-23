@@ -2,7 +2,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
-	width: 50%;
+	max-width: 600px;
 }
 
 .symbolCounter {
@@ -22,9 +22,9 @@
 }
 
 .responseFull {
-	max-width: 600px;
+	width: 600px;
 	white-space: pre-wrap;
-	word-break: normal;
+	word-break: break-all;
 	margin: 15px 0;
 }
 
@@ -52,7 +52,8 @@
 .authorBlock,
 .vacancyTitle,
 .authorResponse,
-.controllButtons {
+.controllButtons,
+.mainInfo {
 	display: flex;
 	justify-content: space-between;
 }
@@ -63,22 +64,36 @@
 	color: rgb(141, 141, 141);
 }
 
-.mainInfo {
-	display: flex;
+.mainInfo,
+.authorResponse {
 	gap: 15px;
-	justify-content: space-between;
-}
-
-.sponsorBlock {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
 }
 
 .sponsorContainer {
-	display: flex;
-	gap: 30px;
+	display: grid;
+	grid-template-areas:
+		'response controlls'
+		'form form';
 	align-items: center;
+	column-gap: 20px;
+	grid-template-columns: 1fr 2fr;
+}
+
+.sponsorForm {
+	grid-area: form;
+}
+
+.sponsorsControlls {
+	grid-area: controlls;
+	width: 70%;
+}
+
+.sponsorBlock h3 {
+	margin: 10px 0;
+}
+
+.sponsorBlock .responseFull {
+	grid-area: response;
 }
 
 @media screen and (max-width: 900px) {
@@ -88,9 +103,8 @@
 	}
 }
 
-
 @media screen and (max-width: 700px) {
 	.responseGeneral {
-		width:350px;
+		width: 350px;
 	}
 }

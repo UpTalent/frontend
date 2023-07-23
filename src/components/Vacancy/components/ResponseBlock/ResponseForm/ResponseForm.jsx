@@ -76,7 +76,7 @@ export const ResponseForm = ({
 							variant='contained'
 							disabled={!isValid || isFetching}
 						>
-							Confirm
+							{action}
 						</Button>
 						<ConfirmationMessage
 							confirmMessage={openSubmit}
