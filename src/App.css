@@ -1,60 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;500&display=swap");
 
 * {
-	box-sizing: border-box;  
-	margin: 0;
-	padding: 0;
-	font-family: 'Rubik', sans-serif;
-	--primary: #48bde2;
-	--secondary: #ffbf5b;
-	--dark: #292a2d;
-	scroll-behavior: smooth;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Rubik", sans-serif;
+  --primary: #48bde2;
+  --secondary: #ffbf5b;
+  --dark: #292a2d;
+  scroll-behavior: smooth;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 .appContainer {
-	flex: 1;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 #root {
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .loaderContainer {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.HIDDEN, .SENT {
-	background-color: rgba(203, 203, 203, 0.87);
+.HIDDEN,
+.SENT {
+  background-color: rgba(203, 203, 203, 0.87);
 }
 
 .DRAFT {
-	background-color: rgba(255, 191, 91, 0.87);
+  background-color: rgba(255, 191, 91, 0.87);
 }
 
 .PUBLISHED {
-	background-color: rgba(185, 255, 196, 0.87);
+  background-color: rgba(185, 255, 196, 0.87);
 }
 
-.APPROVED{ 
-	background-color: rgb(18, 186, 96);
-	color: antiquewhite;
+.APPROVED {
+  background-color: rgb(18, 186, 96);
+  color: antiquewhite;
 }
 
-.DENIED{
-	background-color: rgba(241, 56, 56, 0.87);
-	color: antiquewhite;
+.DENIED {
+  background-color: rgba(241, 56, 56, 0.87);
+  color: antiquewhite;
+}
+
+.markdownDiv * {
+  margin: revert;
+  padding: revert;
+  box-sizing: content-box;
 }

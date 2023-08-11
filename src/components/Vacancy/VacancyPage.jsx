@@ -61,7 +61,7 @@ export const VacancyPage = () => {
 							<TimeStapm published={vacancy.published} />
 						</div>
 					</div>
-					<div className={styles.content}>
+					<div className={`${styles.content} markdownDiv`}>
 						<div className={styles.vacancyText}>
 							<ReactMarkdown remarkPlugins={[remarkGfm]}>
 								{vacancy.content}

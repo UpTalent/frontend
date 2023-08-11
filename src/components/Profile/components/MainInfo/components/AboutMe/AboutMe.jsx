@@ -7,7 +7,7 @@ import remarkGfm from 'remark-gfm';
 export const AboutMe = () => {
 	const { about_me } = useOutletContext();
 	return (
-		<div className={styles.about}>
+		<div className={`${styles.about} markdownDiv`}>
 			{about_me ? (
 				<ReactMarkdown remarkPlugins={[remarkGfm]} >
 					{about_me}

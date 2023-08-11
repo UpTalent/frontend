@@ -1,116 +1,116 @@
 .vacancyContainer {
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 10px;
-	margin: 20px;
-	padding: 30px;
-	display: flex;
-	flex-direction: column;
-	gap: 30px;
-	justify-content: center;
-	width: 80%;
-	word-break: break-all;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  width: 80%;
+  word-break: break-all;
 }
 
 .header h1,
 p {
-	font-weight: 300;
+  font-weight: 300;
 }
 
 .header,
 .footer {
-	display: flex;
-	justify-content: space-between;
-	gap: 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
 }
 
 .leftSide {
-	display: flex;
-	flex-direction: column;
-	gap: 30px;
-	max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 80%;
 }
 
 .content {
-	display: flex;
-	gap: 30px;
-	justify-content: space-between;
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
 }
 
 .content img {
-	max-width: 20em;
-	object-fit: contain;
+  max-width: 20em;
+  object-fit: contain;
 }
 
 .extraBlock {
-	border: 1px solid #c8c4c4;
-	border-radius: 20px;
-	min-width: 300px;
-	max-width: 40%;
-	padding: 15px;
-	height: fit-content;
+  border: 1px solid #c8c4c4;
+  border-radius: 20px;
+  min-width: 300px;
+  max-width: 40%;
+  padding: 15px;
+  height: fit-content;
 }
 
 .extraItem {
-	display: flex;
-	gap: 10px;
-	align-items: center;
-	flex-wrap: wrap;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .vacancyGeneral {
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 15px;
-	padding: 20px;
-	display: flex;
-	gap: 10px;
-	flex-direction: column;
-	max-width: 800px;
-	word-break: break-all;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  max-width: 800px;
+  word-break: break-all;
 }
 
 .authorBlock {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	border-bottom: 1px solid #817979;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #817979;
 }
 
 .vacancyGeneral:hover {
-	box-shadow: 0px 4px 7px var(--primary);
+  box-shadow: 0px 4px 7px var(--primary);
 }
 
 .vacancyGeneral:hover .mainInfo {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .mainInfo:hover h3 {
-	color: var(--primary);
+  color: var(--primary);
 }
 
 .mainInfo {
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-	text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
 }
 
 .controllBlock {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	gap: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 15px;
 }
 
 .skills {
-	max-width: 80%;
+  max-width: 80%;
 }
 
 @media screen and (max-width: 900px) {
-	.header {
-		flex-direction: column;
-	}
+  .header {
+    flex-direction: column;
+  }
 
-	.content {
-		flex-direction: column-reverse;
-	}
+  .content {
+    flex-direction: column-reverse;
+  }
 }
