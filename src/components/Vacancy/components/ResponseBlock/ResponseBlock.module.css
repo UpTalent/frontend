@@ -23,6 +23,7 @@
 
 .responseFull {
   width: 500px;
+  min-height: 210px;
   white-space: pre-wrap;
   word-break: break-all;
   margin: 15px 0;
@@ -50,6 +51,10 @@
   flex: 1;
 }
 
+.mainInfo {
+  min-height: 30px;
+}
+
 .authorBlock,
 .vacancyTitle,
 .authorResponse,
@@ -70,12 +75,12 @@
   gap: 15px;
 }
 
-.sponsorContainer {
+.responseContainer {
   display: grid;
   grid-template-areas:
     "response controlls feedback"
     "form form form";
-  align-items: center;
+  align-items: start;
   column-gap: 20px;
   grid-template-columns: 1fr 2fr;
 }
@@ -87,14 +92,23 @@
 .sponsorsControlls {
   grid-area: controlls;
   width: 70%;
+  align-self: center;
 }
 
 .sponsorBlock h3 {
   margin: 10px 0;
 }
 
-.talentResponse {
+.talentResponse,
+.talentControlls {
   grid-area: response;
+}
+
+.talentControlls {
+  width: fit-content;
+}
+
+.talentResponse {
   background-color: #c5ecf8;
   border: 1px solid #97c6e3;
 }
@@ -112,18 +126,18 @@
 }
 
 .talentResponse:after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-top: 15px solid #c5ecf8;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    top: 0;
-    left: -15px;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 15px solid #c5ecf8;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  top: 0;
+  left: -15px;
 }
 
-.sponsorBlock .SponsorFeedback {
+.SponsorFeedback {
   grid-area: feedback;
   background-color: #fcd391;
   border: 1px solid #dfd087;
@@ -142,15 +156,15 @@
 }
 
 .SponsorFeedback:before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-bottom: 17px solid #fcd391;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    bottom: -1px;
-    right: -17px;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-bottom: 17px solid #fcd391;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  bottom: -1px;
+  right: -17px;
 }
 
 @media screen and (max-width: 900px) {
@@ -158,10 +172,20 @@
   .reponseFull {
     width: 100%;
   }
+
+  .responseContainer {
+    grid-template-areas:
+      "response controlls controlls"
+      "feedback feedback feedback";
+  }
 }
 
 @media screen and (max-width: 700px) {
   .responseGeneral {
     width: 350px;
+  }
+
+  .reponseContainer {
+    width: 400px;
   }
 }

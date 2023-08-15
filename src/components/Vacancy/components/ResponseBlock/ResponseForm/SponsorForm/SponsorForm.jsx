@@ -46,8 +46,7 @@ export const SponsorForm = ({
         setSponsorResponse({
           message: responseInfo.message,
           contact_info: responseInfo.contactInfo,
-		  sent: new Date(),
-		  author: {...sposnorInfo, avatar: localStorage.getItem('avatar')}
+          author: { ...sposnorInfo, avatar: localStorage.getItem("avatar") },
         });
       }
       dispatch(setSystemMessage(true, "Your response was sent successfully!"));

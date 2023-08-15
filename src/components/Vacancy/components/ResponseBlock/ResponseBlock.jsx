@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./ResponseBlock.module.css";
 import { useSelector } from "react-redux";
 import { getRole } from "../../../../redux/reducers/authentification";
@@ -8,11 +8,17 @@ export const ResponseBlock = ({
   canRespond,
   talentSubmission,
   sponsorSubmissions,
+  vacancyAuthor,
 }) => {
   const userRole = useSelector(getRole);
 
   const talentBlock = (
-    <Submission isTalent={true} {...{ talentSubmission, canRespond }} />
+    <div className={styles.responseContainer}>
+      <Submission
+        isTalent={true}
+        {...{ talentSubmission, canRespond, vacancyAuthor }}
+      />
+    </div>
   );
 
   const sponsorBlock = Boolean(sponsorSubmissions?.length) && (
@@ -20,8 +26,12 @@ export const ResponseBlock = ({
       <hr />
       <h3>Responses to this vacancy:</h3>
       {sponsorSubmissions?.map((response, index) => (
-        <div className={styles.sponsorContainer} key={index}>
-          <Submission isTalent={false} talentSubmission={response} />
+        <div className={styles.responseContainer} key={index}>
+          <Submission
+            isTalent={false}
+            talentSubmission={response}
+            vacancyAuthor={vacancyAuthor}
+          />
         </div>
       ))}
     </>

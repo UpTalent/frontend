@@ -97,6 +97,9 @@ const dataListSlice = createSlice({
 				}
 			});
 		},
+		deleteResponseItem: (state, action) => {
+			state.listWithData = state?.listWithData?.filter(item => item?.vacancy_submission?.id !== action.payload)
+		},
 		setFilter: {
 			reducer: (state, action) => {
 				state.filter[action.payload.filterBy] = action.payload.data;
@@ -130,5 +133,5 @@ export const pendingStatus = state => state.dataList.isFetching;
 export const getGridItem = state => state.dataList.content;
 export const getFilter = state => state.dataList.filter;
 
-export const { updateList, clearList, setFilter } = dataListSlice.actions;
+export const { updateList, clearList, setFilter, deleteResponseItem } = dataListSlice.actions;
 export default dataListSlice.reducer;

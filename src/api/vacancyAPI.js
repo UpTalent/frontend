@@ -69,4 +69,8 @@ export const vacancyAPI = {
 			),
 		);
 	},
+
+	async deleteSubmission(vacancyId, submissionId) {
+		return baseRequest(() => axiosInstance.delete(`vacancies/${vacancyId}/submissions/${submissionId}`))
+	}
 };

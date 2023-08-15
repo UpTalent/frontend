@@ -4,10 +4,10 @@ import { TimeStapm } from '../../../../../shared/Proof/components/ProofTitle/com
 import { Status } from '../../../../../shared/Proof/components/ProofTitle/components/Status/Status';
 import { Author } from '../../../../../shared/Proof/components/Author';
 
-export const ResponseFull = ({ message, contact_info, status, sent, author, additionalStyle }) => {
+export const ResponseFull = ({ message, contact_info, status, sent, author, additionalStyle, isTalent }) => {
 	return (
 		<div className={`${styles.reponseContainer} ${styles.responseFull} ${additionalStyle}`}>
-			<Author authorRole={'talent'} {...author} />
+			<Author withNavigate={isTalent} {...author} />
 			<div className={styles.mainInfo}>
 				<p>{message}</p>
 				<Status status={status} />
