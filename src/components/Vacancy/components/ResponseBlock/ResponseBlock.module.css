@@ -189,3 +189,10 @@
     width: 400px;
   }
 }
+
+
+@media screen and (max-width: 700px) {
+	.responseGeneral {
+		width:350px;
+	}
+}
