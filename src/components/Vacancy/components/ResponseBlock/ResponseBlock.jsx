@@ -1,41 +1,45 @@
-import React, { useState } from 'react';
-import styles from './ResponseBlock.module.css';
-import { useSelector } from 'react-redux';
-import {
-	getRole,
-	getUserEmail,
-} from '../../../../redux/reducers/authentification';
-import { TalentForm } from './ResponseForm/TalentForm/TalentForm';
-import { ResponseFull } from './components/ResponseFull';
+import React from "react";
+import styles from "./ResponseBlock.module.css";
+import { useSelector } from "react-redux";
+import { getRole } from "../../../../redux/reducers/authentification";
+import { Submission } from "./components/Submission/Submission";
 
 export const ResponseBlock = ({
-	canRespond,
-	talentSubmission,
-	sponsorSubmissions,
+  canRespond,
+  talentSubmission,
+  sponsorSubmissions,
+  vacancyAuthor,
 }) => {
-	const userRole = useSelector(getRole);
-	const userEmail = useSelector(getUserEmail);
-	const [talentResponse, setTalentReponse] = useState(talentSubmission);
+  const userRole = useSelector(getRole);
 
-	const talentBlock = !talentResponse ? (
-		<TalentForm {...{ canRespond, userEmail, setTalentReponse }} />
-	) : (
-		<ResponseFull {...talentResponse} />
-	);
+  const talentBlock = (
+    <div className={styles.responseContainer}>
+      <Submission
+        isTalent={true}
+        {...{ talentSubmission, canRespond, vacancyAuthor }}
+      />
+    </div>
+  );
 
-	const sponsorBlock = Boolean(sponsorSubmissions?.length) && (
-		<>
-			<hr />
-			<h3>Responses to this vacancy:</h3>
-			{sponsorSubmissions?.map((response, index) => (
-				<ResponseFull {...response} key={index} />
-			))}
-		</>
-	);
+  const sponsorBlock = Boolean(sponsorSubmissions?.length) && (
+    <>
+      <hr />
+      <h3>Responses to this vacancy:</h3>
+      {sponsorSubmissions?.map((response, index) => (
+        <div className={styles.responseContainer} key={index}>
+          <Submission
+            isTalent={false}
+            talentSubmission={response}
+            vacancyAuthor={vacancyAuthor}
+          />
+        </div>
+      ))}
+    </>
+  );
 
-	return (
-		<div className={styles[`${userRole}Block`]}>
-			{userRole === 'talent' ? talentBlock : sponsorBlock}
-		</div>
-	);
+  return (
+    <div className={styles[`${userRole}Block`]}>
+      {userRole === "talent" ? talentBlock : sponsorBlock}
+    </div>
+  );
 };

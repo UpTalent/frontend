@@ -19,7 +19,7 @@ export const TimeStapm = ({ published, justTime }) => {
 						{!justTime && (
 							<AccessTimeIcon color='action' sx={{ fontSize: 'inherit' }} />
 						)}
-						<Moment format='MMM, DD, YYYY' fromNowDuring={week}>
+						<Moment format='MMM, DD, YYYY' fromNowDuring={week} utc={true} >
 							{published}
 						</Moment>
 					</>

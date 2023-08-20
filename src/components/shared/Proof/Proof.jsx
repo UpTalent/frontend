@@ -70,7 +70,7 @@ export const Proof = ({
 					<AccordionDetails>
 						<ProofSummary summary={proof.summary} />
 						{isAuth && !showControlls && proof.author && (
-							<Author {...proof.author} authorRole={'talent'}/>
+							<Author {...proof.author} withNavigate={true}/>
 						)}
 						{withContent && <ProofBody content={proof.content} />}
 					</AccordionDetails>

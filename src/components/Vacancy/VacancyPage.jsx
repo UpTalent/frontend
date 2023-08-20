@@ -62,7 +62,7 @@ export const VacancyPage = () => {
 						</div>
 					</div>
 					<div className={styles.content}>
-						<div className={styles.vacancyText}>
+						<div className={`${styles.vacancyText} markdownDiv`}>
 							<ReactMarkdown remarkPlugins={[remarkGfm]}>
 								{vacancy.content}
 							</ReactMarkdown>
@@ -78,6 +78,7 @@ export const VacancyPage = () => {
 						canRespond={vacancy.can_submit}
 						talentSubmission={vacancy.my_submission}
 						sponsorSubmissions={vacancy.submissions}
+						vacancyAuthor={vacancy.author}
 					/>
 				</>
 			) : (

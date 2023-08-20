@@ -5,7 +5,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
 export const ProofBody = ({ content }) => {
 	return (
-		<div className={styles.content}>
+		<div className={`${styles.content} markdownDiv`}>
 			<ReactMarkdown remarkPlugins={[remarkGfm]}>
 				{content}
 			</ReactMarkdown>
